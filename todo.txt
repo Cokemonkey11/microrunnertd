@@ -1,0 +1,18 @@
+﻿
+auto cast + passive icon for:
+	forked lightning (2x)
+	haste (exec. riding...)
+	haste (goblin...)
+	mud wave
+
+add more rounds
+
+make constant unit group for runner
+
+make bosses more unique/difficult (phase shift?)
+	bandito masterino: net
+	dyslexic kountain ming: storm bolt (tower)
+	hermione granger lay eggs
+	
+gravity aura not working?
+
