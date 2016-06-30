@@ -1,12 +1,12 @@
 scope SellTower initializer init
 	native GetUnitGoldCost takes integer id returns integer
-	
+
 	globals
 		private constant integer ID = 'A00O'
 		private constant string FX = "Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl"
 		private constant string SND = "Abilities\\Spells\\Items\\ResourceItems\\ReceiveGold.wav"
-	endglobals
-	
+	end
+
 	private function act takes nothing returns nothing
 		local unit tU
 		local player p 
@@ -14,20 +14,20 @@ scope SellTower initializer init
 		local real x
 		local real y
 		if GetSpellAbilityId() == ID then
-			set tU = GetTriggerUnit()
-			set x = GetUnitX(tU)
-			set y = GetUnitY(tU)
-			set p = GetOwningPlayer(tU)
-			set i = GetUnitGoldCost(GetUnitTypeId(tU)) / 2
+			tU = GetTriggerUnit()
+			x = GetUnitX(tU)
+			y = GetUnitY(tU)
+			p = GetOwningPlayer(tU)
+			i = GetUnitGoldCost(GetUnitTypeId(tU)) / 2
 			call SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + i)
 			call FloatText_bountyPlayer(x,y,i,p)
 			call DestroyEffect(AddSpecialEffect(FX,x,y))
 			call Sound.play(SND,1.,127)	
 			call RemoveUnit(tU)
-			set tU = null
+			tU = null
 		endif
 	end
-	
+
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
 		call Sound.preload(SND)

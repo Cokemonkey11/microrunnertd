@@ -3,26 +3,26 @@ scope CowGodSummon initializer init
 		private constant integer COW_ID = 'h00V'
 		private constant integer TAUREN_ID = 'o000'
 		private constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
-	endglobals
-	
+	end
+
 	private function h takes nothing returns nothing
 		local unit q
 		local unit dS = GetEventDamageSource()
 		local unit tU
 		if GetUnitTypeId(dS) == COW_ID and DamageType.get() == DamageType.ATTACK then
-			set tU = GetTriggerUnit()
-			set q = CreateUnit(GetOwningPlayer(dS),TAUREN_ID,GetUnitX(tU),GetUnitY(tU),270.)
+			tU = GetTriggerUnit()
+			q = CreateUnit(GetOwningPlayer(dS),TAUREN_ID,GetUnitX(tU),GetUnitY(tU),270.)
 			call DestroyEffect(AddSpecialEffect(FX,GetUnitX(q),GetUnitY(q)))
 			call UnitApplyTimedLife(q,'BTLF',14.)
 			call UnitAddAbility(q,'Aloc')
 			call SetUnitExploded(q,true)
 			call SetUnitVertexColor(q,255,255,255,125)
-			set tU = null
-			set q = null
+			tU = null
+			q = null
 		endif
-		set dS = null
+		dS = null
 	end
-	
+
 	private function init takes nothing returns nothing
 		call StructuredDD.addHandler(function h)
 	end

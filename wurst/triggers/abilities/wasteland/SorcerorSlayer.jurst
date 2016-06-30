@@ -3,31 +3,31 @@ scope SorcerorSlayer initializer init
 		private constant integer EX_ID = 'h027'
 		private constant string FX = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
 		private HandleTable tab
-	endglobals
-	
+	end
+
 	private function h takes nothing returns nothing
 		local unit dS = GetEventDamageSource()
 		local unit tU = GetTriggerUnit()
 		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK then
 			if tab.exists(dS) then
 				if tab[dS] >= 10 then
-					set tab[dS] = 0
+					tab[dS] = 0
 					call DamageType.dealCodeDamage(dS,tU,5000.)
 					call FloatText_bonus(GetUnitX(tU),GetUnitY(tU),R2I(GetEventDamage() + 5000.))
 					call DestroyEffect(AddSpecialEffect(FX,GetUnitX(dS),GetUnitY(dS)))
 				else
-					set tab[dS] = tab[dS] + 1
+					tab[dS] = tab[dS] + 1
 				endif
 			else
-				set tab[dS] = 1
+				tab[dS] = 1
 			endif
 		endif
-		set tU = null
-		set dS = null
+		tU = null
+		dS = null
 	end
-	
+
 	private function init takes nothing returns nothing
 		call StructuredDD.addHandler(function h)
-		set tab=HandleTable.create()
+		tab=HandleTable.create()
 	end
 endscope

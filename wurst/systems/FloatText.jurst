@@ -12,7 +12,7 @@ library FloatText
         call SetTextTagVelocity(t,0,.05)
 		call SetTextTagVisibility(t,true)
 	end
-	
+
 	public function bountyPlayer takes real x, real y, integer z, player p returns nothing
 		local texttag t=CreateTextTag()
         call SetTextTagFadepoint(t,3)
@@ -28,7 +28,7 @@ library FloatText
 			call SetTextTagVisibility(t,false)
 		endif
 	end
-	
+
 	public function bonus takes real x, real y, integer z returns nothing
 		local texttag t=CreateTextTag()
         call SetTextTagFadepoint(t,2)

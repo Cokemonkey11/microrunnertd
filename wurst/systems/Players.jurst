@@ -16,24 +16,23 @@ package Players
 
 	init
 		local integer index=0
-		set Players.locl = GetLocalPlayer()
+		Players.locl = GetLocalPlayer()
 		loop
 			exitwhen index>15
-			set Players.id[index] = Player(index)
+			Players.id[index] = Player(index)
 			if index < 2 then
-				set Players.playing[index] = (GetPlayerSlotState(Players.id[index])==PLAYER_SLOT_STATE_PLAYING)
+				Players.playing[index] = (GetPlayerSlotState(Players.id[index])==PLAYER_SLOT_STATE_PLAYING)
 				if Players.playing[index] then
-					set Players.playingCount = Players.playingCount + 1
+					Players.playingCount = Players.playingCount + 1
 				endif
-				set Players.startX[index] = 1024.
-				set Players.startY[index] = 1024.
-				set Players.altarX[index] = 1728.
+				Players.startX[index] = 1024.
+				Players.startY[index] = 1024.
+				Players.altarX[index] = 1728.
 			endif
-			set index=index+1
+			index=index+1
 		endloop
-		set Players.altarY[0] = 1024.
-		set Players.altarY[1] = 1024. + 256.
-		set Players.brownStartX = 1024+128.
-		set Players.brownStartY = 1024.
+		Players.altarY[0] = 1024.
+		Players.altarY[1] = 1024. + 256.
+		Players.brownStartX = 1024+128.
+		Players.brownStartY = 1024.
 	end
-

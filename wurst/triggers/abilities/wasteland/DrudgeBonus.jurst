@@ -1,21 +1,21 @@
 scope DrudgeBonus initializer init
 	globals
 		private constant integer EX_ID = 'h01W'
-	endglobals
-	
+	end
+
 	private function h takes nothing returns nothing
 		local unit dS = GetEventDamageSource()
 		local unit tU = GetTriggerUnit()
 		local real r
 		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitArmorType(tU) == ArmorType.HEAVY_NORMAL then
-			set r = GetEventDamage()
+			r = GetEventDamage()
 			call DamageType.dealCodeDamage(dS,tU,r)
 			call FloatText_bonus(GetUnitX(tU),GetUnitY(tU),R2I(2.*r))
 		endif
-		set tU = null
-		set dS = null
+		tU = null
+		dS = null
 	end
-	
+
 	private function init takes nothing returns nothing
 		call StructuredDD.addHandler(function h)
 	end

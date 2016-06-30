@@ -3,15 +3,15 @@ scope Bounty initializer init
 		local integer val
 		local unit tU = GetTriggerUnit()
 		local integer id = GetUnitTypeId(tU)
-		if GetOwningPlayer(tU) == Players.creeps and Units_bounties.exists(id) then
-			set val = Units_bounties[id] / Players.playingCount
+		if GetOwningPlayer(tU) == Players.creeps and Units.bounties.exists(id) then
+			val = Units.bounties[id] / Players.playingCount
 			call FloatText_bounty(GetUnitX(tU),GetUnitY(tU),val)
 			call SetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD) + val)
 			call SetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD) + val)
 		endif
-		set tU = null
+		tU = null
 	end
-	
+
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH,function a)
 	end

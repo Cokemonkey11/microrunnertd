@@ -13,29 +13,29 @@ library Quests initializer init
 			*/ "|n|cff999999Vortigon|r, for the Wind Egg Model."
 		private constant string CREDITS_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNBookOfTheDead.blp"
 		private constant string CREDITS_TITLE = "Credits"
-		
+
 		private constant string HOWTO_DESC = "Use your gold to build towers on the grass. When a round begins, you will be given a |cffffcc00runner|r. " + /*
 			*/ "Bait the enemies that spawn to run near your towers - but be careful, if all your runners die, you lose!"
 		private constant string HOWTO_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNTomeRed.blp"
 		private constant string HOWTO_TITLE = "|cff999999How to Play|r"
-		
+
 		private constant string HARD_DESC = "To enable |cffffcc00Hard Mode|r, both players must type |cffffcc00-hard|r before the practice round begins."
 		private constant string HARD_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNScrollUber.blp"
 		private constant string HARD_TITLE = "|cff999999Hard Mode|r"
-		
+
 		private constant string ROUNDTYPES_DESC = "Some rounds are special ones:|n|cffffcc00Rounds " + /*
 			*/ "6,12,18,24,30,36,42:|r Boss|n|cffffcc00Rounds 8,16,24,32,40:|r Spell Immune|n" + /*
 			*/ "|cffffcc00Rounds 14,28,42:|r Swarm|n|cffffcc00Rounds 15,30:|r High Gravity"
 		private constant string ROUNDTYPES_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNSpellBookBLS.blp"
 		private constant string ROUNDTYPES_TITLE = "|cff999999Round Types|r"
-		
+
 		private constant string ABOUT_DESC = "This map is made by |cffffcc00Cokemonkey11|r as " + /*
 			*/ "part of a mini-mapping contest on The Hive Workshop. Visit " + /*
 			*/ "|cffffcc00goo.gl/qVA7fp|r for details."
 		private constant string ABOUT_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNTomeOfRetraining.blp"
 		private constant string ABOUT_TITLE = "About"
-	endglobals
-	
+	end
+
 	private function addQuest takes string desc, string iconPath, boolean required, string title returns quest
 		local quest q = CreateQuest()
 		call QuestSetCompleted(q,false)
@@ -47,7 +47,7 @@ library Quests initializer init
         call QuestSetTitle(q,title)
 		return q
 	end
-	
+
 	private function init takes nothing returns nothing
 		call addQuest(ABOUT_DESC,ABOUT_ICONPATH,false,ABOUT_TITLE)
 		call addQuest(CREDITS_DESC,CREDITS_ICONPATH,false,CREDITS_TITLE)

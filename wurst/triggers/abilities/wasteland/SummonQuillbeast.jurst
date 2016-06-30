@@ -3,8 +3,8 @@ scope SummonQuillbeast initializer init
 		private constant integer SUMMON_ID = 'A00G'
 		private constant integer UNIT_ID = 'h01N'
 		private constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
-	endglobals
-	
+	end
+
 	private function act takes nothing returns nothing
 		local real x
 		local real y
@@ -12,22 +12,22 @@ scope SummonQuillbeast initializer init
 		local unit tU
 		local player p
 		if GetSpellAbilityId() == SUMMON_ID then
-			set x = GetSpellTargetX()
-			set y = GetSpellTargetY()
-			set tU = GetTriggerUnit()
-			set p = GetOwningPlayer(tU)
+			x = GetSpellTargetX()
+			y = GetSpellTargetY()
+			tU = GetTriggerUnit()
+			p = GetOwningPlayer(tU)
 			if IsTerrainWalkable(x,y) and (not IsTerrainPathable(x,y,PATHING_TYPE_BUILDABILITY)) then
-				set s = CreateUnit(p,UNIT_ID,x,y,270.)
+				s = CreateUnit(p,UNIT_ID,x,y,270.)
 				call DestroyEffect(AddSpecialEffect(FX,GetUnitX(s),GetUnitY(s)))
 				call UnitRemoveAbility(tU,SUMMON_ID)
-				set s = null
+				s = null
 			else
 				call SimError(p,"Cannot summon there.")
 			endif
-			set tU = null
+			tU = null
 		endif
 	end
-	
+
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
 	end

@@ -2,18 +2,18 @@ scope Heal initializer init
 	globals
 		private constant integer HEAL_ID = 'A00C'
 		private constant string HEAL_FX = "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl"
-	endglobals
-	
+	end
+
 	private function act takes nothing returns nothing
 		local unit tU
 		if GetSpellAbilityId() == HEAL_ID then
-			set tU = GetTriggerUnit()
+			tU = GetTriggerUnit()
 			call SetUnitState(tU,UNIT_STATE_LIFE,GetUnitState(tU,UNIT_STATE_MAX_LIFE))
 			call DestroyEffect(AddSpecialEffect(HEAL_FX,GetUnitX(tU),GetUnitY(tU)))
-			set tU = null
+			tU = null
 		endif
 	end
-	
+
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
 	end

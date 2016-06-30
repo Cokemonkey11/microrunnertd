@@ -5,42 +5,42 @@ scope ArcharchpriestHeal initializer init
 		private constant string FX = "Abilities\\Spells\\Other\\HealingSpray\\HealBottleMissile.mdl"
 		private group grp = CreateGroup()
 		private group grp2 = CreateGroup()
-	endglobals
-	
+	end
+
 	private function parsePriest takes unit u returns nothing
-		local unit FoG
+		local unit fst
 		local real life
 		local player p = GetOwningPlayer(u)
 		call GroupEnumUnitsInRange(grp2,GetUnitX(u),GetUnitY(u),RADIUS,null)
 		loop
-			set FoG=FirstOfGroup(grp2)
-			exitwhen FoG==null
-			set life = GetWidgetLife(FoG)
-			if IsUnitAlly(FoG,p) and UnitAlive(FoG) and life < 100. and (life/GetUnitState(FoG,UNIT_STATE_MAX_LIFE))<1. and not IsUnitType(FoG,UNIT_TYPE_STRUCTURE) then
-				call SetWidgetLife(FoG,life + 3.)
+			fst=FirstOfGroup(grp2)
+			exitwhen fst==null
+			life = GetWidgetLife(fst)
+			if IsUnitAlly(fst,p) and UnitAlive(fst) and life < 100. and (life/GetUnitState(fst,UNIT_STATE_MAX_LIFE))<1. and not IsUnitType(fst,UNIT_TYPE_STRUCTURE) then
+				call SetWidgetLife(fst,life + 3.)
 				call SetUnitState(u,UNIT_STATE_MANA,GetUnitState(u,UNIT_STATE_MANA) - 10.)
-				call DestroyEffect(AddSpecialEffectTarget(FX,FoG,"origin"))
+				call DestroyEffect(AddSpecialEffectTarget(FX,fst,"origin"))
 				return
 			endif
-			call GroupRemoveUnit(grp2,FoG)
+			call GroupRemoveUnit(grp2,fst)
 		endloop
 	end
-	
+
 	private function p takes nothing returns nothing
 		local integer index = 0
-		local unit FoG
+		local unit fst
 		loop
 			exitwhen index>1
 			call GroupEnumUnitsOfPlayer(grp,Players.id[index],null)
 			loop
-				set FoG=FirstOfGroup(grp)
-				exitwhen FoG==null
-				if GetUnitTypeId(FoG)==PRIEST_ID and UnitAlive(FoG) and GetUnitState(FoG,UNIT_STATE_MANA)>=10 then
-					call parsePriest(FoG)
+				fst=FirstOfGroup(grp)
+				exitwhen fst==null
+				if GetUnitTypeId(fst)==PRIEST_ID and UnitAlive(fst) and GetUnitState(fst,UNIT_STATE_MANA)>=10 then
+					call parsePriest(fst)
 				endif
-				call GroupRemoveUnit(grp,FoG)
+				call GroupRemoveUnit(grp,fst)
 			endloop
-			set index = index + 1
+			index = index + 1
 		endloop
 	end
 

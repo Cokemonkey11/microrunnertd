@@ -1,11 +1,11 @@
 scope SpawnBehaviour initializer init
 	native UnitAlive takes unit u returns boolean
-	
+
 	globals
 		private constant real AI_FIDELITY = 1.
 		private group grp = CreateGroup()
-	endglobals
-	
+	end
+
 	private function getClosestRunner takes unit q returns unit
 		local integer index = 0
 		local unit u = null
@@ -15,34 +15,34 @@ scope SpawnBehaviour initializer init
 		local real y
 		loop
 			exitwhen index > 1
-			set x = GetUnitX(q) - GetUnitX(Units_runners[index])
-			set y = GetUnitY(q) - GetUnitY(Units_runners[index])
-			if UnitAlive(Units_runners[index]) and (x * x) + (y * y) < r then
-				set r = (x * x) + (y * y)
-				set u = Units_runners[index]
+			x = GetUnitX(q) - GetUnitX(Units.runners[index])
+			y = GetUnitY(q) - GetUnitY(Units.runners[index])
+			if UnitAlive(Units.runners[index]) and (x * x) + (y * y) < r then
+				r = (x * x) + (y * y)
+				u = Units.runners[index]
 			endif
-			set index = index + 1
+			index = index + 1
 		endloop
 		return u
 	end
-	
+
 	private function act takes nothing returns nothing
-		local unit FoG
+		local unit fst
 		local unit targ
 		if GetPlayerState(Players.creeps,PLAYER_STATE_RESOURCE_FOOD_USED) > 0 then
 			call GroupEnumUnitsOfPlayer(grp,Players.creeps,null)
 			loop
-				set FoG = FirstOfGroup(grp)
-				exitwhen FoG==null
-				set targ = getClosestRunner(FoG)
-				if UnitAlive(FoG) and targ != null then
-					call IssuePointOrder(FoG,"attack",GetUnitX(targ),GetUnitY(targ))
+				fst = FirstOfGroup(grp)
+				exitwhen fst==null
+				targ = getClosestRunner(fst)
+				if UnitAlive(fst) and targ != null then
+					call IssuePointOrder(fst,"attack",GetUnitX(targ),GetUnitY(targ))
 				endif
-				call GroupRemoveUnit(grp,FoG)
+				call GroupRemoveUnit(grp,fst)
 			endloop
 		endif
 	end
-	
+
 	private function init takes nothing returns nothing
 		call TimerStart(CreateTimer(),AI_FIDELITY,true,function act)
 	end

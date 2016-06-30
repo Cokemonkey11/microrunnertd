@@ -1,23 +1,23 @@
 scope ExecutionerExecute initializer init
 	globals
 		private constant integer EX_ID = 'h018'
-	endglobals
-	
+	end
+
 	private function h takes nothing returns nothing
 		local unit dS = GetEventDamageSource()
 		local unit tU = GetTriggerUnit()
 		local real q
 		local real r
-		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units_IMMUNE)<1 then
-			set q = GetEventDamage()
-			set r = 1. - GetUnitState(tU,UNIT_STATE_LIFE) / GetUnitState(tU,UNIT_STATE_MAX_LIFE)
+		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units.IMMUNE)<1 then
+			q = GetEventDamage()
+			r = 1. - GetUnitState(tU,UNIT_STATE_LIFE) / GetUnitState(tU,UNIT_STATE_MAX_LIFE)
 			call DamageType.dealCodeDamage(dS,tU,q * r)
 			call FloatText_bonus(GetUnitX(tU),GetUnitY(tU),R2I(q * (1 + r)))
 		endif
-		set tU = null
-		set dS = null
+		tU = null
+		dS = null
 	end
-	
+
 	private function init takes nothing returns nothing
 		call StructuredDD.addHandler(function h)
 	end

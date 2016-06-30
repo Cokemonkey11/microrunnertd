@@ -17,11 +17,11 @@ library SimError initializer init
 //==================================================================================================
     globals
         private sound error
-    endglobals
+    end
     //====================================================================================================
 
     function SimError takes player ForPlayer, string msg returns nothing
-        set msg="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n|cffffcc00"+msg+"|r"
+        msg="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n|cffffcc00"+msg+"|r"
         if (GetLocalPlayer() == ForPlayer) then
             call ClearTextMessages()
             call DisplayTimedTextToPlayer( ForPlayer, 0.52, 0.96, 2.00, msg )
@@ -30,7 +30,7 @@ library SimError initializer init
     end
 
     private function init takes nothing returns nothing
-         set error=CreateSoundFromLabel("InterfaceError",false,false,false,10,10)
+         error=CreateSoundFromLabel("InterfaceError",false,false,false,10,10)
          //call StartSound( error ) //apparently the bug in which you play a sound for the first time
                                     //and it doesn't work is not there anymore in patch 1.22
     end
