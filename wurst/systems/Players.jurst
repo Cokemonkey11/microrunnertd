@@ -1,0 +1,39 @@
+library Players initializer init
+	globals
+		public player locl
+		public boolean array playing[2]
+		public player array id[16]
+		public player creeps = Player(11)
+		public player passive = Player(PLAYER_NEUTRAL_PASSIVE)
+		public real array startX[2]
+		public real array startY[2]
+		public real array altarX[2]
+		public real array altarY[2]
+		public real brownStartX
+		public real brownStartY
+		public integer playingCount = 0
+	endglobals
+	
+	private function init takes nothing returns nothing
+		local integer index=0
+		set locl = GetLocalPlayer()
+		loop
+			exitwhen index>15
+			set id[index] = Player(index)
+			if index < 2 then
+				set playing[index] = (GetPlayerSlotState(id[index])==PLAYER_SLOT_STATE_PLAYING)
+				if playing[index] then
+					set playingCount = playingCount + 1
+				endif
+				set startX[index] = 1024.
+				set startY[index] = 1024.
+				set altarX[index] = 1728.
+			endif
+			set index=index+1
+		endloop
+		set altarY[0] = 1024.
+		set altarY[1] = 1024. + 256.
+		set brownStartX = 1024+128.
+		set brownStartY = 1024.
+	endfunction
+endlibrary

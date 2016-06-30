@@ -1,0 +1,50 @@
+scope ArcharchpriestHeal initializer init
+	globals
+		private constant integer PRIEST_ID = 'h009'
+		private constant real RADIUS = 400.
+		private constant string FX = "Abilities\\Spells\\Other\\HealingSpray\\HealBottleMissile.mdl"
+		private group grp = CreateGroup()
+		private group grp2 = CreateGroup()
+	endglobals
+	
+	private function parsePriest takes unit u returns nothing
+		local unit FoG
+		local real life
+		local player p = GetOwningPlayer(u)
+		call GroupEnumUnitsInRange(grp2,GetUnitX(u),GetUnitY(u),RADIUS,null)
+		loop
+			set FoG=FirstOfGroup(grp2)
+			exitwhen FoG==null
+			set life = GetWidgetLife(FoG)
+			if IsUnitAlly(FoG,p) and UnitAlive(FoG) and life < 100. and (life/GetUnitState(FoG,UNIT_STATE_MAX_LIFE))<1. and not IsUnitType(FoG,UNIT_TYPE_STRUCTURE) then
+				call SetWidgetLife(FoG,life + 3.)
+				call SetUnitState(u,UNIT_STATE_MANA,GetUnitState(u,UNIT_STATE_MANA) - 10.)
+				call DestroyEffect(AddSpecialEffectTarget(FX,FoG,"origin"))
+				return
+			endif
+			call GroupRemoveUnit(grp2,FoG)
+		endloop
+	endfunction
+	
+	private function p takes nothing returns nothing
+		local integer index = 0
+		local unit FoG
+		loop
+			exitwhen index>1
+			call GroupEnumUnitsOfPlayer(grp,Players_id[index],null)
+			loop
+				set FoG=FirstOfGroup(grp)
+				exitwhen FoG==null
+				if GetUnitTypeId(FoG)==PRIEST_ID and UnitAlive(FoG) and GetUnitState(FoG,UNIT_STATE_MANA)>=10 then
+					call parsePriest(FoG)
+				endif
+				call GroupRemoveUnit(grp,FoG)
+			endloop
+			set index = index + 1
+		endloop
+	endfunction
+
+	private function init takes nothing returns nothing
+		call TimerStart(CreateTimer(),1./2.,true,function p)
+	endfunction
+endscope

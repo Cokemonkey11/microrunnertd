@@ -1,0 +1,24 @@
+scope AlchemistHasteTransmute initializer init
+	globals
+		private constant integer ARCH_ID = 'h02A'
+	endglobals
+	
+	private function h takes nothing returns nothing
+		local unit dS = GetEventDamageSource()
+		local unit tU
+		local player p
+		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
+			call IssueImmediateOrder(dS,"berserk")
+			set p = GetOwningPlayer(dS)
+			call SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + 1)
+			set tU = GetTriggerUnit()
+			call FloatText_bountyPlayer(GetUnitX(tU),GetUnitY(tU),1,p)
+			set tU = null
+		endif
+		set dS = null
+	endfunction
+	
+	private function init takes nothing returns nothing
+		call StructuredDD.addHandler(function h)
+	endfunction
+endscope

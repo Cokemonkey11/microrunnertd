@@ -1,0 +1,34 @@
+scope SummonHealingWard initializer init
+	globals
+		private constant integer SUMMON_ID = 'A00T'
+		private constant integer UNIT_ID = 'h023'
+		private constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
+	endglobals
+	
+	private function act takes nothing returns nothing
+		local real x
+		local real y
+		local unit s
+		local unit tU
+		local player p
+		if GetSpellAbilityId() == SUMMON_ID then
+			set x = GetSpellTargetX()
+			set y = GetSpellTargetY()
+			set tU = GetTriggerUnit()
+			set p = GetOwningPlayer(tU)
+			if IsTerrainWalkable(x,y) and (not IsTerrainPathable(x,y,PATHING_TYPE_BUILDABILITY)) then
+				set s = CreateUnit(p,UNIT_ID,x,y,270.)
+				call DestroyEffect(AddSpecialEffect(FX,GetUnitX(s),GetUnitY(s)))
+				call UnitRemoveAbility(tU,SUMMON_ID)
+				set s = null
+			else
+				call SimError(p,"Cannot summon there.")
+			endif
+			set tU = null
+		endif
+	endfunction
+	
+	private function init takes nothing returns nothing
+		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
+	endfunction
+endscope

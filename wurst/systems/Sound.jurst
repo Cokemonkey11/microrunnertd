@@ -1,0 +1,67 @@
+library Sound requires Table
+    private struct slop
+        string snd
+    endstruct
+    
+    struct Sound
+        private static HandleTable preloadDB
+        
+        private static method preloadAfter takes nothing returns nothing
+            local timer time=GetExpiredTimer()
+            local slop s=preloadDB[time]
+            local sound sd=CreateSound(s.snd,false,false,false,12700,12700,"")
+            call SetSoundVolume(sd,1)
+            call StartSound(sd)
+            call KillSoundWhenDone(sd)
+            call s.destroy()
+            set sd=null
+            call DestroyTimer(time)
+            set time=null
+        endmethod
+        
+        public static method preload takes string str returns nothing
+            local timer time=CreateTimer()
+            local slop s=slop.create()
+            set s.snd=str
+            set preloadDB[time]=s
+            call TimerStart(time,.01,false,function thistype.preloadAfter)
+            set time=null
+        endmethod
+        
+        public static method play3D takes string str, real pitch, real x, real y, real z returns nothing
+            local sound s = CreateSound(str,false,true,true,12700,12700,"")
+            call SetSoundPosition(s,x,y,z)
+            call SetSoundVolume(s,127)
+            call SetSoundPitch(s,pitch)
+            call StartSound(s)
+            call KillSoundWhenDone(s)
+            set s = null
+        endmethod
+		
+		public static method playForPlayer takes string str, real pitch, player who returns nothing
+			local sound s = CreateSound(str,false,false,false,12700,12700,"")
+			if GetLocalPlayer()==who then
+				call SetSoundVolume(s,127)
+			else
+				call SetSoundVolume(s,0)
+			endif
+			call SetSoundPitch(s,pitch)
+			call StartSound(s)
+			call KillSoundWhenDone(s)
+			set s = null
+		endmethod
+        
+		public static method play takes string str, real pitch, integer vol returns nothing
+			local sound s = CreateSound(str,false,false,false,12700,12700,"")
+			call SetSoundVolume(s,vol)
+			call SetSoundPitch(s,pitch)
+			call StartSound(s)
+			call KillSoundWhenDone(s)
+			set s = null
+		endmethod
+		
+        private static method onInit takes nothing returns nothing
+            set preloadDB=HandleTable.create()
+        endmethod
+    endstruct
+endlibrary

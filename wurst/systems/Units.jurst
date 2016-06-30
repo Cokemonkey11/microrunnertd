@@ -1,0 +1,176 @@
+library Units initializer init requires Table, Players
+	globals
+		public constant integer ROUND_COUNT = 43
+		public constant integer SPIRIT_ID = 'h000'
+		public constant integer RUNNER_ID = 'h003'
+		public constant integer SPIRIT_ALTAR_ID = 'h01I'
+		public constant integer WASTE_ID = 'h01K'
+		public constant integer RUNNER_WASTE_ID = 'h01G'
+		public constant integer WASTE_ALTAR_ID = 'h01J'
+		public constant integer RACE_SELECT = 'h01O'
+		
+		public constant integer IMMUNE = 'ACmi'
+		
+		public unit array runners[2]
+		public unit array choosers[2]
+		public integer array spawns[ROUND_COUNT]
+		public integer array runnerTypes[2]
+		
+		public Table bounties
+		private group grp = CreateGroup()
+	endglobals
+	
+	public function freezeAll takes nothing returns nothing
+		local unit FoG
+		local integer index = 0
+		// Loop through all players instead of playable map area, to ensure we freeze even locust
+		// units
+		loop
+			exitwhen index > 15
+			call GroupEnumUnitsOfPlayer(grp,Players_id[index],null)
+			loop
+				set FoG = FirstOfGroup(grp)
+				exitwhen FoG == null
+				call PauseUnit(FoG,true)
+				call SetUnitInvulnerable(FoG,true)
+				call UnitAddAbility(FoG,'Aloc')
+				call SetUnitTimeScale(FoG,0.)
+				call GroupRemoveUnit(grp,FoG)
+			endloop
+			set index = index + 1
+		endloop
+	endfunction
+	
+	private function init takes nothing returns nothing
+		set bounties = Table.create()
+		
+		set spawns[0] = 'h002'
+		set bounties['h002'] = 2
+		
+		set spawns[1] = 'h004'
+		set bounties['h004'] = 2
+		
+		set spawns[2] = 'h005'
+		set bounties['h005'] = 2
+		
+		set spawns[3] = 'h006'
+		set bounties['h006'] = 2
+		
+		set spawns[4] = 'h008'
+		set bounties['h008'] = 2
+		
+		set spawns[5] = 'h00B'
+		set bounties['h00B'] = 2
+		
+		set spawns[6] = 'h00C'
+		set bounties['h00C'] = 20
+		
+		set spawns[7] = 'h00D'
+		set bounties['h00D'] = 4
+		
+		set spawns[8] = 'h00E'
+		set bounties['h00E'] = 4
+		
+		set spawns[9] = 'h00F'
+		set bounties['h00F'] = 4
+		
+		set spawns[10] = 'h00J'
+		set bounties['h00J'] = 4
+		
+		set spawns[11] = 'h00K'
+		set bounties['h00K'] = 4
+		
+		set spawns[12] = 'h00L'
+		set bounties['h00L'] = 40
+		
+		set spawns[13] = 'h00O'
+		set bounties['h00O'] = 6
+		
+		set spawns[14] = 'h00P'
+		set bounties['h00P'] = 6
+		
+		set spawns[15] = 'h00Q'
+		set bounties['h00Q'] = 6
+		
+		set spawns[16] = 'h00R'
+		set bounties['h00R'] = 6
+		
+		set spawns[17] = 'h00U'
+		set bounties['h00U'] = 6
+		
+		set spawns[18] = 'h00W'
+		set bounties['h00W'] = 60
+		
+		set spawns[19] = 'h00Z'
+		set bounties['h00Z'] = 8
+		
+		set spawns[20] = 'h010'
+		set bounties['h010'] = 8
+		
+		set spawns[21] = 'h011'
+		set bounties['h011'] = 8
+		
+		set spawns[22] = 'h012'
+		set bounties['h012'] = 8
+		
+		set spawns[23] = 'h013'
+		set bounties['h013'] = 8
+		
+		set spawns[24] = 'h014'
+		set bounties['h014'] = 80
+		
+		set spawns[25] = 'h017'
+		set bounties['h017'] = 10
+		
+		set spawns[26] = 'h019'
+		set bounties['h019'] = 10
+		
+		set spawns[27] = 'h01A'
+		set bounties['h01A'] = 10
+		
+		set spawns[28] = 'h01D'
+		set bounties['h01D'] = 10
+		
+		set spawns[29] = 'h01E'
+		set bounties['h01E'] = 10
+		
+		set spawns[30] = 'h01F'
+		set bounties['h01F'] = 100
+		
+		set spawns[31] = 'h01X'
+		set bounties['h01X'] = 12
+		
+		set spawns[32] = 'h01Y'
+		set bounties['h01Y'] = 12
+		
+		set spawns[33] = 'h01Z'
+		set bounties['h01Z'] = 12
+		
+		set spawns[34] = 'h020'
+		set bounties['h020'] = 12
+		
+		set spawns[35] = 'h021'
+		set bounties['h021'] = 12
+		
+		set spawns[36] = 'h029'
+		set bounties['h029'] = 120
+		
+		set spawns[37] = 'h02H'
+		set bounties['h02H'] = 14
+		
+		set spawns[38] = 'h02I'
+		set bounties['h02I'] = 14
+		
+		set spawns[39] = 'h02J'
+		set bounties['h02J'] = 14
+		
+		set spawns[40] = 'h02K'
+		set bounties['h02K'] = 14
+		
+		set spawns[41] = 'h02L'
+		set bounties['h02L'] = 14
+		
+		set spawns[42] = 'h02M'
+		set bounties['h02M'] = 140
+	endfunction
+endlibrary

@@ -1,0 +1,58 @@
+library Quests initializer init
+	globals
+		private constant string CREDITS_DESC = "Special thanks to |cff999999JesusHipster|r for the Wisp model." + /*
+			*/ "|n|cff999999Vexorian, Pitzermike, lookingforhelp|r, among others who contributed to Jass Newgen Pack." + /*
+			*/ "|n|cff999999Shadow Daemon|r for the Button Manager tool, used to generate icons." + /*
+			*/ "|n|cff999999Envious|r, who made the classic map Gridlock, which mico|cff999999runner|rtd is influenced by." + /*
+			*/ "|n|cff999999Matt1965|r, who provided valuable playtest feedback." + /*
+			*/ "|n|cff999999Disney|r, who provide a soundbyte from 'The Lion King'" + /*
+			*/ "|n|cff999999Blizzard|r, who provide this wonderful world editor and sound bytes from 'World of Warcraft'" + /*
+			*/ "|n|cff999999JetFangInferno|r, for the custom crushing wave model." + /*
+			*/ "|n|cff999999Marcos DAB|r, for the lizard icon." + /*
+			*/ "|n|cff999999CygX1|r, for \"Burning in Hell\"." + /*
+			*/ "|n|cff999999Vortigon|r, for the Wind Egg Model."
+		private constant string CREDITS_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNBookOfTheDead.blp"
+		private constant string CREDITS_TITLE = "Credits"
+		
+		private constant string HOWTO_DESC = "Use your gold to build towers on the grass. When a round begins, you will be given a |cffffcc00runner|r. " + /*
+			*/ "Bait the enemies that spawn to run near your towers - but be careful, if all your runners die, you lose!"
+		private constant string HOWTO_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNTomeRed.blp"
+		private constant string HOWTO_TITLE = "|cff999999How to Play|r"
+		
+		private constant string HARD_DESC = "To enable |cffffcc00Hard Mode|r, both players must type |cffffcc00-hard|r before the practice round begins."
+		private constant string HARD_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNScrollUber.blp"
+		private constant string HARD_TITLE = "|cff999999Hard Mode|r"
+		
+		private constant string ROUNDTYPES_DESC = "Some rounds are special ones:|n|cffffcc00Rounds " + /*
+			*/ "6,12,18,24,30,36,42:|r Boss|n|cffffcc00Rounds 8,16,24,32,40:|r Spell Immune|n" + /*
+			*/ "|cffffcc00Rounds 14,28,42:|r Swarm|n|cffffcc00Rounds 15,30:|r High Gravity"
+		private constant string ROUNDTYPES_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNSpellBookBLS.blp"
+		private constant string ROUNDTYPES_TITLE = "|cff999999Round Types|r"
+		
+		private constant string ABOUT_DESC = "This map is made by |cffffcc00Cokemonkey11|r as " + /*
+			*/ "part of a mini-mapping contest on The Hive Workshop. Visit " + /*
+			*/ "|cffffcc00goo.gl/qVA7fp|r for details."
+		private constant string ABOUT_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNTomeOfRetraining.blp"
+		private constant string ABOUT_TITLE = "About"
+	endglobals
+	
+	private function addQuest takes string desc, string iconPath, boolean required, string title returns quest
+		local quest q = CreateQuest()
+		call QuestSetCompleted(q,false)
+        call QuestSetDescription(q,desc)
+        call QuestSetDiscovered(q,true)
+        call QuestSetEnabled(q,true)
+        call QuestSetIconPath(q,iconPath)
+        call QuestSetRequired(q,required)
+        call QuestSetTitle(q,title)
+		return q
+	endfunction
+	
+	private function init takes nothing returns nothing
+		call addQuest(ABOUT_DESC,ABOUT_ICONPATH,false,ABOUT_TITLE)
+		call addQuest(CREDITS_DESC,CREDITS_ICONPATH,false,CREDITS_TITLE)
+		call addQuest(HOWTO_DESC,HOWTO_ICONPATH,true,HOWTO_TITLE)
+		call addQuest(ROUNDTYPES_DESC,ROUNDTYPES_ICONPATH,true,ROUNDTYPES_TITLE)
+		call addQuest(HARD_DESC,HARD_ICONPATH,true,HARD_TITLE)
+	endfunction
+endlibrary

@@ -1,0 +1,108 @@
+scope RegularVillager initializer init
+	globals
+		private constant integer VGR0_ID = 'n000'
+		private constant integer VGR1_ID = 'n001'
+		private constant real X = 1820.
+		private constant real Y = -1565.
+		private constant real FACE_0 = 90.
+		private constant real FACE_1 = 45. + 180.
+		private constant real FACE_2 = 135. + 180.
+		private constant string FX = "Abilities\\Spells\\Other\\TalkToMe\\TalkToMe.mdl"
+		private constant string FX2 = "Abilities\\Spells\\Undead\\AnimateDead\\AnimateDeadTarget.mdl"
+		
+		private unit vgr0
+		private unit vgr1
+		private integer state = 0
+		private effect fx
+	endglobals
+	
+	private function seq4 takes nothing returns nothing
+		set state = 2
+		call DestroyTimer(GetExpiredTimer())
+	endfunction
+	
+	private function seq3 takes nothing returns nothing
+		call SetUnitFacingTimed(vgr0,FACE_0,0.)
+		call DestroyEffect(fx)
+		call TimerStart(GetExpiredTimer(),1.,false,function seq4)
+	endfunction
+	
+	private function seq2 takes nothing returns nothing
+		call SetUnitFacingTimed(vgr0,FACE_1,2.)
+		call TimerStart(GetExpiredTimer(),2.,false,function seq3)
+	endfunction
+	
+	private function seq1 takes nothing returns nothing
+		call SetUnitFacingTimed(vgr0,FACE_2,2.)
+		call TimerStart(GetExpiredTimer(),2.,false,function seq2)
+	endfunction
+	
+	private function seq0 takes nothing returns nothing
+		call SetUnitFacingTimed(vgr0,FACE_1,0.)
+		call TimerStart(GetExpiredTimer(),1.,false,function seq1)
+	endfunction
+	
+	private function seq24 takes nothing returns nothing
+		set state = 0
+		call DestroyTimer(GetExpiredTimer())
+	endfunction
+	
+	private function seq23 takes nothing returns nothing
+		call ShowUnit(vgr1,false)
+		call ShowUnit(vgr0,true)
+		call SetUnitX(vgr0,X)
+		call SetUnitY(vgr0,Y)
+		call DestroyEffect(AddSpecialEffect(FX2,X,Y))
+		call SetUnitScale(vgr0,.8,.8,.8)
+		call SetUnitVertexColor(vgr0,255,255,255,255)
+		call SetUnitFacingTimed(vgr0,FACE_0,1.)
+		call TimerStart(GetExpiredTimer(),1.,false,function seq24)
+	endfunction
+	
+	private function seq22 takes nothing returns nothing
+		call SetUnitFacing(vgr1,FACE_2)
+		call TimerStart(GetExpiredTimer(),1.,false,function seq23)
+	endfunction
+	
+	private function seq21 takes nothing returns nothing
+		call Knockback3D.add(vgr1,400.,0.,bj_PI/2.)
+		call TimerStart(GetExpiredTimer(),1.,false,function seq22)
+	endfunction
+	
+	private function seq20 takes nothing returns nothing
+		call Knockback3D.add(vgr1,400.,0.,bj_PI/2.)
+		call SetUnitFacing(vgr0,FACE_2)
+		call TimerStart(GetExpiredTimer(),.7,false,function seq21)
+	endfunction
+	
+	private function act takes nothing returns nothing
+		local unit tU = GetTriggerUnit()
+		if tU == vgr0 then
+			if state == 0 then
+				set state = 1
+				call SetUnitVertexColor(vgr0,255,200,200,255)
+				call SetUnitScale(vgr0,.9,.9,.9)
+				set fx = AddSpecialEffectTarget(FX,vgr0,"overhead")
+				call TimerStart(CreateTimer(),.5,false,function seq0)
+			elseif state == 2 then
+				call ShowUnit(vgr0,false)
+				call ShowUnit(vgr1,true)
+				call SetUnitX(vgr1,X)
+				call SetUnitY(vgr1,Y)
+				call DestroyEffect(AddSpecialEffect(FX2,X,Y))
+				call SetUnitFacing(vgr1,270.)
+				call TimerStart(CreateTimer(),1.,false,function seq20)
+			endif
+		endif
+		set tU = null
+	endfunction
+	
+	private function init takes nothing returns nothing
+		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED,function act)
+		set vgr0 = CreateUnit(Players_passive,VGR0_ID,X,Y,FACE_0)
+		set vgr1 = CreateUnit(Players_passive,VGR1_ID,0.,0.,FACE_0)
+		call ShowUnit(vgr1,false)
+		call SetUnitX(vgr1,X)
+		call SetUnitY(vgr1,Y)
+	endfunction
+endscope

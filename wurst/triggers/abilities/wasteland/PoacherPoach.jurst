@@ -1,0 +1,22 @@
+scope PoacherPoach initializer init
+	globals
+		private constant integer EX_ID = 'h01S'
+	endglobals
+	
+	private function h takes nothing returns nothing
+		local unit dS = GetEventDamageSource()
+		local unit tU = GetTriggerUnit()
+		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units_IMMUNE)<1 then
+			if GetUnitState(tU,UNIT_STATE_LIFE) < 200. then
+				call DamageType.dealCodeDamage(dS,tU,200.)
+				call FloatText_bonus(GetUnitX(tU),GetUnitY(tU),R2I(GetEventDamage() + 200.))
+			endif
+		endif
+		set tU = null
+		set dS = null
+	endfunction
+	
+	private function init takes nothing returns nothing
+		call StructuredDD.addHandler(function h)
+	endfunction
+endscope

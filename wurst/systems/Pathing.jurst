@@ -1,0 +1,93 @@
+library Pathing initializer init
+	globals
+		private boolean done = false
+		private real xIter
+	endglobals
+	
+	private function yIterRightSide takes nothing returns nothing
+		local real index = -1710.
+		loop
+			exitwhen index > 450.
+			call SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
+			set index = index + 16.
+		endloop
+	endfunction
+	
+	private function yIterLeftSide takes nothing returns nothing
+		local real index = -1740.
+		loop
+			exitwhen index > 1340.
+			call SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
+			set index = index + 16.
+		endloop
+	endfunction
+	
+	private function yIterCenterArea takes nothing returns nothing
+		local real index = 275.
+		loop
+			exitwhen index > 575
+			call SetTerrainPathable(xIter,index,PATHING_TYPE_WALKABILITY,false)
+			set index = index + 16.
+		endloop
+	endfunction
+	
+	private function yIterTop takes nothing returns nothing
+		local real index = 1360.
+		loop
+			exitwhen index > 1630.
+			call SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
+			set index = index + 16.
+		endloop
+	endfunction
+	
+	private function opLimitCheck takes nothing returns nothing
+		debug if not done then
+			debug call BJDebugMsg("Pathing: Op-Limit reached!")
+		debug endif
+	endfunction
+	
+	private function init takes nothing returns nothing
+		local real index
+		
+		// Op-limit checker
+		debug call TimerStart(CreateTimer(),1.,false,function opLimitCheck)
+		
+		// Right side of the map "fancy" houses
+		set index = 1230.
+		loop
+			exitwhen index > 1920.
+			set xIter = index
+			call ExecuteFunc(SCOPE_PRIVATE + "yIterRightSide")
+			set index = index + 16.
+		endloop
+		
+		// Left side of the map various houses
+		set index = -1840.
+		loop
+			exitwhen index > -1340.
+			set xIter = index
+			call ExecuteFunc(SCOPE_PRIVATE + "yIterLeftSide")
+			set index = index + 16.
+		endloop
+		
+		// Top of the map various houses
+		set index = -1360.
+		loop
+			exitwhen index > 1470.
+			set xIter = index
+			call ExecuteFunc(SCOPE_PRIVATE + "yIterTop")
+			set index = index + 16.
+		endloop
+		
+		// Unwalkable middle area (frog)
+		set index = -690.
+		loop
+			exitwhen index > 190.
+			set xIter = index
+			call ExecuteFunc(SCOPE_PRIVATE + "yIterCenterArea")
+			set index = index + 16.
+		endloop
+		
+		set done = true
+	endfunction
+endlibrary

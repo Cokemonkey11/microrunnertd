@@ -1,0 +1,41 @@
+library FloatText requires Game
+	public function bounty takes real x, real y, integer z returns nothing
+		local texttag t=CreateTextTag()
+        call SetTextTagFadepoint(t,3)
+        call SetTextTagLifespan(t,4)
+        call SetTextTagPermanent(t,false)
+        call SetTextTagPos(t,x,y,100)
+        call SetTextTagText(t,"+" + I2S(z),.02)
+		call SetTextTagColor(t,255,204,0,255)
+        call SetTextTagVelocity(t,0,.05)
+		call SetTextTagVisibility(t,true)
+	endfunction
+	
+	public function bountyPlayer takes real x, real y, integer z, player p returns nothing
+		local texttag t=CreateTextTag()
+        call SetTextTagFadepoint(t,3)
+        call SetTextTagLifespan(t,4)
+        call SetTextTagPermanent(t,false)
+        call SetTextTagPos(t,x,y,100)
+        call SetTextTagText(t,"+" + I2S(z),.02)
+		call SetTextTagColor(t,255,204,0,255)
+        call SetTextTagVelocity(t,0,.07)
+		if Players_locl == p then
+			call SetTextTagVisibility(t,true)
+		else
+			call SetTextTagVisibility(t,false)
+		endif
+	endfunction
+	
+	public function bonus takes real x, real y, integer z returns nothing
+		local texttag t=CreateTextTag()
+        call SetTextTagFadepoint(t,2)
+        call SetTextTagLifespan(t,3)
+        call SetTextTagPermanent(t,false)
+        call SetTextTagPos(t,x,y,100)
+        call SetTextTagText(t,I2S(z) + "!",.02)
+		call SetTextTagColor(t,255,0,0,200)
+        call SetTextTagVelocity(t,0,.06)
+		call SetTextTagVisibility(t,true)
+	endfunction
+endlibrary

@@ -1,0 +1,194 @@
+//*         API
+//*     DamageType.NULLED           Value returned when DamageType cannot conclusively
+//*                                     recognize damage type
+//*     DamageType.ATTACK           Value returned when DamageType recognizes the
+//*                                     damage type as a physical attack
+//*     DamageType.SPELL            Value returned when DamageType recognizes the
+//*                                     damage type as a spell
+//*     DamageType.CODE             Value returned when DamageType recognizes the
+//*                                     damage type as having been dealt via dealCodeDamage()
+//*     DamageType.get()            Requests what type of damage was dealt in the
+//*                                     scope of a StructuredDD handler
+//*     DamageType.dealCodeDamage() Deals an exact amount of damage to a unit. Arguments
+//*                                     are of the form (unit,unit,real) where the
+//*                                     first unit deals real damage to the second
+//*                                     unit.
+library DamageType requires StructuredDD, Table
+    //* This struct contains data to deal damage to a target that would otherwise 
+    //* die when hit with double damage in correction of spell damage recognition. 
+    //* This is to counter the effect of a unit instantly healing some damage due 
+    //* to negative spell damage, without using any unnecessary triggers.
+    private struct delayDat
+        unit target
+        unit source
+        real damage
+    endstruct
+    
+    //* This is a struct shim which won't be instanciated; it is only useful for
+    //* making the pretty API like DamageType.doSomething()
+    struct DamageType extends array
+    
+        ///< BEGIN CUSTOMIZE SECTION
+        
+        //* One limitation of the spell damage reduction ability is that if a unit
+        //* is meant to receive bonus damage due to the damage table, such that the
+        //* result is greater than 100% damage, the unit would incorrectly take
+        //* damage capped at 100%. Using standard melee armor tables, this can only
+        //* occur when a damaged unit is ethereal; a simple ethereal shim no more
+        //* than 20 lines can be created, but for maps with custom damage tables,
+        //* this can be a useful option. If USE_BONUS_CALCULATOR is true, units that
+        //* would take greater than 100% spell damage will properly exhibit such
+        //* properly. (Disable this feature to improve performance)
+        private static constant boolean USE_BONUS_CALCULATOR=false
+        
+        //* Make sure this matches the rawcode/id of your version of the DamageTypeCheck 
+        //* ability (you must copy/paste it from the editor to your map)
+        private static constant integer DAMAGE_TYPE_CHECK_ID='A001'
+        
+        ///> END CUSTOMIZE SECTION
+        
+        public static constant integer NULLED=-1
+        public static constant integer ATTACK= 0
+        public static constant integer SPELL = 1
+        public static constant integer CODE  = 2
+        
+        //ConvertAttackType(7) is a hidden attack type with some unique properties
+        //that make it very useful for us. For more information see goo.gl/9k8tn
+        private static constant attacktype ATTACK_TYPE_UNIVERSAL=ConvertAttackType(7)
+        
+        //How long to delay before dealing the second half of the "correction" damage.
+        //Significant tests have shown that a delay of 0. will have no issues.
+        private static constant real DELAY_AMOUNT=0.
+        
+        private static integer lastDamageType=thistype.NULLED
+        private static HandleTable delayed
+    
+        //* Use this to get damage type in a damage event handler.
+        public static method get takes nothing returns integer
+            local real sourceDamage=GetEventDamage()
+            if thistype.lastDamageType==thistype.CODE then
+                return thistype.CODE
+            elseif sourceDamage>0. then
+                return thistype.ATTACK
+            elseif sourceDamage<0. then
+                return thistype.SPELL
+            endif
+            return thistype.NULLED
+        endmethod
+    
+        //* Use this to damage units by trigger in your map without causing an infinite 
+        //* loop.
+        public static method dealCodeDamage takes unit who, unit target, real damage returns nothing
+            local integer prevType=thistype.lastDamageType
+            local real hp=GetWidgetLife(target)-.405
+            local real d=damage
+            set thistype.lastDamageType=thistype.CODE
+            if hp>d then
+                call SetWidgetLife(target,hp-d+.405)
+                call UnitDamageTarget(who,target,0.,true,false,thistype.ATTACK_TYPE_UNIVERSAL,DAMAGE_TYPE_UNIVERSAL,null)
+            else
+                call UnitDamageTarget(who,target,1000000.+d,true,false,thistype.ATTACK_TYPE_UNIVERSAL,DAMAGE_TYPE_UNIVERSAL,null)
+                //Also deal magic damage for the special (unmodifiable) case of ethereal
+                //units.
+                call UnitDamageTarget(who,target,1000000.+d,true,false,ATTACK_TYPE_MAGIC,DAMAGE_TYPE_UNIVERSAL,null)
+            endif
+            set thistype.lastDamageType=prevType
+        endmethod
+    
+        //* Auxillary function for adding the dummy ability to all units.
+        private static method c takes nothing returns boolean
+            local unit tU=GetTriggerUnit()
+            call UnitAddAbility(tU,thistype.DAMAGE_TYPE_CHECK_ID)
+            call UnitMakeAbilityPermanent(tU,true,thistype.DAMAGE_TYPE_CHECK_ID)
+            set tU=null
+            return false
+        endmethod
+    
+        //* This is the function that occurs 0 seconds after damaging a unit, for the 
+        //* case that damaging it by twice as much at the same time would kill it 
+        //* unexpectedly.
+        private static method after takes nothing returns nothing
+            local timer time=GetExpiredTimer()
+            local delayDat tempDat=thistype.delayed[time]
+            call thistype.dealCodeDamage(tempDat.source,tempDat.target,tempDat.damage)
+            call thistype.delayed.flush(time)
+            call tempDat.destroy()
+            call DestroyTimer(time)
+            set time=null
+        endmethod
+        
+        private static method getUnitBonusSpellResistance takes unit u returns real
+            local integer prevType=thistype.lastDamageType
+            local real life=GetWidgetLife(u)
+            local real scale=GetUnitState(u,UNIT_STATE_MAX_LIFE)
+            call SetWidgetLife(u,scale)
+            set thistype.lastDamageType=thistype.CODE
+            call UnitDamageTarget(u,u,-scale/2.,false,false,null,DAMAGE_TYPE_UNIVERSAL,null)
+            set scale=2.*(scale-GetWidgetLife(u))/scale
+            call SetWidgetLife(u,life)
+            set thistype.lastDamageType=prevType
+            return scale
+        endmethod
+        
+        //* This is the method that will invert any negative spell damage. It MUST be 
+        //* StructuredDD.conditions[0] to function properly; thus, any library using a
+        //* StructuredDD handler should 'requires DamageType' (!)
+        private static method handler takes nothing returns nothing
+            local timer time
+            local delayDat tempDat
+            local real attemptedDamage=-GetEventDamage()
+            local unit tU
+            local real sampledLife
+            local real scale
+            if thistype.get()==thistype.SPELL then
+                set tU=GetTriggerUnit()
+                static if thistype.USE_BONUS_CALCULATOR then
+                    set scale=thistype.getUnitBonusSpellResistance(tU)
+                    if scale>1. then
+                        set attemptedDamage=attemptedDamage*(scale+1.)/2.
+                    endif
+                endif
+                set sampledLife=GetWidgetLife(tU)-.405
+                if sampledLife>=attemptedDamage and sampledLife<=2.*attemptedDamage then
+                    call SetWidgetLife(tU,sampledLife-attemptedDamage)
+                    set time=CreateTimer()
+                    set tempDat=delayDat.create()
+                    set tempDat.target=tU
+                    set tempDat.source=GetEventDamageSource()
+                    set tempDat.damage=attemptedDamage
+                    set thistype.delayed[time]=tempDat
+                    call TimerStart(time,DELAY_AMOUNT,false,function thistype.after)
+                    set time=null
+                else
+                    call thistype.dealCodeDamage(GetEventDamageSource(),tU,2.*attemptedDamage)
+                endif
+                set tU=null
+            endif
+        endmethod
+    
+        //* Initialization method to enable the system.
+        private static method onInit takes nothing returns nothing
+            local group grp=CreateGroup()
+            local region reg=CreateRegion()
+            local trigger addBracer=CreateTrigger()
+            local unit FoG
+            call RegionAddRect(reg,bj_mapInitialPlayableArea)
+            call TriggerRegisterEnterRegion(addBracer,reg,null)
+            call TriggerAddCondition(addBracer,Condition(function thistype.c))
+            call StructuredDD.addHandler(function thistype.handler)
+            call GroupEnumUnitsInRect(grp,bj_mapInitialPlayableArea,null)
+            loop
+                set FoG=FirstOfGroup(grp)
+                exitwhen FoG==null
+                call UnitAddAbility(FoG,thistype.DAMAGE_TYPE_CHECK_ID)
+                call UnitMakeAbilityPermanent(FoG,true,thistype.DAMAGE_TYPE_CHECK_ID)
+                call GroupRemoveUnit(grp,FoG)
+            endloop
+            set thistype.delayed=HandleTable.create()
+            call DestroyGroup(grp)
+            set grp=null
+            set reg=null
+            set addBracer=null
+        endmethod
+    endstruct
+endlibrary

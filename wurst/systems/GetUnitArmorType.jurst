@@ -1,0 +1,64 @@
+library GetUnitArmorType initializer init requires StructuredDD, Table, Players
+	globals
+		private Table tab
+		private constant integer BONUS_HP = 'A00M'
+	endglobals
+	
+	struct ArmorType extends array
+		public static constant integer UNKNOWN = 0
+		public static constant integer MEDIUM_FORTIFIED = 1
+		public static constant integer UNARMORED = 2
+		public static constant integer HERO = 3
+		public static constant integer DIVINE = 4
+		public static constant integer HEAVY_NORMAL = 5
+		public static constant integer LIGHT = 6
+	endstruct
+	
+	function GetUnitArmorType takes unit u returns integer
+		local integer typ = GetUnitTypeId(u)
+		local integer ret = ArmorType.UNKNOWN
+		local real hp
+		local real q
+		if tab.exists(typ) then
+			return tab[typ]
+		else
+			set hp = GetWidgetLife(u)
+			call UnitAddAbility(u,BONUS_HP)
+			call SetUnitState(u,UNIT_STATE_LIFE,10000)
+			call StructuredDD.disable()
+			call UnitDamageTarget(u,u,1.,true,true,ConvertAttackType(7),DAMAGE_TYPE_UNIVERSAL,WEAPON_TYPE_WHOKNOWS)
+			call StructuredDD.enable()
+			set q = 10000 - GetWidgetLife(u)
+			if q == 1 then
+				set tab[typ] = ArmorType.MEDIUM_FORTIFIED
+				set ret = ArmorType.MEDIUM_FORTIFIED
+			elseif q == 25 then
+				set tab[typ] = ArmorType.UNARMORED
+				set ret = ArmorType.UNARMORED
+			elseif q == 150 then
+				set tab[typ] = ArmorType.HERO
+				set ret = ArmorType.HERO
+			elseif q == 400 then
+				set tab[typ] = ArmorType.DIVINE
+				set ret = ArmorType.DIVINE
+			elseif q == 522 then
+				set tab[typ] = ArmorType.HEAVY_NORMAL
+				set ret = ArmorType.HEAVY_NORMAL
+			elseif q == 2048 then
+				set tab[typ] = ArmorType.LIGHT
+				set ret = ArmorType.LIGHT
+			else
+				set tab[typ] = ArmorType.UNKNOWN
+				debug call DisplayTextToPlayer(Players_locl,0.,0.,"Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(q))
+				set ret = ArmorType.UNKNOWN
+			endif
+			call UnitRemoveAbility(u,BONUS_HP)
+			call SetWidgetLife(u,hp)
+			return ret
+		endif
+	endfunction
+	
+	private function init takes nothing returns nothing
+		set tab = Table.create()
+	endfunction
+endlibrary

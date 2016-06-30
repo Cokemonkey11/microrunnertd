@@ -1,0 +1,33 @@
+scope ChooseRace initializer init
+	private function act takes nothing returns nothing
+		local unit u = GetSoldUnit()
+		local integer i = GetUnitTypeId(u)
+		local player p = GetOwningPlayer(u)
+		local integer pid = GetPlayerId(p)
+		if i == Units_SPIRIT_ID then
+			call RemoveUnit(GetSellingUnit())
+			if Players_locl == p then
+				call SelectUnit(u,true)
+			endif
+			set Units_runnerTypes[pid] = Units_RUNNER_ID
+			call CreateUnit(Players_id[pid],Units_SPIRIT_ALTAR_ID,Players_altarX[pid],Players_altarY[pid],270.)
+		elseif i == Units_WASTE_ID then
+			call RemoveUnit(GetSellingUnit())
+			if Players_locl == p then
+				call SelectUnit(u,true)
+			endif
+			set Units_runnerTypes[pid] = Units_RUNNER_WASTE_ID
+			call CreateUnit(Players_id[pid],Units_WASTE_ALTAR_ID,Players_altarX[pid],Players_altarY[pid],270.)
+		endif
+		if Players_playingCount == 1 or (Units_runnerTypes[0]!=0 and Units_runnerTypes[1]!=0) then
+			call DestroyTimer(Game_chooseTimer)
+			call DestroyTimerDialog(Game_chooseDialog)
+			call TimerStart(CreateTimer(),15.,false,function Game_practiceRound)
+		endif
+		set u = null
+	endfunction
+	
+	private function init takes nothing returns nothing
+		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL,function act)
+	endfunction
+endscope

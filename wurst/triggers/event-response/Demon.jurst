@@ -1,0 +1,58 @@
+scope Demon initializer init
+	globals
+		private constant integer DEMON_ID = 'h02F'
+		private constant integer HOUSE_ID = 'h02G'
+		private unit d
+		private unit house
+		private group grp = CreateGroup()
+		private rect rctb
+		private rect rcts
+	endglobals
+	
+	private function c takes nothing returns boolean
+		if GetPlayerId(GetOwningPlayer(GetTriggerUnit())) < 2 then
+			call SetUnitVertexColor(house,255,255,255,255/3)
+		endif
+		return false
+	endfunction
+	
+	private function c2 takes nothing returns boolean
+		local unit FoG
+		local integer cnt = 0
+		call GroupEnumUnitsInRect(grp,rcts,null)
+		if FirstOfGroup(grp)==null then
+			call SetUnitVertexColor(house,255,255,255,255)
+		endif
+		return false
+	endfunction
+	
+	private function init takes nothing returns nothing
+		local region reg = CreateRegion()
+		local region reg2 = CreateRegion()
+		local trigger t= CreateTrigger()
+		local trigger t2 = CreateTrigger()
+		set rcts = Rect(-706.,256.,-384.,576.)
+		set rctb = Rect(-722,240,-368.,592.)
+		
+		// Place units
+		set d = CreateUnit(Players_passive,DEMON_ID,-576.,417.,250.)
+		call SetUnitX(d,-576.)
+		call SetUnitY(d,417.)
+		set house = CreateUnit(Players_passive,HOUSE_ID,-564.,384.,315.)
+		call SetUnitX(house,-564.)
+		call SetUnitY(house,384.)
+		
+		// Event response
+		call RegionAddRect(reg,rcts)
+		call RegionAddRect(reg2,rctb)
+		
+		call TriggerRegisterEnterRegion(t,reg,null)
+		call TriggerRegisterLeaveRegion(t2,reg2,null)
+		call TriggerAddCondition(t,Condition(function c))
+		call TriggerAddCondition(t2,Condition(function c2))
+		set t = null
+		set reg = null
+		set t2 = null
+		set reg2 = null
+	endfunction
+endscope
