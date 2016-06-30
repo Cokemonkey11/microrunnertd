@@ -9,9 +9,9 @@ scope ExecRidingHaste initializer init
 			call IssueImmediateOrder(dS,"berserk")
 		endif
 		set dS = null
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call StructuredDD.addHandler(function h)
-	endfunction
+	end
 endscope

@@ -24,14 +24,14 @@ scope ArcharchpriestHeal initializer init
 			endif
 			call GroupRemoveUnit(grp2,FoG)
 		endloop
-	endfunction
+	end
 	
 	private function p takes nothing returns nothing
 		local integer index = 0
 		local unit FoG
 		loop
 			exitwhen index>1
-			call GroupEnumUnitsOfPlayer(grp,Players_id[index],null)
+			call GroupEnumUnitsOfPlayer(grp,Players.id[index],null)
 			loop
 				set FoG=FirstOfGroup(grp)
 				exitwhen FoG==null
@@ -42,9 +42,9 @@ scope ArcharchpriestHeal initializer init
 			endloop
 			set index = index + 1
 		endloop
-	endfunction
+	end
 
 	private function init takes nothing returns nothing
 		call TimerStart(CreateTimer(),1./2.,true,function p)
-	endfunction
+	end
 endscope

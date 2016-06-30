@@ -24,10 +24,10 @@ scope SorcerorSlayer initializer init
 		endif
 		set tU = null
 		set dS = null
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call StructuredDD.addHandler(function h)
 		set tab=HandleTable.create()
-	endfunction
+	end
 endscope

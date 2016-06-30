@@ -15,9 +15,9 @@ scope FrozenObeliskKnockup initializer init
 			set tU = null
 		endif
 		set dS = null
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call StructuredDD.addHandler(function h)
-	endfunction
+	end
 endscope

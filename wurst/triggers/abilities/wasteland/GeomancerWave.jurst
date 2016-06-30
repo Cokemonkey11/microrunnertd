@@ -11,9 +11,9 @@ scope GeomancerWave initializer init
 		endif
 		set dS = null
 		set tU = null
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call StructuredDD.addHandler(function h)
-	endfunction
+	end
 endscope

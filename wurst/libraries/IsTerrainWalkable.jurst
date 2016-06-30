@@ -1,63 +1,63 @@
 /**
- * IsTerrainWalkable snippet for estimating the walkability status of a co-ordinate pair, credits 
+ * IsTerrainWalkable snippet for estimating the walkability status of a co-ordinate pair, credits
  * to Anitarf and Vexorian.
- * 
+ *
  * API:
  *     boolean IsTerrainWalkable(real x, real y) - returns the walkability of (x,y)
- */ 
+ */
 library IsTerrainWalkable initializer init
     globals
-	
+
         // this value is how far from a point the item may end up for the point to be considered pathable
-        private constant real MAX_RANGE=10.
-		
+        constant real MAX_RANGE=10.
+
         // the following two variables are set to the position of the item after each pathing check
         // that way, if a point isn't pathable, these will be the coordinates of the nearest point that is
         public real X=0.
         public real Y=0.
-        private rect r
-        private item check
-        private item array hidden
-        private integer hiddenMax=0
+        rect r
+        item check
+        item array hidden
+        integer hiddenMax=0
     endglobals
 
-    private function init takes nothing returns nothing
+    function init takes nothing returns nothing
         set check=CreateItem('ciri',0.,0.)
         call SetItemVisible(check,false)
         set r=Rect(0.0,0.0,128.0,128.0)
-    endfunction
+    end
 
-    private function hideBothersomeItem takes nothing returns nothing
+    function hideBothersomeItem takes nothing returns nothing
         if IsItemVisible(GetEnumItem()) then
             set hidden[hiddenMax]=GetEnumItem()
             call SetItemVisible(hidden[hiddenMax],false)
             set hiddenMax=hiddenMax+1
         endif
-    endfunction
+    end
 
-    function IsTerrainWalkable takes real x, real y returns boolean
-	
+    public function isTerrainWalkable takes real x, real y returns boolean
+
         // first, hide any items in the area so they don't get in the way of our item
         call MoveRectTo(r,x,y)
         call EnumItemsInRect(r,null,function hideBothersomeItem)
-		
+
         // try to move the check item and get its coordinates
 		// this unhides the item...
         call SetItemPosition(check,x,y)
         set X=GetItemX(check)
         set Y=GetItemY(check)
-		
+
 		//...so we must hide it again
         call SetItemVisible(check,false)
-		
+
         // before returning, unhide any items that got hidden at the start
         loop
             exitwhen hiddenMax==0
             set hiddenMax=hiddenMax-1
             call SetItemVisible(hidden[hiddenMax],true)
         endloop
-		
+
         // return pathability status
         return (x-X)*(x-X)+(y-Y)*(y-Y)<MAX_RANGE*MAX_RANGE
-    endfunction
-endlibrary
+    end
+end

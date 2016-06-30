@@ -1,4 +1,8 @@
-library Game initializer init requires Players, Units, Sound
+library Game initializer init
+	import Players
+	import Units
+	import Sound
+
 	globals
 		private constant real ROUND_DELAY = 20.
 		private constant real ROUND_DELAY_HARD = 10.
@@ -41,7 +45,7 @@ library Game initializer init requires Players, Units, Sound
 		public boolean ended = false
 		public boolean started = false
 		public boolean hard = false
-		public boolean array upgraded[2]
+		public boolean array upgraded
 		public integer round
 		private timer roundTimer = CreateTimer()
 		private timerdialog roundDialog
@@ -69,7 +73,7 @@ library Game initializer init requires Players, Units, Sound
 		call SetCineFilterEndColor(0, 0, 0, 255)
 		call SetCineFilterDuration(duration)
 		call DisplayCineFilter(true)
-	endfunction
+	end
 	
 	public function fadeIn takes real duration returns nothing
 		call EnableUserUI(true)
@@ -82,36 +86,36 @@ library Game initializer init requires Players, Units, Sound
 		call SetCineFilterEndColor(0, 0, 0, 0)
 		call SetCineFilterDuration(duration)
 		call DisplayCineFilter(true)
-	endfunction
+	end
 	
 	private function afterEnd takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
 		call EndGame(true)
-	endfunction
+	end
 	
 	private function fadeWait takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
 		call fadeOut(10.)
-	endfunction
+	end
 	
 	public function end takes nothing returns nothing
-		call Units_freezeAll()
+		call Units.freezeAll()
 		set ended = true
 		call TimerStart(CreateTimer(),20.,false,function fadeWait)
 		call TimerStart(CreateTimer(),30.,false,function afterEnd)
-	endfunction
+	end
 	
 	private function hint0 takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
-		call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Tip:|r You can upgrade various runner improvements at your altar.")
+		call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Tip:|r You can upgrade various runner improvements at your altar.")
 		call Sound.play(TIP,1.,127)
-	endfunction
+	end
 	
 	private function hint1 takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
-		call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Tip:|r If both players type |cffffcc00-hard|r before the practice round begins, the game becomes more difficult.")
+		call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Tip:|r If both players type |cffffcc00-hard|r before the practice round begins, the game becomes more difficult.")
 		call Sound.play(TIP,1.,127)
-	endfunction
+	end
 	
 	private function spawn takes nothing returns nothing
 		local integer index = 0
@@ -120,25 +124,25 @@ library Game initializer init requires Players, Units, Sound
 		call DestroyEffect(bigFx)
 		call Sound.play(BEGIN,1.,127)
 		if round == 0 then
-			call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Practice Round|r")
+			call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Practice Round|r")
 		else
-			call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Round: |r"+I2S(round))
+			call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Round: |r"+I2S(round))
 		endif
 		
 		// Display upgrade tip only if neither player has upgraded already
-		if round == 10 and ( (not (upgraded[0] or upgraded[1]) or (not upgraded[0] and Players_playing[0]) or (not upgraded[1] and Players_playing[1])) ) then
+		if round == 10 and ( (not (upgraded[0] or upgraded[1]) or (not upgraded[0] and Players.playing[0]) or (not upgraded[1] and Players.playing[1])) ) then
 			call TimerStart(CreateTimer(),5.,false,function hint0)
 		endif
 		
 		// Display hard mode tip only in co-operative normal mode
-		if round == 20 and not Game_hard and Players_playingCount > 1 then
+		if round == 20 and not Game_hard and Players.playingCount > 1 then
 			call TimerStart(CreateTimer(),5.,false,function hint1)
 		endif
 		set size = SPAWN_SIZE
 		if ModuloInteger(round,6) == 0 then
 			// Hero Round
 			if (round != 0) then
-				call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Boss Round!|r")
+				call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Boss Round!|r")
 			endif
 			if (round == 6) then
 				call Sound.play(BANDIT,1.,127)
@@ -159,19 +163,19 @@ library Game initializer init requires Players, Units, Sound
 		endif
 		if ModuloInteger(round,14) == 0 and round !=0 then
 			set size = size * 2
-			call DisplayTextToPlayer(Players_locl,0.,0.,"|cff222222Swarm Round!|r")
+			call DisplayTextToPlayer(Players.locl,0.,0.,"|cff222222Swarm Round!|r")
 		endif
 		if ModuloInteger(round,8) == 0 and round!= 0 then
 			// Spell Immune Round
-			call DisplayTextToPlayer(Players_locl,0.,0.,"|cffaacceeSpell Immune Round!|r")
+			call DisplayTextToPlayer(Players.locl,0.,0.,"|cffaacceeSpell Immune Round!|r")
 		endif
 		if ModuloInteger(round,15) == 0 and round !=0 then
 			// Gravity Round
-			call DisplayTextToPlayer(Players_locl,0.,0.,"|cff999999High Gravity Round!|r")
+			call DisplayTextToPlayer(Players.locl,0.,0.,"|cff999999High Gravity Round!|r")
 		endif
 		loop
 			exitwhen index >= size
-			set u = CreateUnit(Players_creeps,Units_spawns[round],Players_brownStartX,Players_brownStartY,180.)
+			set u = CreateUnit(Players.creeps,Units_spawns[round],Players.brownStartX,Players.brownStartY,180.)
 			if Game_hard then
 				call UnitAddAbility(u,DAMAGE_BONUS)
 				call UnitAddAbility(u,MOVE_SPEED_BONUS)
@@ -179,7 +183,7 @@ library Game initializer init requires Players, Units, Sound
 			set index = index + 1
 		endloop
 		set u = null
-	endfunction
+	end
 	
 	private function runSound takes nothing returns nothing
 		local integer q = ModuloInteger(round,5)
@@ -194,11 +198,11 @@ library Game initializer init requires Players, Units, Sound
 		else
 			call Sound.play(RUN5, 1., 127)
 		endif
-	endfunction
+	end
 	
 	private function applyTowerGravity takes nothing returns nothing
 		local unit FoG
-		call GroupEnumUnitsOfPlayer(grp,Players_id[0],null)
+		call GroupEnumUnitsOfPlayer(grp,Players.id[0],null)
 		loop
 			set FoG=FirstOfGroup(grp)
 			exitwhen FoG==null
@@ -207,7 +211,7 @@ library Game initializer init requires Players, Units, Sound
 			endif
 			call GroupRemoveUnit(grp,FoG)
 		endloop
-		call GroupEnumUnitsOfPlayer(grp,Players_id[1],null)
+		call GroupEnumUnitsOfPlayer(grp,Players.id[1],null)
 		loop
 			set FoG=FirstOfGroup(grp)
 			exitwhen FoG==null
@@ -216,11 +220,11 @@ library Game initializer init requires Players, Units, Sound
 			endif
 			call GroupRemoveUnit(grp,FoG)
 		endloop
-	endfunction
+	end
 	
 	private function removeTowerGravity takes nothing returns nothing
 		local unit FoG
-		call GroupEnumUnitsOfPlayer(grp,Players_id[0],null)
+		call GroupEnumUnitsOfPlayer(grp,Players.id[0],null)
 		loop
 			set FoG=FirstOfGroup(grp)
 			exitwhen FoG==null
@@ -229,7 +233,7 @@ library Game initializer init requires Players, Units, Sound
 			endif
 			call GroupRemoveUnit(grp,FoG)
 		endloop
-		call GroupEnumUnitsOfPlayer(grp,Players_id[1],null)
+		call GroupEnumUnitsOfPlayer(grp,Players.id[1],null)
 		loop
 			set FoG=FirstOfGroup(grp)
 			exitwhen FoG==null
@@ -238,7 +242,7 @@ library Game initializer init requires Players, Units, Sound
 			endif
 			call GroupRemoveUnit(grp,FoG)
 		endloop
-	endfunction
+	end
 	
 	private function roundBegin takes nothing returns nothing
 		local integer index = 0
@@ -247,27 +251,27 @@ library Game initializer init requires Players, Units, Sound
 			if round == 0 then
 				set started = true
 			endif
-			set bigFx = AddSpecialEffect(TELE_BIG_FX,Players_brownStartX,Players_brownStartY)
+			set bigFx = AddSpecialEffect(TELE_BIG_FX,Players.brownStartX,Players.brownStartY)
 			call runSound()
-			call DisplayTextToPlayer(Players_locl,0.,0.,"|cffff0000RUN AWAY|r")
+			call DisplayTextToPlayer(Players.locl,0.,0.,"|cffff0000RUN AWAY|r")
 			if ModuloInteger(round,15) == 0 and round != 0 then
 				call applyTowerGravity()
 			endif
 			loop
 				exitwhen index > 1
-				if Players_playing[index] then
-					set Units_runners[index] = CreateUnit(Players_id[index],Units_runnerTypes[index],Players_startX[index],Players_startY[index]-16. + 32. * index,180.)
+				if Players.playing[index] then
+					set Units_runners[index] = CreateUnit(Players.id[index],Units_runnerTypes[index],Players.startX[index],Players.startY[index]-16. + 32. * index,180.)
 					if ModuloInteger(round,15) == 0 and round != 0 then
 						call UnitAddAbility(Units_runners[index],GRAVITY_ABILITY)
 						call Knockback3D.setGravity(90.)
 					else
 						call Knockback3D.setGravity(45.)
 					endif
-					call DestroyEffect(AddSpecialEffect(TELE_IN_FX,Players_startX[index],Players_startY[index]))
-					if Players_locl == Players_id[index] then
+					call DestroyEffect(AddSpecialEffect(TELE_IN_FX,Players.startX[index],Players.startY[index]))
+					if Players.locl == Players.id[index] then
 						call ClearSelection()
 						call SelectUnit(Units_runners[index],true)
-						call PanCameraToTimed(Players_startX[index],Players_startY[index],0.)
+						call PanCameraToTimed(Players.startX[index],Players.startY[index],0.)
 					endif
 					call UnitAddAbility(Units_runners[index],'Adef')
 					call UnitRemoveAbility(Units_runners[index],'Adef')
@@ -276,7 +280,7 @@ library Game initializer init requires Players, Units, Sound
 			endloop
 			call TimerStart(GetExpiredTimer(),SPAWN_DELAY,false,function spawn)
 		endif
-	endfunction
+	end
 	
 	private function queueRound takes nothing returns nothing
 		local integer q
@@ -287,14 +291,14 @@ library Game initializer init requires Players, Units, Sound
 		endif
 		call TimerDialogSetTitle(roundDialog,"Round "+I2S(round)+" in")
 		call TimerDialogDisplay(roundDialog,true)
-	endfunction
+	end
 	
 	public function practiceRound takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
-		call DisplayTextToPlayer(Players_locl,0.,0.,"\nThe first round will be a |cffffcc00practice|r round to show you how it works!")
+		call DisplayTextToPlayer(Players.locl,0.,0.,"\nThe first round will be a |cffffcc00practice|r round to show you how it works!")
 		set round = 0
 		call queueRound()
-	endfunction
+	end
 	
 	public function success takes nothing returns nothing
 		local integer index = 0
@@ -313,87 +317,87 @@ library Game initializer init requires Players, Units, Sound
 				set index = index + 1
 			endloop
 			if round >= Units_ROUND_COUNT then
-				call RemovePlayer(Players_id[0],PLAYER_GAME_RESULT_VICTORY)
-				call RemovePlayer(Players_id[1],PLAYER_GAME_RESULT_VICTORY)
-				call DisplayTextToPlayer(Players_locl,0.,0.,"You won every round, |cffffcc00congratulations|r! The game will end in 30 seconds.")
+				call RemovePlayer(Players.id[0],PLAYER_GAME_RESULT_VICTORY)
+				call RemovePlayer(Players.id[1],PLAYER_GAME_RESULT_VICTORY)
+				call DisplayTextToPlayer(Players.locl,0.,0.,"You won every round, |cffffcc00congratulations|r! The game will end in 30 seconds.")
 				call Sound.play(VICTORY,1.,127)
 				call end()
 			else
 				if round == 1 then
-					call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Great job!|r The first round will begin momentarily.")
+					call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Great job!|r The first round will begin momentarily.")
 				else
-					set val = (GOLD_BASE + GOLD_PER_LEVEL * (round-1)) / Players_playingCount
-					call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Success!|r You received |cffffcc00" + I2S(val) + /*
+					set val = (GOLD_BASE + GOLD_PER_LEVEL * (round-1)) / Players.playingCount
+					call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Success!|r You received |cffffcc00" + I2S(val) + /*
 						*/ "|r bonus gold for completing |cffffcc00round " + I2S(round-1) + "|r. The next round will begin momentarily!")
-					call SetPlayerState(Players_id[0],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players_id[0],PLAYER_STATE_RESOURCE_GOLD) + val)
-					call SetPlayerState(Players_id[1],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players_id[1],PLAYER_STATE_RESOURCE_GOLD) + val)
+					call SetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD) + val)
+					call SetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD) + val)
 				endif
 				call queueRound()
 			endif
 		endif
-	endfunction
+	end
 	
 	private function fadeCameraAsync1 takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
 		call CameraSetupApply(setup,true,true)
 		call fadeIn(.25)
-	endfunction
+	end
 	
 	private function fadeCameraAsync takes camerasetup q returns nothing
 		set setup = q
 		call fadeOut(.25)
 		call TimerStart(CreateTimer(),.25,false,function fadeCameraAsync1)
-	endfunction
+	end
 	
 	private function tip0 takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
-		call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Tip:|r There are |cffffcc00Boss|r, " + /*
+		call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Tip:|r There are |cffffcc00Boss|r, " + /*
 			*/ "|cffaacceeSpell Immune|r, |cff222222Swarm|r, and |cff999999High Gravity|r Rounds.")
 		call Sound.play(TIP,1.,127)
-	endfunction
+	end
 	
 	private function afterChoose takes nothing returns nothing
 		local integer r
 		local unit u
-		if Players_playing[0] and Units_runnerTypes[0]==0 then
+		if Players.playing[0] and Units_runnerTypes[0]==0 then
 			set r = GetRandomInt(0,1)
 			if r == 0 then
-				set u = CreateUnit(Players_id[0],Units_SPIRIT_ID,GetUnitX(Units_choosers[0]),GetUnitY(Units_choosers[0]),270.)
-				call DisplayTextToPlayer(Players_id[0],0.,0.,"You took too long to choose, and have randomed |cffffcc00Spirit|r.")
-				if Players_locl == Players_id[0] then
+				set u = CreateUnit(Players.id[0],Units_SPIRIT_ID,GetUnitX(Units_choosers[0]),GetUnitY(Units_choosers[0]),270.)
+				call DisplayTextToPlayer(Players.id[0],0.,0.,"You took too long to choose, and have randomed |cffffcc00Spirit|r.")
+				if Players.locl == Players.id[0] then
 					call SelectUnit(u,true)
 				endif
 				set Units_runnerTypes[0] = Units_RUNNER_ID
-				call CreateUnit(Players_id[0],Units_SPIRIT_ALTAR_ID,Players_altarX[0],Players_altarY[0],270.)
+				call CreateUnit(Players.id[0],Units_SPIRIT_ALTAR_ID,Players.altarX[0],Players.altarY[0],270.)
 			else
-				set u = CreateUnit(Players_id[0],Units_WASTE_ID,GetUnitX(Units_choosers[0]),GetUnitY(Units_choosers[0]),270.)
-				call DisplayTextToPlayer(Players_id[0],0.,0.,"You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
-				if Players_locl == Players_id[0] then
+				set u = CreateUnit(Players.id[0],Units_WASTE_ID,GetUnitX(Units_choosers[0]),GetUnitY(Units_choosers[0]),270.)
+				call DisplayTextToPlayer(Players.id[0],0.,0.,"You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
+				if Players.locl == Players.id[0] then
 					call SelectUnit(u,true)
 				endif
 				set Units_runnerTypes[0] = Units_RUNNER_WASTE_ID
-				call CreateUnit(Players_id[0],Units_WASTE_ALTAR_ID,Players_altarX[0],Players_altarY[0],270.)
+				call CreateUnit(Players.id[0],Units_WASTE_ALTAR_ID,Players.altarX[0],Players.altarY[0],270.)
 			endif
 			call RemoveUnit(Units_choosers[0])
 		endif
-		if Players_playing[1] and Units_runnerTypes[1]==0 then
+		if Players.playing[1] and Units_runnerTypes[1]==0 then
 			set r = GetRandomInt(0,1)
 			if r == 0 then
-				set u = CreateUnit(Players_id[1],Units_SPIRIT_ID,GetUnitX(Units_choosers[1]),GetUnitY(Units_choosers[1]),270.)
-				call DisplayTextToPlayer(Players_id[1],0.,0.,"You took too long to choose, and have randomed |cffffcc00Spirit|r.")
-				if Players_locl == Players_id[1] then
+				set u = CreateUnit(Players.id[1],Units_SPIRIT_ID,GetUnitX(Units_choosers[1]),GetUnitY(Units_choosers[1]),270.)
+				call DisplayTextToPlayer(Players.id[1],0.,0.,"You took too long to choose, and have randomed |cffffcc00Spirit|r.")
+				if Players.locl == Players.id[1] then
 					call SelectUnit(u,true)
 				endif
 				set Units_runnerTypes[1] = Units_RUNNER_ID
-				call CreateUnit(Players_id[1],Units_SPIRIT_ALTAR_ID,Players_altarX[1],Players_altarY[0],270.)
+				call CreateUnit(Players.id[1],Units_SPIRIT_ALTAR_ID,Players.altarX[1],Players.altarY[0],270.)
 			else
-				set u = CreateUnit(Players_id[1],Units_WASTE_ID,GetUnitX(Units_choosers[1]),GetUnitY(Units_choosers[1]),270.)
-				call DisplayTextToPlayer(Players_id[1],0.,0.,"You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
-				if Players_locl == Players_id[1] then
+				set u = CreateUnit(Players.id[1],Units_WASTE_ID,GetUnitX(Units_choosers[1]),GetUnitY(Units_choosers[1]),270.)
+				call DisplayTextToPlayer(Players.id[1],0.,0.,"You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
+				if Players.locl == Players.id[1] then
 					call SelectUnit(u,true)
 				endif
 				set Units_runnerTypes[1] = Units_RUNNER_WASTE_ID
-				call CreateUnit(Players_id[1],Units_WASTE_ALTAR_ID,Players_altarX[1],Players_altarY[1],270.)
+				call CreateUnit(Players.id[1],Units_WASTE_ALTAR_ID,Players.altarX[1],Players.altarY[1],270.)
 			endif
 			call RemoveUnit(Units_choosers[1])
 		endif
@@ -401,7 +405,7 @@ library Game initializer init requires Players, Units, Sound
 		call DestroyTimerDialog(chooseDialog)
 		call TimerStart(CreateTimer(),15.,false,function practiceRound)
 		set u = null
-	endfunction
+	end
 	
 	private function cinematicSequence3 takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
@@ -417,23 +421,23 @@ library Game initializer init requires Players, Units, Sound
 		call TimerDialogDisplay(chooseDialog,true)
 		set roundDialog = CreateTimerDialog(roundTimer)
 		call TimerStart(CreateTimer(),24.,false,function tip0)
-		call DisplayTextToPlayer(Players_locl,0.,0.,"\n|cffffcc00Tip:|r You have |cffffcc0015|r seconds to choose a race.")
+		call DisplayTextToPlayer(Players.locl,0.,0.,"\n|cffffcc00Tip:|r You have |cffffcc0015|r seconds to choose a race.")
 		call Sound.play(TIP,1.,127)
-	endfunction
+	end
 	
 	private function cinematicSequence2 takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
 		call fadeCameraAsync(gg_cam_cinematicCamera2)
-		call DisplayTextToPlayer(Players_locl,0.,0.,"\nBuild towers on the |cff33cc66grass|r, and bait the enemy to their death.")
+		call DisplayTextToPlayer(Players.locl,0.,0.,"\nBuild towers on the |cff33cc66grass|r, and bait the enemy to their death.")
 		call TimerStart(CreateTimer(),5.,false,function cinematicSequence3)
-	endfunction
+	end
 	
 	private function cinematicSequence1 takes nothing returns nothing
 		call DestroyTimer(GetExpiredTimer())
 		call fadeIn(.5)
 		set demoRunner = CreateUnit(Player(2),Units_RUNNER_ID,0.,1024.,180.)
 		set demoTower = CreateUnit(Player(2),'h007',-851.,562.,270.)
-		set demoChaser = CreateUnit(Players_creeps,'h022',256. + 128.,1024.,0.)
+		set demoChaser = CreateUnit(Players.creeps,'h022',256. + 128.,1024.,0.)
 		call SetUnitState(demoTower,UNIT_STATE_MANA,500.)
 		call SetUnitMoveSpeed(demoRunner,200.)
 		call SetUnitMoveSpeed(demoChaser,230.)
@@ -441,9 +445,9 @@ library Game initializer init requires Players, Units, Sound
 		call IssueTargetOrder(demoChaser,"attack",demoRunner)
 		call IssuePointOrder(demoRunner,"move",-1024.,0.)
 		call Sound.play(BANDIT_DEMO,1.,127)
-		call DisplayTextToPlayer(Players_locl,0.,0.,"\nThe forces of |cff993333Doom|r are after your runner!")
+		call DisplayTextToPlayer(Players.locl,0.,0.,"\nThe forces of |cff993333Doom|r are after your runner!")
 		call TimerStart(CreateTimer(),3.5,false,function cinematicSequence2)
-	endfunction
+	end
 	
 	private function cinematicSequence0 takes nothing returns nothing
 		call fadeOut(.01)
@@ -451,7 +455,7 @@ library Game initializer init requires Players, Units, Sound
 		call ShowInterface(false, 0.)
         call EnableUserControl(false)
 		call TimerStart(CreateTimer(),1.,false,function cinematicSequence1)
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		local integer index = 0
@@ -460,16 +464,16 @@ library Game initializer init requires Players, Units, Sound
 		set index = 0
 		loop
 			exitwhen index > 1
-			if Players_playing[index] then
+			if Players.playing[index] then
 			
 				// Spawn Starting Units
-				set Units_choosers[index] = CreateUnit(Players_id[index],Units_RACE_SELECT,Players_startX[index],Players_startY[index],270.)
-				if Players_locl == Players_id[index] then
+				set Units_choosers[index] = CreateUnit(Players.id[index],Units_RACE_SELECT,Players.startX[index],Players.startY[index],270.)
+				if Players.locl == Players.id[index] then
 					call SelectUnit(Units_choosers[index],true)
 				endif
 				
 				// Adjust Starting Gold
-				call SetPlayerState(Players_id[index],PLAYER_STATE_RESOURCE_GOLD,GOLD_START / Players_playingCount)
+				call SetPlayerState(Players.id[index],PLAYER_STATE_RESOURCE_GOLD,GOLD_START / Players.playingCount)
 			endif
 			set index = index + 1
 		endloop
@@ -503,5 +507,5 @@ library Game initializer init requires Players, Units, Sound
 		
 		// Lock time of day
 		call SetTimeOfDayScale(0.)
-	endfunction
-endlibrary
+	end
+end

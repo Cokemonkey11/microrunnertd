@@ -16,9 +16,9 @@ scope ExecutionerExecute initializer init
 		endif
 		set tU = null
 		set dS = null
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call StructuredDD.addHandler(function h)
-	endfunction
+	end
 endscope

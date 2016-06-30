@@ -14,7 +14,7 @@ scope Demon initializer init
 			call SetUnitVertexColor(house,255,255,255,255/3)
 		endif
 		return false
-	endfunction
+	end
 	
 	private function c2 takes nothing returns boolean
 		local unit FoG
@@ -24,7 +24,7 @@ scope Demon initializer init
 			call SetUnitVertexColor(house,255,255,255,255)
 		endif
 		return false
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		local region reg = CreateRegion()
@@ -35,10 +35,10 @@ scope Demon initializer init
 		set rctb = Rect(-722,240,-368.,592.)
 		
 		// Place units
-		set d = CreateUnit(Players_passive,DEMON_ID,-576.,417.,250.)
+		set d = CreateUnit(Players.passive,DEMON_ID,-576.,417.,250.)
 		call SetUnitX(d,-576.)
 		call SetUnitY(d,417.)
-		set house = CreateUnit(Players_passive,HOUSE_ID,-564.,384.,315.)
+		set house = CreateUnit(Players.passive,HOUSE_ID,-564.,384.,315.)
 		call SetUnitX(house,-564.)
 		call SetUnitY(house,384.)
 		
@@ -54,5 +54,5 @@ scope Demon initializer init
 		set reg = null
 		set t2 = null
 		set reg2 = null
-	endfunction
+	end
 endscope

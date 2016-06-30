@@ -7,14 +7,14 @@ scope Hard initializer init
 	private function cond takes nothing returns boolean
 		local player p = GetTriggerPlayer()
 		local integer pid = GetPlayerId(p)
-		if not (Players_playing[0] and Players_playing[1]) then
+		if not (Players.playing[0] and Players.playing[1]) then
 			call DestroyTrigger(GetTriggeringTrigger())
-			call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Hard Mode|r not available in single player.")
+			call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Hard Mode|r not available in single player.")
 			return false
 		endif
 		if Game_started then
 			call DestroyTrigger(GetTriggeringTrigger())
-			call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00Hard Mode|r must be enabled before the practice round begins.")
+			call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Hard Mode|r must be enabled before the practice round begins.")
 		elseif voted[pid] == false then
 			set voted[pid] = true
 			if voted[0] and voted[1] then
@@ -23,28 +23,28 @@ scope Hard initializer init
 				call Sound.play(LEVER,1.,127)
 				
 				// "Hard Mode Enabled"
-				call DisplayTextToPlayer(Players_locl,0.,0.,"|cFFFFFFFFH|r|cFFFEFBF0a|r" + /*
+				call DisplayTextToPlayer(Players.locl,0.,0.,"|cFFFFFFFFH|r|cFFFEFBF0a|r" + /*
 					*/ "|cFFFDF8E1r|r|cFFFCF4D2d|r|cFFFAF0C3 |r|cFFF9EDB4M|r|cFFF8E9A5o|r" + /*
 					*/ "|cFFF7E696d|r|cFFF6E287e|r|cFFF5DE78 |r|cFFF4DB69E|r|cFFF3D75An|r" + /*
 					*/ "|cFFF1D34Ba|r|cFFF0D03Cb|r|cFFEFCC2Dl|r|cFFEEC91Ee|r|cFFEDC50Fd|r")
 					
 				set Game_hard = true
 			else
-				call DisplayTextToPlayer(Players_locl,0.,0.,"|cffffcc00" + GetPlayerName(p) + "|r has voted for |cffffcc00Hard Mode!|r Both players must vote to enable it.")
+				call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00" + GetPlayerName(p) + "|r has voted for |cffffcc00Hard Mode!|r Both players must vote to enable it.")
 			endif
 		endif
 		return false
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		local trigger t = CreateTrigger()
-		call TriggerRegisterPlayerChatEvent(t,Players_id[0],"-hard",true)
-		call TriggerRegisterPlayerChatEvent(t,Players_id[1],"-hard",true)
+		call TriggerRegisterPlayerChatEvent(t,Players.id[0],"-hard",true)
+		call TriggerRegisterPlayerChatEvent(t,Players.id[1],"-hard",true)
 		call TriggerAddCondition(t,Condition(function cond))
 		set voted[0] = false
 		set voted[1] = false
 		
 		call Sound.preload(LEVER)
 		set t = null
-	endfunction
+	end
 endscope

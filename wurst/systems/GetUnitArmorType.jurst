@@ -1,4 +1,8 @@
-library GetUnitArmorType initializer init requires StructuredDD, Table, Players
+library GetUnitArmorType initializer init
+	import StructuredDD
+	import Table
+	import Players
+
 	globals
 		private Table tab
 		private constant integer BONUS_HP = 'A00M'
@@ -49,16 +53,16 @@ library GetUnitArmorType initializer init requires StructuredDD, Table, Players
 				set ret = ArmorType.LIGHT
 			else
 				set tab[typ] = ArmorType.UNKNOWN
-				debug call DisplayTextToPlayer(Players_locl,0.,0.,"Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(q))
+				debug call DisplayTextToPlayer(Players.locl,0.,0.,"Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(q))
 				set ret = ArmorType.UNKNOWN
 			endif
 			call UnitRemoveAbility(u,BONUS_HP)
 			call SetWidgetLife(u,hp)
 			return ret
 		endif
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		set tab = Table.create()
-	endfunction
-endlibrary
+	end
+end

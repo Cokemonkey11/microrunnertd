@@ -7,9 +7,9 @@ scope WaveCleared initializer init
 		local unit tU = GetTriggerUnit()
 		
 		// Execution conditions:
-		local boolean b = GetOwningPlayer(tU) == Players_creeps
+		local boolean b = GetOwningPlayer(tU) == Players.creeps
 		set b = b and not IsUnitType(tU,UNIT_TYPE_SUMMONED)
-		set b = b and GetPlayerState(Players_creeps,PLAYER_STATE_RESOURCE_FOOD_USED)<=0
+		set b = b and GetPlayerState(Players.creeps,PLAYER_STATE_RESOURCE_FOOD_USED)<=0
 		
 		// Evaluate:
 		if b then
@@ -17,10 +17,10 @@ scope WaveCleared initializer init
 			call Sound.play(WAVE_CLEAR,1.,127)
 		endif
 		set tU = null
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH,function act)
 		call Sound.preload(WAVE_CLEAR)
-	endfunction
+	end
 endscope

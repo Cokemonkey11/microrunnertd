@@ -26,9 +26,9 @@ scope SummonHealingWard initializer init
 			endif
 			set tU = null
 		endif
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
-	endfunction
+	end
 endscope

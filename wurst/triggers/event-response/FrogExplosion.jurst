@@ -10,11 +10,11 @@ scope FrogExplosion initializer init
 			call FloatText_bonus(GetUnitX(tU),GetUnitY(tU),50)
 		endif
 		set tU = null
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
-		set frog = CreateUnit(Players_passive,'nfro',0.,0.,0.)
+		set frog = CreateUnit(Players.passive,'nfro',0.,0.,0.)
 		call SetUnitExploded(frog,true) 
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED,function a)
-	endfunction
+	end
 endscope

@@ -11,7 +11,7 @@ library Pathing initializer init
 			call SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
 			set index = index + 16.
 		endloop
-	endfunction
+	end
 	
 	private function yIterLeftSide takes nothing returns nothing
 		local real index = -1740.
@@ -20,7 +20,7 @@ library Pathing initializer init
 			call SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
 			set index = index + 16.
 		endloop
-	endfunction
+	end
 	
 	private function yIterCenterArea takes nothing returns nothing
 		local real index = 275.
@@ -29,7 +29,7 @@ library Pathing initializer init
 			call SetTerrainPathable(xIter,index,PATHING_TYPE_WALKABILITY,false)
 			set index = index + 16.
 		endloop
-	endfunction
+	end
 	
 	private function yIterTop takes nothing returns nothing
 		local real index = 1360.
@@ -38,13 +38,13 @@ library Pathing initializer init
 			call SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
 			set index = index + 16.
 		endloop
-	endfunction
+	end
 	
 	private function opLimitCheck takes nothing returns nothing
 		debug if not done then
 			debug call BJDebugMsg("Pathing: Op-Limit reached!")
 		debug endif
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		local real index
@@ -89,5 +89,5 @@ library Pathing initializer init
 		endloop
 		
 		set done = true
-	endfunction
-endlibrary
+	end
+end

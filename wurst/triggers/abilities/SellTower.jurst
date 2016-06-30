@@ -26,10 +26,10 @@ scope SellTower initializer init
 			call RemoveUnit(tU)
 			set tU = null
 		endif
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
 		call Sound.preload(SND)
-	endfunction
+	end
 endscope

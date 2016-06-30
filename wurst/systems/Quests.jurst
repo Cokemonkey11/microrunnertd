@@ -46,7 +46,7 @@ library Quests initializer init
         call QuestSetRequired(q,required)
         call QuestSetTitle(q,title)
 		return q
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call addQuest(ABOUT_DESC,ABOUT_ICONPATH,false,ABOUT_TITLE)
@@ -54,5 +54,5 @@ library Quests initializer init
 		call addQuest(HOWTO_DESC,HOWTO_ICONPATH,true,HOWTO_TITLE)
 		call addQuest(ROUNDTYPES_DESC,ROUNDTYPES_ICONPATH,true,ROUNDTYPES_TITLE)
 		call addQuest(HARD_DESC,HARD_ICONPATH,true,HARD_TITLE)
-	endfunction
-endlibrary
+	end
+end

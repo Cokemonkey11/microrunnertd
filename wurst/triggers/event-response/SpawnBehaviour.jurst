@@ -24,13 +24,13 @@ scope SpawnBehaviour initializer init
 			set index = index + 1
 		endloop
 		return u
-	endfunction
+	end
 	
 	private function act takes nothing returns nothing
 		local unit FoG
 		local unit targ
-		if GetPlayerState(Players_creeps,PLAYER_STATE_RESOURCE_FOOD_USED) > 0 then
-			call GroupEnumUnitsOfPlayer(grp,Players_creeps,null)
+		if GetPlayerState(Players.creeps,PLAYER_STATE_RESOURCE_FOOD_USED) > 0 then
+			call GroupEnumUnitsOfPlayer(grp,Players.creeps,null)
 			loop
 				set FoG = FirstOfGroup(grp)
 				exitwhen FoG==null
@@ -41,9 +41,9 @@ scope SpawnBehaviour initializer init
 				call GroupRemoveUnit(grp,FoG)
 			endloop
 		endif
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call TimerStart(CreateTimer(),AI_FIDELITY,true,function act)
-	endfunction
+	end
 endscope

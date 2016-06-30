@@ -1,4 +1,7 @@
-library Units initializer init requires Table, Players
+package Units
+	import Table
+	import Players
+
 	globals
 		public constant integer ROUND_COUNT = 43
 		public constant integer SPIRIT_ID = 'h000'
@@ -11,10 +14,10 @@ library Units initializer init requires Table, Players
 		
 		public constant integer IMMUNE = 'ACmi'
 		
-		public unit array runners[2]
-		public unit array choosers[2]
-		public integer array spawns[ROUND_COUNT]
-		public integer array runnerTypes[2]
+		public unit array runners
+		public unit array choosers
+		public integer array spawns
+		public integer array runnerTypes
 		
 		public Table bounties
 		private group grp = CreateGroup()
@@ -27,7 +30,7 @@ library Units initializer init requires Table, Players
 		// units
 		loop
 			exitwhen index > 15
-			call GroupEnumUnitsOfPlayer(grp,Players_id[index],null)
+			call GroupEnumUnitsOfPlayer(grp,Players.id[index],null)
 			loop
 				set FoG = FirstOfGroup(grp)
 				exitwhen FoG == null
@@ -39,10 +42,10 @@ library Units initializer init requires Table, Players
 			endloop
 			set index = index + 1
 		endloop
-	endfunction
+	end
 	
-	private function init takes nothing returns nothing
-		set bounties = Table.create()
+	init
+		set bounties = new Table
 		
 		set spawns[0] = 'h002'
 		set bounties['h002'] = 2
@@ -172,5 +175,5 @@ library Units initializer init requires Table, Players
 		
 		set spawns[42] = 'h02M'
 		set bounties['h02M'] = 140
-	endfunction
-endlibrary
+	end
+end

@@ -1,7 +1,7 @@
 scope PeasantChopping initializer init
 	private function init takes nothing returns nothing
-		local unit p = CreateUnit(Players_passive,'h02E',0.,1480.,0.)
+		local unit p = CreateUnit(Players.passive,'h02E',0.,1480.,0.)
 		call IssueTargetOrder(p,"attack",CreateDestructable('B002',78.,1600.,270.,1.,1))
 		call UnitAddAbility(p,'Aloc')
-	endfunction
+	end
 endscope

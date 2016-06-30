@@ -1,4 +1,6 @@
 library Sound requires Table
+    import Table
+
     private struct slop
         string snd
     endstruct
@@ -64,4 +66,4 @@ library Sound requires Table
             set preloadDB=HandleTable.create()
         endmethod
     endstruct
-endlibrary
+end

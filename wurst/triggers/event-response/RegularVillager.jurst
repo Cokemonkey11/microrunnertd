@@ -19,33 +19,33 @@ scope RegularVillager initializer init
 	private function seq4 takes nothing returns nothing
 		set state = 2
 		call DestroyTimer(GetExpiredTimer())
-	endfunction
+	end
 	
 	private function seq3 takes nothing returns nothing
 		call SetUnitFacingTimed(vgr0,FACE_0,0.)
 		call DestroyEffect(fx)
 		call TimerStart(GetExpiredTimer(),1.,false,function seq4)
-	endfunction
+	end
 	
 	private function seq2 takes nothing returns nothing
 		call SetUnitFacingTimed(vgr0,FACE_1,2.)
 		call TimerStart(GetExpiredTimer(),2.,false,function seq3)
-	endfunction
+	end
 	
 	private function seq1 takes nothing returns nothing
 		call SetUnitFacingTimed(vgr0,FACE_2,2.)
 		call TimerStart(GetExpiredTimer(),2.,false,function seq2)
-	endfunction
+	end
 	
 	private function seq0 takes nothing returns nothing
 		call SetUnitFacingTimed(vgr0,FACE_1,0.)
 		call TimerStart(GetExpiredTimer(),1.,false,function seq1)
-	endfunction
+	end
 	
 	private function seq24 takes nothing returns nothing
 		set state = 0
 		call DestroyTimer(GetExpiredTimer())
-	endfunction
+	end
 	
 	private function seq23 takes nothing returns nothing
 		call ShowUnit(vgr1,false)
@@ -57,23 +57,23 @@ scope RegularVillager initializer init
 		call SetUnitVertexColor(vgr0,255,255,255,255)
 		call SetUnitFacingTimed(vgr0,FACE_0,1.)
 		call TimerStart(GetExpiredTimer(),1.,false,function seq24)
-	endfunction
+	end
 	
 	private function seq22 takes nothing returns nothing
 		call SetUnitFacing(vgr1,FACE_2)
 		call TimerStart(GetExpiredTimer(),1.,false,function seq23)
-	endfunction
+	end
 	
 	private function seq21 takes nothing returns nothing
 		call Knockback3D.add(vgr1,400.,0.,bj_PI/2.)
 		call TimerStart(GetExpiredTimer(),1.,false,function seq22)
-	endfunction
+	end
 	
 	private function seq20 takes nothing returns nothing
 		call Knockback3D.add(vgr1,400.,0.,bj_PI/2.)
 		call SetUnitFacing(vgr0,FACE_2)
 		call TimerStart(GetExpiredTimer(),.7,false,function seq21)
-	endfunction
+	end
 	
 	private function act takes nothing returns nothing
 		local unit tU = GetTriggerUnit()
@@ -95,14 +95,14 @@ scope RegularVillager initializer init
 			endif
 		endif
 		set tU = null
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED,function act)
-		set vgr0 = CreateUnit(Players_passive,VGR0_ID,X,Y,FACE_0)
-		set vgr1 = CreateUnit(Players_passive,VGR1_ID,0.,0.,FACE_0)
+		set vgr0 = CreateUnit(Players.passive,VGR0_ID,X,Y,FACE_0)
+		set vgr1 = CreateUnit(Players.passive,VGR1_ID,0.,0.,FACE_0)
 		call ShowUnit(vgr1,false)
 		call SetUnitX(vgr1,X)
 		call SetUnitY(vgr1,Y)
-	endfunction
+	end
 endscope

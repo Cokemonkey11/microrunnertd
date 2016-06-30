@@ -12,9 +12,9 @@ scope Heal initializer init
 			call DestroyEffect(AddSpecialEffect(HEAL_FX,GetUnitX(tU),GetUnitY(tU)))
 			set tU = null
 		endif
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
-	endfunction
+	end
 endscope

@@ -16,25 +16,25 @@ scope RandomRace initializer init
 			set pid = GetPlayerId(p)
 			if r == 0 then
 				set u = CreateUnit(p,Units_SPIRIT_ID,GetUnitX(tU),GetUnitY(tU),270.)
-				if Players_locl == p then
+				if Players.locl == p then
 					call SelectUnit(u,true)
 				endif
 				set Units_runnerTypes[pid] = Units_RUNNER_ID
-				call CreateUnit(Players_id[pid],Units_SPIRIT_ALTAR_ID,Players_altarX[pid],Players_altarY[pid],270.)
+				call CreateUnit(Players.id[pid],Units_SPIRIT_ALTAR_ID,Players.altarX[pid],Players.altarY[pid],270.)
 			else
 				set u = CreateUnit(p,Units_WASTE_ID,GetUnitX(tU),GetUnitY(tU),270.)
-				if Players_locl == p then
+				if Players.locl == p then
 					call SelectUnit(u,true)
 				endif
 				set Units_runnerTypes[pid] = Units_RUNNER_WASTE_ID
-				call CreateUnit(Players_id[pid],Units_WASTE_ALTAR_ID,Players_altarX[pid],Players_altarY[pid],270.)
+				call CreateUnit(Players.id[pid],Units_WASTE_ALTAR_ID,Players.altarX[pid],Players.altarY[pid],270.)
 			endif
 			call RemoveUnit(tU)
 			set tU = null
 		endif
-	endfunction
+	end
 	
 	private function init takes nothing returns nothing
 		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
-	endfunction
+	end
 endscope
