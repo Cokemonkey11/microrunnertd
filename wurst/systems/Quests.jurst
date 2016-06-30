@@ -37,22 +37,22 @@ library Quests initializer init
 	end
 
 	private function addQuest takes string desc, string iconPath, boolean required, string title returns quest
-		local quest q = CreateQuest()
-		call QuestSetCompleted(q,false)
-        call QuestSetDescription(q,desc)
-        call QuestSetDiscovered(q,true)
-        call QuestSetEnabled(q,true)
-        call QuestSetIconPath(q,iconPath)
-        call QuestSetRequired(q,required)
-        call QuestSetTitle(q,title)
+		quest q = CreateQuest()
+		QuestSetCompleted(q,false)
+        QuestSetDescription(q,desc)
+        QuestSetDiscovered(q,true)
+        QuestSetEnabled(q,true)
+        QuestSetIconPath(q,iconPath)
+        QuestSetRequired(q,required)
+        QuestSetTitle(q,title)
 		return q
 	end
 
 	private function init takes nothing returns nothing
-		call addQuest(ABOUT_DESC,ABOUT_ICONPATH,false,ABOUT_TITLE)
-		call addQuest(CREDITS_DESC,CREDITS_ICONPATH,false,CREDITS_TITLE)
-		call addQuest(HOWTO_DESC,HOWTO_ICONPATH,true,HOWTO_TITLE)
-		call addQuest(ROUNDTYPES_DESC,ROUNDTYPES_ICONPATH,true,ROUNDTYPES_TITLE)
-		call addQuest(HARD_DESC,HARD_ICONPATH,true,HARD_TITLE)
+		addQuest(ABOUT_DESC,ABOUT_ICONPATH,false,ABOUT_TITLE)
+		addQuest(CREDITS_DESC,CREDITS_ICONPATH,false,CREDITS_TITLE)
+		addQuest(HOWTO_DESC,HOWTO_ICONPATH,true,HOWTO_TITLE)
+		addQuest(ROUNDTYPES_DESC,ROUNDTYPES_ICONPATH,true,ROUNDTYPES_TITLE)
+		addQuest(HARD_DESC,HARD_ICONPATH,true,HARD_TITLE)
 	end
 end

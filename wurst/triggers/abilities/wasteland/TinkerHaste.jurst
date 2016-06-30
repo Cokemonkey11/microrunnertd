@@ -4,14 +4,14 @@ scope TinkerHaste initializer init
 	end
 
 	private function h takes nothing returns nothing
-		local unit dS = GetEventDamageSource()
+		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
-			call IssueImmediateOrder(dS,"berserk")
+			IssueImmediateOrder(dS,"berserk")
 		endif
 		dS = null
 	end
 
 	private function init takes nothing returns nothing
-		call StructuredDD.addHandler(function h)
+		StructuredDD.addHandler(function h)
 	end
 endscope

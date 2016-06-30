@@ -213,4 +213,3 @@ library StructuredDD initializer ini
 		perCleanup = CreateTimer()
 		TimerStart(perCleanup, PER_CLEANUP_TIMEOUT, true, function StructuredDD.perCleanup)
 	end
-end

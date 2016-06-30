@@ -15,7 +15,7 @@ package Players
 	end
 
 	init
-		local integer index=0
+		integer index=0
 		Players.locl = GetLocalPlayer()
 		loop
 			exitwhen index>15

@@ -65,7 +65,7 @@ library Knockback3D
 	/**
 	 * Object which holds knockback data, not to be modified by the client.
 	 */
-    struct Knockback3D
+    public struct Knockback3D
 
 		/**
 		 * A parameter for controlling the system clock, in seconds. 1/30 runs 30 times per second.
@@ -222,7 +222,7 @@ library Knockback3D
 		 * A simple shim for getting the z heigh of a co-ordinate pair.
 		 */
 		private static method getZ takes real x, real y returns real
-			call MoveLocation(zLoc,x,y)
+			MoveLocation(zLoc,x,y)
 			return GetLocationZ(zLoc)
 		endmethod
 
@@ -230,7 +230,7 @@ library Knockback3D
 		 * The callback function when enumerating destructables
 		 */
 		private static method destructableCallback takes nothing returns nothing
-			local destructable des=GetEnumDestructable()
+			destructable des=GetEnumDestructable()
 			if GetDestructableLife(des)>0. then
 				hitDestructable=true
 			endif
@@ -240,16 +240,16 @@ library Knockback3D
 		 * The periodic function which iterates through all objects in flight
 		 */
 		private static method p takes nothing returns nothing
-			local boolean newInMap
-			local integer index=0
-			local real flyHeight
-			local real unitX
-			local real unitY
-			local real heightDifference
-			local real newX
-			local real newY
-			local real velXY
-			local thistype tempDat
+			boolean newInMap
+			integer index=0
+			real flyHeight
+			real unitX
+			real unitY
+			real heightDifference
+			real newX
+			real newY
+			real velXY
+			thistype tempDat
 			loop
 				exitwhen index>dbIndex
 				tempDat=knockDB[index]
@@ -262,17 +262,17 @@ library Knockback3D
 				velXY=(tempDat.delX*tempDat.delX+tempDat.delY*tempDat.delY)
 				if flyHeight<MIN_FLY_HEIGHT then
 					if isTerrainWalkable(newX,newY) and newInMap then
-						call SetUnitX(tempDat.u,unitX+tempDat.delX)
-						call SetUnitY(tempDat.u,unitY+tempDat.delY)
+						SetUnitX(tempDat.u,unitX+tempDat.delX)
+						SetUnitY(tempDat.u,unitY+tempDat.delY)
 						if tempDat.delZ<=MIN_FLY_HEIGHT then
 							tempDat.delX=tempDat.delX*(1.-FRICTION_ITER_MULTIPLIER)
 							tempDat.delY=tempDat.delY*(1.-FRICTION_ITER_MULTIPLIER)
 							if velXY>MIN_SPEED_FRICTION_FX then
-								call DestroyEffect(AddSpecialEffect(FRICTION_MODEL,unitX,unitY))
+								DestroyEffect(AddSpecialEffect(FRICTION_MODEL,unitX,unitY))
 							endif
 						endif
 						static if USE_MOVESPEED_MODIFIERS then
-							call SetUnitMoveSpeed(tempDat.u,GetUnitDefaultMoveSpeed(tempDat.u))
+							SetUnitMoveSpeed(tempDat.u,GetUnitDefaultMoveSpeed(tempDat.u))
 						endif
 					else
 						tempDat.delX=0
@@ -283,36 +283,36 @@ library Knockback3D
 						tempDat.delZ=tempDat.delZ*-1.*COEFF_RESTITUTION_GROUND
 					endif
 					if tempDat.delZ>MIN_Z_VELOCITY_TO_BECOME_AIRBORNE then
-						call SetUnitFlyHeight(tempDat.u,flyHeight+tempDat.delZ,0)
+						SetUnitFlyHeight(tempDat.u,flyHeight+tempDat.delZ,0)
 						tempDat.delZ=tempDat.delZ-gravity
 					endif
 				elseif newInMap then
 					tempDat.delZ=tempDat.delZ-gravity
 					heightDifference=getZ(newX,newY)-getZ(unitX,unitY)
-					call SetUnitFlyHeight(tempDat.u,flyHeight+tempDat.delZ-heightDifference,0)
-					call SetUnitX(tempDat.u,newX)
-					call SetUnitY(tempDat.u,newY)
+					SetUnitFlyHeight(tempDat.u,flyHeight+tempDat.delZ-heightDifference,0)
+					SetUnitX(tempDat.u,newX)
+					SetUnitY(tempDat.u,newY)
 					static if USE_MOVESPEED_MODIFIERS then
-						call SetUnitMoveSpeed(tempDat.u,0)
+						SetUnitMoveSpeed(tempDat.u,0)
 					endif
 				endif
 				if velXY<MIN_FOR_KNOCKBACK and tempDat.delZ>MAX_Z_VELOCITY_TO_BOUNCE and tempDat.delZ<-1*MAX_Z_VELOCITY_TO_BOUNCE and flyHeight<MIN_FLY_HEIGHT then
 					knockDB[index]=knockDB[dbIndex]
 					dbIndex=dbIndex-1
-					call SetUnitFlyHeight(tempDat.u,0,0)
+					SetUnitFlyHeight(tempDat.u,0,0)
 					static if USE_MOVESPEED_MODIFIERS then
-						call SetUnitMoveSpeed(tempDat.u,GetUnitDefaultMoveSpeed(tempDat.u))
+						SetUnitMoveSpeed(tempDat.u,GetUnitDefaultMoveSpeed(tempDat.u))
 					endif
 					destroy tempDat
 					index=index-1
 					if dbIndex<0 then
-						call PauseTimer(clock)
+						PauseTimer(clock)
 					endif
 				endif
 				if velXY>MIN_VEL_DESTROY_DESTRUCTABLE and flyHeight<MAX_HEIGHT_DESTROY_DESTRUCTABLE then
 					hitDestructable=false
-					call MoveRectTo(destructableRect,newX,newY)
-					call EnumDestructablesInRect(destructableRect,null,function destructableCallback)
+					MoveRectTo(destructableRect,newX,newY)
+					EnumDestructablesInRect(destructableRect,null,function destructableCallback)
 					if hitDestructable then
 						tempDat.delX=tempDat.delX*COEFF_RESTITUTION_DSTRBL
 						tempDat.delY=tempDat.delY*COEFF_RESTITUTION_DSTRBL
@@ -327,9 +327,9 @@ library Knockback3D
 		 * useful.
 		 */
 		private static method getUnitIndexFromStack takes unit u returns integer
-			local integer index=0
-			local integer returner=-1
-			local thistype tempDat
+			integer index=0
+			integer returner=-1
+			thistype tempDat
 			loop
 				exitwhen index>dbIndex or returner!=-1
 				tempDat=knockDB[index]
@@ -374,9 +374,9 @@ library Knockback3D
 		 *		alpha: The angle of attack (z-axis) to knock the unit, in radians (where 0 is no AoA)
 		 */
 		static method add takes unit u, real velocity, real angle, real alpha returns nothing
-			local integer index=getUnitIndexFromStack(u)
-			local thistype tempDat
-			local real instVel=velocity*CLOCK_PERIOD
+			integer index=getUnitIndexFromStack(u)
+			thistype tempDat
+			real instVel=velocity*CLOCK_PERIOD
 			if index==-1 then
 				tempDat = new Knockback3D
 				tempDat.u=u
@@ -386,10 +386,10 @@ library Knockback3D
 				dbIndex=dbIndex+1
 				knockDB[dbIndex]=tempDat
 				if UnitAddAbility(tempDat.u,CROW_ID) then
-					call UnitRemoveAbility(tempDat.u,CROW_ID)
+					UnitRemoveAbility(tempDat.u,CROW_ID)
 				endif
 				if dbIndex==0 then
-					call TimerStart(clock,CLOCK_PERIOD,true,function p)
+					TimerStart(clock,CLOCK_PERIOD,true,function p)
 				endif
 			else
 				tempDat=knockDB[index]
@@ -410,9 +410,9 @@ library Knockback3D
 		 *		alpha: The angle of attack (z-axis) to knock the unit, in radians (where 0 is no AoA)
 		 */
 		static method setVel takes unit u, real velocity, real angle, real alpha returns nothing
-			local integer index=getUnitIndexFromStack(u)
-			local thistype tempDat
-			local real instVel=velocity*CLOCK_PERIOD
+			integer index=getUnitIndexFromStack(u)
+			thistype tempDat
+			real instVel=velocity*CLOCK_PERIOD
 			if index==-1 then
 				tempDat = new Knockback3D
 				tempDat.u=u
@@ -422,10 +422,10 @@ library Knockback3D
 				dbIndex=dbIndex+1
 				knockDB[dbIndex]=tempDat
 				if UnitAddAbility(tempDat.u,CROW_ID) then
-					call UnitRemoveAbility(tempDat.u,CROW_ID)
+					UnitRemoveAbility(tempDat.u,CROW_ID)
 				endif
 				if dbIndex==0 then
-					call TimerStart(clock,CLOCK_PERIOD,true,function p)
+					TimerStart(clock,CLOCK_PERIOD,true,function p)
 				endif
 			else
 				tempDat=knockDB[index]
@@ -436,9 +436,9 @@ library Knockback3D
 		endmethod
 
 		static method getVel takes unit u returns real
-			local integer index = getUnitIndexFromStack(u)
-			local thistype tempDat
-			local real v
+			integer index = getUnitIndexFromStack(u)
+			thistype tempDat
+			real v
 			if index != -1 then
 				tempDat = knockDB[index]
 				v = tempDat.delX * tempDat.delX + tempDat.delY * tempDat.delY + tempDat.delZ * tempDat.delZ
@@ -468,4 +468,3 @@ library Knockback3D
 		 */
         private real delZ
     endstruct
-end

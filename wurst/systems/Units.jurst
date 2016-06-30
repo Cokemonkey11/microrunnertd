@@ -23,21 +23,21 @@ package Units
 		private static group grp = CreateGroup()
 
 		static function freezeAll takes nothing returns nothing
-			local unit fst
-			local integer index = 0
+			unit fst
+			integer index = 0
 			// Loop through all players instead of playable map area, to ensure we freeze even locust
 			// units
 			loop
 				exitwhen index > 15
-				call GroupEnumUnitsOfPlayer(grp,Players.id[index],null)
+				GroupEnumUnitsOfPlayer(grp,Players.id[index],null)
 				loop
 					fst = FirstOfGroup(grp)
 					exitwhen fst == null
-					call PauseUnit(fst,true)
-					call SetUnitInvulnerable(fst,true)
-					call UnitAddAbility(fst,'Aloc')
-					call SetUnitTimeScale(fst,0.)
-					call GroupRemoveUnit(grp,fst)
+					PauseUnit(fst,true)
+					SetUnitInvulnerable(fst,true)
+					UnitAddAbility(fst,'Aloc')
+					SetUnitTimeScale(fst,0.)
+					GroupRemoveUnit(grp,fst)
 				endloop
 				index = index + 1
 			endloop

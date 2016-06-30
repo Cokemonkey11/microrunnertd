@@ -4,16 +4,16 @@ scope GeomancerWave initializer init
 	end
 
 	private function h takes nothing returns nothing
-		local unit dS = GetEventDamageSource()
-		local unit tU = GetTriggerUnit()
+		unit dS = GetEventDamageSource()
+		unit tU = GetTriggerUnit()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units.IMMUNE)<1 then
-			call IssueTargetOrder(dS,"carrionswarm",tU)
+			IssueTargetOrder(dS,"carrionswarm",tU)
 		endif
 		dS = null
 		tU = null
 	end
 
 	private function init takes nothing returns nothing
-		call StructuredDD.addHandler(function h)
+		StructuredDD.addHandler(function h)
 	end
 endscope

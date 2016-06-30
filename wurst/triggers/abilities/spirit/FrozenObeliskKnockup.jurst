@@ -4,13 +4,13 @@ scope FrozenObeliskKnockup initializer init
 	end
 
 	private function h takes nothing returns nothing
-		local unit dS = GetEventDamageSource()
-		local unit tU = GetTriggerUnit()
+		unit dS = GetEventDamageSource()
+		unit tU = GetTriggerUnit()
 		if GetUnitTypeId(dS) == OB_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units.IMMUNE)<1 then
 			if Knockback3D.getVel(tU) == 0. then
 
 				// ehhh
-				call Knockback3D.add(tU,500.,0.,bj_PI/2.)
+				Knockback3D.add(tU,500.,0.,bj_PI/2.)
 			endif
 			tU = null
 		endif
@@ -18,6 +18,6 @@ scope FrozenObeliskKnockup initializer init
 	end
 
 	private function init takes nothing returns nothing
-		call StructuredDD.addHandler(function h)
+		StructuredDD.addHandler(function h)
 	end
 endscope

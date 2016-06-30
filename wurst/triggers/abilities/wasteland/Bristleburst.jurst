@@ -6,18 +6,18 @@ scope Bristleburst initializer init
 	end
 
 	private function h takes nothing returns nothing
-		local unit tU
-		local unit dS = GetEventDamageSource()
+		unit tU
+		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.SPELL then
 			tU = GetTriggerUnit()
-			call UnitAddAbility(tU,ARMOR)
-			call UnitAddAbility(tU,EFFECT)
+			UnitAddAbility(tU,ARMOR)
+			UnitAddAbility(tU,EFFECT)
 			tU = null
 		endif
 		dS = null
 	end
 
 	private function init takes nothing returns nothing
-		call StructuredDD.addHandler(function h)
+		StructuredDD.addHandler(function h)
 	end
 endscope

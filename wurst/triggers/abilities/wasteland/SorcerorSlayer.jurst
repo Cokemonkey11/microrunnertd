@@ -6,15 +6,15 @@ scope SorcerorSlayer initializer init
 	end
 
 	private function h takes nothing returns nothing
-		local unit dS = GetEventDamageSource()
-		local unit tU = GetTriggerUnit()
+		unit dS = GetEventDamageSource()
+		unit tU = GetTriggerUnit()
 		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK then
 			if tab.exists(dS) then
 				if tab[dS] >= 10 then
 					tab[dS] = 0
-					call DamageType.dealCodeDamage(dS,tU,5000.)
-					call FloatText_bonus(GetUnitX(tU),GetUnitY(tU),R2I(GetEventDamage() + 5000.))
-					call DestroyEffect(AddSpecialEffect(FX,GetUnitX(dS),GetUnitY(dS)))
+					DamageType.dealCodeDamage(dS,tU,5000.)
+					FloatText_bonus(GetUnitX(tU),GetUnitY(tU),R2I(GetEventDamage() + 5000.))
+					DestroyEffect(AddSpecialEffect(FX,GetUnitX(dS),GetUnitY(dS)))
 				else
 					tab[dS] = tab[dS] + 1
 				endif
@@ -27,7 +27,7 @@ scope SorcerorSlayer initializer init
 	end
 
 	private function init takes nothing returns nothing
-		call StructuredDD.addHandler(function h)
-		tab=HandleTable.create()
+		StructuredDD.addHandler(function h)
+		tab=new HandleTable
 	end
 endscope

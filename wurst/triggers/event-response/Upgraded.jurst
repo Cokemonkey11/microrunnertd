@@ -1,10 +1,10 @@
 scope Upgraded initializer init
 	private function act takes nothing returns nothing
-		local integer pid = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))
-		Game_upgraded[pid] = true
+		integer pid = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))
+		Game.upgraded[pid] = true
 	end
 
 	private function init takes nothing returns nothing
-		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_RESEARCH_START,function act)
+		RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_RESEARCH_START,function act)
 	end
 endscope

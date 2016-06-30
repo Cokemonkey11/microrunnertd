@@ -6,17 +6,17 @@ scope CowMasterSummon initializer init
 	end
 
 	private function h takes nothing returns nothing
-		local unit q
-		local unit dS = GetEventDamageSource()
-		local unit tU
+		unit q
+		unit dS = GetEventDamageSource()
+		unit tU
 		if GetUnitTypeId(dS) == COW_ID and DamageType.get() == DamageType.ATTACK then
 			tU = GetTriggerUnit()
 			q = CreateUnit(GetOwningPlayer(dS),TAUREN_ID,GetUnitX(tU),GetUnitY(tU),270.)
-			call DestroyEffect(AddSpecialEffect(FX,GetUnitX(q),GetUnitY(q)))
-			call UnitApplyTimedLife(q,'BTLF',10.)
-			call UnitAddAbility(q,'Aloc')
-			call SetUnitExploded(q,true)
-			call SetUnitVertexColor(q,255,255,255,125)
+			DestroyEffect(AddSpecialEffect(FX,GetUnitX(q),GetUnitY(q)))
+			UnitApplyTimedLife(q,'BTLF',10.)
+			UnitAddAbility(q,'Aloc')
+			SetUnitExploded(q,true)
+			SetUnitVertexColor(q,255,255,255,125)
 			tU = null
 			q = null
 		endif
@@ -24,6 +24,6 @@ scope CowMasterSummon initializer init
 	end
 
 	private function init takes nothing returns nothing
-		call StructuredDD.addHandler(function h)
+		StructuredDD.addHandler(function h)
 	end
 endscope

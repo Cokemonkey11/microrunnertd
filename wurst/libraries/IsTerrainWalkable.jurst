@@ -23,14 +23,14 @@ library IsTerrainWalkable initializer init
 
     function init takes nothing returns nothing
         check=CreateItem('ciri',0.,0.)
-        call SetItemVisible(check,false)
+        SetItemVisible(check,false)
         r=Rect(0.0,0.0,128.0,128.0)
     end
 
     function hideBothersomeItem takes nothing returns nothing
         if IsItemVisible(GetEnumItem()) then
             hidden[hiddenMax]=GetEnumItem()
-            call SetItemVisible(hidden[hiddenMax],false)
+            SetItemVisible(hidden[hiddenMax],false)
             hiddenMax=hiddenMax+1
         endif
     end
@@ -38,26 +38,25 @@ library IsTerrainWalkable initializer init
     public function isTerrainWalkable takes real x, real y returns boolean
 
         // first, hide any items in the area so they don't get in the way of our item
-        call MoveRectTo(r,x,y)
-        call EnumItemsInRect(r,null,function hideBothersomeItem)
+        MoveRectTo(r,x,y)
+        EnumItemsInRect(r,null,function hideBothersomeItem)
 
         // try to move the check item and get its coordinates
 		// this unhides the item...
-        call SetItemPosition(check,x,y)
+        SetItemPosition(check,x,y)
         X=GetItemX(check)
         Y=GetItemY(check)
 
 		//...so we must hide it again
-        call SetItemVisible(check,false)
+        SetItemVisible(check,false)
 
         // before returning, unhide any items that got hidden at the start
         loop
             exitwhen hiddenMax==0
             hiddenMax=hiddenMax-1
-            call SetItemVisible(hidden[hiddenMax],true)
+            SetItemVisible(hidden[hiddenMax],true)
         endloop
 
         // return pathability status
         return (x-X)*(x-X)+(y-Y)*(y-Y)<MAX_RANGE*MAX_RANGE
     end
-end

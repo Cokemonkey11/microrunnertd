@@ -11,45 +11,45 @@ scope Demon initializer init
 
 	private function c takes nothing returns boolean
 		if GetPlayerId(GetOwningPlayer(GetTriggerUnit())) < 2 then
-			call SetUnitVertexColor(house,255,255,255,255/3)
+			SetUnitVertexColor(house,255,255,255,255/3)
 		endif
 		return false
 	end
 
 	private function c2 takes nothing returns boolean
-		local unit fst
-		local integer cnt = 0
-		call GroupEnumUnitsInRect(grp,rcts,null)
+		unit fst
+		integer cnt = 0
+		GroupEnumUnitsInRect(grp,rcts,null)
 		if FirstOfGroup(grp)==null then
-			call SetUnitVertexColor(house,255,255,255,255)
+			SetUnitVertexColor(house,255,255,255,255)
 		endif
 		return false
 	end
 
 	private function init takes nothing returns nothing
-		local region reg = CreateRegion()
-		local region reg2 = CreateRegion()
-		local trigger t= CreateTrigger()
-		local trigger t2 = CreateTrigger()
+		region reg = CreateRegion()
+		region reg2 = CreateRegion()
+		trigger t= CreateTrigger()
+		trigger t2 = CreateTrigger()
 		rcts = Rect(-706.,256.,-384.,576.)
 		rctb = Rect(-722,240,-368.,592.)
 
 		// Place units
 		d = CreateUnit(Players.passive,DEMON_ID,-576.,417.,250.)
-		call SetUnitX(d,-576.)
-		call SetUnitY(d,417.)
+		SetUnitX(d,-576.)
+		SetUnitY(d,417.)
 		house = CreateUnit(Players.passive,HOUSE_ID,-564.,384.,315.)
-		call SetUnitX(house,-564.)
-		call SetUnitY(house,384.)
+		SetUnitX(house,-564.)
+		SetUnitY(house,384.)
 
 		// Event response
-		call RegionAddRect(reg,rcts)
-		call RegionAddRect(reg2,rctb)
+		RegionAddRect(reg,rcts)
+		RegionAddRect(reg2,rctb)
 
-		call TriggerRegisterEnterRegion(t,reg,null)
-		call TriggerRegisterLeaveRegion(t2,reg2,null)
-		call TriggerAddCondition(t,Condition(function c))
-		call TriggerAddCondition(t2,Condition(function c2))
+		TriggerRegisterEnterRegion(t,reg,null)
+		TriggerRegisterLeaveRegion(t2,reg2,null)
+		TriggerAddCondition(t,Condition(function c))
+		TriggerAddCondition(t2,Condition(function c2))
 		t = null
 		reg = null
 		t2 = null

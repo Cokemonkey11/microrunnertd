@@ -4,14 +4,14 @@ scope ScavengerScavenge initializer init
 	end
 
 	private function h takes nothing returns nothing
-		local unit dS = GetEventDamageSource()
-		local unit tU = GetTriggerUnit()
-		local real q
-		local real r
+		unit dS = GetEventDamageSource()
+		unit tU = GetTriggerUnit()
+		real q
+		real r
 		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units.IMMUNE)<1 then
 			if GetUnitState(tU,UNIT_STATE_LIFE) < 150. then
-				call DamageType.dealCodeDamage(dS,tU,150.)
-				call FloatText_bonus(GetUnitX(tU),GetUnitY(tU),R2I(GetEventDamage() + 150.))
+				DamageType.dealCodeDamage(dS,tU,150.)
+				FloatText_bonus(GetUnitX(tU),GetUnitY(tU),R2I(GetEventDamage() + 150.))
 			endif
 		endif
 		tU = null
@@ -19,6 +19,6 @@ scope ScavengerScavenge initializer init
 	end
 
 	private function init takes nothing returns nothing
-		call StructuredDD.addHandler(function h)
+		StructuredDD.addHandler(function h)
 	end
 endscope

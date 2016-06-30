@@ -23,9 +23,9 @@ library SimError initializer init
     function SimError takes player ForPlayer, string msg returns nothing
         msg="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n|cffffcc00"+msg+"|r"
         if (GetLocalPlayer() == ForPlayer) then
-            call ClearTextMessages()
-            call DisplayTimedTextToPlayer( ForPlayer, 0.52, 0.96, 2.00, msg )
-            call StartSound( error )
+            ClearTextMessages()
+            DisplayTimedTextToPlayer( ForPlayer, 0.52, 0.96, 2.00, msg )
+            StartSound( error )
         endif
     end
 
@@ -34,5 +34,3 @@ library SimError initializer init
          //call StartSound( error ) //apparently the bug in which you play a sound for the first time
                                     //and it doesn't work is not there anymore in patch 1.22
     end
-
-end

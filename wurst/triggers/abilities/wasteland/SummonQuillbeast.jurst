@@ -6,11 +6,11 @@ scope SummonQuillbeast initializer init
 	end
 
 	private function act takes nothing returns nothing
-		local real x
-		local real y
-		local unit s
-		local unit tU
-		local player p
+		real x
+		real y
+		unit s
+		unit tU
+		player p
 		if GetSpellAbilityId() == SUMMON_ID then
 			x = GetSpellTargetX()
 			y = GetSpellTargetY()
@@ -18,17 +18,17 @@ scope SummonQuillbeast initializer init
 			p = GetOwningPlayer(tU)
 			if IsTerrainWalkable(x,y) and (not IsTerrainPathable(x,y,PATHING_TYPE_BUILDABILITY)) then
 				s = CreateUnit(p,UNIT_ID,x,y,270.)
-				call DestroyEffect(AddSpecialEffect(FX,GetUnitX(s),GetUnitY(s)))
-				call UnitRemoveAbility(tU,SUMMON_ID)
+				DestroyEffect(AddSpecialEffect(FX,GetUnitX(s),GetUnitY(s)))
+				UnitRemoveAbility(tU,SUMMON_ID)
 				s = null
 			else
-				call SimError(p,"Cannot summon there.")
+				SimError(p,"Cannot summon there.")
 			endif
 			tU = null
 		endif
 	end
 
 	private function init takes nothing returns nothing
-		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
+		RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
 	end
 endscope

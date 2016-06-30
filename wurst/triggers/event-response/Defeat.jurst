@@ -6,8 +6,8 @@ scope Defeat initializer init
 	end
 
 	private function a takes nothing returns nothing
-		local integer count = 0
-		local integer id = GetUnitTypeId(GetTriggerUnit())
+		integer count = 0
+		integer id = GetUnitTypeId(GetTriggerUnit())
 		if tab.exists(id) then
 			if Players.playing[0] and UnitAlive(Units.runners[0]) then
 				count = count + 1
@@ -16,23 +16,23 @@ scope Defeat initializer init
 				count = count + 1
 			endif
 			if count == 0 then
-				call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Defeat!|r Better luck next time. This game will end in |cffffcc0030|r seconds." + /*
-					*/ "\n\nOn the bright side, you made it to round |cffffcc00" + I2S(Game_round) + "|r!")
-				call Sound.play(DEFEAT,0.75,127)
-				call Game_end()
+				DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Defeat!|r Better luck next time. This game will end in |cffffcc0030|r seconds." + /*
+					*/ "\n\nOn the bright side, you made it to round |cffffcc00" + I2S(Game.round) + "|r!")
+				Sound.play(DEFEAT,0.75,127)
+				Game.end()
 			else
-				call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Warning:|r A runner has died!")
-				call Sound.play(OOPS,1.,127)
+				DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Warning:|r A runner has died!")
+				Sound.play(OOPS,1.,127)
 			endif
 		endif
 	end
 
 	private function init takes nothing returns nothing
-		tab = Table.create()
-		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH,function a)
+		tab = new Table
+		RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH,function a)
 		tab[Units.RUNNER_ID] = 1
 		tab[Units.RUNNER_WASTE_ID] = 1
-		call Sound.preload(DEFEAT)
-		call Sound.preload(OOPS)
+		Sound.preload(DEFEAT)
+		Sound.preload(OOPS)
 	end
 endscope

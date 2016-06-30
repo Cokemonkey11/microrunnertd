@@ -1,33 +1,33 @@
 scope ChooseRace initializer init
 	private function act takes nothing returns nothing
-		local unit u = GetSoldUnit()
-		local integer i = GetUnitTypeId(u)
-		local player p = GetOwningPlayer(u)
-		local integer pid = GetPlayerId(p)
+		unit u = GetSoldUnit()
+		integer i = GetUnitTypeId(u)
+		player p = GetOwningPlayer(u)
+		integer pid = GetPlayerId(p)
 		if i == Units.SPIRIT_ID then
-			call RemoveUnit(GetSellingUnit())
+			RemoveUnit(GetSellingUnit())
 			if Players.locl == p then
-				call SelectUnit(u,true)
+				SelectUnit(u,true)
 			endif
 			Units.runnerTypes[pid] = Units.RUNNER_ID
-			call CreateUnit(Players.id[pid],Units.SPIRIT_ALTAR_ID,Players.altarX[pid],Players.altarY[pid],270.)
+			CreateUnit(Players.id[pid],Units.SPIRIT_ALTAR_ID,Players.altarX[pid],Players.altarY[pid],270.)
 		elseif i == Units.WASTE_ID then
-			call RemoveUnit(GetSellingUnit())
+			RemoveUnit(GetSellingUnit())
 			if Players.locl == p then
-				call SelectUnit(u,true)
+				SelectUnit(u,true)
 			endif
 			Units.runnerTypes[pid] = Units.RUNNER_WASTE_ID
-			call CreateUnit(Players.id[pid],Units.WASTE_ALTAR_ID,Players.altarX[pid],Players.altarY[pid],270.)
+			CreateUnit(Players.id[pid],Units.WASTE_ALTAR_ID,Players.altarX[pid],Players.altarY[pid],270.)
 		endif
 		if Players.playingCount == 1 or (Units.runnerTypes[0]!=0 and Units.runnerTypes[1]!=0) then
-			call DestroyTimer(Game_chooseTimer)
-			call DestroyTimerDialog(Game_chooseDialog)
-			call TimerStart(CreateTimer(),15.,false,function Game_practiceRound)
+			DestroyTimer(Game.chooseTimer)
+			DestroyTimerDialog(Game.chooseDialog)
+			TimerStart(CreateTimer(),15.,false,function Game.practiceRound)
 		endif
 		u = null
 	end
 
 	private function init takes nothing returns nothing
-		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL,function act)
+		RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL,function act)
 	end
 endscope

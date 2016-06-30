@@ -189,4 +189,3 @@ library DamageType initializer ini
 		end
 		DestroyGroup(grp)
 	end
-end

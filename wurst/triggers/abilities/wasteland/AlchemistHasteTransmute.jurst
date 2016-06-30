@@ -4,21 +4,21 @@ scope AlchemistHasteTransmute initializer init
 	end
 
 	private function h takes nothing returns nothing
-		local unit dS = GetEventDamageSource()
-		local unit tU
-		local player p
+		unit dS = GetEventDamageSource()
+		unit tU
+		player p
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
-			call IssueImmediateOrder(dS,"berserk")
+			IssueImmediateOrder(dS,"berserk")
 			p = GetOwningPlayer(dS)
-			call SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + 1)
+			SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + 1)
 			tU = GetTriggerUnit()
-			call FloatText_bountyPlayer(GetUnitX(tU),GetUnitY(tU),1,p)
+			FloatText_bountyPlayer(GetUnitX(tU),GetUnitY(tU),1,p)
 			tU = null
 		endif
 		dS = null
 	end
 
 	private function init takes nothing returns nothing
-		call StructuredDD.addHandler(function h)
+		StructuredDD.addHandler(function h)
 	end
 endscope

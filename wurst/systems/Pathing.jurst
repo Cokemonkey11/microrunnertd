@@ -5,37 +5,37 @@ library Pathing initializer init
 	end
 
 	private function yIterRightSide takes nothing returns nothing
-		local real index = -1710.
+		real index = -1710.
 		loop
 			exitwhen index > 450.
-			call SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
+			SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
 			index = index + 16.
 		endloop
 	end
 
 	private function yIterLeftSide takes nothing returns nothing
-		local real index = -1740.
+		real index = -1740.
 		loop
 			exitwhen index > 1340.
-			call SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
+			SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
 			index = index + 16.
 		endloop
 	end
 
 	private function yIterCenterArea takes nothing returns nothing
-		local real index = 275.
+		real index = 275.
 		loop
 			exitwhen index > 575
-			call SetTerrainPathable(xIter,index,PATHING_TYPE_WALKABILITY,false)
+			SetTerrainPathable(xIter,index,PATHING_TYPE_WALKABILITY,false)
 			index = index + 16.
 		endloop
 	end
 
 	private function yIterTop takes nothing returns nothing
-		local real index = 1360.
+		real index = 1360.
 		loop
 			exitwhen index > 1630.
-			call SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
+			SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
 			index = index + 16.
 		endloop
 	end
@@ -47,7 +47,7 @@ library Pathing initializer init
 	end
 
 	private function init takes nothing returns nothing
-		local real index
+		real index
 
 		// Op-limit checker
 		debug call TimerStart(CreateTimer(),1.,false,function opLimitCheck)
@@ -57,7 +57,7 @@ library Pathing initializer init
 		loop
 			exitwhen index > 1920.
 			xIter = index
-			call ExecuteFunc(SCOPE_PRIVATE + "yIterRightSide")
+			ExecuteFunc(SCOPE_PRIVATE + "yIterRightSide")
 			index = index + 16.
 		endloop
 
@@ -66,7 +66,7 @@ library Pathing initializer init
 		loop
 			exitwhen index > -1340.
 			xIter = index
-			call ExecuteFunc(SCOPE_PRIVATE + "yIterLeftSide")
+			ExecuteFunc(SCOPE_PRIVATE + "yIterLeftSide")
 			index = index + 16.
 		endloop
 
@@ -75,7 +75,7 @@ library Pathing initializer init
 		loop
 			exitwhen index > 1470.
 			xIter = index
-			call ExecuteFunc(SCOPE_PRIVATE + "yIterTop")
+			ExecuteFunc(SCOPE_PRIVATE + "yIterTop")
 			index = index + 16.
 		endloop
 
@@ -84,7 +84,7 @@ library Pathing initializer init
 		loop
 			exitwhen index > 190.
 			xIter = index
-			call ExecuteFunc(SCOPE_PRIVATE + "yIterCenterArea")
+			ExecuteFunc(SCOPE_PRIVATE + "yIterCenterArea")
 			index = index + 16.
 		endloop
 

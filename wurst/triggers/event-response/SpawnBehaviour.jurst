@@ -7,12 +7,12 @@ scope SpawnBehaviour initializer init
 	end
 
 	private function getClosestRunner takes unit q returns unit
-		local integer index = 0
-		local unit u = null
-		local real r = 9999999.
-		local real r2
-		local real x
-		local real y
+		integer index = 0
+		unit u = null
+		real r = 9999999.
+		real r2
+		real x
+		real y
 		loop
 			exitwhen index > 1
 			x = GetUnitX(q) - GetUnitX(Units.runners[index])
@@ -27,23 +27,23 @@ scope SpawnBehaviour initializer init
 	end
 
 	private function act takes nothing returns nothing
-		local unit fst
-		local unit targ
+		unit fst
+		unit targ
 		if GetPlayerState(Players.creeps,PLAYER_STATE_RESOURCE_FOOD_USED) > 0 then
-			call GroupEnumUnitsOfPlayer(grp,Players.creeps,null)
+			GroupEnumUnitsOfPlayer(grp,Players.creeps,null)
 			loop
 				fst = FirstOfGroup(grp)
 				exitwhen fst==null
 				targ = getClosestRunner(fst)
 				if UnitAlive(fst) and targ != null then
-					call IssuePointOrder(fst,"attack",GetUnitX(targ),GetUnitY(targ))
+					IssuePointOrder(fst,"attack",GetUnitX(targ),GetUnitY(targ))
 				endif
-				call GroupRemoveUnit(grp,fst)
+				GroupRemoveUnit(grp,fst)
 			endloop
 		endif
 	end
 
 	private function init takes nothing returns nothing
-		call TimerStart(CreateTimer(),AI_FIDELITY,true,function act)
+		TimerStart(CreateTimer(),AI_FIDELITY,true,function act)
 	end
 endscope

@@ -8,28 +8,28 @@ scope SellTower initializer init
 	end
 
 	private function act takes nothing returns nothing
-		local unit tU
-		local player p 
-		local integer i 
-		local real x
-		local real y
+		unit tU
+		player p 
+		integer i 
+		real x
+		real y
 		if GetSpellAbilityId() == ID then
 			tU = GetTriggerUnit()
 			x = GetUnitX(tU)
 			y = GetUnitY(tU)
 			p = GetOwningPlayer(tU)
 			i = GetUnitGoldCost(GetUnitTypeId(tU)) / 2
-			call SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + i)
-			call FloatText_bountyPlayer(x,y,i,p)
-			call DestroyEffect(AddSpecialEffect(FX,x,y))
-			call Sound.play(SND,1.,127)	
-			call RemoveUnit(tU)
+			SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + i)
+			FloatText_bountyPlayer(x,y,i,p)
+			DestroyEffect(AddSpecialEffect(FX,x,y))
+			Sound.play(SND,1.,127)	
+			RemoveUnit(tU)
 			tU = null
 		endif
 	end
 
 	private function init takes nothing returns nothing
-		call RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
-		call Sound.preload(SND)
+		RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
+		Sound.preload(SND)
 	end
 endscope

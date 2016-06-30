@@ -1,69 +1,68 @@
-library Sound requires Table
+library Sound
     import Table
 
     private struct slop
         string snd
     endstruct
 
-    struct Sound
+    public struct Sound
         private static Table preloadDB
 
         private static method preloadAfter takes nothing returns nothing
-            local timer time=GetExpiredTimer()
-            local slop s=preloadDB.loadInt(time.getHandleId()) castTo slop
-            local sound sd=CreateSound(s.snd,false,false,false,12700,12700,"")
-            call SetSoundVolume(sd,1)
-            call StartSound(sd)
-            call KillSoundWhenDone(sd)
-            call s.destroy()
+            timer time=GetExpiredTimer()
+            slop s=preloadDB.loadInt(time.getHandleId()) castTo slop
+            sound sd=CreateSound(s.snd,false,false,false,12700,12700,"")
+            SetSoundVolume(sd,1)
+            StartSound(sd)
+            KillSoundWhenDone(sd)
+            destroy s
             sd=null
-            call DestroyTimer(time)
+            DestroyTimer(time)
             time=null
         endmethod
 
         public static method preload takes string str returns nothing
-            local timer time=CreateTimer()
-            local slop s=slop.create()
+            timer time=CreateTimer()
+            slop s=new slop
             s.snd=str
-            preloadDB[time]=s
-            call TimerStart(time,.01,false,function thistype.preloadAfter)
+            preloadDB.saveInt(time.getHandleId(), s castTo int)
+            TimerStart(time,.01,false,function preloadAfter)
             time=null
         endmethod
 
         public static method play3D takes string str, real pitch, real x, real y, real z returns nothing
-            local sound s = CreateSound(str,false,true,true,12700,12700,"")
-            call SetSoundPosition(s,x,y,z)
-            call SetSoundVolume(s,127)
-            call SetSoundPitch(s,pitch)
-            call StartSound(s)
-            call KillSoundWhenDone(s)
+            sound s = CreateSound(str,false,true,true,12700,12700,"")
+            SetSoundPosition(s,x,y,z)
+            SetSoundVolume(s,127)
+            SetSoundPitch(s,pitch)
+            StartSound(s)
+            KillSoundWhenDone(s)
             s = null
         endmethod
 
 		public static method playForPlayer takes string str, real pitch, player who returns nothing
-			local sound s = CreateSound(str,false,false,false,12700,12700,"")
+			sound s = CreateSound(str,false,false,false,12700,12700,"")
 			if GetLocalPlayer()==who then
-				call SetSoundVolume(s,127)
+				SetSoundVolume(s,127)
 			else
-				call SetSoundVolume(s,0)
+				SetSoundVolume(s,0)
 			endif
-			call SetSoundPitch(s,pitch)
-			call StartSound(s)
-			call KillSoundWhenDone(s)
+			SetSoundPitch(s,pitch)
+			StartSound(s)
+			KillSoundWhenDone(s)
 			s = null
 		endmethod
 
 		public static method play takes string str, real pitch, integer vol returns nothing
-			local sound s = CreateSound(str,false,false,false,12700,12700,"")
-			call SetSoundVolume(s,vol)
-			call SetSoundPitch(s,pitch)
-			call StartSound(s)
-			call KillSoundWhenDone(s)
+			sound s = CreateSound(str,false,false,false,12700,12700,"")
+			SetSoundVolume(s,vol)
+			SetSoundPitch(s,pitch)
+			StartSound(s)
+			KillSoundWhenDone(s)
 			s = null
 		endmethod
 
         private static method onInit takes nothing returns nothing
-            preloadDB=HandleTable.create()
+            preloadDB=new Table
         endmethod
     endstruct
-end

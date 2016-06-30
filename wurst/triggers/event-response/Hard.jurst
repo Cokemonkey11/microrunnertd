@@ -5,46 +5,46 @@ scope Hard initializer init
 	end
 
 	private function cond takes nothing returns boolean
-		local player p = GetTriggerPlayer()
-		local integer pid = GetPlayerId(p)
+		player p = GetTriggerPlayer()
+		integer pid = GetPlayerId(p)
 		if not (Players.playing[0] and Players.playing[1]) then
-			call DestroyTrigger(GetTriggeringTrigger())
-			call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Hard Mode|r not available in single player.")
+			DestroyTrigger(GetTriggeringTrigger())
+			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Hard Mode|r not available in single player.")
 			return false
 		endif
-		if Game_started then
-			call DestroyTrigger(GetTriggeringTrigger())
-			call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Hard Mode|r must be enabled before the practice round begins.")
+		if Game.started then
+			DestroyTrigger(GetTriggeringTrigger())
+			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Hard Mode|r must be enabled before the practice round begins.")
 		elseif voted[pid] == false then
 			voted[pid] = true
 			if voted[0] and voted[1] then
-				call DestroyTrigger(GetTriggeringTrigger())
+				DestroyTrigger(GetTriggeringTrigger())
 
-				call Sound.play(LEVER,1.,127)
+				Sound.play(LEVER,1.,127)
 
 				// "Hard Mode Enabled"
-				call DisplayTextToPlayer(Players.locl,0.,0.,"|cFFFFFFFFH|r|cFFFEFBF0a|r" + /*
+				DisplayTextToPlayer(Players.locl,0.,0.,"|cFFFFFFFFH|r|cFFFEFBF0a|r" + /*
 					*/ "|cFFFDF8E1r|r|cFFFCF4D2d|r|cFFFAF0C3 |r|cFFF9EDB4M|r|cFFF8E9A5o|r" + /*
 					*/ "|cFFF7E696d|r|cFFF6E287e|r|cFFF5DE78 |r|cFFF4DB69E|r|cFFF3D75An|r" + /*
 					*/ "|cFFF1D34Ba|r|cFFF0D03Cb|r|cFFEFCC2Dl|r|cFFEEC91Ee|r|cFFEDC50Fd|r")
 
-				Game_hard = true
+				Game.hard = true
 			else
-				call DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00" + GetPlayerName(p) + "|r has voted for |cffffcc00Hard Mode!|r Both players must vote to enable it.")
+				DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00" + GetPlayerName(p) + "|r has voted for |cffffcc00Hard Mode!|r Both players must vote to enable it.")
 			endif
 		endif
 		return false
 	end
 
 	private function init takes nothing returns nothing
-		local trigger t = CreateTrigger()
-		call TriggerRegisterPlayerChatEvent(t,Players.id[0],"-hard",true)
-		call TriggerRegisterPlayerChatEvent(t,Players.id[1],"-hard",true)
-		call TriggerAddCondition(t,Condition(function cond))
+		trigger t = CreateTrigger()
+		TriggerRegisterPlayerChatEvent(t,Players.id[0],"-hard",true)
+		TriggerRegisterPlayerChatEvent(t,Players.id[1],"-hard",true)
+		TriggerAddCondition(t,Condition(function cond))
 		voted[0] = false
 		voted[1] = false
 
-		call Sound.preload(LEVER)
+		Sound.preload(LEVER)
 		t = null
 	end
 endscope
