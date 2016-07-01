@@ -4,10 +4,10 @@ scope AlchemistHasteTransmute initializer init
 	import FloatText
 
 	globals
-		private constant integer ARCH_ID = 'h02A'
+		constant integer ARCH_ID = 'h02A'
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		unit tU
 		player p
@@ -17,11 +17,9 @@ scope AlchemistHasteTransmute initializer init
 			SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + 1)
 			tU = GetTriggerUnit()
 			FloatText.bountyPlayer(GetUnitX(tU),GetUnitY(tU),1,p)
-			tU = null
 		endif
-		dS = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end

@@ -45,7 +45,7 @@ library DamageType initializer ini
 
 		//* Make sure this matches the rawcode/id of your version of the DamageTypeCheck
 		//* ability (you must copy/paste it from the editor to your map)
-		static constant int DAMAGE_TYPE_CHECK_ID = 'A008'
+		static constant int DAMAGE_TYPE_CHECK_ID = 'A001'
 
 		///> END CUSTOMIZE SECTION
 

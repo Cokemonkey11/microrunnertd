@@ -298,13 +298,13 @@ library Knockback3D
 				endif
 				if velXY<MIN_FOR_KNOCKBACK and tempDat.delZ>MAX_Z_VELOCITY_TO_BOUNCE and tempDat.delZ<-1*MAX_Z_VELOCITY_TO_BOUNCE and flyHeight<MIN_FLY_HEIGHT then
 					knockDB[index]=knockDB[dbIndex]
-					dbIndex=dbIndex-1
+					dbIndex--
 					SetUnitFlyHeight(tempDat.u,0,0)
 					static if USE_MOVESPEED_MODIFIERS then
 						SetUnitMoveSpeed(tempDat.u,GetUnitDefaultMoveSpeed(tempDat.u))
 					endif
 					destroy tempDat
-					index=index-1
+					index--
 					if dbIndex<0 then
 						PauseTimer(clock)
 					endif
@@ -318,7 +318,7 @@ library Knockback3D
 						tempDat.delY=tempDat.delY*COEFF_RESTITUTION_DSTRBL
 					endif
 				endif
-				index=index+1
+				index++
 			endloop
 		endmethod
 
@@ -336,7 +336,7 @@ library Knockback3D
 				if tempDat.u==u then
 					returner=index
 				endif
-				index=index+1
+				index++
 			endloop
 			return returner
 		endmethod
@@ -383,7 +383,7 @@ library Knockback3D
 				tempDat.delX=instVel*Cos(angle)*Cos(alpha)
 				tempDat.delY=instVel*Sin(angle)*Cos(alpha)
 				tempDat.delZ=instVel*Sin(alpha)
-				dbIndex=dbIndex+1
+				dbIndex++
 				knockDB[dbIndex]=tempDat
 				if UnitAddAbility(tempDat.u,CROW_ID) then
 					UnitRemoveAbility(tempDat.u,CROW_ID)
@@ -419,7 +419,7 @@ library Knockback3D
 				tempDat.delX=instVel*Cos(angle)*Cos(alpha)
 				tempDat.delY=instVel*Sin(angle)*Cos(alpha)
 				tempDat.delZ=instVel*Sin(alpha)
-				dbIndex=dbIndex+1
+				dbIndex++
 				knockDB[dbIndex]=tempDat
 				if UnitAddAbility(tempDat.u,CROW_ID) then
 					UnitRemoveAbility(tempDat.u,CROW_ID)

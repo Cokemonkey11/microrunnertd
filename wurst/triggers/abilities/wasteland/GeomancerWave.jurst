@@ -4,19 +4,17 @@ scope GeomancerWave initializer init
 	import StructuredDD
 
 	globals
-		private constant integer ARCH_ID = 'h01U'
+		constant integer ARCH_ID = 'h01U'
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units.IMMUNE)<1 then
 			IssueTargetOrder(dS,"carrionswarm",tU)
 		endif
-		dS = null
-		tU = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end

@@ -2,11 +2,11 @@ scope Upgraded initializer init
 	import Game
 	import RegisterPlayerUnitEvent
 
-	private function act takes nothing returns nothing
+	function act takes nothing returns nothing
 		integer pid = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))
 		Game.upgraded[pid] = true
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_RESEARCH_START,function act)
 	end

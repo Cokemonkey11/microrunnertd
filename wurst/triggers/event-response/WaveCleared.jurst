@@ -5,10 +5,10 @@ scope WaveCleared initializer init
 	import Game
 
 	globals
-		private constant string WAVE_CLEAR = "Sound\\Interace\\GoodJob.wav"
+		constant string WAVE_CLEAR = "Sound\\Interace\\GoodJob.wav"
 	end
 
-	private function act takes nothing returns nothing
+	function act takes nothing returns nothing
 		unit tU = GetTriggerUnit()
 
 		// Execution conditions:
@@ -21,10 +21,9 @@ scope WaveCleared initializer init
 			Game.success()
 			Sounds.play(WAVE_CLEAR,1.,127)
 		endif
-		tU = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH,function act)
 		Sounds.preload(WAVE_CLEAR)
 	end

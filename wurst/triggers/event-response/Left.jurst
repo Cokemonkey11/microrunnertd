@@ -5,10 +5,10 @@ scope Left initializer init
 	import Sounds
 
 	globals
-		private constant string LIGHTNING = "Doodads\\Cinematic\\Lightningbolt\\LightningBolt1.wav"
+		constant string LIGHTNING = "Doodads\\Cinematic\\Lightningbolt\\LightningBolt1.wav"
 	end
 
-	private function cond takes nothing returns boolean
+	function cond takes nothing returns boolean
 		integer id
 		integer oid
 		group grp
@@ -48,12 +48,11 @@ scope Left initializer init
 		return false
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		trigger t = CreateTrigger()
 		TriggerRegisterPlayerEvent(t,Players.id[0],EVENT_PLAYER_LEAVE)
 		TriggerRegisterPlayerEvent(t,Players.id[1],EVENT_PLAYER_LEAVE)
 		TriggerAddCondition(t,Condition(function cond))
 
 		Sounds.preload(LIGHTNING)
-		t = null
 	end

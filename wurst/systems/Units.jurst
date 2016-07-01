@@ -39,7 +39,7 @@ package Units
 					SetUnitTimeScale(fst,0.)
 					GroupRemoveUnit(grp,fst)
 				endloop
-				index = index + 1
+				index++
 			endloop
 		end
 	end

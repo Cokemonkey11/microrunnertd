@@ -2,25 +2,23 @@ scope Demon initializer init
 	import Players
 
 	globals
-		private constant integer DEMON_ID = 'h02F'
-		private constant integer HOUSE_ID = 'h02G'
-		private unit d
-		private unit house
-		private group grp = CreateGroup()
-		private rect rctb
-		private rect rcts
+		constant integer DEMON_ID = 'h02F'
+		constant integer HOUSE_ID = 'h02G'
+		unit d
+		unit house
+		group grp = CreateGroup()
+		rect rctb
+		rect rcts
 	end
 
-	private function c takes nothing returns boolean
+	function c takes nothing returns boolean
 		if GetPlayerId(GetOwningPlayer(GetTriggerUnit())) < 2 then
 			SetUnitVertexColor(house,255,255,255,R2I(255/3))
 		endif
 		return false
 	end
 
-	private function c2 takes nothing returns boolean
-		unit fst
-		integer cnt = 0
+	function c2 takes nothing returns boolean
 		GroupEnumUnitsInRect(grp,rcts,null)
 		if FirstOfGroup(grp)==null then
 			SetUnitVertexColor(house,255,255,255,255)
@@ -28,7 +26,7 @@ scope Demon initializer init
 		return false
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		region reg = CreateRegion()
 		region reg2 = CreateRegion()
 		trigger t= CreateTrigger()
@@ -52,8 +50,4 @@ scope Demon initializer init
 		TriggerRegisterLeaveRegion(t2,reg2,null)
 		TriggerAddCondition(t,Condition(function c))
 		TriggerAddCondition(t2,Condition(function c2))
-		t = null
-		reg = null
-		t2 = null
-		reg2 = null
 	end

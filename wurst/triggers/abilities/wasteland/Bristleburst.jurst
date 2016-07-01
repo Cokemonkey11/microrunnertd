@@ -3,23 +3,21 @@ scope Bristleburst initializer init
 	import StructuredDD
 
 	globals
-		private constant integer ARCH_ID = 'h01G'
-		private constant integer ARMOR = 'A00R'
-		private constant integer EFFECT = 'A003'
+		constant integer ARCH_ID = 'h01G'
+		constant integer ARMOR = 'A00R'
+		constant integer EFFECT = 'A003'
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit tU
 		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.SPELL then
 			tU = GetTriggerUnit()
 			UnitAddAbility(tU,ARMOR)
 			UnitAddAbility(tU,EFFECT)
-			tU = null
 		endif
-		dS = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end

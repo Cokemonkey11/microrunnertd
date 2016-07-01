@@ -4,12 +4,12 @@ scope SorcerorSlayer initializer init
 	import FloatText
 
 	globals
-		private constant integer EX_ID = 'h027'
-		private constant string FX = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
-		private Table tab
+		constant integer EX_ID = 'h027'
+		constant string FX = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
+		Table tab
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK then
@@ -26,11 +26,9 @@ scope SorcerorSlayer initializer init
 				tab.saveInt(dS.getHandleId(), 1)
 			endif
 		endif
-		tU = null
-		dS = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 		tab=new Table
 	end

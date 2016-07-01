@@ -3,12 +3,12 @@ scope CowGodSummon initializer init
 	import DamageType
 
 	globals
-		private constant integer COW_ID = 'h00V'
-		private constant integer TAUREN_ID = 'o000'
-		private constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
+		constant integer COW_ID = 'h00V'
+		constant integer TAUREN_ID = 'o000'
+		constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit q
 		unit dS = GetEventDamageSource()
 		unit tU
@@ -20,12 +20,9 @@ scope CowGodSummon initializer init
 			UnitAddAbility(q,'Aloc')
 			SetUnitExploded(q,true)
 			SetUnitVertexColor(q,255,255,255,125)
-			tU = null
-			q = null
 		endif
-		dS = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end

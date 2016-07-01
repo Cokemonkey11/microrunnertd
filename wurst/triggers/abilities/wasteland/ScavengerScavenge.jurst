@@ -5,24 +5,20 @@ scope ScavengerScavenge initializer init
 	import FloatText
 
 	globals
-		private constant integer EX_ID = 'h01R'
+		constant integer EX_ID = 'h01R'
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
-		real q
-		real r
 		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units.IMMUNE)<1 then
 			if GetUnitState(tU,UNIT_STATE_LIFE) < 150. then
 				DamageType.dealCodeDamage(dS,tU,150.)
 				FloatText.bonus(GetUnitX(tU),GetUnitY(tU),R2I(GetEventDamage() + 150.))
 			endif
 		endif
-		tU = null
-		dS = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end

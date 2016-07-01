@@ -1,10 +1,10 @@
 library Pathing initializer init
 	globals
-		private boolean done = false
-		private real xIter
+		boolean done = false
+		real xIter
 	end
 
-	private function yIterRightSide takes nothing returns nothing
+	function yIterRightSide takes nothing returns nothing
 		real index = -1710.
 		loop
 			exitwhen index > 450.
@@ -13,7 +13,7 @@ library Pathing initializer init
 		endloop
 	end
 
-	private function yIterLeftSide takes nothing returns nothing
+	function yIterLeftSide takes nothing returns nothing
 		real index = -1740.
 		loop
 			exitwhen index > 1340.
@@ -22,7 +22,7 @@ library Pathing initializer init
 		endloop
 	end
 
-	private function yIterCenterArea takes nothing returns nothing
+	function yIterCenterArea takes nothing returns nothing
 		real index = 275.
 		loop
 			exitwhen index > 575
@@ -31,7 +31,7 @@ library Pathing initializer init
 		endloop
 	end
 
-	private function yIterTop takes nothing returns nothing
+	function yIterTop takes nothing returns nothing
 		real index = 1360.
 		loop
 			exitwhen index > 1630.
@@ -40,13 +40,13 @@ library Pathing initializer init
 		endloop
 	end
 
-	private function opLimitCheck takes nothing returns nothing
+	function opLimitCheck takes nothing returns nothing
 		debug if not done then
 			debug call BJDebugMsg("Pathing: Op-Limit reached!")
 		debug endif
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		real index
 
 		// Op-limit checker

@@ -3,17 +3,16 @@ scope TinkerHaste initializer init
 	import StructuredDD
 
 	globals
-		private constant integer ARCH_ID = 'h028'
+		constant integer ARCH_ID = 'h028'
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
 			IssueImmediateOrder(dS,"berserk")
 		endif
-		dS = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end

@@ -40,7 +40,7 @@ package RegisterPlayerUnitEvent // Special Thanks to Bribe and azlier
 			loop
 				TriggerRegisterPlayerUnitEvent(t[i], Player(k), p, null)
 				exitwhen k == 0
-				k = k - 1
+				k--
 			end
 		end
 		TriggerAddCondition(t[i], Filter(c))

@@ -4,10 +4,10 @@ scope RandomRace initializer init
 	import RegisterPlayerUnitEvent
 
 	globals
-		private constant integer ID = 'A00S'
+		constant integer ID = 'A00S'
 	end
 
-	private function act takes nothing returns nothing
+	function act takes nothing returns nothing
 		integer r
 		player p
 		unit tU
@@ -34,10 +34,9 @@ scope RandomRace initializer init
 				CreateUnit(Players.id[pid],Units.WASTE_ALTAR_ID,Players.altarX[pid],Players.altarY[pid],270.)
 			endif
 			RemoveUnit(tU)
-			tU = null
 		endif
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
 	end

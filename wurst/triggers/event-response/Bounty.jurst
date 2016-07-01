@@ -4,7 +4,7 @@ scope Bounty initializer init
 	import FloatText
 	import RegisterPlayerUnitEvent
 
-	private function a takes nothing returns nothing
+	function a takes nothing returns nothing
 		integer val
 		unit tU = GetTriggerUnit()
 		integer id = GetUnitTypeId(tU)
@@ -14,9 +14,8 @@ scope Bounty initializer init
 			SetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD) + val)
 			SetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD) + val)
 		endif
-		tU = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH,function a)
 	end

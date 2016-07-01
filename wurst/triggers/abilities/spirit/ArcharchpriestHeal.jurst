@@ -4,14 +4,14 @@ scope ArcharchpriestHeal initializer init
 	native UnitAlive takes unit u returns boolean
 
 	globals
-		private constant integer PRIEST_ID = 'h009'
-		private constant real RADIUS = 400.
-		private constant string FX = "Abilities\\Spells\\Other\\HealingSpray\\HealBottleMissile.mdl"
-		private group grp = CreateGroup()
-		private group grp2 = CreateGroup()
+		constant integer PRIEST_ID = 'h009'
+		constant real RADIUS = 400.
+		constant string FX = "Abilities\\Spells\\Other\\HealingSpray\\HealBottleMissile.mdl"
+		group grp = CreateGroup()
+		group grp2 = CreateGroup()
 	end
 
-	private function parsePriest takes unit u returns nothing
+	function parsePriest takes unit u returns nothing
 		unit fst
 		real life
 		player p = GetOwningPlayer(u)
@@ -30,7 +30,7 @@ scope ArcharchpriestHeal initializer init
 		endloop
 	end
 
-	private function p takes nothing returns nothing
+	function p takes nothing returns nothing
 		integer index = 0
 		unit fst
 		loop
@@ -44,10 +44,10 @@ scope ArcharchpriestHeal initializer init
 				endif
 				GroupRemoveUnit(grp,fst)
 			endloop
-			index = index + 1
+			index++
 		endloop
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		TimerStart(CreateTimer(),1./2.,true,function p)
 	end

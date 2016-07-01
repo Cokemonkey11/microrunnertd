@@ -4,8 +4,8 @@ library GetUnitArmorType initializer init
 	import Players
 
 	globals
-		private Table tab
-		private constant integer BONUS_HP = 'A00M'
+		Table tab
+		constant integer BONUS_HP = 'A00M'
 	end
 
 	public class ArmorType extends array
@@ -18,9 +18,9 @@ library GetUnitArmorType initializer init
 		static constant integer LIGHT = 6
 	end
 
-	public function GetUnitArmorType takes unit u returns integer
+	public function getUnitArmorType takes unit u returns integer
 		integer typ = GetUnitTypeId(u)
-		integer ret = ArmorType.UNKNOWN
+		integer ret
 		real hp
 		real q
 
@@ -63,6 +63,6 @@ library GetUnitArmorType initializer init
 		endif
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		tab = new Table
 	end

@@ -4,7 +4,7 @@ scope ChooseRace initializer init
 	import Game
 	import RegisterPlayerUnitEvent
 
-	private function act takes nothing returns nothing
+	function act takes nothing returns nothing
 		unit u = GetSoldUnit()
 		integer i = GetUnitTypeId(u)
 		player p = GetOwningPlayer(u)
@@ -29,9 +29,8 @@ scope ChooseRace initializer init
 			DestroyTimerDialog(Game.chooseDialog)
 			TimerStart(CreateTimer(),15.,false,function Game.practiceRound)
 		endif
-		u = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL,function act)
 	end

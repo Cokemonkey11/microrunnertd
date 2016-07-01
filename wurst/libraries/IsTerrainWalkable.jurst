@@ -31,7 +31,7 @@ library IsTerrainWalkable initializer init
         if IsItemVisible(GetEnumItem()) then
             hidden[hiddenMax]=GetEnumItem()
             SetItemVisible(hidden[hiddenMax],false)
-            hiddenMax=hiddenMax+1
+            hiddenMax++
         endif
     end
 
@@ -53,7 +53,7 @@ library IsTerrainWalkable initializer init
         // before returning, unhide any items that got hidden at the start
         loop
             exitwhen hiddenMax==0
-            hiddenMax=hiddenMax-1
+            hiddenMax--
             SetItemVisible(hidden[hiddenMax],true)
         endloop
 

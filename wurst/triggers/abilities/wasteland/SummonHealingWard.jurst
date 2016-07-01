@@ -4,12 +4,12 @@ scope SummonHealingWard initializer init
 	import RegisterPlayerUnitEvent
 
 	globals
-		private constant integer SUMMON_ID = 'A00T'
-		private constant integer UNIT_ID = 'h023'
-		private constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
+		constant integer SUMMON_ID = 'A00T'
+		constant integer UNIT_ID = 'h023'
+		constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 	end
 
-	private function act takes nothing returns nothing
+	function act takes nothing returns nothing
 		real x
 		real y
 		unit s
@@ -24,14 +24,12 @@ scope SummonHealingWard initializer init
 				s = CreateUnit(p,UNIT_ID,x,y,270.)
 				DestroyEffect(AddSpecialEffect(FX,GetUnitX(s),GetUnitY(s)))
 				UnitRemoveAbility(tU,SUMMON_ID)
-				s = null
 			else
 				simError(p,"Cannot summon there.")
 			endif
-			tU = null
 		endif
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
 	end

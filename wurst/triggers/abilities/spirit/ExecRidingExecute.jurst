@@ -5,10 +5,10 @@ scope ExecRidingExecute initializer init
 	import FloatText
 
 	globals
-		private constant integer EX_ID = 'h01B'
+		constant integer EX_ID = 'h01B'
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		real q
@@ -19,10 +19,8 @@ scope ExecRidingExecute initializer init
 			DamageType.dealCodeDamage(dS,tU,q * r)
 			FloatText.bonus(GetUnitX(tU),GetUnitY(tU),R2I(q * (1 + r)))
 		endif
-		tU = null
-		dS = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end

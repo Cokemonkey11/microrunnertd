@@ -29,7 +29,7 @@ package Players
 				Players.startY[index] = 1024.
 				Players.altarX[index] = 1728.
 			endif
-			index=index+1
+			index++
 		endloop
 		Players.altarY[0] = 1024.
 		Players.altarY[1] = 1024. + 256.

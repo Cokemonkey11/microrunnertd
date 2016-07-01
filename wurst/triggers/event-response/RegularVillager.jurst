@@ -4,54 +4,54 @@ scope RegularVillager initializer init
 	import RegisterPlayerUnitEvent
 
 	globals
-		private constant integer VGR0_ID = 'n000'
-		private constant integer VGR1_ID = 'n001'
-		private constant real X = 1820.
-		private constant real Y = -1565.
-		private constant real FACE_0 = 90.
-		private constant real FACE_1 = 45. + 180.
-		private constant real FACE_2 = 135. + 180.
-		private constant string FX = "Abilities\\Spells\\Other\\TalkToMe\\TalkToMe.mdl"
-		private constant string FX2 = "Abilities\\Spells\\Undead\\AnimateDead\\AnimateDeadTarget.mdl"
+		constant integer VGR0_ID = 'n000'
+		constant integer VGR1_ID = 'n001'
+		constant real X = 1820.
+		constant real Y = -1565.
+		constant real FACE_0 = 90.
+		constant real FACE_1 = 45. + 180.
+		constant real FACE_2 = 135. + 180.
+		constant string FX = "Abilities\\Spells\\Other\\TalkToMe\\TalkToMe.mdl"
+		constant string FX2 = "Abilities\\Spells\\Undead\\AnimateDead\\AnimateDeadTarget.mdl"
 
-		private unit vgr0
-		private unit vgr1
-		private integer state = 0
-		private effect fx
+		unit vgr0
+		unit vgr1
+		integer state = 0
+		effect fx
 	end
 
-	private function seq4 takes nothing returns nothing
+	function seq4 takes nothing returns nothing
 		state = 2
 		DestroyTimer(GetExpiredTimer())
 	end
 
-	private function seq3 takes nothing returns nothing
+	function seq3 takes nothing returns nothing
 		SetUnitFacingTimed(vgr0,FACE_0,0.)
 		DestroyEffect(fx)
 		TimerStart(GetExpiredTimer(),1.,false,function seq4)
 	end
 
-	private function seq2 takes nothing returns nothing
+	function seq2 takes nothing returns nothing
 		SetUnitFacingTimed(vgr0,FACE_1,2.)
 		TimerStart(GetExpiredTimer(),2.,false,function seq3)
 	end
 
-	private function seq1 takes nothing returns nothing
+	function seq1 takes nothing returns nothing
 		SetUnitFacingTimed(vgr0,FACE_2,2.)
 		TimerStart(GetExpiredTimer(),2.,false,function seq2)
 	end
 
-	private function seq0 takes nothing returns nothing
+	function seq0 takes nothing returns nothing
 		SetUnitFacingTimed(vgr0,FACE_1,0.)
 		TimerStart(GetExpiredTimer(),1.,false,function seq1)
 	end
 
-	private function seq24 takes nothing returns nothing
+	function seq24 takes nothing returns nothing
 		state = 0
 		DestroyTimer(GetExpiredTimer())
 	end
 
-	private function seq23 takes nothing returns nothing
+	function seq23 takes nothing returns nothing
 		ShowUnit(vgr1,false)
 		ShowUnit(vgr0,true)
 		SetUnitX(vgr0,X)
@@ -63,23 +63,23 @@ scope RegularVillager initializer init
 		TimerStart(GetExpiredTimer(),1.,false,function seq24)
 	end
 
-	private function seq22 takes nothing returns nothing
+	function seq22 takes nothing returns nothing
 		SetUnitFacing(vgr1,FACE_2)
 		TimerStart(GetExpiredTimer(),1.,false,function seq23)
 	end
 
-	private function seq21 takes nothing returns nothing
+	function seq21 takes nothing returns nothing
 		Knockback3D.add(vgr1,400.,0.,bj_PI/2.)
 		TimerStart(GetExpiredTimer(),1.,false,function seq22)
 	end
 
-	private function seq20 takes nothing returns nothing
+	function seq20 takes nothing returns nothing
 		Knockback3D.add(vgr1,400.,0.,bj_PI/2.)
 		SetUnitFacing(vgr0,FACE_2)
 		TimerStart(GetExpiredTimer(),.7,false,function seq21)
 	end
 
-	private function act takes nothing returns nothing
+	function act takes nothing returns nothing
 		unit tU = GetTriggerUnit()
 		if tU == vgr0 then
 			if state == 0 then
@@ -98,10 +98,9 @@ scope RegularVillager initializer init
 				TimerStart(CreateTimer(),1.,false,function seq20)
 			endif
 		endif
-		tU = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED,function act)
 		vgr0 = CreateUnit(Players.passive,VGR0_ID,X,Y,FACE_0)
 		vgr1 = CreateUnit(Players.passive,VGR1_ID,0.,0.,FACE_0)

@@ -62,7 +62,7 @@ package Game
 
 		private static group grp = CreateGroup()
 
-		public static function fadeOut takes real duration returns nothing
+		static function fadeOut takes real duration returns nothing
 			EnableUserUI(false)
 			SetCineFilterTexture("ReplaceableTextures\\CameraMasks\\White_mask.blp")
 			SetCineFilterBlendMode(BLEND_MODE_BLEND)
@@ -75,7 +75,7 @@ package Game
 			DisplayCineFilter(true)
 		end
 
-		public static function fadeIn takes real duration returns nothing
+		static function fadeIn takes real duration returns nothing
 			EnableUserUI(true)
 			SetCineFilterTexture("ReplaceableTextures\\CameraMasks\\White_mask.blp")
 			SetCineFilterBlendMode(BLEND_MODE_BLEND)
@@ -98,7 +98,7 @@ package Game
 			fadeOut(10.)
 		end
 
-		public static function end takes nothing returns nothing
+		static function end takes nothing returns nothing
 			Units.freezeAll()
 			ended = true
 			TimerStart(CreateTimer(),20.,false,function fadeWait)
@@ -180,9 +180,8 @@ package Game
 					UnitAddAbility(u,DAMAGE_BONUS)
 					UnitAddAbility(u,MOVE_SPEED_BONUS)
 				endif
-				index = index + 1
+				index++
 			endloop
-			u = null
 		end
 
 		private static function runSound takes nothing returns nothing
@@ -276,14 +275,13 @@ package Game
 						UnitAddAbility(Units.runners[index],'Adef')
 						UnitRemoveAbility(Units.runners[index],'Adef')
 					endif
-					index = index + 1
+					index++
 				endloop
 				TimerStart(GetExpiredTimer(),SPAWN_DELAY,false,function spawn)
 			endif
 		end
 
 		private static function queueRound takes nothing returns nothing
-			integer q
 			if Game.hard then
 				TimerStart(roundTimer,ROUND_DELAY_HARD,false,function roundBegin)
 			else
@@ -293,17 +291,17 @@ package Game
 			TimerDialogDisplay(roundDialog,true)
 		end
 
-		public static function practiceRound takes nothing returns nothing
+		static function practiceRound takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
 			DisplayTextToPlayer(Players.locl,0.,0.,"\nThe first round will be a |cffffcc00practice|r round to show you how it works!")
 			round = 0
 			queueRound()
 		end
 
-		public static function success takes nothing returns nothing
+		static function success takes nothing returns nothing
 			integer index = 0
 			integer val
-			round = round + 1
+			round++
 			if not ended then
 				if ModuloInteger(round-1,15) == 0 and round-1 !=0 then
 					removeTowerGravity()
@@ -314,7 +312,7 @@ package Game
 						DestroyEffect(AddSpecialEffect(TELE_FX,GetUnitX(Units.runners[index]),GetUnitY(Units.runners[index])))
 						RemoveUnit(Units.runners[index])
 					endif
-					index = index + 1
+					index++
 				endloop
 				if round >= Units.ROUND_COUNT then
 					RemovePlayer(Players.id[0],PLAYER_GAME_RESULT_VICTORY)
@@ -404,7 +402,6 @@ package Game
 			DestroyTimer(GetExpiredTimer())
 			DestroyTimerDialog(chooseDialog)
 			TimerStart(CreateTimer(),15.,false,function practiceRound)
-			u = null
 		end
 
 		private static function cinematicSequence3 takes nothing returns nothing
@@ -462,7 +459,6 @@ package Game
 		integer index = 0
 
 		// Iterate through players
-		index = 0
 		loop
 			exitwhen index > 1
 			if Players.playing[index] then
@@ -476,7 +472,7 @@ package Game
 				// Adjust Starting Gold
 				SetPlayerState(Players.id[index],PLAYER_STATE_RESOURCE_GOLD, R2I(Game.GOLD_START / Players.playingCount))
 			endif
-			index = index + 1
+			index++
 		endloop
 
 		// Adjust Fog

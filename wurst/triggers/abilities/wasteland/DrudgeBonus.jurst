@@ -5,22 +5,20 @@ scope DrudgeBonus initializer init
 	import GetUnitArmorType
 
 	globals
-		private constant integer EX_ID = 'h01W'
+		constant integer EX_ID = 'h01W'
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		real r
-		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitArmorType(tU) == ArmorType.HEAVY_NORMAL then
+		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and getUnitArmorType(tU) == ArmorType.HEAVY_NORMAL then
 			r = GetEventDamage()
 			DamageType.dealCodeDamage(dS,tU,r)
 			FloatText.bonus(GetUnitX(tU),GetUnitY(tU),R2I(2.*r))
 		endif
-		tU = null
-		dS = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end

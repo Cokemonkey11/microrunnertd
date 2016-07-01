@@ -1,19 +1,18 @@
-scope SpawnBehaviour initializer init
+package SpawnBehaviour
 	import Units
 	import Players
+	import ClosureTimers
 
 	native UnitAlive takes unit u returns boolean
 
-	globals
-		private constant real AI_FIDELITY = 1.
-		private group grp = CreateGroup()
-	end
+	constant real AI_FIDELITY = 1.
 
-	private function getClosestRunner takes unit q returns unit
+	group grp = CreateGroup()
+
+	function getClosestRunner takes unit q returns unit
 		integer index = 0
 		unit u = null
 		real r = 9999999.
-		real r2
 		real x
 		real y
 		loop
@@ -24,28 +23,30 @@ scope SpawnBehaviour initializer init
 				r = (x * x) + (y * y)
 				u = Units.runners[index]
 			endif
-			index = index + 1
+			index++
 		endloop
 		return u
 	end
 
-	private function act takes nothing returns nothing
-		unit fst
-		unit targ
-		if GetPlayerState(Players.creeps,PLAYER_STATE_RESOURCE_FOOD_USED) > 0 then
-			GroupEnumUnitsOfPlayer(grp,Players.creeps,null)
-			loop
-				fst = FirstOfGroup(grp)
-				exitwhen fst==null
-				targ = getClosestRunner(fst)
-				if UnitAlive(fst) and targ != null then
-					IssuePointOrder(fst,"attack",GetUnitX(targ),GetUnitY(targ))
-				endif
-				GroupRemoveUnit(grp,fst)
-			endloop
-		endif
-	end
+	init
+		BJDebugMsg("hello world")
+		doPeriodically(AI_FIDELITY, (CallbackPeriodic _) -> begin
+			unit fst
+			unit targ
+			BJDebugMsg("AI")
 
-	private function init takes nothing returns nothing
-		TimerStart(CreateTimer(),AI_FIDELITY,true,function act)
+			if GetPlayerState(Players.creeps,PLAYER_STATE_RESOURCE_FOOD_USED) > 0 then
+				BJDebugMsg("AI ON")
+				GroupEnumUnitsOfPlayer(grp,Players.creeps,null)
+				loop
+					fst = FirstOfGroup(grp)
+					exitwhen fst==null
+					targ = getClosestRunner(fst)
+					if UnitAlive(fst) and targ != null then
+						IssuePointOrder(fst,"attack",GetUnitX(targ),GetUnitY(targ))
+					endif
+					GroupRemoveUnit(grp,fst)
+				endloop
+			endif
+		end)
 	end

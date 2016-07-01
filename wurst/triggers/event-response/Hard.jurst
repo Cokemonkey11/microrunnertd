@@ -4,11 +4,11 @@ scope Hard initializer init
 	import Sounds
 
 	globals
-		private boolean array voted
-		private constant string LEVER = "Doodads\\Cinematic\\DungeonLever\\Lever.wav"
+		boolean array voted
+		constant string LEVER = "Doodads\\Cinematic\\DungeonLever\\Lever.wav"
 	end
 
-	private function cond takes nothing returns boolean
+	function cond takes nothing returns boolean
 		player p = GetTriggerPlayer()
 		integer pid = GetPlayerId(p)
 		if not (Players.playing[0] and Players.playing[1]) then
@@ -40,7 +40,7 @@ scope Hard initializer init
 		return false
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		trigger t = CreateTrigger()
 		TriggerRegisterPlayerChatEvent(t,Players.id[0],"-hard",true)
 		TriggerRegisterPlayerChatEvent(t,Players.id[1],"-hard",true)
@@ -49,5 +49,4 @@ scope Hard initializer init
 		voted[1] = false
 
 		Sounds.preload(LEVER)
-		t = null
 	end

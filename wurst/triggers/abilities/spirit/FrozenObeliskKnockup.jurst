@@ -5,10 +5,10 @@ scope FrozenObeliskKnockup initializer init
 	import Knockback3D
 
 	globals
-		private constant integer OB_ID = 'h00Y'
+		constant integer OB_ID = 'h00Y'
 	end
 
-	private function h takes nothing returns nothing
+	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		if GetUnitTypeId(dS) == OB_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units.IMMUNE)<1 then
@@ -17,11 +17,9 @@ scope FrozenObeliskKnockup initializer init
 				// ehhh
 				Knockback3D.add(tU,500.,0.,bj_PI/2.)
 			endif
-			tU = null
 		endif
-		dS = null
 	end
 
-	private function init takes nothing returns nothing
+	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end
