@@ -22,31 +22,28 @@ package SpawnBehaviour
 			if UnitAlive(Units.runners[index]) and (x * x) + (y * y) < r then
 				r = (x * x) + (y * y)
 				u = Units.runners[index]
-			endif
+			end
 			index++
-		endloop
+		end
 		return u
 	end
 
 	init
-		BJDebugMsg("hello world")
 		doPeriodically(AI_FIDELITY, (CallbackPeriodic _) -> begin
 			unit fst
 			unit targ
-			BJDebugMsg("AI")
 
-			if GetPlayerState(Players.creeps,PLAYER_STATE_RESOURCE_FOOD_USED) > 0 then
-				BJDebugMsg("AI ON")
-				GroupEnumUnitsOfPlayer(grp,Players.creeps,null)
+			if GetPlayerState(Players.creeps, PLAYER_STATE_RESOURCE_FOOD_USED) > 0 then
+				GroupEnumUnitsOfPlayer(grp, Players.creeps, null)
 				loop
 					fst = FirstOfGroup(grp)
 					exitwhen fst==null
 					targ = getClosestRunner(fst)
 					if UnitAlive(fst) and targ != null then
-						IssuePointOrder(fst,"attack",GetUnitX(targ),GetUnitY(targ))
-					endif
-					GroupRemoveUnit(grp,fst)
-				endloop
-			endif
+						IssuePointOrder(fst, "attack", GetUnitX(targ), GetUnitY(targ))
+					end
+					GroupRemoveUnit(grp, fst)
+				end
+			end
 		end)
 	end

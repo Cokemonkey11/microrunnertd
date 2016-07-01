@@ -147,7 +147,7 @@ library DamageType initializer ini
 				if USE_BONUS_CALCULATOR then
 					scale = getUnitBonusSpellResistance(tU)
 					if scale > 1. then
-						attemptedDamage = attemptedDamage*(scale+1.)/2.
+						attemptedDamage = attemptedDamage*(scale + 1.)/2.
 					end
 				end
 				sampledLife = GetWidgetLife(tU) - .405

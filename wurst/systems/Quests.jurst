@@ -24,8 +24,8 @@ library Quests initializer init
 		constant string HARD_TITLE = "|cff999999Hard Mode|r"
 
 		constant string ROUNDTYPES_DESC = "Some rounds are special ones:|n|cffffcc00Rounds " + /*
-			*/ "6,12,18,24,30,36,42:|r Boss|n|cffffcc00Rounds 8,16,24,32,40:|r Spell Immune|n" + /*
-			*/ "|cffffcc00Rounds 14,28,42:|r Swarm|n|cffffcc00Rounds 15,30:|r High Gravity"
+			*/ "6, 12, 18, 24, 30, 36, 42:|r Boss|n|cffffcc00Rounds 8, 16, 24, 32, 40:|r Spell Immune|n" + /*
+			*/ "|cffffcc00Rounds 14, 28, 42:|r Swarm|n|cffffcc00Rounds 15, 30:|r High Gravity"
 		constant string ROUNDTYPES_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNSpellBookBLS.blp"
 		constant string ROUNDTYPES_TITLE = "|cff999999Round Types|r"
 
@@ -38,20 +38,20 @@ library Quests initializer init
 
 	function addQuest takes string desc, string iconPath, boolean required, string title returns quest
 		quest q = CreateQuest()
-		QuestSetCompleted(q,false)
-        QuestSetDescription(q,desc)
-        QuestSetDiscovered(q,true)
-        QuestSetEnabled(q,true)
-        QuestSetIconPath(q,iconPath)
-        QuestSetRequired(q,required)
-        QuestSetTitle(q,title)
+		QuestSetCompleted(q, false)
+        QuestSetDescription(q, desc)
+        QuestSetDiscovered(q, true)
+        QuestSetEnabled(q, true)
+        QuestSetIconPath(q, iconPath)
+        QuestSetRequired(q, required)
+        QuestSetTitle(q, title)
 		return q
 	end
 
 	function init takes nothing returns nothing
-		addQuest(ABOUT_DESC,ABOUT_ICONPATH,false,ABOUT_TITLE)
-		addQuest(CREDITS_DESC,CREDITS_ICONPATH,false,CREDITS_TITLE)
-		addQuest(HOWTO_DESC,HOWTO_ICONPATH,true,HOWTO_TITLE)
-		addQuest(ROUNDTYPES_DESC,ROUNDTYPES_ICONPATH,true,ROUNDTYPES_TITLE)
-		addQuest(HARD_DESC,HARD_ICONPATH,true,HARD_TITLE)
+		addQuest(ABOUT_DESC, ABOUT_ICONPATH, false, ABOUT_TITLE)
+		addQuest(CREDITS_DESC, CREDITS_ICONPATH, false, CREDITS_TITLE)
+		addQuest(HOWTO_DESC, HOWTO_ICONPATH, true, HOWTO_TITLE)
+		addQuest(ROUNDTYPES_DESC, ROUNDTYPES_ICONPATH, true, ROUNDTYPES_TITLE)
+		addQuest(HARD_DESC, HARD_ICONPATH, true, HARD_TITLE)
 	end

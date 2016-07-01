@@ -9,8 +9,8 @@ scope ArchLightning initializer init
 	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
-			IssueTargetOrder(dS,"forkedlightning",GetTriggerUnit())
-		endif
+			IssueTargetOrder(dS, "forkedlightning", GetTriggerUnit())
+		end
 	end
 
 	function init takes nothing returns nothing

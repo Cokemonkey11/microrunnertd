@@ -43,9 +43,9 @@ package Game
 
 		private static effect bigFx
 
-		static boolean ended = false
+		static boolean ended   = false
 		static boolean started = false
-		static boolean hard = false
+		static boolean hard    = false
 		static boolean array upgraded
 		static integer round
 		private static timer roundTimer = CreateTimer()
@@ -101,20 +101,20 @@ package Game
 		static function end takes nothing returns nothing
 			Units.freezeAll()
 			ended = true
-			TimerStart(CreateTimer(),20.,false,function fadeWait)
-			TimerStart(CreateTimer(),30.,false,function afterEnd)
+			TimerStart(CreateTimer(), 20., false, function fadeWait)
+			TimerStart(CreateTimer(), 30., false, function afterEnd)
 		end
 
 		private static function hint0 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
-			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Tip:|r You can upgrade various runner improvements at your altar.")
-			Sounds.play(TIP,1.,127)
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Tip:|r You can upgrade various runner improvements at your altar.")
+			Sounds.play(TIP, 1., 127)
 		end
 
 		private static function hint1 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
-			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Tip:|r If both players type |cffffcc00-hard|r before the practice round begins, the game becomes more difficult.")
-			Sounds.play(TIP,1.,127)
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Tip:|r If both players type |cffffcc00-hard|r before the practice round begins, the game becomes more difficult.")
+			Sounds.play(TIP, 1., 127)
 		end
 
 		private static function spawn takes nothing returns nothing
@@ -122,70 +122,70 @@ package Game
 			integer size
 			unit u
 			DestroyEffect(bigFx)
-			Sounds.play(BEGIN,1.,127)
+			Sounds.play(BEGIN, 1., 127)
 			if round == 0 then
-				DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Practice Round|r")
+				DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Practice Round|r")
 			else
-				DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Round: |r"+I2S(round))
-			endif
+				DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Round: |r" + I2S(round))
+			end
 
 			// Display upgrade tip only if neither player has upgraded already
 			if round == 10 and ( (not (upgraded[0] or upgraded[1]) or (not upgraded[0] and Players.playing[0]) or (not upgraded[1] and Players.playing[1])) ) then
-				TimerStart(CreateTimer(),5.,false,function hint0)
-			endif
+				TimerStart(CreateTimer(), 5., false, function hint0)
+			end
 
 			// Display hard mode tip only in co-operative normal mode
 			if round == 20 and not Game.hard and Players.playingCount > 1 then
-				TimerStart(CreateTimer(),5.,false,function hint1)
-			endif
+				TimerStart(CreateTimer(), 5., false, function hint1)
+			end
 			size = SPAWN_SIZE
-			if ModuloInteger(round,6) == 0 then
+			if ModuloInteger(round, 6) == 0 then
 				// Hero Round
 				if (round != 0) then
-					DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Boss Round!|r")
-				endif
+					DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Boss Round!|r")
+				end
 				if (round == 6) then
-					Sounds.play(BANDIT,1.,127)
-				endif
+					Sounds.play(BANDIT, 1., 127)
+				end
 				if (round == 12) then
-					Sounds.play(KING,1.,127)
-				endif
+					Sounds.play(KING, 1., 127)
+				end
 				if (round == 18) then
-					Sounds.play(QUILL,1.,127)
-				endif
+					Sounds.play(QUILL, 1., 127)
+				end
 				if (round == 24) then
-					Sounds.play(CHIEF,1.,127)
-				endif
+					Sounds.play(CHIEF, 1., 127)
+				end
 				if (round == 30) then
-					Sounds.play(LORD, 1.,127)
-				endif
+					Sounds.play(LORD, 1., 127)
+				end
 				size = 2
-			endif
-			if ModuloInteger(round,14) == 0 and round !=0 then
+			end
+			if ModuloInteger(round, 14) == 0 and round !=0 then
 				size = size * 2
-				DisplayTextToPlayer(Players.locl,0.,0.,"|cff222222Swarm Round!|r")
-			endif
-			if ModuloInteger(round,8) == 0 and round!= 0 then
+				DisplayTextToPlayer(Players.locl, 0., 0., "|cff222222Swarm Round!|r")
+			end
+			if ModuloInteger(round, 8) == 0 and round!= 0 then
 				// Spell Immune Round
-				DisplayTextToPlayer(Players.locl,0.,0.,"|cffaacceeSpell Immune Round!|r")
-			endif
-			if ModuloInteger(round,15) == 0 and round !=0 then
+				DisplayTextToPlayer(Players.locl, 0., 0., "|cffaacceeSpell Immune Round!|r")
+			end
+			if ModuloInteger(round, 15) == 0 and round !=0 then
 				// Gravity Round
-				DisplayTextToPlayer(Players.locl,0.,0.,"|cff999999High Gravity Round!|r")
-			endif
+				DisplayTextToPlayer(Players.locl, 0., 0., "|cff999999High Gravity Round!|r")
+			end
 			loop
 				exitwhen index >= size
-				u = CreateUnit(Players.creeps,Units.spawns[round],Players.brownStartX,Players.brownStartY,180.)
+				u = CreateUnit(Players.creeps, Units.spawns[round], Players.brownStartX, Players.brownStartY, 180.)
 				if Game.hard then
-					UnitAddAbility(u,DAMAGE_BONUS)
-					UnitAddAbility(u,MOVE_SPEED_BONUS)
-				endif
+					UnitAddAbility(u, DAMAGE_BONUS)
+					UnitAddAbility(u, MOVE_SPEED_BONUS)
+				end
 				index++
-			endloop
+			end
 		end
 
 		private static function runSound takes nothing returns nothing
-			integer q = ModuloInteger(round,5)
+			integer q = ModuloInteger(round, 5)
 			if q == 0 then
 				Sounds.play(RUN1, 1., 127)
 			elseif q == 1 then
@@ -196,104 +196,104 @@ package Game
 				Sounds.play(RUN4, 1., 127)
 			else
 				Sounds.play(RUN5, 1., 127)
-			endif
+			end
 		end
 
 		private static function applyTowerGravity takes nothing returns nothing
 			unit fst
-			GroupEnumUnitsOfPlayer(grp,Players.id[0],null)
+			GroupEnumUnitsOfPlayer(grp, Players.id[0], null)
 			loop
-				fst=FirstOfGroup(grp)
+				fst = FirstOfGroup(grp)
 				exitwhen fst==null
-				if UnitAlive(fst) and IsUnitType(fst,UNIT_TYPE_STRUCTURE) then
-					UnitAddAbility(fst,'A017')
-				endif
-				GroupRemoveUnit(grp,fst)
-			endloop
-			GroupEnumUnitsOfPlayer(grp,Players.id[1],null)
+				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+					UnitAddAbility(fst, 'A017')
+				end
+				GroupRemoveUnit(grp, fst)
+			end
+			GroupEnumUnitsOfPlayer(grp, Players.id[1], null)
 			loop
-				fst=FirstOfGroup(grp)
+				fst = FirstOfGroup(grp)
 				exitwhen fst==null
-				if UnitAlive(fst) and IsUnitType(fst,UNIT_TYPE_STRUCTURE) then
-					UnitAddAbility(fst,'A017')
-				endif
-				GroupRemoveUnit(grp,fst)
-			endloop
+				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+					UnitAddAbility(fst, 'A017')
+				end
+				GroupRemoveUnit(grp, fst)
+			end
 		end
 
 		private static function removeTowerGravity takes nothing returns nothing
 			unit fst
-			GroupEnumUnitsOfPlayer(grp,Players.id[0],null)
+			GroupEnumUnitsOfPlayer(grp, Players.id[0], null)
 			loop
-				fst=FirstOfGroup(grp)
+				fst = FirstOfGroup(grp)
 				exitwhen fst==null
-				if UnitAlive(fst) and IsUnitType(fst,UNIT_TYPE_STRUCTURE) then
-					UnitRemoveAbility(fst,'A017')
-				endif
-				GroupRemoveUnit(grp,fst)
-			endloop
-			GroupEnumUnitsOfPlayer(grp,Players.id[1],null)
+				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+					UnitRemoveAbility(fst, 'A017')
+				end
+				GroupRemoveUnit(grp, fst)
+			end
+			GroupEnumUnitsOfPlayer(grp, Players.id[1], null)
 			loop
-				fst=FirstOfGroup(grp)
+				fst = FirstOfGroup(grp)
 				exitwhen fst==null
-				if UnitAlive(fst) and IsUnitType(fst,UNIT_TYPE_STRUCTURE) then
-					UnitRemoveAbility(fst,'A017')
-				endif
-				GroupRemoveUnit(grp,fst)
-			endloop
+				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+					UnitRemoveAbility(fst, 'A017')
+				end
+				GroupRemoveUnit(grp, fst)
+			end
 		end
 
 		private static function roundBegin takes nothing returns nothing
 			integer index = 0
-			TimerDialogDisplay(roundDialog,false)
+			TimerDialogDisplay(roundDialog, false)
 			if not ended then
 				if round == 0 then
 					started = true
-				endif
-				bigFx = AddSpecialEffect(TELE_BIG_FX,Players.brownStartX,Players.brownStartY)
+				end
+				bigFx = AddSpecialEffect(TELE_BIG_FX, Players.brownStartX, Players.brownStartY)
 				runSound()
-				DisplayTextToPlayer(Players.locl,0.,0.,"|cffff0000RUN AWAY|r")
-				if ModuloInteger(round,15) == 0 and round != 0 then
+				DisplayTextToPlayer(Players.locl, 0., 0., "|cffff0000RUN AWAY|r")
+				if ModuloInteger(round, 15) == 0 and round != 0 then
 					applyTowerGravity()
-				endif
+				end
 				loop
 					exitwhen index > 1
 					if Players.playing[index] then
-						Units.runners[index] = CreateUnit(Players.id[index],Units.runnerTypes[index],Players.startX[index],Players.startY[index]-16. + 32. * index,180.)
-						if ModuloInteger(round,15) == 0 and round != 0 then
-							UnitAddAbility(Units.runners[index],GRAVITY_ABILITY)
+						Units.runners[index] = CreateUnit(Players.id[index], Units.runnerTypes[index], Players.startX[index], Players.startY[index]-16. + 32. * index, 180.)
+						if ModuloInteger(round, 15) == 0 and round != 0 then
+							UnitAddAbility(Units.runners[index], GRAVITY_ABILITY)
 							Knockback3D.setGravity(90.)
 						else
 							Knockback3D.setGravity(45.)
-						endif
-						DestroyEffect(AddSpecialEffect(TELE_IN_FX,Players.startX[index],Players.startY[index]))
+						end
+						DestroyEffect(AddSpecialEffect(TELE_IN_FX, Players.startX[index], Players.startY[index]))
 						if Players.locl == Players.id[index] then
 							ClearSelection()
-							SelectUnit(Units.runners[index],true)
-							PanCameraToTimed(Players.startX[index],Players.startY[index],0.)
-						endif
-						UnitAddAbility(Units.runners[index],'Adef')
-						UnitRemoveAbility(Units.runners[index],'Adef')
-					endif
+							SelectUnit(Units.runners[index], true)
+							PanCameraToTimed(Players.startX[index], Players.startY[index], 0.)
+						end
+						UnitAddAbility(Units.runners[index], 'Adef')
+						UnitRemoveAbility(Units.runners[index], 'Adef')
+					end
 					index++
-				endloop
-				TimerStart(GetExpiredTimer(),SPAWN_DELAY,false,function spawn)
-			endif
+				end
+				TimerStart(GetExpiredTimer(), SPAWN_DELAY, false, function spawn)
+			end
 		end
 
 		private static function queueRound takes nothing returns nothing
 			if Game.hard then
-				TimerStart(roundTimer,ROUND_DELAY_HARD,false,function roundBegin)
+				TimerStart(roundTimer, ROUND_DELAY_HARD, false, function roundBegin)
 			else
-				TimerStart(roundTimer,ROUND_DELAY,false,function roundBegin)
-			endif
-			TimerDialogSetTitle(roundDialog,"Round "+I2S(round)+" in")
-			TimerDialogDisplay(roundDialog,true)
+				TimerStart(roundTimer, ROUND_DELAY, false, function roundBegin)
+			end
+			TimerDialogSetTitle(roundDialog, "Round " + I2S(round) + " in")
+			TimerDialogDisplay(roundDialog, true)
 		end
 
 		static function practiceRound takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
-			DisplayTextToPlayer(Players.locl,0.,0.,"\nThe first round will be a |cffffcc00practice|r round to show you how it works!")
+			DisplayTextToPlayer(Players.locl, 0., 0., "\nThe first round will be a |cffffcc00practice|r round to show you how it works!")
 			round = 0
 			queueRound()
 		end
@@ -303,147 +303,147 @@ package Game
 			integer val
 			round++
 			if not ended then
-				if ModuloInteger(round-1,15) == 0 and round-1 !=0 then
+				if ModuloInteger(round-1, 15) == 0 and round-1 !=0 then
 					removeTowerGravity()
-				endif
+				end
 				loop
 					exitwhen index > 1
 					if UnitAlive(Units.runners[index]) then
-						DestroyEffect(AddSpecialEffect(TELE_FX,GetUnitX(Units.runners[index]),GetUnitY(Units.runners[index])))
+						DestroyEffect(AddSpecialEffect(TELE_FX, GetUnitX(Units.runners[index]), GetUnitY(Units.runners[index])))
 						RemoveUnit(Units.runners[index])
-					endif
+					end
 					index++
-				endloop
+				end
 				if round >= Units.ROUND_COUNT then
-					RemovePlayer(Players.id[0],PLAYER_GAME_RESULT_VICTORY)
-					RemovePlayer(Players.id[1],PLAYER_GAME_RESULT_VICTORY)
-					DisplayTextToPlayer(Players.locl,0.,0.,"You won every round, |cffffcc00congratulations|r! The game will end in 30 seconds.")
-					Sounds.play(VICTORY,1.,127)
+					RemovePlayer(Players.id[0], PLAYER_GAME_RESULT_VICTORY)
+					RemovePlayer(Players.id[1], PLAYER_GAME_RESULT_VICTORY)
+					DisplayTextToPlayer(Players.locl, 0., 0., "You won every round, |cffffcc00congratulations|r! The game will end in 30 seconds.")
+					Sounds.play(VICTORY, 1., 127)
 					end()
 				else
 					if round == 1 then
-						DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Great job!|r The first round will begin momentarily.")
+						DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Great job!|r The first round will begin momentarily.")
 					else
 						val = R2I((GOLD_BASE + GOLD_PER_LEVEL * (round-1)) / Players.playingCount)
-						DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Success!|r You received |cffffcc00" + I2S(val) + /*
+						DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Success!|r You received |cffffcc00" + I2S(val) + /*
 							*/ "|r bonus gold for completing |cffffcc00round " + I2S(round-1) + "|r. The next round will begin momentarily!")
-						SetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD) + val)
-						SetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD) + val)
-					endif
+						SetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD) + val)
+						SetPlayerState(Players.id[1], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[1], PLAYER_STATE_RESOURCE_GOLD) + val)
+					end
 					queueRound()
-				endif
-			endif
+				end
+			end
 		end
 
 		private static function fadeCameraAsync1 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
-			CameraSetupApply(setup,true,true)
+			CameraSetupApply(setup, true, true)
 			fadeIn(.25)
 		end
 
 		private static function fadeCameraAsync takes camerasetup q returns nothing
 			setup = q
 			fadeOut(.25)
-			TimerStart(CreateTimer(),.25,false,function fadeCameraAsync1)
+			TimerStart(CreateTimer(), .25, false, function fadeCameraAsync1)
 		end
 
 		private static function tip0 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
-			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Tip:|r There are |cffffcc00Boss|r, " + /*
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Tip:|r There are |cffffcc00Boss|r, " + /*
 				*/ "|cffaacceeSpell Immune|r, |cff222222Swarm|r, and |cff999999High Gravity|r Rounds.")
-			Sounds.play(TIP,1.,127)
+			Sounds.play(TIP, 1., 127)
 		end
 
 		private static function afterChoose takes nothing returns nothing
 			integer r
 			unit u
 			if Players.playing[0] and Units.runnerTypes[0]==0 then
-				r = GetRandomInt(0,1)
+				r = GetRandomInt(0, 1)
 				if r == 0 then
-					u = CreateUnit(Players.id[0],Units.SPIRIT_ID,GetUnitX(Units.choosers[0]),GetUnitY(Units.choosers[0]),270.)
-					DisplayTextToPlayer(Players.id[0],0.,0.,"You took too long to choose, and have randomed |cffffcc00Spirit|r.")
+					u = CreateUnit(Players.id[0], Units.SPIRIT_ID, GetUnitX(Units.choosers[0]), GetUnitY(Units.choosers[0]), 270.)
+					DisplayTextToPlayer(Players.id[0], 0., 0., "You took too long to choose, and have randomed |cffffcc00Spirit|r.")
 					if Players.locl == Players.id[0] then
-						SelectUnit(u,true)
-					endif
+						SelectUnit(u, true)
+					end
 					Units.runnerTypes[0] = Units.RUNNER_ID
-					CreateUnit(Players.id[0],Units.SPIRIT_ALTAR_ID,Players.altarX[0],Players.altarY[0],270.)
+					CreateUnit(Players.id[0], Units.SPIRIT_ALTAR_ID, Players.altarX[0], Players.altarY[0], 270.)
 				else
-					u = CreateUnit(Players.id[0],Units.WASTE_ID,GetUnitX(Units.choosers[0]),GetUnitY(Units.choosers[0]),270.)
-					DisplayTextToPlayer(Players.id[0],0.,0.,"You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
+					u = CreateUnit(Players.id[0], Units.WASTE_ID, GetUnitX(Units.choosers[0]), GetUnitY(Units.choosers[0]), 270.)
+					DisplayTextToPlayer(Players.id[0], 0., 0., "You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
 					if Players.locl == Players.id[0] then
-						SelectUnit(u,true)
-					endif
+						SelectUnit(u, true)
+					end
 					Units.runnerTypes[0] = Units.RUNNER_WASTE_ID
-					CreateUnit(Players.id[0],Units.WASTE_ALTAR_ID,Players.altarX[0],Players.altarY[0],270.)
-				endif
+					CreateUnit(Players.id[0], Units.WASTE_ALTAR_ID, Players.altarX[0], Players.altarY[0], 270.)
+				end
 				RemoveUnit(Units.choosers[0])
-			endif
+			end
 			if Players.playing[1] and Units.runnerTypes[1]==0 then
-				r = GetRandomInt(0,1)
+				r = GetRandomInt(0, 1)
 				if r == 0 then
-					u = CreateUnit(Players.id[1],Units.SPIRIT_ID,GetUnitX(Units.choosers[1]),GetUnitY(Units.choosers[1]),270.)
-					DisplayTextToPlayer(Players.id[1],0.,0.,"You took too long to choose, and have randomed |cffffcc00Spirit|r.")
+					u = CreateUnit(Players.id[1], Units.SPIRIT_ID, GetUnitX(Units.choosers[1]), GetUnitY(Units.choosers[1]), 270.)
+					DisplayTextToPlayer(Players.id[1], 0., 0., "You took too long to choose, and have randomed |cffffcc00Spirit|r.")
 					if Players.locl == Players.id[1] then
-						SelectUnit(u,true)
-					endif
+						SelectUnit(u, true)
+					end
 					Units.runnerTypes[1] = Units.RUNNER_ID
-					CreateUnit(Players.id[1],Units.SPIRIT_ALTAR_ID,Players.altarX[1],Players.altarY[0],270.)
+					CreateUnit(Players.id[1], Units.SPIRIT_ALTAR_ID, Players.altarX[1], Players.altarY[0], 270.)
 				else
-					u = CreateUnit(Players.id[1],Units.WASTE_ID,GetUnitX(Units.choosers[1]),GetUnitY(Units.choosers[1]),270.)
-					DisplayTextToPlayer(Players.id[1],0.,0.,"You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
+					u = CreateUnit(Players.id[1], Units.WASTE_ID, GetUnitX(Units.choosers[1]), GetUnitY(Units.choosers[1]), 270.)
+					DisplayTextToPlayer(Players.id[1], 0., 0., "You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
 					if Players.locl == Players.id[1] then
-						SelectUnit(u,true)
-					endif
+						SelectUnit(u, true)
+					end
 					Units.runnerTypes[1] = Units.RUNNER_WASTE_ID
-					CreateUnit(Players.id[1],Units.WASTE_ALTAR_ID,Players.altarX[1],Players.altarY[1],270.)
-				endif
+					CreateUnit(Players.id[1], Units.WASTE_ALTAR_ID, Players.altarX[1], Players.altarY[1], 270.)
+				end
 				RemoveUnit(Units.choosers[1])
-			endif
+			end
 			DestroyTimer(GetExpiredTimer())
 			DestroyTimerDialog(chooseDialog)
-			TimerStart(CreateTimer(),15.,false,function practiceRound)
+			TimerStart(CreateTimer(), 15., false, function practiceRound)
 		end
 
 		private static function cinematicSequence3 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
-			ShowInterface(true,.5)
+			ShowInterface(true, .5)
 			fadeCameraAsync(gg_cam_defaultCamera)
 			EnableUserControl(true)
 			RemoveUnit(demoRunner)
 			RemoveUnit(demoTower)
 			RemoveUnit(demoChaser)
 			chooseDialog = CreateTimerDialog(chooseTimer)
-			TimerStart(chooseTimer,15.,false,function afterChoose)
-			TimerDialogSetTitle(chooseDialog,"Race select")
-			TimerDialogDisplay(chooseDialog,true)
+			TimerStart(chooseTimer, 15., false, function afterChoose)
+			TimerDialogSetTitle(chooseDialog, "Race select")
+			TimerDialogDisplay(chooseDialog, true)
 			roundDialog = CreateTimerDialog(roundTimer)
-			TimerStart(CreateTimer(),24.,false,function tip0)
-			DisplayTextToPlayer(Players.locl,0.,0.,"\n|cffffcc00Tip:|r You have |cffffcc0015|r seconds to choose a race.")
-			Sounds.play(TIP,1.,127)
+			TimerStart(CreateTimer(), 24., false, function tip0)
+			DisplayTextToPlayer(Players.locl, 0., 0., "\n|cffffcc00Tip:|r You have |cffffcc0015|r seconds to choose a race.")
+			Sounds.play(TIP, 1., 127)
 		end
 
 		private static function cinematicSequence2 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
 			fadeCameraAsync(gg_cam_cinematicCamera2)
-			DisplayTextToPlayer(Players.locl,0.,0.,"\nBuild towers on the |cff33cc66grass|r, and bait the enemy to their death.")
-			TimerStart(CreateTimer(),5.,false,function cinematicSequence3)
+			DisplayTextToPlayer(Players.locl, 0., 0., "\nBuild towers on the |cff33cc66grass|r, and bait the enemy to their death.")
+			TimerStart(CreateTimer(), 5., false, function cinematicSequence3)
 		end
 
 		private static function cinematicSequence1 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
 			fadeIn(.5)
-			demoRunner = CreateUnit(Player(2),Units.RUNNER_ID,0.,1024.,180.)
-			demoTower = CreateUnit(Player(2),'h007',-851.,562.,270.)
-			demoChaser = CreateUnit(Players.creeps,'h022',256. + 128.,1024.,0.)
-			SetUnitState(demoTower,UNIT_STATE_MANA,500.)
-			SetUnitMoveSpeed(demoRunner,200.)
-			SetUnitMoveSpeed(demoChaser,230.)
-			CameraSetupApply(gg_cam_cinematicCamera1,true,true)
-			IssueTargetOrder(demoChaser,"attack",demoRunner)
-			IssuePointOrder(demoRunner,"move",-1024.,0.)
-			Sounds.play(BANDIT_DEMO,1.,127)
-			DisplayTextToPlayer(Players.locl,0.,0.,"\nThe forces of |cff993333Doom|r are after your runner!")
-			TimerStart(CreateTimer(),3.5,false,function cinematicSequence2)
+			demoRunner = CreateUnit(Player(2), Units.RUNNER_ID, 0., 1024., 180.)
+			demoTower = CreateUnit(Player(2), 'h007', -851., 562., 270.)
+			demoChaser = CreateUnit(Players.creeps, 'h022', 256. + 128., 1024., 0.)
+			SetUnitState(demoTower, UNIT_STATE_MANA, 500.)
+			SetUnitMoveSpeed(demoRunner, 200.)
+			SetUnitMoveSpeed(demoChaser, 230.)
+			CameraSetupApply(gg_cam_cinematicCamera1, true, true)
+			IssueTargetOrder(demoChaser, "attack", demoRunner)
+			IssuePointOrder(demoRunner, "move", -1024., 0.)
+			Sounds.play(BANDIT_DEMO, 1., 127)
+			DisplayTextToPlayer(Players.locl, 0., 0., "\nThe forces of |cff993333Doom|r are after your runner!")
+			TimerStart(CreateTimer(), 3.5, false, function cinematicSequence2)
 		end
 
 		static function cinematicSequence0 takes nothing returns nothing
@@ -451,7 +451,7 @@ package Game
 			DestroyTimer(GetExpiredTimer())
 			ShowInterface(false, 0.)
 	        EnableUserControl(false)
-			TimerStart(CreateTimer(),1.,false,function cinematicSequence1)
+			TimerStart(CreateTimer(), 1., false, function cinematicSequence1)
 		end
 	end
 
@@ -464,23 +464,23 @@ package Game
 			if Players.playing[index] then
 
 				// Spawn Starting Units
-				Units.choosers[index] = CreateUnit(Players.id[index],Units.RACE_SELECT,Players.startX[index],Players.startY[index],270.)
+				Units.choosers[index] = CreateUnit(Players.id[index], Units.RACE_SELECT, Players.startX[index], Players.startY[index], 270.)
 				if Players.locl == Players.id[index] then
-					SelectUnit(Units.choosers[index],true)
-				endif
+					SelectUnit(Units.choosers[index], true)
+				end
 
 				// Adjust Starting Gold
-				SetPlayerState(Players.id[index],PLAYER_STATE_RESOURCE_GOLD, R2I(Game.GOLD_START / Players.playingCount))
-			endif
+				SetPlayerState(Players.id[index], PLAYER_STATE_RESOURCE_GOLD, R2I(Game.GOLD_START / Players.playingCount))
+			end
 			index++
-		endloop
+		end
 
 		// Adjust Fog
 		FogEnable(false)
 		FogMaskEnable(false)
 
 		// Messages
-		TimerStart(CreateTimer(),0.,false, function Game.cinematicSequence0)
+		TimerStart(CreateTimer(), 0., false, function Game.cinematicSequence0)
 
 		// Preload runaway sounds
 		Sounds.preload(Game.RUN1)

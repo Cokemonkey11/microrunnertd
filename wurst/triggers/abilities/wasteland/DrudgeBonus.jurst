@@ -14,9 +14,9 @@ scope DrudgeBonus initializer init
 		real r
 		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and getUnitArmorType(tU) == ArmorType.HEAVY_NORMAL then
 			r = GetEventDamage()
-			DamageType.dealCodeDamage(dS,tU,r)
-			FloatText.bonus(GetUnitX(tU),GetUnitY(tU),R2I(2.*r))
-		endif
+			DamageType.dealCodeDamage(dS, tU, r)
+			FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(2.*r))
+		end
 	end
 
 	function init takes nothing returns nothing

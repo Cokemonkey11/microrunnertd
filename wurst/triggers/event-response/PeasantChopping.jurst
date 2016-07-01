@@ -2,7 +2,7 @@ scope PeasantChopping initializer init
 	import Players
 
 	function init takes nothing returns nothing
-		unit p = CreateUnit(Players.passive,'h02E',0.,1480.,0.)
-		IssueTargetOrder(p,"attack",CreateDestructable('B002',78.,1600.,270.,1.,1))
-		UnitAddAbility(p,'Aloc')
+		unit p = CreateUnit(Players.passive, 'h02E', 0., 1480., 0.)
+		IssueTargetOrder(p, "attack", CreateDestructable('B002', 78., 1600., 270., 1., 1))
+		UnitAddAbility(p, 'Aloc')
 	end

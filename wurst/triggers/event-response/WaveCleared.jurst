@@ -1,29 +1,28 @@
-scope WaveCleared initializer init
+package WaveCleared
 	import RegisterPlayerUnitEvent
 	import Sounds
 	import Players
 	import Game
 
-	globals
-		constant string WAVE_CLEAR = "Sound\\Interace\\GoodJob.wav"
-	end
+	constant string WAVE_CLEAR = "Sound\\Interace\\GoodJob.wav"
 
 	function act takes nothing returns nothing
 		unit tU = GetTriggerUnit()
 
 		// Execution conditions:
 		boolean b = GetOwningPlayer(tU) == Players.creeps
-		b = b and not IsUnitType(tU,UNIT_TYPE_SUMMONED)
-		b = b and GetPlayerState(Players.creeps,PLAYER_STATE_RESOURCE_FOOD_USED)<=0
+		b = b and not IsUnitType(tU, UNIT_TYPE_SUMMONED)
+		b = b and GetPlayerState(Players.creeps, PLAYER_STATE_RESOURCE_FOOD_USED)<=0
+		b = b and Game.started
 
 		// Evaluate:
 		if b then
 			Game.success()
-			Sounds.play(WAVE_CLEAR,1.,127)
-		endif
+			Sounds.play(WAVE_CLEAR, 1., 127)
+		end
 	end
 
-	function init takes nothing returns nothing
-		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH,function act)
+	init
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH, function act)
 		Sounds.preload(WAVE_CLEAR)
 	end

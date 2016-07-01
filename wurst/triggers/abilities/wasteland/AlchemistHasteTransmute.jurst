@@ -12,12 +12,12 @@ scope AlchemistHasteTransmute initializer init
 		unit tU
 		player p
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
-			IssueImmediateOrder(dS,"berserk")
+			IssueImmediateOrder(dS, "berserk")
 			p = GetOwningPlayer(dS)
-			SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + 1)
+			SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + 1)
 			tU = GetTriggerUnit()
-			FloatText.bountyPlayer(GetUnitX(tU),GetUnitY(tU),1,p)
-		endif
+			FloatText.bountyPlayer(GetUnitX(tU), GetUnitY(tU), 1,p)
+		end
 	end
 
 	function init takes nothing returns nothing

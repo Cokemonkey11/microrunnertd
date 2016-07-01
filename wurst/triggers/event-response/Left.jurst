@@ -22,37 +22,37 @@ scope Left initializer init
 			grp = CreateGroup()
 			Players.playing[id] = false
 			Players.playingCount = Players.playingCount - 1
-			q = GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD)
-			SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,0)
-			SetPlayerState(Players.id[oid],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[oid],PLAYER_STATE_RESOURCE_GOLD) + q)
-			GroupEnumUnitsOfPlayer(grp,Players.id[id],null)
-			loop	
+			q = GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD)
+			SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, 0)
+			SetPlayerState(Players.id[oid], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[oid], PLAYER_STATE_RESOURCE_GOLD) + q)
+			GroupEnumUnitsOfPlayer(grp, Players.id[id], null)
+			loop
 				fst = FirstOfGroup(grp)
 				exitwhen fst== null
 				if GetUnitTypeId(fst) == Units.RACE_SELECT then
 					RemoveUnit(fst)
 				else
-					SetUnitOwner(fst,Players.id[oid],false)
-				endif
-				GroupRemoveUnit(grp,fst)
-			endloop
+					SetUnitOwner(fst, Players.id[oid], false)
+				end
+				GroupRemoveUnit(grp, fst)
+			end
 			if not Game.ended then
-				DisplayTextToPlayer(Players.locl,0.,0.,"\n|cffffcc00" + GetPlayerName(p) + /*
+				DisplayTextToPlayer(Players.locl, 0., 0., "\n|cffffcc00" + GetPlayerName(p) + /*
 					*/ "|r has left the game. You received |cffffcc00" + I2S(q) + "|r gold.")
-				Sounds.play(LIGHTNING,1.,127)
+				Sounds.play(LIGHTNING, 1., 127)
 			else
-				DisplayTextToPlayer(Players.locl,0.,0.,"\n|cffffcc00" + GetPlayerName(p) + /*
+				DisplayTextToPlayer(Players.locl, 0., 0., "\n|cffffcc00" + GetPlayerName(p) + /*
 					*/ "|r has left the game.")
-			endif
-		endif
+			end
+		end
 		return false
 	end
 
 	function init takes nothing returns nothing
 		trigger t = CreateTrigger()
-		TriggerRegisterPlayerEvent(t,Players.id[0],EVENT_PLAYER_LEAVE)
-		TriggerRegisterPlayerEvent(t,Players.id[1],EVENT_PLAYER_LEAVE)
-		TriggerAddCondition(t,Condition(function cond))
+		TriggerRegisterPlayerEvent(t, Players.id[0], EVENT_PLAYER_LEAVE)
+		TriggerRegisterPlayerEvent(t, Players.id[1], EVENT_PLAYER_LEAVE)
+		TriggerAddCondition(t, Condition(function cond))
 
 		Sounds.preload(LIGHTNING)
 	end

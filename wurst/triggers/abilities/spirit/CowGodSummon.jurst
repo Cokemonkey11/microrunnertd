@@ -14,13 +14,13 @@ scope CowGodSummon initializer init
 		unit tU
 		if GetUnitTypeId(dS) == COW_ID and DamageType.get() == DamageType.ATTACK then
 			tU = GetTriggerUnit()
-			q = CreateUnit(GetOwningPlayer(dS),TAUREN_ID,GetUnitX(tU),GetUnitY(tU),270.)
-			DestroyEffect(AddSpecialEffect(FX,GetUnitX(q),GetUnitY(q)))
-			UnitApplyTimedLife(q,'BTLF',14.)
-			UnitAddAbility(q,'Aloc')
-			SetUnitExploded(q,true)
-			SetUnitVertexColor(q,255,255,255,125)
-		endif
+			q = CreateUnit(GetOwningPlayer(dS), TAUREN_ID, GetUnitX(tU), GetUnitY(tU), 270.)
+			DestroyEffect(AddSpecialEffect(FX, GetUnitX(q), GetUnitY(q)))
+			UnitApplyTimedLife(q, 'BTLF', 14.)
+			UnitAddAbility(q, 'Aloc')
+			SetUnitExploded(q, true)
+			SetUnitVertexColor(q, 255, 255, 255, 125)
+		end
 	end
 
 	function init takes nothing returns nothing

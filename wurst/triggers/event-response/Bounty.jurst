@@ -10,12 +10,12 @@ scope Bounty initializer init
 		integer id = GetUnitTypeId(tU)
 		if GetOwningPlayer(tU) == Players.creeps and Units.bounties.hasInt(id) then
 			val = R2I(Units.bounties.loadInt(id) / Players.playingCount)
-			FloatText.bounty(GetUnitX(tU),GetUnitY(tU),val)
-			SetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[0],PLAYER_STATE_RESOURCE_GOLD) + val)
-			SetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(Players.id[1],PLAYER_STATE_RESOURCE_GOLD) + val)
-		endif
+			FloatText.bounty(GetUnitX(tU), GetUnitY(tU), val)
+			SetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD) + val)
+			SetPlayerState(Players.id[1], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[1], PLAYER_STATE_RESOURCE_GOLD) + val)
+		end
 	end
 
 	function init takes nothing returns nothing
-		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH,function a)
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH, function a)
 	end

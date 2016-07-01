@@ -13,12 +13,12 @@ scope ExecRidingExecute initializer init
 		unit tU = GetTriggerUnit()
 		real q
 		real r
-		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units.IMMUNE)<1 then
+		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1 then
 			q = GetEventDamage()
-			r = 1. - GetUnitState(tU,UNIT_STATE_LIFE) / GetUnitState(tU,UNIT_STATE_MAX_LIFE)
-			DamageType.dealCodeDamage(dS,tU,q * r)
-			FloatText.bonus(GetUnitX(tU),GetUnitY(tU),R2I(q * (1 + r)))
-		endif
+			r = 1. - GetUnitState(tU, UNIT_STATE_LIFE) / GetUnitState(tU, UNIT_STATE_MAX_LIFE)
+			DamageType.dealCodeDamage(dS, tU, q * r)
+			FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(q * (1 + r)))
+		end
 	end
 
 	function init takes nothing returns nothing

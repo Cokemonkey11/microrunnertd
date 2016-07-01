@@ -13,38 +13,38 @@ scope Hard initializer init
 		integer pid = GetPlayerId(p)
 		if not (Players.playing[0] and Players.playing[1]) then
 			DestroyTrigger(GetTriggeringTrigger())
-			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Hard Mode|r not available in single player.")
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Hard Mode|r not available in single player.")
 			return false
-		endif
+		end
 		if Game.started then
 			DestroyTrigger(GetTriggeringTrigger())
-			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Hard Mode|r must be enabled before the practice round begins.")
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Hard Mode|r must be enabled before the practice round begins.")
 		elseif voted[pid] == false then
 			voted[pid] = true
 			if voted[0] and voted[1] then
 				DestroyTrigger(GetTriggeringTrigger())
 
-				Sounds.play(LEVER,1.,127)
+				Sounds.play(LEVER, 1., 127)
 
 				// "Hard Mode Enabled"
-				DisplayTextToPlayer(Players.locl,0.,0.,"|cFFFFFFFFH|r|cFFFEFBF0a|r" + /*
+				DisplayTextToPlayer(Players.locl, 0., 0., "|cFFFFFFFFH|r|cFFFEFBF0a|r" + /*
 					*/ "|cFFFDF8E1r|r|cFFFCF4D2d|r|cFFFAF0C3 |r|cFFF9EDB4M|r|cFFF8E9A5o|r" + /*
 					*/ "|cFFF7E696d|r|cFFF6E287e|r|cFFF5DE78 |r|cFFF4DB69E|r|cFFF3D75An|r" + /*
 					*/ "|cFFF1D34Ba|r|cFFF0D03Cb|r|cFFEFCC2Dl|r|cFFEEC91Ee|r|cFFEDC50Fd|r")
 
 				Game.hard = true
 			else
-				DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00" + GetPlayerName(p) + "|r has voted for |cffffcc00Hard Mode!|r Both players must vote to enable it.")
-			endif
-		endif
+				DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00" + GetPlayerName(p) + "|r has voted for |cffffcc00Hard Mode!|r Both players must vote to enable it.")
+			end
+		end
 		return false
 	end
 
 	function init takes nothing returns nothing
 		trigger t = CreateTrigger()
-		TriggerRegisterPlayerChatEvent(t,Players.id[0],"-hard",true)
-		TriggerRegisterPlayerChatEvent(t,Players.id[1],"-hard",true)
-		TriggerAddCondition(t,Condition(function cond))
+		TriggerRegisterPlayerChatEvent(t, Players.id[0], "-hard", true)
+		TriggerRegisterPlayerChatEvent(t, Players.id[1], "-hard", true)
+		TriggerAddCondition(t, Condition(function cond))
 		voted[0] = false
 		voted[1] = false
 

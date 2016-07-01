@@ -2,14 +2,9 @@
  * Knockback3D by Cokemonkey11, a projectile motion emulator for unit knockback effects.
  *
  * Requirements:
- *		Optional IsDestructableTree
- * 			Supports both PitzerMike's (http://goo.gl/zZHhGc) and BPower's (http://goo.gl/jGYFQK)
- *			implementation. Use one or none.
- *
- *		IsTerrainWalkable or TerrainPathability
- * 			To more accurately detect collisions, you must have either IsTerrainWalkable by Anitarf
- *			and Vexorian (http://goo.gl/bf1wpN) OR TerrainPathability by Rising_Dusk
- *			(http://goo.gl/UTzPdG).
+ *		IsTerrainWalkable
+ * 			To more accurately detect collisions, you must have IsTerrainWalkable by Anitarf
+ *			and Vexorian (http://goo.gl/bf1wpN).
  *
  * API:
  * 		constant boolean USE_MOVESPEED_MODIFIERS - Prevent a unit from moving while airborne
@@ -31,9 +26,9 @@
  * 		constant real MAX_HEIGHT_DESTROY_DESTRUCTABLE - The flying height at which destru. destroyed
  *
  *		Knockback3D.updateMapArea(rect r)
- *		Knockback3D.add(unit,real a, real b, real c) - Apply vector of size a to unit towards b on
+ *		Knockback3D.add(unit, real a, real b, real c) - Apply vector of size a to unit towards b on
  *			the XY plane, and c on the Z axis.
- *		Knockback3D.setVel(unit,real a, real b, real c) - Set unit's knockback vector to a towards b
+ *		Knockback3D.setVel(unit, real a, real b, real c) - Set unit's knockback vector to a towards b
  *			on the XY plan and c on the Z axis.
  */
 library Knockback3D
@@ -48,18 +43,18 @@ library Knockback3D
 		 * speed. If false, units in mid air can still fully control themselves. Warning: This is
 		 * not a lock-safe crowd-control implementation.
 		 */
-        constant boolean USE_MOVESPEED_MODIFIERS=true
+        constant boolean USE_MOVESPEED_MODIFIERS = true
 
 		/**
 		 * Defines whether the script should check enumerated destructables as being trees or not.
 		 * If enabled, will only work if IsDestructableTree library is available.
 		 */
-		constant boolean USE_TREE_CHECKER=false
+		constant boolean USE_TREE_CHECKER = false
 
 		/**
 		 * Defines whether to enumerate and destroy destructables in contact with projectile bodies.
 		 */
-		constant boolean DESTROY_DESTRUCTABLES_ONHIT=false
+		constant boolean DESTROY_DESTRUCTABLES_ONHIT = false
 	end
 
 	/**
@@ -70,88 +65,88 @@ library Knockback3D
 		/**
 		 * A parameter for controlling the system clock, in seconds. 1/30 runs 30 times per second.
 		 */
-        private static constant real CLOCK_PERIOD=1./30.
+        private static constant real CLOCK_PERIOD = 1./30.
 
 		/**
 		 * A measure of velocity retention after colliding with ground. 0.4 means 40% retention.
 		 */
-        private static constant real COEFF_RESTITUTION_GROUND=.2
+        private static constant real COEFF_RESTITUTION_GROUND = .2
 
 		/**
 		 * How much velocity should be retained after hitting a destructable. A value of .3 means
 		 * 30% velocity is retained.
 		 */
-        private static constant real COEFF_RESTITUTION_DSTRBL=.3
+        private static constant real COEFF_RESTITUTION_DSTRBL = .3
 
 		/**
 		 * What fraction of velocity should be lost with every iteration of ground friction. Note
 		 * that simulating an abstraction of friction in units per second overflows real precision
 		 * numbers. Thus, you must adjust this according to your clock period.
 		 */
-        private static constant real FRICTION_ITER_MULTIPLIER=.15
+        private static constant real FRICTION_ITER_MULTIPLIER = .15
 
 		/**
 		 * The downward acceleration of units in motion. A value of CLOCK_PERIOD*41.25 means they
 		 * accelerate downwards by 41.25 game units per second.
 		 */
-        private static constant real GRAVITY=CLOCK_PERIOD*45.
+        private static constant real GRAVITY = CLOCK_PERIOD*45.
 
 		/**
 		 * The minimum fall-speed for a unit to bounce. CLOCK_PERIOD*-300. means that the a unit
 		 * must be falling at 300 units per second to bounce.
 		 */
-        private static constant real MAX_Z_VELOCITY_TO_BOUNCE=CLOCK_PERIOD*-300.
+        private static constant real MAX_Z_VELOCITY_TO_BOUNCE = CLOCK_PERIOD*-300.
 
 		/**
 		 * The minimum z-velocity of a unit to actually have it's flying height changed, instead of
 		 * simply sliding. Note: This may need refactoring in combination with
 		 * MAX_Z_VELOCITY_TO_BOUNCE
 		 */
-        private static constant real MIN_Z_VELOCITY_TO_BECOME_AIRBORNE=CLOCK_PERIOD*150.
+        private static constant real MIN_Z_VELOCITY_TO_BECOME_AIRBORNE = CLOCK_PERIOD*150.
 
 		/**
 		 * This is the minimum height a unit can be at before friction is applied. Recommend a value
 		 * greater than 0 as floating units have a small non-zero value.
 		 */
-        private static constant real MIN_FLY_HEIGHT=5.
+        private static constant real MIN_FLY_HEIGHT = 5.
 
 		/**
 		 * The minimum horizontal velocity a unit can be sliding before the system ignores it. A
 		 * value of CLOCK_PERIOD*30 means the unit will stop sliding when its slide speed reduces
 		 * past 30 units per second.
 		 */
-        private static constant real MIN_FOR_KNOCKBACK=CLOCK_PERIOD*30.
+        private static constant real MIN_FOR_KNOCKBACK = CLOCK_PERIOD*30.
 
 		/**
 		 * The minimum speed a sliding unit must be moving to spawn a "friction" special effect. A
 		 * value of CLOCK_PERIOD*180 means the effect is applied while units are moving faster than
 		 * 180 game units per second.
 		 */
-        private static constant real MIN_SPEED_FRICTION_FX=CLOCK_PERIOD*180.
+        private static constant real MIN_SPEED_FRICTION_FX = CLOCK_PERIOD*180.
 
 		/**
 		 * The model to spawn when a unit's horizontal velocity > MIN_SPEED_FRICTION_FX
 		 */
-        private static constant string FRICTION_MODEL="Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl"
+        private static constant string FRICTION_MODEL = "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl"
 
 		/**
 		 * The square size to search for destructables when destroying them. Note that a square's
 		 * diagonal is Sqrt(2) times bigger than this.
 		 */
-        private static constant real DESTRUCTABLE_ENUM_RADIUS=130.
+        static constant real DESTRUCTABLE_ENUM_RADIUS = 130.
 
 		/**
 		 * This is the minimum horizontal velocity a unit must have to destroy a destructable. You
 		 * can set this to a very high number to disable the feature. A value of CLOCK_PERIOD*300
 		 * means the unit must travel at 300 units per second on the XY plane, to destroy obstacles.
 		 */
-        private static constant real MIN_VEL_DESTROY_DESTRUCTABLE=CLOCK_PERIOD*300.
+        private static constant real MIN_VEL_DESTROY_DESTRUCTABLE = CLOCK_PERIOD*300.
 
 		/**
 		 * The height below which a unit in the stack is elligible to destroy a destructable.
 		 * Ideally it should be the average height of your destructables.
 		 */
-        private static constant real MAX_HEIGHT_DESTROY_DESTRUCTABLE=150.
+        private static constant real MAX_HEIGHT_DESTROY_DESTRUCTABLE = 150.
 
 		// =======================================================================================>>
 		// End Customizable Section
@@ -160,7 +155,7 @@ library Knockback3D
 		/**
 		 * The raw ID of crow form, which allows ground units to have adjusted fly-height.
 		 */
-        private static constant integer CROW_ID='Arav'
+        private static constant integer CROW_ID = 'Arav'
 
 		/**
 		 * Flag used for reference when a destructable has been hit/destroyed.
@@ -170,7 +165,7 @@ library Knockback3D
 		/**
 		 * A stack size reference
 		 */
-        private static integer dbIndex=-1
+        private static integer dbIndex = -1
 
 		/**
 		 * Stack of KnockDat references
@@ -180,68 +175,68 @@ library Knockback3D
 		/**
 		 * Temp object for the getZ shim
 		 */
-        private static location zLoc=Location(0.,0.)
+        private static location zLoc = Location(0., 0.)
 
 		/**
 		 * A reference to the map's minimum x co-ordinate
 		 */
-        private static real mapMinX
+        static real mapMinX
 
 		/**
 		 * A reference to the map's maximum x co-ordinate
 		 */
-        private static real mapMaxX
+        static real mapMaxX
 
 		/**
 		 * A reference to the map's minimum y co-ordinate
 		 */
-        private static real mapMinY
+        static real mapMinY
 
 		/**
 		 * A reference to the map's maximum y co-ordinate
 		 */
-        private static real mapMaxY
+        static real mapMaxY
 
 		/**
 		 * A static rect used to enumerate destructables
 		 */
-        private static rect destructableRect
+        static rect destructableRect
 
 		/**
 		 * The static system clock
 		 */
-        private static timer clock=CreateTimer()
+        private static timer clock = CreateTimer()
 
 		private static real gravity = GRAVITY
 
 		static method setGravity takes real r returns nothing
 			gravity = CLOCK_PERIOD * r
-		endmethod
+		end
 
 		/**
 		 * A simple shim for getting the z heigh of a co-ordinate pair.
 		 */
 		private static method getZ takes real x, real y returns real
-			MoveLocation(zLoc,x,y)
+			MoveLocation(zLoc, x,y)
 			return GetLocationZ(zLoc)
-		endmethod
+		end
 
 		/**
 		 * The callback function when enumerating destructables
 		 */
 		private static method destructableCallback takes nothing returns nothing
-			destructable des=GetEnumDestructable()
-			if GetDestructableLife(des)>0. then
-				hitDestructable=true
-			endif
-		endmethod
+			destructable des = GetEnumDestructable()
+			if GetDestructableLife(des) > 0. then
+				hitDestructable = true
+			end
+		end
 
 		/**
 		 * The periodic function which iterates through all objects in flight
 		 */
 		private static method p takes nothing returns nothing
 			boolean newInMap
-			integer index=0
+			integer index = 0
 			real flyHeight
 			real unitX
 			real unitY
@@ -251,117 +246,107 @@ library Knockback3D
 			real velXY
 			thistype tempDat
 			loop
-				exitwhen index>dbIndex
-				tempDat=knockDB[index]
-				unitX=GetUnitX(tempDat.u)
-				unitY=GetUnitY(tempDat.u)
-				newX=unitX+tempDat.delX
-				newY=unitY+tempDat.delY
-				newInMap=newX>mapMinX and newX<mapMaxX and newY>mapMinY and newY<mapMaxY
-				flyHeight=GetUnitFlyHeight(tempDat.u)
-				velXY=(tempDat.delX*tempDat.delX+tempDat.delY*tempDat.delY)
-				if flyHeight<MIN_FLY_HEIGHT then
-					if isTerrainWalkable(newX,newY) and newInMap then
-						SetUnitX(tempDat.u,unitX+tempDat.delX)
-						SetUnitY(tempDat.u,unitY+tempDat.delY)
+				exitwhen index > dbIndex
+				tempDat = knockDB[index]
+				unitX = GetUnitX(tempDat.u)
+				unitY = GetUnitY(tempDat.u)
+				newX = unitX + tempDat.delX
+				newY = unitY + tempDat.delY
+				newInMap = newX > mapMinX and newX < mapMaxX and newY > mapMinY and newY < mapMaxY
+				flyHeight = GetUnitFlyHeight(tempDat.u)
+				velXY = (tempDat.delX*tempDat.delX + tempDat.delY*tempDat.delY)
+				if flyHeight < MIN_FLY_HEIGHT then
+					if isTerrainWalkable(newX, newY) and newInMap then
+						SetUnitX(tempDat.u, unitX + tempDat.delX)
+						SetUnitY(tempDat.u, unitY + tempDat.delY)
 						if tempDat.delZ<=MIN_FLY_HEIGHT then
-							tempDat.delX=tempDat.delX*(1.-FRICTION_ITER_MULTIPLIER)
-							tempDat.delY=tempDat.delY*(1.-FRICTION_ITER_MULTIPLIER)
-							if velXY>MIN_SPEED_FRICTION_FX then
-								DestroyEffect(AddSpecialEffect(FRICTION_MODEL,unitX,unitY))
-							endif
-						endif
+							tempDat.delX = tempDat.delX*(1.-FRICTION_ITER_MULTIPLIER)
+							tempDat.delY = tempDat.delY*(1.-FRICTION_ITER_MULTIPLIER)
+							if velXY > MIN_SPEED_FRICTION_FX then
+								DestroyEffect(AddSpecialEffect(FRICTION_MODEL, unitX, unitY))
+							end
+						end
 						static if USE_MOVESPEED_MODIFIERS then
-							SetUnitMoveSpeed(tempDat.u,GetUnitDefaultMoveSpeed(tempDat.u))
-						endif
+							SetUnitMoveSpeed(tempDat.u, GetUnitDefaultMoveSpeed(tempDat.u))
+						end
 					else
-						tempDat.delX=0
-						tempDat.delY=0
-					endif
+						tempDat.delX = 0
+						tempDat.delY = 0
+					end
 
-					if tempDat.delZ<MAX_Z_VELOCITY_TO_BOUNCE then
-						tempDat.delZ=tempDat.delZ*-1.*COEFF_RESTITUTION_GROUND
-					endif
-					if tempDat.delZ>MIN_Z_VELOCITY_TO_BECOME_AIRBORNE then
-						SetUnitFlyHeight(tempDat.u,flyHeight+tempDat.delZ,0)
-						tempDat.delZ=tempDat.delZ-gravity
-					endif
+					if tempDat.delZ < MAX_Z_VELOCITY_TO_BOUNCE then
+						tempDat.delZ = tempDat.delZ*-1.*COEFF_RESTITUTION_GROUND
+					end
+
+					if tempDat.delZ > MIN_Z_VELOCITY_TO_BECOME_AIRBORNE then
+						SetUnitFlyHeight(tempDat.u, flyHeight + tempDat.delZ, 0)
+						tempDat.delZ = tempDat.delZ-gravity
+					end
 				elseif newInMap then
-					tempDat.delZ=tempDat.delZ-gravity
-					heightDifference=getZ(newX,newY)-getZ(unitX,unitY)
-					SetUnitFlyHeight(tempDat.u,flyHeight+tempDat.delZ-heightDifference,0)
-					SetUnitX(tempDat.u,newX)
-					SetUnitY(tempDat.u,newY)
+					tempDat.delZ = tempDat.delZ-gravity
+					heightDifference = getZ(newX, newY)-getZ(unitX, unitY)
+					SetUnitFlyHeight(tempDat.u, flyHeight + tempDat.delZ-heightDifference, 0)
+					SetUnitX(tempDat.u, newX)
+					SetUnitY(tempDat.u, newY)
 					static if USE_MOVESPEED_MODIFIERS then
-						SetUnitMoveSpeed(tempDat.u,0)
-					endif
-				endif
-				if velXY<MIN_FOR_KNOCKBACK and tempDat.delZ>MAX_Z_VELOCITY_TO_BOUNCE and tempDat.delZ<-1*MAX_Z_VELOCITY_TO_BOUNCE and flyHeight<MIN_FLY_HEIGHT then
-					knockDB[index]=knockDB[dbIndex]
+						SetUnitMoveSpeed(tempDat.u, 0)
+					end
+				end
+				if velXY < MIN_FOR_KNOCKBACK and tempDat.delZ > MAX_Z_VELOCITY_TO_BOUNCE and tempDat.delZ < -1*MAX_Z_VELOCITY_TO_BOUNCE and flyHeight < MIN_FLY_HEIGHT then
+					knockDB[index] = knockDB[dbIndex]
 					dbIndex--
-					SetUnitFlyHeight(tempDat.u,0,0)
+					SetUnitFlyHeight(tempDat.u, 0,0)
 					static if USE_MOVESPEED_MODIFIERS then
-						SetUnitMoveSpeed(tempDat.u,GetUnitDefaultMoveSpeed(tempDat.u))
-					endif
+						SetUnitMoveSpeed(tempDat.u, GetUnitDefaultMoveSpeed(tempDat.u))
+					end
 					destroy tempDat
 					index--
-					if dbIndex<0 then
+					if dbIndex < 0 then
 						PauseTimer(clock)
-					endif
-				endif
-				if velXY>MIN_VEL_DESTROY_DESTRUCTABLE and flyHeight<MAX_HEIGHT_DESTROY_DESTRUCTABLE then
-					hitDestructable=false
-					MoveRectTo(destructableRect,newX,newY)
-					EnumDestructablesInRect(destructableRect,null,function destructableCallback)
+					end
+				end
+				if velXY > MIN_VEL_DESTROY_DESTRUCTABLE and flyHeight < MAX_HEIGHT_DESTROY_DESTRUCTABLE then
+					hitDestructable = false
+					MoveRectTo(destructableRect, newX, newY)
+					EnumDestructablesInRect(destructableRect, null, function destructableCallback)
 					if hitDestructable then
-						tempDat.delX=tempDat.delX*COEFF_RESTITUTION_DSTRBL
-						tempDat.delY=tempDat.delY*COEFF_RESTITUTION_DSTRBL
-					endif
-				endif
+						tempDat.delX = tempDat.delX*COEFF_RESTITUTION_DSTRBL
+						tempDat.delY = tempDat.delY*COEFF_RESTITUTION_DSTRBL
+					end
+				end
 				index++
-			endloop
-		endmethod
+			end
+		end
 
 		/**
 		 * Gets the unit's stack index using linear search. Adding optional Table could potentially be
 		 * useful.
 		 */
 		private static method getUnitIndexFromStack takes unit u returns integer
-			integer index=0
-			integer returner=-1
+			integer index = 0
+			integer returner = -1
 			thistype tempDat
 			loop
-				exitwhen index>dbIndex or returner!=-1
-				tempDat=knockDB[index]
+				exitwhen index > dbIndex or returner!=-1
+				tempDat = knockDB[index]
 				if tempDat.u==u then
-					returner=index
-				endif
+					returner = index
+				end
 				index++
-			endloop
+			end
 			return returner
-		endmethod
-
-		/**
-		 * Initialization function
-		 */
-		private static method onInit takes nothing returns nothing
-			destructableRect=Rect(-1*DESTRUCTABLE_ENUM_RADIUS,-1*DESTRUCTABLE_ENUM_RADIUS,DESTRUCTABLE_ENUM_RADIUS,DESTRUCTABLE_ENUM_RADIUS)
-			mapMinX=GetRectMinX(bj_mapInitialPlayableArea)
-			mapMaxX=GetRectMaxX(bj_mapInitialPlayableArea)
-			mapMinY=GetRectMinY(bj_mapInitialPlayableArea)
-			mapMaxY=GetRectMaxY(bj_mapInitialPlayableArea)
-		endmethod
+		end
 
 		/**
 		 * A function for updating the valid map co-ordinates, in case the playable map area changes
 		 * dynamically.
 		 */
 		static method updateMapArea takes rect rct returns nothing
-			mapMinX=GetRectMinX(rct)
-			mapMinY=GetRectMinY(rct)
-			mapMaxX=GetRectMaxX(rct)
-			mapMaxY=GetRectMaxY(rct)
-		endmethod
+			mapMinX = GetRectMinX(rct)
+			mapMinY = GetRectMinY(rct)
+			mapMaxX = GetRectMaxX(rct)
+			mapMaxY = GetRectMaxY(rct)
+		end
 
 		/**
 		 * Add a knockback vector to a unit. If the unit is already in the system, the new vector
@@ -374,30 +359,30 @@ library Knockback3D
 		 *		alpha: The angle of attack (z-axis) to knock the unit, in radians (where 0 is no AoA)
 		 */
 		static method add takes unit u, real velocity, real angle, real alpha returns nothing
-			integer index=getUnitIndexFromStack(u)
+			integer index = getUnitIndexFromStack(u)
 			thistype tempDat
-			real instVel=velocity*CLOCK_PERIOD
+			real instVel = velocity*CLOCK_PERIOD
 			if index==-1 then
 				tempDat = new Knockback3D
-				tempDat.u=u
-				tempDat.delX=instVel*Cos(angle)*Cos(alpha)
-				tempDat.delY=instVel*Sin(angle)*Cos(alpha)
-				tempDat.delZ=instVel*Sin(alpha)
+				tempDat.u = u
+				tempDat.delX = instVel*Cos(angle)*Cos(alpha)
+				tempDat.delY = instVel*Sin(angle)*Cos(alpha)
+				tempDat.delZ = instVel*Sin(alpha)
 				dbIndex++
-				knockDB[dbIndex]=tempDat
-				if UnitAddAbility(tempDat.u,CROW_ID) then
-					UnitRemoveAbility(tempDat.u,CROW_ID)
-				endif
+				knockDB[dbIndex] = tempDat
+				if UnitAddAbility(tempDat.u, CROW_ID) then
+					UnitRemoveAbility(tempDat.u, CROW_ID)
+				end
 				if dbIndex==0 then
-					TimerStart(clock,CLOCK_PERIOD,true,function p)
-				endif
+					TimerStart(clock, CLOCK_PERIOD, true, function p)
+				end
 			else
-				tempDat=knockDB[index]
-				tempDat.delX=tempDat.delX+instVel*Cos(angle)*Cos(alpha)
-				tempDat.delY=tempDat.delY+instVel*Sin(angle)*Cos(alpha)
-				tempDat.delZ=tempDat.delZ+instVel*Sin(alpha)
-			endif
-		endmethod
+				tempDat = knockDB[index]
+				tempDat.delX = tempDat.delX + instVel*Cos(angle)*Cos(alpha)
+				tempDat.delY = tempDat.delY + instVel*Sin(angle)*Cos(alpha)
+				tempDat.delZ = tempDat.delZ + instVel*Sin(alpha)
+			end
+		end
 
 		/**
 		 * Set the knockback vector of a unit. If the unit is already in the system, the new vector
@@ -410,30 +395,30 @@ library Knockback3D
 		 *		alpha: The angle of attack (z-axis) to knock the unit, in radians (where 0 is no AoA)
 		 */
 		static method setVel takes unit u, real velocity, real angle, real alpha returns nothing
-			integer index=getUnitIndexFromStack(u)
+			integer index = getUnitIndexFromStack(u)
 			thistype tempDat
-			real instVel=velocity*CLOCK_PERIOD
+			real instVel = velocity*CLOCK_PERIOD
 			if index==-1 then
 				tempDat = new Knockback3D
-				tempDat.u=u
-				tempDat.delX=instVel*Cos(angle)*Cos(alpha)
-				tempDat.delY=instVel*Sin(angle)*Cos(alpha)
-				tempDat.delZ=instVel*Sin(alpha)
+				tempDat.u = u
+				tempDat.delX = instVel*Cos(angle)*Cos(alpha)
+				tempDat.delY = instVel*Sin(angle)*Cos(alpha)
+				tempDat.delZ = instVel*Sin(alpha)
 				dbIndex++
-				knockDB[dbIndex]=tempDat
-				if UnitAddAbility(tempDat.u,CROW_ID) then
-					UnitRemoveAbility(tempDat.u,CROW_ID)
-				endif
+				knockDB[dbIndex] = tempDat
+				if UnitAddAbility(tempDat.u, CROW_ID) then
+					UnitRemoveAbility(tempDat.u, CROW_ID)
+				end
 				if dbIndex==0 then
-					TimerStart(clock,CLOCK_PERIOD,true,function p)
-				endif
+					TimerStart(clock, CLOCK_PERIOD, true, function p)
+				end
 			else
-				tempDat=knockDB[index]
-				tempDat.delX=instVel*Cos(angle)*Cos(alpha)
-				tempDat.delY=instVel*Sin(angle)*Cos(alpha)
-				tempDat.delZ=instVel*Sin(alpha)
-			endif
-		endmethod
+				tempDat = knockDB[index]
+				tempDat.delX = instVel*Cos(angle)*Cos(alpha)
+				tempDat.delY = instVel*Sin(angle)*Cos(alpha)
+				tempDat.delZ = instVel*Sin(alpha)
+			end
+		end
 
 		static method getVel takes unit u returns real
 			integer index = getUnitIndexFromStack(u)
@@ -443,9 +428,9 @@ library Knockback3D
 				tempDat = knockDB[index]
 				v = tempDat.delX * tempDat.delX + tempDat.delY * tempDat.delY + tempDat.delZ * tempDat.delZ
 				return SquareRoot(v)
-			endif
+			end
 			return 0.
-		endmethod
+		end
 
 		// Instance Variables
 		/**
@@ -468,3 +453,11 @@ library Knockback3D
 		 */
         private real delZ
     end
+
+	init
+		Knockback3D.destructableRect = Rect(-1*Knockback3D.DESTRUCTABLE_ENUM_RADIUS, -1*Knockback3D.DESTRUCTABLE_ENUM_RADIUS, Knockback3D.DESTRUCTABLE_ENUM_RADIUS, Knockback3D.DESTRUCTABLE_ENUM_RADIUS)
+		Knockback3D.mapMinX = GetRectMinX(bj_mapInitialPlayableArea)
+		Knockback3D.mapMaxX = GetRectMaxX(bj_mapInitialPlayableArea)
+		Knockback3D.mapMinY = GetRectMinY(bj_mapInitialPlayableArea)
+		Knockback3D.mapMaxY = GetRectMaxY(bj_mapInitialPlayableArea)
+	end

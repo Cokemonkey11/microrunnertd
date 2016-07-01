@@ -15,28 +15,28 @@ scope RandomRace initializer init
 		integer pid
 		if GetSpellAbilityId() == ID then
 			tU = GetTriggerUnit()
-			r = GetRandomInt(0,1)
+			r = GetRandomInt(0, 1)
 			p = GetOwningPlayer(tU)
 			pid = GetPlayerId(p)
 			if r == 0 then
-				u = CreateUnit(p,Units.SPIRIT_ID,GetUnitX(tU),GetUnitY(tU),270.)
+				u = CreateUnit(p, Units.SPIRIT_ID, GetUnitX(tU), GetUnitY(tU), 270.)
 				if Players.locl == p then
-					SelectUnit(u,true)
-				endif
+					SelectUnit(u, true)
+				end
 				Units.runnerTypes[pid] = Units.RUNNER_ID
-				CreateUnit(Players.id[pid],Units.SPIRIT_ALTAR_ID,Players.altarX[pid],Players.altarY[pid],270.)
+				CreateUnit(Players.id[pid], Units.SPIRIT_ALTAR_ID, Players.altarX[pid], Players.altarY[pid], 270.)
 			else
-				u = CreateUnit(p,Units.WASTE_ID,GetUnitX(tU),GetUnitY(tU),270.)
+				u = CreateUnit(p, Units.WASTE_ID, GetUnitX(tU), GetUnitY(tU), 270.)
 				if Players.locl == p then
-					SelectUnit(u,true)
-				endif
+					SelectUnit(u, true)
+				end
 				Units.runnerTypes[pid] = Units.RUNNER_WASTE_ID
-				CreateUnit(Players.id[pid],Units.WASTE_ALTAR_ID,Players.altarX[pid],Players.altarY[pid],270.)
-			endif
+				CreateUnit(Players.id[pid], Units.WASTE_ALTAR_ID, Players.altarX[pid], Players.altarY[pid], 270.)
+			end
 			RemoveUnit(tU)
-		endif
+		end
 	end
 
 	function init takes nothing returns nothing
-		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
 	end

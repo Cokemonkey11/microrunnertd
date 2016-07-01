@@ -8,5 +8,5 @@ scope Upgraded initializer init
 	end
 
 	function init takes nothing returns nothing
-		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_RESEARCH_START,function act)
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_RESEARCH_START, function act)
 	end

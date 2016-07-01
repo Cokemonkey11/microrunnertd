@@ -3,42 +3,42 @@ library FloatText
 
 	public class FloatText
 		static function bounty takes real x, real y, integer z returns nothing
-			texttag t=CreateTextTag()
-	        SetTextTagFadepoint(t,3)
-	        SetTextTagLifespan(t,4)
-	        SetTextTagPermanent(t,false)
-	        SetTextTagPos(t,x,y,100)
-	        SetTextTagText(t,"+" + I2S(z),.02)
-			SetTextTagColor(t,255,204,0,255)
-	        SetTextTagVelocity(t,0,.05)
-			SetTextTagVisibility(t,true)
+			texttag t = CreateTextTag()
+	        SetTextTagFadepoint(t, 3)
+	        SetTextTagLifespan(t, 4)
+	        SetTextTagPermanent(t, false)
+	        SetTextTagPos(t, x,y, 100)
+	        SetTextTagText(t, " + " + I2S(z), .02)
+			SetTextTagColor(t, 255, 204, 0,255)
+	        SetTextTagVelocity(t, 0,.05)
+			SetTextTagVisibility(t, true)
 		end
 
 		static function bountyPlayer takes real x, real y, integer z, player p returns nothing
-			texttag t=CreateTextTag()
-	        SetTextTagFadepoint(t,3)
-	        SetTextTagLifespan(t,4)
-	        SetTextTagPermanent(t,false)
-	        SetTextTagPos(t,x,y,100)
-	        SetTextTagText(t,"+" + I2S(z),.02)
-			SetTextTagColor(t,255,204,0,255)
-	        SetTextTagVelocity(t,0,.07)
+			texttag t = CreateTextTag()
+	        SetTextTagFadepoint(t, 3)
+	        SetTextTagLifespan(t, 4)
+	        SetTextTagPermanent(t, false)
+	        SetTextTagPos(t, x,y, 100)
+	        SetTextTagText(t, " + " + I2S(z), .02)
+			SetTextTagColor(t, 255, 204, 0,255)
+	        SetTextTagVelocity(t, 0,.07)
 			if Players.locl == p then
-				SetTextTagVisibility(t,true)
+				SetTextTagVisibility(t, true)
 			else
-				SetTextTagVisibility(t,false)
-			endif
+				SetTextTagVisibility(t, false)
+			end
 		end
 
 		static function bonus takes real x, real y, integer z returns nothing
-			texttag t=CreateTextTag()
-	        SetTextTagFadepoint(t,2)
-	        SetTextTagLifespan(t,3)
-	        SetTextTagPermanent(t,false)
-	        SetTextTagPos(t,x,y,100)
-	        SetTextTagText(t,I2S(z) + "!",.02)
-			SetTextTagColor(t,255,0,0,200)
-	        SetTextTagVelocity(t,0,.06)
-			SetTextTagVisibility(t,true)
+			texttag t = CreateTextTag()
+	        SetTextTagFadepoint(t, 2)
+	        SetTextTagLifespan(t, 3)
+	        SetTextTagPermanent(t, false)
+	        SetTextTagPos(t, x,y, 100)
+	        SetTextTagText(t, I2S(z) + "!", .02)
+			SetTextTagColor(t, 255, 0,0, 200)
+	        SetTextTagVelocity(t, 0,.06)
+			SetTextTagVisibility(t, true)
 		end
 	end

@@ -1,92 +1,90 @@
-library Pathing initializer init
-	globals
-		boolean done = false
-		real xIter
-	end
+package Pathing
+	boolean done = false
+	real xIter
 
 	function yIterRightSide takes nothing returns nothing
 		real index = -1710.
 		loop
 			exitwhen index > 450.
-			SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
+			SetTerrainPathable(xIter, index, PATHING_TYPE_BUILDABILITY, false)
 			index = index + 16.
-		endloop
+		end
 	end
 
 	function yIterLeftSide takes nothing returns nothing
 		real index = -1740.
 		loop
 			exitwhen index > 1340.
-			SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
+			SetTerrainPathable(xIter, index, PATHING_TYPE_BUILDABILITY, false)
 			index = index + 16.
-		endloop
+		end
 	end
 
 	function yIterCenterArea takes nothing returns nothing
 		real index = 275.
 		loop
 			exitwhen index > 575
-			SetTerrainPathable(xIter,index,PATHING_TYPE_WALKABILITY,false)
+			SetTerrainPathable(xIter, index, PATHING_TYPE_WALKABILITY, false)
 			index = index + 16.
-		endloop
+		end
 	end
 
 	function yIterTop takes nothing returns nothing
 		real index = 1360.
 		loop
 			exitwhen index > 1630.
-			SetTerrainPathable(xIter,index,PATHING_TYPE_BUILDABILITY,false)
+			SetTerrainPathable(xIter, index, PATHING_TYPE_BUILDABILITY, false)
 			index = index + 16.
-		endloop
+		end
 	end
 
 	function opLimitCheck takes nothing returns nothing
 		debug if not done then
 			debug call BJDebugMsg("Pathing: Op-Limit reached!")
-		debug endif
+		debug end
 	end
 
-	function init takes nothing returns nothing
+	init
 		real index
 
 		// Op-limit checker
-		debug call TimerStart(CreateTimer(),1.,false,function opLimitCheck)
+		debug call TimerStart(CreateTimer(), 1., false, function opLimitCheck)
 
 		// Right side of the map "fancy" houses
 		index = 1230.
 		loop
 			exitwhen index > 1920.
 			xIter = index
-			yIterRightSide()
+			ExecuteFunc("yIterRightSide")
 			index = index + 16.
-		endloop
+		end
 
 		// Left side of the map various houses
 		index = -1840.
 		loop
 			exitwhen index > -1340.
 			xIter = index
-			yIterLeftSide()
+			ExecuteFunc("yIterLeftSide")
 			index = index + 16.
-		endloop
+		end
 
 		// Top of the map various houses
 		index = -1360.
 		loop
 			exitwhen index > 1470.
 			xIter = index
-			yIterTop()
+			ExecuteFunc("yIterTop")
 			index = index + 16.
-		endloop
+		end
 
 		// Unwalkable middle area (frog)
 		index = -690.
 		loop
 			exitwhen index > 190.
 			xIter = index
-			yIterCenterArea()
+			ExecuteFunc("yIterCenterArea")
 			index = index + 16.
-		endloop
+		end
 
 		done = true
 	end

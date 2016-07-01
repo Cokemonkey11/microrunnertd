@@ -29,18 +29,18 @@ package Units
 			// units
 			loop
 				exitwhen index > 15
-				GroupEnumUnitsOfPlayer(grp,Players.id[index],null)
+				GroupEnumUnitsOfPlayer(grp, Players.id[index], null)
 				loop
 					fst = FirstOfGroup(grp)
 					exitwhen fst == null
-					PauseUnit(fst,true)
-					SetUnitInvulnerable(fst,true)
-					UnitAddAbility(fst,'Aloc')
-					SetUnitTimeScale(fst,0.)
-					GroupRemoveUnit(grp,fst)
-				endloop
+					PauseUnit(fst, true)
+					SetUnitInvulnerable(fst, true)
+					UnitAddAbility(fst, 'Aloc')
+					SetUnitTimeScale(fst, 0.)
+					GroupRemoveUnit(grp, fst)
+				end
 				index++
-			endloop
+			end
 		end
 	end
 

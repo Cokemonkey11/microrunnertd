@@ -28,10 +28,10 @@ library GetUnitArmorType initializer init
 			return tab.loadInt(typ)
 		else
 			hp = GetWidgetLife(u)
-			UnitAddAbility(u,BONUS_HP)
-			SetUnitState(u,UNIT_STATE_LIFE,10000)
+			UnitAddAbility(u, BONUS_HP)
+			SetUnitState(u, UNIT_STATE_LIFE, 10000)
 			StructuredDD.disable()
-			UnitDamageTarget(u,u,1.,true,true,ConvertAttackType(7),DAMAGE_TYPE_UNIVERSAL,WEAPON_TYPE_WHOKNOWS)
+			UnitDamageTarget(u, u,1., true, true, ConvertAttackType(7), DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
 			StructuredDD.enable()
 			q = 10000 - GetWidgetLife(u)
 			if q == 1 then
@@ -54,13 +54,13 @@ library GetUnitArmorType initializer init
 				ret = ArmorType.LIGHT
 			else
 				tab.saveInt(typ, ArmorType.UNKNOWN)
-				debug call DisplayTextToPlayer(Players.locl,0.,0.,"Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(q))
+				debug call DisplayTextToPlayer(Players.locl, 0., 0., "Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(q))
 				ret = ArmorType.UNKNOWN
-			endif
-			UnitRemoveAbility(u,BONUS_HP)
-			SetWidgetLife(u,hp)
+			end
+			UnitRemoveAbility(u, BONUS_HP)
+			SetWidgetLife(u, hp)
 			return ret
-		endif
+		end
 	end
 
 	function init takes nothing returns nothing

@@ -16,19 +16,19 @@ scope SorcerorSlayer initializer init
 			if tab.hasInt(dS.getHandleId()) then
 				if tab.loadInt(dS.getHandleId()) >= 10 then
 					tab.saveInt(dS.getHandleId(), 0)
-					DamageType.dealCodeDamage(dS,tU,5000.)
-					FloatText.bonus(GetUnitX(tU),GetUnitY(tU),R2I(GetEventDamage() + 5000.))
-					DestroyEffect(AddSpecialEffect(FX,GetUnitX(dS),GetUnitY(dS)))
+					DamageType.dealCodeDamage(dS, tU, 5000.)
+					FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(GetEventDamage() + 5000.))
+					DestroyEffect(AddSpecialEffect(FX, GetUnitX(dS), GetUnitY(dS)))
 				else
 					tab.saveInt(dS.getHandleId(), tab.loadInt(dS.getHandleId()) + 1)
-				endif
+				end
 			else
 				tab.saveInt(dS.getHandleId(), 1)
-			endif
-		endif
+			end
+		end
 	end
 
 	function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
-		tab=new Table
+		tab = new Table
 	end

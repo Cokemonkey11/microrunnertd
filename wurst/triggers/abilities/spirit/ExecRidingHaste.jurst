@@ -9,8 +9,8 @@ scope ExecRidingHaste initializer init
 	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
-			IssueImmediateOrder(dS,"berserk")
-		endif
+			IssueImmediateOrder(dS, "berserk")
+		end
 	end
 
 	function init takes nothing returns nothing

@@ -10,11 +10,11 @@ scope Heal initializer init
 		unit tU
 		if GetSpellAbilityId() == HEAL_ID then
 			tU = GetTriggerUnit()
-			SetUnitState(tU,UNIT_STATE_LIFE,GetUnitState(tU,UNIT_STATE_MAX_LIFE))
-			DestroyEffect(AddSpecialEffect(HEAL_FX,GetUnitX(tU),GetUnitY(tU)))
-		endif
+			SetUnitState(tU, UNIT_STATE_LIFE, GetUnitState(tU, UNIT_STATE_MAX_LIFE))
+			DestroyEffect(AddSpecialEffect(HEAL_FX, GetUnitX(tU), GetUnitY(tU)))
+		end
 	end
 
 	function init takes nothing returns nothing
-		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
 	end

@@ -13,9 +13,9 @@ scope Bristleburst initializer init
 		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.SPELL then
 			tU = GetTriggerUnit()
-			UnitAddAbility(tU,ARMOR)
-			UnitAddAbility(tU,EFFECT)
-		endif
+			UnitAddAbility(tU, ARMOR)
+			UnitAddAbility(tU, EFFECT)
+		end
 	end
 
 	function init takes nothing returns nothing

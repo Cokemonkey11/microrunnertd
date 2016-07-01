@@ -20,16 +20,16 @@ scope SummonHealingWard initializer init
 			y = GetSpellTargetY()
 			tU = GetTriggerUnit()
 			p = GetOwningPlayer(tU)
-			if isTerrainWalkable(x,y) and (not IsTerrainPathable(x,y,PATHING_TYPE_BUILDABILITY)) then
-				s = CreateUnit(p,UNIT_ID,x,y,270.)
-				DestroyEffect(AddSpecialEffect(FX,GetUnitX(s),GetUnitY(s)))
-				UnitRemoveAbility(tU,SUMMON_ID)
+			if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y,PATHING_TYPE_BUILDABILITY)) then
+				s = CreateUnit(p, UNIT_ID, x,y, 270.)
+				DestroyEffect(AddSpecialEffect(FX, GetUnitX(s), GetUnitY(s)))
+				UnitRemoveAbility(tU, SUMMON_ID)
 			else
-				simError(p,"Cannot summon there.")
-			endif
-		endif
+				simError(p, "Cannot summon there.")
+			end
+		end
 	end
 
 	function init takes nothing returns nothing
-		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
 	end

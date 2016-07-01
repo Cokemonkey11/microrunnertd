@@ -9,52 +9,52 @@ package Sounds
         static Table preloadDB
 
         private static method preloadAfter takes nothing returns nothing
-            timer time=GetExpiredTimer()
-            Wrapper s=preloadDB.loadInt(time.getHandleId()) castTo Wrapper
-            sound sd=CreateSound(s.snd,false,false,false,12700,12700,"")
-            SetSoundVolume(sd,1)
+            timer time = GetExpiredTimer()
+            Wrapper s = preloadDB.loadInt(time.getHandleId()) castTo Wrapper
+            sound sd = CreateSound(s.snd, false, false, false, 12700, 12700, "")
+            SetSoundVolume(sd, 1)
             StartSound(sd)
             KillSoundWhenDone(sd)
             destroy s
             DestroyTimer(time)
-        endmethod
+        end
 
         static method preload takes string str returns nothing
-            timer time=CreateTimer()
-            Wrapper s=new Wrapper
-            s.snd=str
+            timer time = CreateTimer()
+            Wrapper s = new Wrapper
+            s.snd = str
             preloadDB.saveInt(time.getHandleId(), s castTo int)
-            TimerStart(time,.01,false,function preloadAfter)
-        endmethod
+            TimerStart(time, .01, false, function preloadAfter)
+        end
 
         static method play3D takes string str, real pitch, real x, real y, real z returns nothing
-            sound s = CreateSound(str,false,true,true,12700,12700,"")
-            SetSoundPosition(s,x,y,z)
-            SetSoundVolume(s,127)
-            SetSoundPitch(s,pitch)
+            sound s = CreateSound(str, false, true, true, 12700, 12700, "")
+            SetSoundPosition(s, x,y, z)
+            SetSoundVolume(s, 127)
+            SetSoundPitch(s, pitch)
             StartSound(s)
             KillSoundWhenDone(s)
-        endmethod
+        end
 
 		static method playForPlayer takes string str, real pitch, player who returns nothing
-			sound s = CreateSound(str,false,false,false,12700,12700,"")
+			sound s = CreateSound(str, false, false, false, 12700, 12700, "")
 			if GetLocalPlayer()==who then
-				SetSoundVolume(s,127)
+				SetSoundVolume(s, 127)
 			else
-				SetSoundVolume(s,0)
-			endif
-			SetSoundPitch(s,pitch)
+				SetSoundVolume(s, 0)
+			end
+			SetSoundPitch(s, pitch)
 			StartSound(s)
 			KillSoundWhenDone(s)
-		endmethod
+		end
 
 		static method play takes string str, real pitch, integer vol returns nothing
-			sound s = CreateSound(str,false,false,false,12700,12700,"")
-			SetSoundVolume(s,vol)
-			SetSoundPitch(s,pitch)
+			sound s = CreateSound(str, false, false, false, 12700, 12700, "")
+			SetSoundVolume(s, vol)
+			SetSoundPitch(s, pitch)
 			StartSound(s)
 			KillSoundWhenDone(s)
-		endmethod
+		end
     end
 
     init

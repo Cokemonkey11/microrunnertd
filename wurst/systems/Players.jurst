@@ -15,24 +15,24 @@ package Players
 	end
 
 	init
-		integer index=0
+		integer index = 0
 		Players.locl = GetLocalPlayer()
 		loop
-			exitwhen index>15
+			exitwhen index > 15
 			Players.id[index] = Player(index)
 			if index < 2 then
 				Players.playing[index] = (GetPlayerSlotState(Players.id[index])==PLAYER_SLOT_STATE_PLAYING)
 				if Players.playing[index] then
 					Players.playingCount = Players.playingCount + 1
-				endif
+				end
 				Players.startX[index] = 1024.
 				Players.startY[index] = 1024.
 				Players.altarX[index] = 1728.
-			endif
+			end
 			index++
-		endloop
+		end
 		Players.altarY[0] = 1024.
 		Players.altarY[1] = 1024. + 256.
-		Players.brownStartX = 1024+128.
+		Players.brownStartX = 1024 + 128.
 		Players.brownStartY = 1024.
 	end

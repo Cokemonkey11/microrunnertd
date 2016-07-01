@@ -11,13 +11,13 @@ scope FrozenObeliskKnockup initializer init
 	function h takes nothing returns nothing
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
-		if GetUnitTypeId(dS) == OB_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU,Units.IMMUNE)<1 then
+		if GetUnitTypeId(dS) == OB_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1 then
 			if Knockback3D.getVel(tU) == 0. then
 
 				// ehhh
-				Knockback3D.add(tU,500.,0.,bj_PI/2.)
-			endif
-		endif
+				Knockback3D.add(tU, 500., 0., bj_PI/2.)
+			end
+		end
 	end
 
 	function init takes nothing returns nothing

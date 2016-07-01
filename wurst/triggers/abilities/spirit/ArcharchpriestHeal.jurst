@@ -15,39 +15,39 @@ scope ArcharchpriestHeal initializer init
 		unit fst
 		real life
 		player p = GetOwningPlayer(u)
-		GroupEnumUnitsInRange(grp2,GetUnitX(u),GetUnitY(u),RADIUS,null)
+		GroupEnumUnitsInRange(grp2, GetUnitX(u), GetUnitY(u), RADIUS, null)
 		loop
-			fst=FirstOfGroup(grp2)
+			fst = FirstOfGroup(grp2)
 			exitwhen fst==null
 			life = GetWidgetLife(fst)
-			if IsUnitAlly(fst,p) and UnitAlive(fst) and life < 100. and (life/GetUnitState(fst,UNIT_STATE_MAX_LIFE))<1. and not IsUnitType(fst,UNIT_TYPE_STRUCTURE) then
-				SetWidgetLife(fst,life + 3.)
-				SetUnitState(u,UNIT_STATE_MANA,GetUnitState(u,UNIT_STATE_MANA) - 10.)
-				DestroyEffect(AddSpecialEffectTarget(FX,fst,"origin"))
+			if IsUnitAlly(fst, p) and UnitAlive(fst) and life < 100. and (life/GetUnitState(fst, UNIT_STATE_MAX_LIFE)) < 1. and not IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+				SetWidgetLife(fst, life + 3.)
+				SetUnitState(u, UNIT_STATE_MANA, GetUnitState(u, UNIT_STATE_MANA) - 10.)
+				DestroyEffect(AddSpecialEffectTarget(FX, fst, "origin"))
 				return
-			endif
-			GroupRemoveUnit(grp2,fst)
-		endloop
+			end
+			GroupRemoveUnit(grp2, fst)
+		end
 	end
 
 	function p takes nothing returns nothing
 		integer index = 0
 		unit fst
 		loop
-			exitwhen index>1
-			GroupEnumUnitsOfPlayer(grp,Players.id[index],null)
+			exitwhen index > 1
+			GroupEnumUnitsOfPlayer(grp, Players.id[index], null)
 			loop
-				fst=FirstOfGroup(grp)
+				fst = FirstOfGroup(grp)
 				exitwhen fst==null
-				if GetUnitTypeId(fst)==PRIEST_ID and UnitAlive(fst) and GetUnitState(fst,UNIT_STATE_MANA)>=10 then
+				if GetUnitTypeId(fst)==PRIEST_ID and UnitAlive(fst) and GetUnitState(fst, UNIT_STATE_MANA)>=10 then
 					parsePriest(fst)
-				endif
-				GroupRemoveUnit(grp,fst)
-			endloop
+				end
+				GroupRemoveUnit(grp, fst)
+			end
 			index++
-		endloop
+		end
 	end
 
 	function init takes nothing returns nothing
-		TimerStart(CreateTimer(),1./2.,true,function p)
+		TimerStart(CreateTimer(), 1./2., true, function p)
 	end
