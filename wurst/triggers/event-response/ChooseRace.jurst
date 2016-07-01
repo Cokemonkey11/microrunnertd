@@ -5,25 +5,31 @@ scope ChooseRace initializer init
 	import RegisterPlayerUnitEvent
 
 	function act takes nothing returns nothing
-		unit u = GetSoldUnit()
-		integer i = GetUnitTypeId(u)
-		player p = GetOwningPlayer(u)
+		unit u      = GetSoldUnit()
+		integer i   = GetUnitTypeId(u)
+		player p    = GetOwningPlayer(u)
 		integer pid = GetPlayerId(p)
+
 		if i == Units.SPIRIT_ID then
 			RemoveUnit(GetSellingUnit())
+
 			if Players.locl == p then
 				SelectUnit(u, true)
 			end
+
 			Units.runnerTypes[pid] = Units.RUNNER_ID
 			CreateUnit(Players.id[pid], Units.SPIRIT_ALTAR_ID, Players.altarX[pid], Players.altarY[pid], 270.)
 		elseif i == Units.WASTE_ID then
 			RemoveUnit(GetSellingUnit())
+
 			if Players.locl == p then
 				SelectUnit(u, true)
 			end
+
 			Units.runnerTypes[pid] = Units.RUNNER_WASTE_ID
 			CreateUnit(Players.id[pid], Units.WASTE_ALTAR_ID, Players.altarX[pid], Players.altarY[pid], 270.)
 		end
+
 		if Players.playingCount == 1 or (Units.runnerTypes[0]!=0 and Units.runnerTypes[1]!=0) then
 			DestroyTimer(Game.chooseTimer)
 			DestroyTimerDialog(Game.chooseDialog)

@@ -1,5 +1,6 @@
 package Players
 	public class Players
+		static constant integer COUNT = 2
 		static player locl
 		static boolean array playing
 		static player array id
@@ -17,6 +18,7 @@ package Players
 	init
 		integer index = 0
 		Players.locl = GetLocalPlayer()
+
 		loop
 			exitwhen index > 15
 			Players.id[index] = Player(index)
@@ -31,6 +33,7 @@ package Players
 			end
 			index++
 		end
+
 		Players.altarY[0] = 1024.
 		Players.altarY[1] = 1024. + 256.
 		Players.brownStartX = 1024 + 128.

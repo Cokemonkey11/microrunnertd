@@ -43,9 +43,11 @@ package Game
 
 		private static effect bigFx
 
-		static boolean ended   = false
-		static boolean started = false
-		static boolean hard    = false
+		static boolean cinematicOn = true
+		static boolean ended       = false
+		static boolean started     = false
+		static boolean hard        = false
+
 		static boolean array upgraded
 		static integer round
 		private static timer roundTimer = CreateTimer()
@@ -335,7 +337,7 @@ package Game
 			end
 		end
 
-		private static function fadeCameraAsync1 takes nothing returns nothing
+		private static function fadeCameraAsyncAfter takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
 			CameraSetupApply(setup, true, true)
 			fadeIn(.25)
@@ -344,7 +346,7 @@ package Game
 		private static function fadeCameraAsync takes camerasetup q returns nothing
 			setup = q
 			fadeOut(.25)
-			TimerStart(CreateTimer(), .25, false, function fadeCameraAsync1)
+			TimerStart(CreateTimer(), .25, false, function fadeCameraAsyncAfter)
 		end
 
 		private static function tip0 takes nothing returns nothing
@@ -404,7 +406,7 @@ package Game
 			TimerStart(CreateTimer(), 15., false, function practiceRound)
 		end
 
-		private static function cinematicSequence3 takes nothing returns nothing
+		private static function endCinematic()
 			DestroyTimer(GetExpiredTimer())
 			ShowInterface(true, .5)
 			fadeCameraAsync(gg_cam_defaultCamera)
@@ -424,34 +426,46 @@ package Game
 
 		private static function cinematicSequence2 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
-			fadeCameraAsync(gg_cam_cinematicCamera2)
-			DisplayTextToPlayer(Players.locl, 0., 0., "\nBuild towers on the |cff33cc66grass|r, and bait the enemy to their death.")
-			TimerStart(CreateTimer(), 5., false, function cinematicSequence3)
+			if cinematicOn
+				fadeCameraAsync(gg_cam_cinematicCamera2)
+				DisplayTextToPlayer(Players.locl, 0., 0., "\nBuild towers on the |cff33cc66grass|r, and bait the enemy to their death.")
+				TimerStart(CreateTimer(), 5., false, function endCinematic)
+			else
+				endCinematic()
+			end
 		end
 
 		private static function cinematicSequence1 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
-			fadeIn(.5)
-			demoRunner = CreateUnit(Player(2), Units.RUNNER_ID, 0., 1024., 180.)
-			demoTower = CreateUnit(Player(2), 'h007', -851., 562., 270.)
-			demoChaser = CreateUnit(Players.creeps, 'h022', 256. + 128., 1024., 0.)
-			SetUnitState(demoTower, UNIT_STATE_MANA, 500.)
-			SetUnitMoveSpeed(demoRunner, 200.)
-			SetUnitMoveSpeed(demoChaser, 230.)
-			CameraSetupApply(gg_cam_cinematicCamera1, true, true)
-			IssueTargetOrder(demoChaser, "attack", demoRunner)
-			IssuePointOrder(demoRunner, "move", -1024., 0.)
-			Sounds.play(BANDIT_DEMO, 1., 127)
-			DisplayTextToPlayer(Players.locl, 0., 0., "\nThe forces of |cff993333Doom|r are after your runner!")
-			TimerStart(CreateTimer(), 3.5, false, function cinematicSequence2)
+			if cinematicOn
+				fadeIn(.5)
+				demoRunner = CreateUnit(Player(2), Units.RUNNER_ID, 0., 1024., 180.)
+				demoTower  = CreateUnit(Player(2), 'h007', -851., 562., 270.)
+				demoChaser = CreateUnit(Players.creeps, 'h022', 256. + 128., 1024., 0.)
+				SetUnitState(demoTower, UNIT_STATE_MANA, 500.)
+				SetUnitMoveSpeed(demoRunner, 200.)
+				SetUnitMoveSpeed(demoChaser, 230.)
+				CameraSetupApply(gg_cam_cinematicCamera1, true, true)
+				IssueTargetOrder(demoChaser, "attack", demoRunner)
+				IssuePointOrder(demoRunner, "move", -1024., 0.)
+				Sounds.play(BANDIT_DEMO, 1., 127)
+				DisplayTextToPlayer(Players.locl, 0., 0., "\nThe forces of |cff993333Doom|r are after your runner!")
+				TimerStart(CreateTimer(), 3.5, false, function cinematicSequence2)
+			else
+				endCinematic()
+			end
 		end
 
 		static function cinematicSequence0 takes nothing returns nothing
-			fadeOut(.01)
 			DestroyTimer(GetExpiredTimer())
-			ShowInterface(false, 0.)
-	        EnableUserControl(false)
-			TimerStart(CreateTimer(), 1., false, function cinematicSequence1)
+			if cinematicOn
+				fadeOut(.01)
+				ShowInterface(false, 0.)
+		        EnableUserControl(false)
+				TimerStart(CreateTimer(), 1., false, function cinematicSequence1)
+			else
+				endCinematic()
+			end
 		end
 	end
 

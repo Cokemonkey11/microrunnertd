@@ -1,0 +1,40 @@
+package EscapeKey
+	import Game
+	import Players
+
+	bool array escapesPressed
+	int escapePressedCount = 0
+
+	function c takes nothing returns boolean
+		integer id = GetPlayerId(GetTriggerPlayer())
+
+		if Game.cinematicOn and not escapesPressed[id] then
+			escapesPressed[id] = true
+			escapePressedCount++
+
+			if escapePressedCount >= Players.playingCount then
+				Game.cinematicOn = false
+				DisplayTextToPlayer(Players.locl,       0., 0., "|cffffcc00[Notice]|r The cinematic was skipped due to popular vote.")
+			else
+				DisplayTextToPlayer(GetTriggerPlayer(), 0., 0., "|cffffcc00[Notice]|r Your cinematic skip request has been registered.")
+			end
+		end
+
+		return false
+	end
+
+	init
+		trigger t = CreateTrigger()
+		integer index = 0
+
+		loop
+			exitwhen index >= Players.COUNT
+
+			TriggerRegisterPlayerEvent(t, Players.id[index], EVENT_PLAYER_END_CINEMATIC)
+			escapesPressed[index] = false
+
+			index++
+		end
+
+		TriggerAddCondition(t, Condition(function c))
+	end
