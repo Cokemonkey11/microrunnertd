@@ -1,11 +1,12 @@
 library Quests initializer init
 	globals
 		constant string CREDITS_DESC = "Special thanks to |cff999999JesusHipster|r for the Wisp model." + /*
-			*/ "|n|cff999999Vexorian, Pitzermike, lookingforhelp|r, among others who contributed to Jass Newgen Pack." + /*
+			*/ "|n|cff999999peq, Frotty, and others|r, who developed Wurst." + /*
 			*/ "|n|cff999999Shadow Daemon|r for the Button Manager tool, used to generate icons." + /*
 			*/ "|n|cff999999Envious|r, who made the classic map Gridlock, which mico|cff999999runner|rtd is influenced by." + /*
 			*/ "|n|cff999999Matt1965|r, who provided valuable playtest feedback." + /*
 			*/ "|n|cff999999Disney|r, who provide a soundbyte from 'The Lion King'" + /*
+			*/ "|n|cff999999Valve Software|r, who provide a soundbyte from 'Counter Strike: Global Offensive'" + /*
 			*/ "|n|cff999999Blizzard|r, who provide this wonderful world editor and sound bytes from 'World of Warcraft'" + /*
 			*/ "|n|cff999999JetFangInferno|r, for the custom crushing wave model." + /*
 			*/ "|n|cff999999Marcos DAB|r, for the lizard icon." + /*
