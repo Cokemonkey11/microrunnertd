@@ -1,4 +1,6 @@
 scope Heal initializer init
+	import RegisterPlayerUnitEvent
+
 	globals
 		private constant integer HEAL_ID = 'A00C'
 		private constant string HEAL_FX = "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl"
@@ -15,6 +17,5 @@ scope Heal initializer init
 	end
 
 	private function init takes nothing returns nothing
-		RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
 	end
-endscope

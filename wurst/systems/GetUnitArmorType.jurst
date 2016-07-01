@@ -8,17 +8,17 @@ library GetUnitArmorType initializer init
 		private constant integer BONUS_HP = 'A00M'
 	end
 
-	struct ArmorType extends array
-		public static constant integer UNKNOWN = 0
-		public static constant integer MEDIUM_FORTIFIED = 1
-		public static constant integer UNARMORED = 2
-		public static constant integer HERO = 3
-		public static constant integer DIVINE = 4
-		public static constant integer HEAVY_NORMAL = 5
-		public static constant integer LIGHT = 6
-	endstruct
+	public class ArmorType extends array
+		static constant integer UNKNOWN = 0
+		static constant integer MEDIUM_FORTIFIED = 1
+		static constant integer UNARMORED = 2
+		static constant integer HERO = 3
+		static constant integer DIVINE = 4
+		static constant integer HEAVY_NORMAL = 5
+		static constant integer LIGHT = 6
+	end
 
-	function GetUnitArmorType takes unit u returns integer
+	public function GetUnitArmorType takes unit u returns integer
 		integer typ = GetUnitTypeId(u)
 		integer ret = ArmorType.UNKNOWN
 		real hp

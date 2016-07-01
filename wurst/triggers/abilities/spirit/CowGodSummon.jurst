@@ -1,4 +1,7 @@
 scope CowGodSummon initializer init
+	import StructuredDD
+	import DamageType
+
 	globals
 		private constant integer COW_ID = 'h00V'
 		private constant integer TAUREN_ID = 'o000'
@@ -26,4 +29,3 @@ scope CowGodSummon initializer init
 	private function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end
-endscope

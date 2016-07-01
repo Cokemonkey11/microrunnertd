@@ -1,4 +1,9 @@
 scope ChooseRace initializer init
+	import Units
+	import Players
+	import Game
+	import RegisterPlayerUnitEvent
+
 	private function act takes nothing returns nothing
 		unit u = GetSoldUnit()
 		integer i = GetUnitTypeId(u)
@@ -28,6 +33,5 @@ scope ChooseRace initializer init
 	end
 
 	private function init takes nothing returns nothing
-		RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL,function act)
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL,function act)
 	end
-endscope

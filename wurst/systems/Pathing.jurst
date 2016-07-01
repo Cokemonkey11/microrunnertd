@@ -57,7 +57,7 @@ library Pathing initializer init
 		loop
 			exitwhen index > 1920.
 			xIter = index
-			ExecuteFunc(SCOPE_PRIVATE + "yIterRightSide")
+			yIterRightSide()
 			index = index + 16.
 		endloop
 
@@ -66,7 +66,7 @@ library Pathing initializer init
 		loop
 			exitwhen index > -1340.
 			xIter = index
-			ExecuteFunc(SCOPE_PRIVATE + "yIterLeftSide")
+			yIterLeftSide()
 			index = index + 16.
 		endloop
 
@@ -75,7 +75,7 @@ library Pathing initializer init
 		loop
 			exitwhen index > 1470.
 			xIter = index
-			ExecuteFunc(SCOPE_PRIVATE + "yIterTop")
+			yIterTop()
 			index = index + 16.
 		endloop
 
@@ -84,10 +84,9 @@ library Pathing initializer init
 		loop
 			exitwhen index > 190.
 			xIter = index
-			ExecuteFunc(SCOPE_PRIVATE + "yIterCenterArea")
+			yIterCenterArea()
 			index = index + 16.
 		endloop
 
 		done = true
 	end
-end

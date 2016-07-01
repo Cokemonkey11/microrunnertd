@@ -16,19 +16,19 @@
 library DamageType initializer ini
 	import StructuredDD
 
-	//* This struct contains data to deal damage to a target that would otherwise
+	//* This class contains data to deal damage to a target that would otherwise
 	//* die when hit with double damage in correction of spell damage recognition.
 	//* This is to counter the effect of a unit instantly healing some damage due
 	//* to negative spell damage, without using any unnecessary triggers.
-	struct DelayDat
+	class DelayDat
 		unit target
 		unit source
 		real damage
 	end
 
-	//* This is a struct shim which won't be instanciated; it is only useful for
+	//* This is a class shim which won't be instanciated; it is only useful for
 	//* making the pretty API like DamageType.doSomething()
-	public struct DamageType
+	public class DamageType
 
 		///< BEGIN CUSTOMIZE SECTION
 

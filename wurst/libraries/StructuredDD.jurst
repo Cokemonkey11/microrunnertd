@@ -35,8 +35,8 @@ library StructuredDD initializer ini
 
 	//>> END SETTINGS SECTION
 
-	//* Our bucket struct which contains a trigger and its associated contents.
-	struct Bucket
+	//* Our bucket class which contains a trigger and its associated contents.
+	class Bucket
 		int bucketIndex = 0
 		trigger trig = CreateTrigger()
 		unit array members[BUCKET_SIZE]
@@ -44,7 +44,7 @@ library StructuredDD initializer ini
 
 	//* Our wrapper struct. We never intend to actually instanciate "a
 	//* StructuredDD", we just use this for a pretty, java-like API :3
-	public struct StructuredDD
+	public class StructuredDD
 		private static boolexpr array conditions
 		private static Bucket array bucketDB
 		private static int conditionsIndex = -1

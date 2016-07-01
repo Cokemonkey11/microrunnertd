@@ -1,4 +1,7 @@
 scope ExecRidingHaste initializer init
+	import DamageType
+	import StructuredDD
+
 	globals
 		private constant integer ARCH_ID = 'h01B'
 	end
@@ -14,4 +17,3 @@ scope ExecRidingHaste initializer init
 	private function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end
-endscope

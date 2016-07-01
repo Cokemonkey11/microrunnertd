@@ -1,4 +1,8 @@
 scope AlchemistHasteTransmute initializer init
+	import DamageType
+	import StructuredDD
+	import FloatText
+
 	globals
 		private constant integer ARCH_ID = 'h02A'
 	end
@@ -12,7 +16,7 @@ scope AlchemistHasteTransmute initializer init
 			p = GetOwningPlayer(dS)
 			SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + 1)
 			tU = GetTriggerUnit()
-			FloatText_bountyPlayer(GetUnitX(tU),GetUnitY(tU),1,p)
+			FloatText.bountyPlayer(GetUnitX(tU),GetUnitY(tU),1,p)
 			tU = null
 		endif
 		dS = null
@@ -21,4 +25,3 @@ scope AlchemistHasteTransmute initializer init
 	private function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end
-endscope

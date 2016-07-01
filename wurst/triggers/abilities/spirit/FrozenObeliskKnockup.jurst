@@ -1,4 +1,9 @@
 scope FrozenObeliskKnockup initializer init
+	import Units
+	import DamageType
+	import StructuredDD
+	import Knockback3D
+
 	globals
 		private constant integer OB_ID = 'h00Y'
 	end
@@ -20,4 +25,3 @@ scope FrozenObeliskKnockup initializer init
 	private function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end
-endscope

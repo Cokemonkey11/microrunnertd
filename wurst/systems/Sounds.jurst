@@ -1,46 +1,42 @@
-library Sound
+package Sounds
     import Table
 
-    private struct slop
+    class Wrapper
         string snd
-    endstruct
+    end
 
-    public struct Sound
-        private static Table preloadDB
+    public class Sounds
+        static Table preloadDB
 
         private static method preloadAfter takes nothing returns nothing
             timer time=GetExpiredTimer()
-            slop s=preloadDB.loadInt(time.getHandleId()) castTo slop
+            Wrapper s=preloadDB.loadInt(time.getHandleId()) castTo Wrapper
             sound sd=CreateSound(s.snd,false,false,false,12700,12700,"")
             SetSoundVolume(sd,1)
             StartSound(sd)
             KillSoundWhenDone(sd)
             destroy s
-            sd=null
             DestroyTimer(time)
-            time=null
         endmethod
 
-        public static method preload takes string str returns nothing
+        static method preload takes string str returns nothing
             timer time=CreateTimer()
-            slop s=new slop
+            Wrapper s=new Wrapper
             s.snd=str
             preloadDB.saveInt(time.getHandleId(), s castTo int)
             TimerStart(time,.01,false,function preloadAfter)
-            time=null
         endmethod
 
-        public static method play3D takes string str, real pitch, real x, real y, real z returns nothing
+        static method play3D takes string str, real pitch, real x, real y, real z returns nothing
             sound s = CreateSound(str,false,true,true,12700,12700,"")
             SetSoundPosition(s,x,y,z)
             SetSoundVolume(s,127)
             SetSoundPitch(s,pitch)
             StartSound(s)
             KillSoundWhenDone(s)
-            s = null
         endmethod
 
-		public static method playForPlayer takes string str, real pitch, player who returns nothing
+		static method playForPlayer takes string str, real pitch, player who returns nothing
 			sound s = CreateSound(str,false,false,false,12700,12700,"")
 			if GetLocalPlayer()==who then
 				SetSoundVolume(s,127)
@@ -50,19 +46,17 @@ library Sound
 			SetSoundPitch(s,pitch)
 			StartSound(s)
 			KillSoundWhenDone(s)
-			s = null
 		endmethod
 
-		public static method play takes string str, real pitch, integer vol returns nothing
+		static method play takes string str, real pitch, integer vol returns nothing
 			sound s = CreateSound(str,false,false,false,12700,12700,"")
 			SetSoundVolume(s,vol)
 			SetSoundPitch(s,pitch)
 			StartSound(s)
 			KillSoundWhenDone(s)
-			s = null
 		endmethod
+    end
 
-        private static method onInit takes nothing returns nothing
-            preloadDB=new Table
-        endmethod
-    endstruct
+    init
+    	Sounds.preloadDB = new Table
+    end

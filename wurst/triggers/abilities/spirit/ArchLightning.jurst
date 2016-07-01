@@ -1,4 +1,7 @@
 scope ArchLightning initializer init
+	import StructuredDD
+	import DamageType
+
 	globals
 		private constant integer ARCH_ID = 'h00A'
 	end
@@ -14,4 +17,3 @@ scope ArchLightning initializer init
 	private function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end
-endscope

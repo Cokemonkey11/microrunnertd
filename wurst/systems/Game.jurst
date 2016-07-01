@@ -1,7 +1,7 @@
 package Game
 	import Players
 	import Units
-	import Sound
+	import Sounds
 	import Knockback3D
 
 	native UnitAlive takes unit u returns boolean
@@ -108,13 +108,13 @@ package Game
 		private static function hint0 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
 			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Tip:|r You can upgrade various runner improvements at your altar.")
-			Sound.play(TIP,1.,127)
+			Sounds.play(TIP,1.,127)
 		end
 
 		private static function hint1 takes nothing returns nothing
 			DestroyTimer(GetExpiredTimer())
 			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Tip:|r If both players type |cffffcc00-hard|r before the practice round begins, the game becomes more difficult.")
-			Sound.play(TIP,1.,127)
+			Sounds.play(TIP,1.,127)
 		end
 
 		private static function spawn takes nothing returns nothing
@@ -122,7 +122,7 @@ package Game
 			integer size
 			unit u
 			DestroyEffect(bigFx)
-			Sound.play(BEGIN,1.,127)
+			Sounds.play(BEGIN,1.,127)
 			if round == 0 then
 				DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Practice Round|r")
 			else
@@ -145,19 +145,19 @@ package Game
 					DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Boss Round!|r")
 				endif
 				if (round == 6) then
-					Sound.play(BANDIT,1.,127)
+					Sounds.play(BANDIT,1.,127)
 				endif
 				if (round == 12) then
-					Sound.play(KING,1.,127)
+					Sounds.play(KING,1.,127)
 				endif
 				if (round == 18) then
-					Sound.play(QUILL,1.,127)
+					Sounds.play(QUILL,1.,127)
 				endif
 				if (round == 24) then
-					Sound.play(CHIEF,1.,127)
+					Sounds.play(CHIEF,1.,127)
 				endif
 				if (round == 30) then
-					Sound.play(LORD, 1.,127)
+					Sounds.play(LORD, 1.,127)
 				endif
 				size = 2
 			endif
@@ -188,15 +188,15 @@ package Game
 		private static function runSound takes nothing returns nothing
 			integer q = ModuloInteger(round,5)
 			if q == 0 then
-				Sound.play(RUN1, 1., 127)
+				Sounds.play(RUN1, 1., 127)
 			elseif q == 1 then
-				Sound.play(RUN2, 1., 127)
+				Sounds.play(RUN2, 1., 127)
 			elseif q == 2 then
-				Sound.play(RUN3, 1., 127)
+				Sounds.play(RUN3, 1., 127)
 			elseif q == 3 then
-				Sound.play(RUN4, 1., 127)
+				Sounds.play(RUN4, 1., 127)
 			else
-				Sound.play(RUN5, 1., 127)
+				Sounds.play(RUN5, 1., 127)
 			endif
 		end
 
@@ -320,7 +320,7 @@ package Game
 					RemovePlayer(Players.id[0],PLAYER_GAME_RESULT_VICTORY)
 					RemovePlayer(Players.id[1],PLAYER_GAME_RESULT_VICTORY)
 					DisplayTextToPlayer(Players.locl,0.,0.,"You won every round, |cffffcc00congratulations|r! The game will end in 30 seconds.")
-					Sound.play(VICTORY,1.,127)
+					Sounds.play(VICTORY,1.,127)
 					end()
 				else
 					if round == 1 then
@@ -353,7 +353,7 @@ package Game
 			DestroyTimer(GetExpiredTimer())
 			DisplayTextToPlayer(Players.locl,0.,0.,"|cffffcc00Tip:|r There are |cffffcc00Boss|r, " + /*
 				*/ "|cffaacceeSpell Immune|r, |cff222222Swarm|r, and |cff999999High Gravity|r Rounds.")
-			Sound.play(TIP,1.,127)
+			Sounds.play(TIP,1.,127)
 		end
 
 		private static function afterChoose takes nothing returns nothing
@@ -422,7 +422,7 @@ package Game
 			roundDialog = CreateTimerDialog(roundTimer)
 			TimerStart(CreateTimer(),24.,false,function tip0)
 			DisplayTextToPlayer(Players.locl,0.,0.,"\n|cffffcc00Tip:|r You have |cffffcc0015|r seconds to choose a race.")
-			Sound.play(TIP,1.,127)
+			Sounds.play(TIP,1.,127)
 		end
 
 		private static function cinematicSequence2 takes nothing returns nothing
@@ -444,7 +444,7 @@ package Game
 			CameraSetupApply(gg_cam_cinematicCamera1,true,true)
 			IssueTargetOrder(demoChaser,"attack",demoRunner)
 			IssuePointOrder(demoRunner,"move",-1024.,0.)
-			Sound.play(BANDIT_DEMO,1.,127)
+			Sounds.play(BANDIT_DEMO,1.,127)
 			DisplayTextToPlayer(Players.locl,0.,0.,"\nThe forces of |cff993333Doom|r are after your runner!")
 			TimerStart(CreateTimer(),3.5,false,function cinematicSequence2)
 		end
@@ -487,24 +487,24 @@ package Game
 		TimerStart(CreateTimer(),0.,false, function Game.cinematicSequence0)
 
 		// Preload runaway sounds
-		Sound.preload(Game.RUN1)
-		Sound.preload(Game.RUN2)
-		Sound.preload(Game.RUN3)
-		Sound.preload(Game.RUN4)
-		Sound.preload(Game.RUN5)
+		Sounds.preload(Game.RUN1)
+		Sounds.preload(Game.RUN2)
+		Sounds.preload(Game.RUN3)
+		Sounds.preload(Game.RUN4)
+		Sounds.preload(Game.RUN5)
 
 		// Preload boss sounds
-		Sound.preload(Game.BANDIT_DEMO)
-		Sound.preload(Game.BANDIT)
-		Sound.preload(Game.KING)
-		Sound.preload(Game.QUILL)
-		Sound.preload(Game.CHIEF)
-		Sound.preload(Game.LORD)
+		Sounds.preload(Game.BANDIT_DEMO)
+		Sounds.preload(Game.BANDIT)
+		Sounds.preload(Game.KING)
+		Sounds.preload(Game.QUILL)
+		Sounds.preload(Game.CHIEF)
+		Sounds.preload(Game.LORD)
 
 		// Preload event sounds
-		Sound.preload(Game.VICTORY)
-		Sound.preload(Game.BEGIN)
-		Sound.preload(Game.TIP)
+		Sounds.preload(Game.VICTORY)
+		Sounds.preload(Game.BEGIN)
+		Sounds.preload(Game.TIP)
 
 		// Lock time of day
 		SetTimeOfDayScale(0.)

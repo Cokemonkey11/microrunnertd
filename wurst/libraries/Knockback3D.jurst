@@ -65,7 +65,7 @@ library Knockback3D
 	/**
 	 * Object which holds knockback data, not to be modified by the client.
 	 */
-    public struct Knockback3D
+    public class Knockback3D
 
 		/**
 		 * A parameter for controlling the system clock, in seconds. 1/30 runs 30 times per second.
@@ -467,4 +467,4 @@ library Knockback3D
 		 * The knockback vector's z-component
 		 */
         private real delZ
-    endstruct
+    end

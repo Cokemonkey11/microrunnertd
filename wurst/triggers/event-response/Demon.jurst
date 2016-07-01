@@ -1,4 +1,6 @@
 scope Demon initializer init
+	import Players
+
 	globals
 		private constant integer DEMON_ID = 'h02F'
 		private constant integer HOUSE_ID = 'h02G'
@@ -11,7 +13,7 @@ scope Demon initializer init
 
 	private function c takes nothing returns boolean
 		if GetPlayerId(GetOwningPlayer(GetTriggerUnit())) < 2 then
-			SetUnitVertexColor(house,255,255,255,255/3)
+			SetUnitVertexColor(house,255,255,255,R2I(255/3))
 		endif
 		return false
 	end
@@ -55,4 +57,3 @@ scope Demon initializer init
 		t2 = null
 		reg2 = null
 	end
-endscope

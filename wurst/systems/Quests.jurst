@@ -55,4 +55,3 @@ library Quests initializer init
 		addQuest(ROUNDTYPES_DESC,ROUNDTYPES_ICONPATH,true,ROUNDTYPES_TITLE)
 		addQuest(HARD_DESC,HARD_ICONPATH,true,HARD_TITLE)
 	end
-end

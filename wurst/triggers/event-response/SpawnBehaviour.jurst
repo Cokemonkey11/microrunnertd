@@ -1,4 +1,7 @@
 scope SpawnBehaviour initializer init
+	import Units
+	import Players
+
 	native UnitAlive takes unit u returns boolean
 
 	globals
@@ -46,4 +49,3 @@ scope SpawnBehaviour initializer init
 	private function init takes nothing returns nothing
 		TimerStart(CreateTimer(),AI_FIDELITY,true,function act)
 	end
-endscope

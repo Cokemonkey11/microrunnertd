@@ -1,4 +1,8 @@
 scope ArcharchpriestHeal initializer init
+	import Players
+
+	native UnitAlive takes unit u returns boolean
+
 	globals
 		private constant integer PRIEST_ID = 'h009'
 		private constant real RADIUS = 400.
@@ -47,4 +51,3 @@ scope ArcharchpriestHeal initializer init
 	private function init takes nothing returns nothing
 		TimerStart(CreateTimer(),1./2.,true,function p)
 	end
-endscope

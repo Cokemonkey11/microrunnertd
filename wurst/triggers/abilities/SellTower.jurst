@@ -1,4 +1,8 @@
 scope SellTower initializer init
+	import FloatText
+	import Sounds
+	import RegisterPlayerUnitEvent
+
 	native GetUnitGoldCost takes integer id returns integer
 
 	globals
@@ -18,18 +22,17 @@ scope SellTower initializer init
 			x = GetUnitX(tU)
 			y = GetUnitY(tU)
 			p = GetOwningPlayer(tU)
-			i = GetUnitGoldCost(GetUnitTypeId(tU)) / 2
+			i = R2I(GetUnitGoldCost(GetUnitTypeId(tU)) / 2)
 			SetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD,GetPlayerState(p,PLAYER_STATE_RESOURCE_GOLD) + i)
-			FloatText_bountyPlayer(x,y,i,p)
+			FloatText.bountyPlayer(x,y,i,p)
 			DestroyEffect(AddSpecialEffect(FX,x,y))
-			Sound.play(SND,1.,127)	
+			Sounds.play(SND,1.,127)	
 			RemoveUnit(tU)
 			tU = null
 		endif
 	end
 
 	private function init takes nothing returns nothing
-		RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
-		Sound.preload(SND)
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT,function act)
+		Sounds.preload(SND)
 	end
-endscope

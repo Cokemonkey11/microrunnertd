@@ -1,4 +1,8 @@
 scope GeomancerWave initializer init
+	import Units
+	import DamageType
+	import StructuredDD
+
 	globals
 		private constant integer ARCH_ID = 'h01U'
 	end
@@ -16,4 +20,3 @@ scope GeomancerWave initializer init
 	private function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end
-endscope

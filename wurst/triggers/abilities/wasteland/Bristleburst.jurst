@@ -1,4 +1,7 @@
 scope Bristleburst initializer init
+	import DamageType
+	import StructuredDD
+
 	globals
 		private constant integer ARCH_ID = 'h01G'
 		private constant integer ARMOR = 'A00R'
@@ -20,4 +23,3 @@ scope Bristleburst initializer init
 	private function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end
-endscope

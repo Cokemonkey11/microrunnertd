@@ -1,4 +1,9 @@
 scope ExecutionerExecute initializer init
+	import Units
+	import DamageType
+	import StructuredDD
+	import FloatText
+
 	globals
 		private constant integer EX_ID = 'h018'
 	end
@@ -12,7 +17,7 @@ scope ExecutionerExecute initializer init
 			q = GetEventDamage()
 			r = 1. - GetUnitState(tU,UNIT_STATE_LIFE) / GetUnitState(tU,UNIT_STATE_MAX_LIFE)
 			DamageType.dealCodeDamage(dS,tU,q * r)
-			FloatText_bonus(GetUnitX(tU),GetUnitY(tU),R2I(q * (1 + r)))
+			FloatText.bonus(GetUnitX(tU),GetUnitY(tU),R2I(q * (1 + r)))
 		endif
 		tU = null
 		dS = null
@@ -21,4 +26,3 @@ scope ExecutionerExecute initializer init
 	private function init takes nothing returns nothing
 		StructuredDD.addHandler(function h)
 	end
-endscope

@@ -1,4 +1,8 @@
 scope RegularVillager initializer init
+	import Knockback3D
+	import Players
+	import RegisterPlayerUnitEvent
+
 	globals
 		private constant integer VGR0_ID = 'n000'
 		private constant integer VGR1_ID = 'n001'
@@ -98,11 +102,10 @@ scope RegularVillager initializer init
 	end
 
 	private function init takes nothing returns nothing
-		RegisterPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED,function act)
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED,function act)
 		vgr0 = CreateUnit(Players.passive,VGR0_ID,X,Y,FACE_0)
 		vgr1 = CreateUnit(Players.passive,VGR1_ID,0.,0.,FACE_0)
 		ShowUnit(vgr1,false)
 		SetUnitX(vgr1,X)
 		SetUnitY(vgr1,Y)
 	end
-endscope
