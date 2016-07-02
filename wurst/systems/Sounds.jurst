@@ -8,7 +8,7 @@ package Sounds
     public class Sounds
         static Table preloadDB
 
-        private static method preloadAfter takes nothing returns nothing
+        private static method preloadAfter()
             timer time = GetExpiredTimer()
             Wrapper s = preloadDB.loadInt(time.getHandleId()) castTo Wrapper
             sound sd = CreateSound(s.snd, false, false, false, 12700, 12700, "")
@@ -38,7 +38,7 @@ package Sounds
 
 		static method playForPlayer takes string str, real pitch, player who returns nothing
 			sound s = CreateSound(str, false, false, false, 12700, 12700, "")
-			if GetLocalPlayer()==who then
+			if GetLocalPlayer() == who then
 				SetSoundVolume(s, 127)
 			else
 				SetSoundVolume(s, 0)

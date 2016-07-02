@@ -8,7 +8,7 @@ scope DrudgeBonus initializer init
 		constant integer EX_ID = 'h01W'
 	end
 
-	function h takes nothing returns nothing
+	function h()
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		real r
@@ -19,6 +19,6 @@ scope DrudgeBonus initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		StructuredDD.addHandler(function h)
 	end

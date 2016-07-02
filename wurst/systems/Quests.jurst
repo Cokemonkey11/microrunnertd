@@ -9,7 +9,8 @@ library Quests initializer init
 			*/ "|n|cff999999Valve Software|r, who provide a soundbyte from 'Counter Strike: Global Offensive'" + /*
 			*/ "|n|cff999999Blizzard|r, who provide this wonderful world editor and sound bytes from 'World of Warcraft'" + /*
 			*/ "|n|cff999999JetFangInferno|r, for the custom crushing wave model." + /*
-			*/ "|n|cff999999Marcos DAB|r, for the lizard icon." + /*
+			*/ "|n|cff999999Marcos DAB|r, for the lizard and crystal icons." + /*
+			*/ "|n|cff999999dhguardianes|r, for the White Ring effect." + /*
 			*/ "|n|cff999999CygX1|r, for \"Burning in Hell\"." + /*
 			*/ "|n|cff999999Vortigon|r, for the Wind Egg Model."
 		constant string CREDITS_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNBookOfTheDead.blp"
@@ -49,7 +50,7 @@ library Quests initializer init
 		return q
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		addQuest(ABOUT_DESC, ABOUT_ICONPATH, false, ABOUT_TITLE)
 		addQuest(CREDITS_DESC, CREDITS_ICONPATH, false, CREDITS_TITLE)
 		addQuest(HOWTO_DESC, HOWTO_ICONPATH, true, HOWTO_TITLE)

@@ -40,7 +40,7 @@ scope Hard initializer init
 		return false
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		trigger t = CreateTrigger()
 		TriggerRegisterPlayerChatEvent(t, Players.id[0], "-hard", true)
 		TriggerRegisterPlayerChatEvent(t, Players.id[1], "-hard", true)

@@ -18,7 +18,7 @@ scope ArcharchpriestHeal initializer init
 		GroupEnumUnitsInRange(grp2, GetUnitX(u), GetUnitY(u), RADIUS, null)
 		loop
 			fst = FirstOfGroup(grp2)
-			exitwhen fst==null
+			exitwhen fst == null
 			life = GetWidgetLife(fst)
 			if IsUnitAlly(fst, p) and UnitAlive(fst) and life < 100. and (life/GetUnitState(fst, UNIT_STATE_MAX_LIFE)) < 1. and not IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
 				SetWidgetLife(fst, life + 3.)
@@ -30,7 +30,7 @@ scope ArcharchpriestHeal initializer init
 		end
 	end
 
-	function p takes nothing returns nothing
+	function p()
 		integer index = 0
 		unit fst
 		loop
@@ -38,8 +38,8 @@ scope ArcharchpriestHeal initializer init
 			GroupEnumUnitsOfPlayer(grp, Players.id[index], null)
 			loop
 				fst = FirstOfGroup(grp)
-				exitwhen fst==null
-				if GetUnitTypeId(fst)==PRIEST_ID and UnitAlive(fst) and GetUnitState(fst, UNIT_STATE_MANA)>=10 then
+				exitwhen fst == null
+				if GetUnitTypeId(fst) == PRIEST_ID and UnitAlive(fst) and GetUnitState(fst, UNIT_STATE_MANA)>=10 then
 					parsePriest(fst)
 				end
 				GroupRemoveUnit(grp, fst)
@@ -48,6 +48,6 @@ scope ArcharchpriestHeal initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		TimerStart(CreateTimer(), 1./2., true, function p)
 	end

@@ -2,7 +2,7 @@ package Pathing
 	boolean done = false
 	real xIter
 
-	function yIterRightSide takes nothing returns nothing
+	function yIterRightSide()
 		real index = -1710.
 		loop
 			exitwhen index > 450.
@@ -11,7 +11,7 @@ package Pathing
 		end
 	end
 
-	function yIterLeftSide takes nothing returns nothing
+	function yIterLeftSide()
 		real index = -1740.
 		loop
 			exitwhen index > 1340.
@@ -20,7 +20,7 @@ package Pathing
 		end
 	end
 
-	function yIterCenterArea takes nothing returns nothing
+	function yIterCenterArea()
 		real index = 275.
 		loop
 			exitwhen index > 575
@@ -29,7 +29,7 @@ package Pathing
 		end
 	end
 
-	function yIterTop takes nothing returns nothing
+	function yIterTop()
 		real index = 1360.
 		loop
 			exitwhen index > 1630.
@@ -38,7 +38,7 @@ package Pathing
 		end
 	end
 
-	function opLimitCheck takes nothing returns nothing
+	function opLimitCheck()
 		debug if not done then
 			debug call BJDebugMsg("Pathing: Op-Limit reached!")
 		debug end

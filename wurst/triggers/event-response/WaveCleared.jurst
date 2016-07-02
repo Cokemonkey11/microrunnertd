@@ -6,7 +6,7 @@ package WaveCleared
 
 	constant string WAVE_CLEAR = "Sound\\Interace\\GoodJob.wav"
 
-	function act takes nothing returns nothing
+	function act()
 		unit tU = GetTriggerUnit()
 
 		// Execution conditions:

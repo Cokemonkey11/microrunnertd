@@ -21,13 +21,13 @@ library IsTerrainWalkable initializer init
         integer hiddenMax = 0
     end
 
-    function init takes nothing returns nothing
+    function init()
         check = CreateItem('ciri', 0., 0.)
         SetItemVisible(check, false)
         r = Rect(0.0, 0.0, 128.0, 128.0)
     end
 
-    function hideBothersomeItem takes nothing returns nothing
+    function hideBothersomeItem()
         if IsItemVisible(GetEnumItem()) then
             hidden[hiddenMax] = GetEnumItem()
             SetItemVisible(hidden[hiddenMax], false)
@@ -52,7 +52,7 @@ library IsTerrainWalkable initializer init
 
         // before returning, unhide any items that got hidden at the start
         loop
-            exitwhen hiddenMax==0
+            exitwhen hiddenMax == 0
             hiddenMax--
             SetItemVisible(hidden[hiddenMax], true)
         end

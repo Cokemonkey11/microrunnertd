@@ -6,13 +6,13 @@ scope ExecRidingHaste initializer init
 		constant integer ARCH_ID = 'h01B'
 	end
 
-	function h takes nothing returns nothing
+	function h()
 		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
 			IssueImmediateOrder(dS, "berserk")
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		StructuredDD.addHandler(function h)
 	end

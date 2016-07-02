@@ -8,7 +8,7 @@ scope CowMasterSummon initializer init
 		constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 	end
 
-	function h takes nothing returns nothing
+	function h()
 		unit q
 		unit dS = GetEventDamageSource()
 		unit tU
@@ -23,6 +23,6 @@ scope CowMasterSummon initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		StructuredDD.addHandler(function h)
 	end

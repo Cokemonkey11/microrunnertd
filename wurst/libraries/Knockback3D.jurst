@@ -224,7 +224,7 @@ library Knockback3D
 		/**
 		 * The callback function when enumerating destructables
 		 */
-		private static method destructableCallback takes nothing returns nothing
+		private static method destructableCallback()
 			destructable des = GetEnumDestructable()
 			if GetDestructableLife(des) > 0. then
 				hitDestructable = true
@@ -234,7 +234,7 @@ library Knockback3D
 		/**
 		 * The periodic function which iterates through all objects in flight
 		 */
-		private static method p takes nothing returns nothing
+		private static method p()
 			boolean newInMap
 			integer index = 0
 			real flyHeight
@@ -327,9 +327,9 @@ library Knockback3D
 			integer returner = -1
 			thistype tempDat
 			loop
-				exitwhen index > dbIndex or returner!=-1
+				exitwhen index > dbIndex or returner != -1
 				tempDat = knockDB[index]
-				if tempDat.u==u then
+				if tempDat.u == u then
 					returner = index
 				end
 				index++
@@ -362,7 +362,7 @@ library Knockback3D
 			integer index = getUnitIndexFromStack(u)
 			thistype tempDat
 			real instVel = velocity*CLOCK_PERIOD
-			if index==-1 then
+			if index == -1 then
 				tempDat = new Knockback3D
 				tempDat.u = u
 				tempDat.delX = instVel*Cos(angle)*Cos(alpha)
@@ -373,7 +373,7 @@ library Knockback3D
 				if UnitAddAbility(tempDat.u, CROW_ID) then
 					UnitRemoveAbility(tempDat.u, CROW_ID)
 				end
-				if dbIndex==0 then
+				if dbIndex == 0 then
 					TimerStart(clock, CLOCK_PERIOD, true, function p)
 				end
 			else
@@ -398,7 +398,7 @@ library Knockback3D
 			integer index = getUnitIndexFromStack(u)
 			thistype tempDat
 			real instVel = velocity*CLOCK_PERIOD
-			if index==-1 then
+			if index == -1 then
 				tempDat = new Knockback3D
 				tempDat.u = u
 				tempDat.delX = instVel*Cos(angle)*Cos(alpha)
@@ -409,7 +409,7 @@ library Knockback3D
 				if UnitAddAbility(tempDat.u, CROW_ID) then
 					UnitRemoveAbility(tempDat.u, CROW_ID)
 				end
-				if dbIndex==0 then
+				if dbIndex == 0 then
 					TimerStart(clock, CLOCK_PERIOD, true, function p)
 				end
 			else

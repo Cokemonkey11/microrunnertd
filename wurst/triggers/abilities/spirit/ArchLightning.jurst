@@ -6,13 +6,13 @@ scope ArchLightning initializer init
 		constant integer ARCH_ID = 'h00A'
 	end
 
-	function h takes nothing returns nothing
+	function h()
 		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
 			IssueTargetOrder(dS, "forkedlightning", GetTriggerUnit())
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		StructuredDD.addHandler(function h)
 	end

@@ -20,13 +20,13 @@ scope Demon initializer init
 
 	function c2 takes nothing returns boolean
 		GroupEnumUnitsInRect(grp, rcts, null)
-		if FirstOfGroup(grp)==null then
+		if FirstOfGroup(grp) == null then
 			SetUnitVertexColor(house, 255, 255, 255, 255)
 		end
 		return false
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		region reg = CreateRegion()
 		region reg2 = CreateRegion()
 		trigger t= CreateTrigger()

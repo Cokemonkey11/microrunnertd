@@ -29,7 +29,7 @@ library SimError initializer init
         end
     end
 
-    function init takes nothing returns nothing
+    function init()
          error = CreateSoundFromLabel("InterfaceError", false, false, false, 10, 10)
          //call StartSound( error ) //apparently the bug in which you play a sound for the first time
                                     //and it doesn't work is not there anymore in patch 1.22

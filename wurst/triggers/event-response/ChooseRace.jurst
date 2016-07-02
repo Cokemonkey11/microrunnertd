@@ -4,36 +4,16 @@ package ChooseRace
 	import Game
 	import RegisterPlayerUnitEvent
 
-	function act takes nothing returns nothing
+	function act()
 		unit u         = GetSoldUnit()
 		integer raceId = GetUnitTypeId(u)
-		player p       = GetOwningPlayer(u)
-		integer pid    = GetPlayerId(p)
 
 		if raceId == Units.ID_BUILDER_SPIRIT then
-			RemoveUnit(GetSellingUnit())
-
-			if Players.locl == p then
-				SelectUnit(u, true)
-			end
-
-			Units.runnerTypes[pid] = Units.ID_RUNNER_SPIRIT
-			CreateUnit(Players.id[pid], Units.ID_ALTAR_SPIRIT, Players.altarX[pid], Players.altarY[pid], 270.)
+			Game.setupRace(Units.ID_RUNNER_SPIRIT, Units.ID_ALTAR_SPIRIT, u)
 		elseif raceId == Units.ID_BUILDER_WASTE then
-			RemoveUnit(GetSellingUnit())
-
-			if Players.locl == p then
-				SelectUnit(u, true)
-			end
-
-			Units.runnerTypes[pid] = Units.ID_RUNNER_WASTE
-			CreateUnit(Players.id[pid], Units.ID_ALTAR_WASTE, Players.altarX[pid], Players.altarY[pid], 270.)
-		end
-
-		if Players.playingCount == 1 or (Units.runnerTypes[0]!=0 and Units.runnerTypes[1]!=0) then
-			DestroyTimer(Game.chooseTimer)
-			DestroyTimerDialog(Game.chooseDialog)
-			TimerStart(CreateTimer(), 15., false, function Game.practiceRound)
+			Game.setupRace(Units.ID_RUNNER_WASTE,  Units.ID_ALTAR_WASTE,  u)
+		elseif raceId == Units.ID_BUILDER_METAL then
+			Game.setupRace(Units.ID_RUNNER_METAL,  Units.ID_ALTAR_METAL,  u)
 		end
 	end
 

@@ -9,7 +9,7 @@ scope SorcerorSlayer initializer init
 		Table tab
 	end
 
-	function h takes nothing returns nothing
+	function h()
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK then
@@ -28,7 +28,7 @@ scope SorcerorSlayer initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		StructuredDD.addHandler(function h)
 		tab = new Table
 	end

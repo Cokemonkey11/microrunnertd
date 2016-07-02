@@ -11,7 +11,7 @@ scope SellTower initializer init
 		constant string SND = "Abilities\\Spells\\Items\\ResourceItems\\ReceiveGold.wav"
 	end
 
-	function act takes nothing returns nothing
+	function act()
 		unit tU
 		player p 
 		integer i 
@@ -31,7 +31,7 @@ scope SellTower initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
 		Sounds.preload(SND)
 	end

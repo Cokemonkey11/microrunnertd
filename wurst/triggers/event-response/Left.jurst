@@ -21,7 +21,7 @@ scope Left initializer init
 			oid = 1 - id
 			grp = CreateGroup()
 			Players.playing[id] = false
-			Players.playingCount = Players.playingCount - 1
+			Players.playingCount--
 			q = GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD)
 			SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, 0)
 			SetPlayerState(Players.id[oid], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[oid], PLAYER_STATE_RESOURCE_GOLD) + q)
@@ -48,7 +48,7 @@ scope Left initializer init
 		return false
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		trigger t = CreateTrigger()
 		TriggerRegisterPlayerEvent(t, Players.id[0], EVENT_PLAYER_LEAVE)
 		TriggerRegisterPlayerEvent(t, Players.id[1], EVENT_PLAYER_LEAVE)

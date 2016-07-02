@@ -7,15 +7,15 @@ scope FrogExplosion initializer init
 		unit frog
 	end
 
-	function a takes nothing returns nothing
+	function a()
 		unit tU = GetTriggerUnit()
-		if tU==frog then
+		if tU == frog then
 			KillUnit(tU)
 			FloatText.bonus(GetUnitX(tU), GetUnitY(tU), 50)
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		frog = CreateUnit(Players.passive, 'nfro', 0., 0., 0.)
 		SetUnitExploded(frog, true)
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED, function a)

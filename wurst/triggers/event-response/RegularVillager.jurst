@@ -20,38 +20,38 @@ scope RegularVillager initializer init
 		effect fx
 	end
 
-	function seq4 takes nothing returns nothing
+	function seq4()
 		state = 2
 		DestroyTimer(GetExpiredTimer())
 	end
 
-	function seq3 takes nothing returns nothing
+	function seq3()
 		SetUnitFacingTimed(vgr0, FACE_0, 0.)
 		DestroyEffect(fx)
 		TimerStart(GetExpiredTimer(), 1., false, function seq4)
 	end
 
-	function seq2 takes nothing returns nothing
+	function seq2()
 		SetUnitFacingTimed(vgr0, FACE_1, 2.)
 		TimerStart(GetExpiredTimer(), 2., false, function seq3)
 	end
 
-	function seq1 takes nothing returns nothing
+	function seq1()
 		SetUnitFacingTimed(vgr0, FACE_2, 2.)
 		TimerStart(GetExpiredTimer(), 2., false, function seq2)
 	end
 
-	function seq0 takes nothing returns nothing
+	function seq0()
 		SetUnitFacingTimed(vgr0, FACE_1, 0.)
 		TimerStart(GetExpiredTimer(), 1., false, function seq1)
 	end
 
-	function seq24 takes nothing returns nothing
+	function seq24()
 		state = 0
 		DestroyTimer(GetExpiredTimer())
 	end
 
-	function seq23 takes nothing returns nothing
+	function seq23()
 		ShowUnit(vgr1, false)
 		ShowUnit(vgr0, true)
 		SetUnitX(vgr0, X)
@@ -63,23 +63,23 @@ scope RegularVillager initializer init
 		TimerStart(GetExpiredTimer(), 1., false, function seq24)
 	end
 
-	function seq22 takes nothing returns nothing
+	function seq22()
 		SetUnitFacing(vgr1, FACE_2)
 		TimerStart(GetExpiredTimer(), 1., false, function seq23)
 	end
 
-	function seq21 takes nothing returns nothing
+	function seq21()
 		Knockback3D.add(vgr1, 400., 0., bj_PI/2.)
 		TimerStart(GetExpiredTimer(), 1., false, function seq22)
 	end
 
-	function seq20 takes nothing returns nothing
+	function seq20()
 		Knockback3D.add(vgr1, 400., 0., bj_PI/2.)
 		SetUnitFacing(vgr0, FACE_2)
 		TimerStart(GetExpiredTimer(), .7, false, function seq21)
 	end
 
-	function act takes nothing returns nothing
+	function act()
 		unit tU = GetTriggerUnit()
 		if tU == vgr0 then
 			if state == 0 then
@@ -100,7 +100,7 @@ scope RegularVillager initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED, function act)
 		vgr0 = CreateUnit(Players.passive, VGR0_ID, X,Y, FACE_0)
 		vgr1 = CreateUnit(Players.passive, VGR1_ID, 0., 0., FACE_0)

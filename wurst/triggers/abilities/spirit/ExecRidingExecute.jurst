@@ -8,7 +8,7 @@ scope ExecRidingExecute initializer init
 		constant integer EX_ID = 'h01B'
 	end
 
-	function h takes nothing returns nothing
+	function h()
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		real q
@@ -21,6 +21,6 @@ scope ExecRidingExecute initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		StructuredDD.addHandler(function h)
 	end

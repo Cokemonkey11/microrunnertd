@@ -7,7 +7,7 @@ scope AlchemistHasteTransmute initializer init
 		constant integer ARCH_ID = 'h02A'
 	end
 
-	function h takes nothing returns nothing
+	function h()
 		unit dS = GetEventDamageSource()
 		unit tU
 		player p
@@ -20,6 +20,6 @@ scope AlchemistHasteTransmute initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		StructuredDD.addHandler(function h)
 	end

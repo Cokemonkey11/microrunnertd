@@ -63,6 +63,6 @@ library GetUnitArmorType initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		tab = new Table
 	end

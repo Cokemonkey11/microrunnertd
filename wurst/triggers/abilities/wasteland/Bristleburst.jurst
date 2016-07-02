@@ -8,7 +8,7 @@ scope Bristleburst initializer init
 		constant integer EFFECT = 'A003'
 	end
 
-	function h takes nothing returns nothing
+	function h()
 		unit tU
 		unit dS = GetEventDamageSource()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.SPELL then
@@ -18,6 +18,6 @@ scope Bristleburst initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		StructuredDD.addHandler(function h)
 	end

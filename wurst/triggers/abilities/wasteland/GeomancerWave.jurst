@@ -7,7 +7,7 @@ scope GeomancerWave initializer init
 		constant integer ARCH_ID = 'h01U'
 	end
 
-	function h takes nothing returns nothing
+	function h()
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1 then
@@ -15,6 +15,6 @@ scope GeomancerWave initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		StructuredDD.addHandler(function h)
 	end

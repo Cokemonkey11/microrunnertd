@@ -11,7 +11,7 @@ package Defeat
 	constant string DEFEAT = "Sound\\Interface\\QuestFailed.wav"
 	constant string OOPS = "Sound\\Interface\\Rescue.wav"
 
-	function a takes nothing returns nothing
+	function a()
 		integer count = 0
 		integer id = GetUnitTypeId(GetTriggerUnit())
 		if tab.hasInt(id) then

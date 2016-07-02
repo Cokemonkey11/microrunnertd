@@ -26,7 +26,7 @@ package Units
 		static Table bounties
 		private static group grp = CreateGroup()
 
-		static function freezeAll takes nothing returns nothing
+		static function freezeAll()
 			unit fst
 
 			integer index = 0
@@ -52,6 +52,9 @@ package Units
 	end
 
 	init
+		Units.runnerTypes[0] = 0
+		Units.runnerTypes[1] = 0
+
 		Units.bounties = new Table
 
 		Units.spawns[0] = 'h002'

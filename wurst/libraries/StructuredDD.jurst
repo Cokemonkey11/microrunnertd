@@ -74,7 +74,7 @@ library StructuredDD initializer ini
 			end
 		end
 
-		static method disable takes nothing returns nothing
+		static method disable()
 			int index = 0
 			Bucket b
 
@@ -86,7 +86,7 @@ library StructuredDD initializer ini
 			end
 		end
 
-		static method enable takes nothing returns nothing
+		static method enable()
 			int index = 0
 			Bucket b
 			loop
@@ -157,7 +157,7 @@ library StructuredDD initializer ini
 		//* This method cleans up any empty buckets periodically by checking
 		//* if it has been fully allocated and then checking if all its
 		//* members no longer exist.
-		static method perCleanup takes nothing returns nothing
+		static method perCleanup()
 			int index = 0
 
 			loop
@@ -181,7 +181,7 @@ library StructuredDD initializer ini
 
 	//* This is a initialization function necessary for the setup of
 	//* StructuredDD.
-	function ini takes nothing returns nothing
+	function ini()
 		group grp
 		region reg
 		trigger autoAddUnits

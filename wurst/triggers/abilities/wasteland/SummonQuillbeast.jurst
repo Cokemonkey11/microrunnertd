@@ -9,7 +9,7 @@ scope SummonQuillbeast initializer init
 		constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 	end
 
-	function act takes nothing returns nothing
+	function act()
 		real x
 		real y
 		unit s
@@ -30,6 +30,6 @@ scope SummonQuillbeast initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	function init()
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
 	end

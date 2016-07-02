@@ -2,40 +2,25 @@ package RandomRace
 	import Units
 	import Players
 	import RegisterPlayerUnitEvent
+	import Game
 
-	constant integer ID = 'A00S'
+	constant integer RANDOM_RACE_ID = 'A00S'
 
-	function act takes nothing returns nothing
-		integer r
-		player p
-		unit tU
-		unit u
-		integer pid
+	function act()
+		if GetSpellAbilityId() == RANDOM_RACE_ID then
+			unit tU  = GetTriggerUnit()
+			int rand = GetRandomInt(0, 2)
+			player p = GetOwningPlayer(tU)
 
-		if GetSpellAbilityId() == ID then
-			tU = GetTriggerUnit()
-			r = GetRandomInt(0, 1)
-			p = GetOwningPlayer(tU)
-			pid = GetPlayerId(p)
-
-			if r == 0 then
-				u = CreateUnit(p, Units.ID_BUILDER_SPIRIT, GetUnitX(tU), GetUnitY(tU), 270.)
-
-				if Players.locl == p then
-					SelectUnit(u, true)
-				end
-
-				Units.runnerTypes[pid] = Units.ID_RUNNER_SPIRIT
-				CreateUnit(Players.id[pid], Units.ID_ALTAR_SPIRIT, Players.altarX[pid], Players.altarY[pid], 270.)
+			if     rand == 0 then
+				unit u = CreateUnit(p, Units.ID_BUILDER_SPIRIT, GetUnitX(tU), GetUnitY(tU), 270.)
+				Game.setupRace(Units.ID_RUNNER_SPIRIT, Units.ID_ALTAR_SPIRIT, u)
+			elseif rand == 1 then
+				unit u = CreateUnit(p, Units.ID_BUILDER_WASTE,  GetUnitX(tU), GetUnitY(tU), 270.)
+				Game.setupRace(Units.ID_RUNNER_WASTE,  Units.ID_ALTAR_WASTE,  u)
 			else
-				u = CreateUnit(p, Units.ID_BUILDER_WASTE, GetUnitX(tU), GetUnitY(tU), 270.)
-
-				if Players.locl == p then
-					SelectUnit(u, true)
-				end
-
-				Units.runnerTypes[pid] = Units.ID_RUNNER_WASTE
-				CreateUnit(Players.id[pid], Units.ID_ALTAR_WASTE, Players.altarX[pid], Players.altarY[pid], 270.)
+				unit u = CreateUnit(p, Units.ID_BUILDER_METAL,  GetUnitX(tU), GetUnitY(tU), 270.)
+				Game.setupRace(Units.ID_RUNNER_METAL,  Units.ID_ALTAR_METAL,  u)
 			end
 
 			RemoveUnit(tU)

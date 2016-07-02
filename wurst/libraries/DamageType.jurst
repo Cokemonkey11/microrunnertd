@@ -109,7 +109,7 @@ library DamageType initializer ini
 		//* This is the function that occurs 0 seconds after damaging a unit, for the
 		//* case that damaging it by twice as much at the same time would kill it
 		//* unexpectedly.
-		private static method after takes nothing returns nothing
+		private static method after()
 			timer time = GetExpiredTimer()
 			DelayDat tempDat = time.getData() castTo DelayDat
 
@@ -169,7 +169,7 @@ library DamageType initializer ini
 		end
 	end
 
-	function ini takes nothing returns nothing
+	function ini()
 		group grp = CreateGroup()
 		region reg = CreateRegion()
 		trigger addBracer = CreateTrigger()
