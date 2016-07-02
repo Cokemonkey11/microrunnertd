@@ -1,33 +1,33 @@
-scope ChooseRace initializer init
+package ChooseRace
 	import Units
 	import Players
 	import Game
 	import RegisterPlayerUnitEvent
 
 	function act takes nothing returns nothing
-		unit u      = GetSoldUnit()
-		integer i   = GetUnitTypeId(u)
-		player p    = GetOwningPlayer(u)
-		integer pid = GetPlayerId(p)
+		unit u         = GetSoldUnit()
+		integer raceId = GetUnitTypeId(u)
+		player p       = GetOwningPlayer(u)
+		integer pid    = GetPlayerId(p)
 
-		if i == Units.SPIRIT_ID then
+		if raceId == Units.ID_BUILDER_SPIRIT then
 			RemoveUnit(GetSellingUnit())
 
 			if Players.locl == p then
 				SelectUnit(u, true)
 			end
 
-			Units.runnerTypes[pid] = Units.RUNNER_ID
-			CreateUnit(Players.id[pid], Units.SPIRIT_ALTAR_ID, Players.altarX[pid], Players.altarY[pid], 270.)
-		elseif i == Units.WASTE_ID then
+			Units.runnerTypes[pid] = Units.ID_RUNNER_SPIRIT
+			CreateUnit(Players.id[pid], Units.ID_ALTAR_SPIRIT, Players.altarX[pid], Players.altarY[pid], 270.)
+		elseif raceId == Units.ID_BUILDER_WASTE then
 			RemoveUnit(GetSellingUnit())
 
 			if Players.locl == p then
 				SelectUnit(u, true)
 			end
 
-			Units.runnerTypes[pid] = Units.RUNNER_WASTE_ID
-			CreateUnit(Players.id[pid], Units.WASTE_ALTAR_ID, Players.altarX[pid], Players.altarY[pid], 270.)
+			Units.runnerTypes[pid] = Units.ID_RUNNER_WASTE
+			CreateUnit(Players.id[pid], Units.ID_ALTAR_WASTE, Players.altarX[pid], Players.altarY[pid], 270.)
 		end
 
 		if Players.playingCount == 1 or (Units.runnerTypes[0]!=0 and Units.runnerTypes[1]!=0) then
@@ -37,6 +37,6 @@ scope ChooseRace initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	init
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL, function act)
 	end

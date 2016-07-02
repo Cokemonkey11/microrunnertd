@@ -10,6 +10,7 @@ package Game
 		private static constant real ROUND_DELAY      = 20.
 		private static constant real ROUND_DELAY_HARD = 10.
 		private static constant real SPAWN_DELAY      =  3.
+
 		private static constant integer SPAWN_SIZE     = 10
 		private static constant integer GOLD_BASE      =  8
 		private static constant integer GOLD_PER_LEVEL =  2
@@ -362,42 +363,42 @@ package Game
 			if Players.playing[0] and Units.runnerTypes[0]==0 then
 				r = GetRandomInt(0, 1)
 				if r == 0 then
-					u = CreateUnit(Players.id[0], Units.SPIRIT_ID, GetUnitX(Units.choosers[0]), GetUnitY(Units.choosers[0]), 270.)
+					u = CreateUnit(Players.id[0], Units.ID_BUILDER_SPIRIT, GetUnitX(Units.choosers[0]), GetUnitY(Units.choosers[0]), 270.)
 					DisplayTextToPlayer(Players.id[0], 0., 0., "You took too long to choose, and have randomed |cffffcc00Spirit|r.")
 					if Players.locl == Players.id[0] then
 						SelectUnit(u, true)
 					end
-					Units.runnerTypes[0] = Units.RUNNER_ID
-					CreateUnit(Players.id[0], Units.SPIRIT_ALTAR_ID, Players.altarX[0], Players.altarY[0], 270.)
+					Units.runnerTypes[0] = Units.ID_RUNNER_SPIRIT
+					CreateUnit(Players.id[0], Units.ID_ALTAR_SPIRIT, Players.altarX[0], Players.altarY[0], 270.)
 				else
-					u = CreateUnit(Players.id[0], Units.WASTE_ID, GetUnitX(Units.choosers[0]), GetUnitY(Units.choosers[0]), 270.)
+					u = CreateUnit(Players.id[0], Units.ID_BUILDER_WASTE, GetUnitX(Units.choosers[0]), GetUnitY(Units.choosers[0]), 270.)
 					DisplayTextToPlayer(Players.id[0], 0., 0., "You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
 					if Players.locl == Players.id[0] then
 						SelectUnit(u, true)
 					end
-					Units.runnerTypes[0] = Units.RUNNER_WASTE_ID
-					CreateUnit(Players.id[0], Units.WASTE_ALTAR_ID, Players.altarX[0], Players.altarY[0], 270.)
+					Units.runnerTypes[0] = Units.ID_RUNNER_WASTE
+					CreateUnit(Players.id[0], Units.ID_ALTAR_WASTE, Players.altarX[0], Players.altarY[0], 270.)
 				end
 				RemoveUnit(Units.choosers[0])
 			end
 			if Players.playing[1] and Units.runnerTypes[1]==0 then
 				r = GetRandomInt(0, 1)
 				if r == 0 then
-					u = CreateUnit(Players.id[1], Units.SPIRIT_ID, GetUnitX(Units.choosers[1]), GetUnitY(Units.choosers[1]), 270.)
+					u = CreateUnit(Players.id[1], Units.ID_BUILDER_SPIRIT, GetUnitX(Units.choosers[1]), GetUnitY(Units.choosers[1]), 270.)
 					DisplayTextToPlayer(Players.id[1], 0., 0., "You took too long to choose, and have randomed |cffffcc00Spirit|r.")
 					if Players.locl == Players.id[1] then
 						SelectUnit(u, true)
 					end
-					Units.runnerTypes[1] = Units.RUNNER_ID
-					CreateUnit(Players.id[1], Units.SPIRIT_ALTAR_ID, Players.altarX[1], Players.altarY[0], 270.)
+					Units.runnerTypes[1] = Units.ID_RUNNER_SPIRIT
+					CreateUnit(Players.id[1], Units.ID_ALTAR_SPIRIT, Players.altarX[1], Players.altarY[0], 270.)
 				else
-					u = CreateUnit(Players.id[1], Units.WASTE_ID, GetUnitX(Units.choosers[1]), GetUnitY(Units.choosers[1]), 270.)
+					u = CreateUnit(Players.id[1], Units.ID_BUILDER_WASTE, GetUnitX(Units.choosers[1]), GetUnitY(Units.choosers[1]), 270.)
 					DisplayTextToPlayer(Players.id[1], 0., 0., "You took too long to choose, and have randomed |cffffcc00Wasteland|r.")
 					if Players.locl == Players.id[1] then
 						SelectUnit(u, true)
 					end
-					Units.runnerTypes[1] = Units.RUNNER_WASTE_ID
-					CreateUnit(Players.id[1], Units.WASTE_ALTAR_ID, Players.altarX[1], Players.altarY[1], 270.)
+					Units.runnerTypes[1] = Units.ID_RUNNER_WASTE
+					CreateUnit(Players.id[1], Units.ID_ALTAR_WASTE, Players.altarX[1], Players.altarY[1], 270.)
 				end
 				RemoveUnit(Units.choosers[1])
 			end
@@ -439,7 +440,7 @@ package Game
 			DestroyTimer(GetExpiredTimer())
 			if cinematicOn
 				fadeIn(.5)
-				demoRunner = CreateUnit(Player(2), Units.RUNNER_ID, 0., 1024., 180.)
+				demoRunner = CreateUnit(Player(2), Units.ID_RUNNER_SPIRIT, 0., 1024., 180.)
 				demoTower  = CreateUnit(Player(2), 'h007', -851., 562., 270.)
 				demoChaser = CreateUnit(Players.creeps, 'h022', 256. + 128., 1024., 0.)
 				SetUnitState(demoTower, UNIT_STATE_MANA, 500.)

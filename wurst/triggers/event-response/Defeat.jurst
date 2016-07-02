@@ -1,4 +1,4 @@
-scope Defeat initializer init
+package Defeat
 	import Units
 	import Players
 	import Game
@@ -7,11 +7,9 @@ scope Defeat initializer init
 
 	native UnitAlive takes unit u returns boolean
 
-	globals
-		Table tab
-		constant string DEFEAT = "Sound\\Interface\\QuestFailed.wav"
-		constant string OOPS = "Sound\\Interface\\Rescue.wav"
-	end
+	Table tab
+	constant string DEFEAT = "Sound\\Interface\\QuestFailed.wav"
+	constant string OOPS = "Sound\\Interface\\Rescue.wav"
 
 	function a takes nothing returns nothing
 		integer count = 0
@@ -35,11 +33,12 @@ scope Defeat initializer init
 		end
 	end
 
-	function init takes nothing returns nothing
+	init
 		tab = new Table
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH, function a)
-		tab.saveInt(Units.RUNNER_ID, 1)
-		tab.saveInt(Units.RUNNER_WASTE_ID, 1)
+		tab.saveInt(Units.ID_RUNNER_SPIRIT, 1)
+		tab.saveInt(Units.ID_RUNNER_WASTE,  1)
+		tab.saveInt(Units.ID_RUNNER_METAL,  1)
 		Sounds.preload(DEFEAT)
 		Sounds.preload(OOPS)
 	end
