@@ -2,6 +2,7 @@ package SpawnBehaviour
 	import Units
 	import Players
 	import ClosureTimers
+	import Table
 
 	native UnitAlive takes unit u returns boolean
 
@@ -11,10 +12,14 @@ package SpawnBehaviour
 
 	group grp = CreateGroup()
 
+	Table taunts         = new Table
+	Table tauntDurations = new Table
+
 	function getClosestRunner takes unit q returns unit
 		integer index = 0
 		unit u = null
 		real r = 9999999.
+		int  qHandleId = q.getHandleId()
 
 		loop
 			exitwhen index >= Players.COUNT
@@ -30,7 +35,28 @@ package SpawnBehaviour
 			index++
 		end
 
+		if Table.ht.hasHandle(taunts castTo int, qHandleId)
+			unit target = taunts.loadUnit(qHandleId)
+			real duration = tauntDurations.loadReal(qHandleId) - AI_FIDELITY
+
+			if duration <= 0. or not target.isAlive()
+				taunts.removeHandle(qHandleId)
+				tauntDurations.removeReal(qHandleId)
+			else
+				tauntDurations.saveReal(qHandleId, duration)
+
+				if not target.hasAbility(INVULNERABLE_ID)
+					u = target
+				end
+			end
+		end
+
 		return u
+	end
+
+	public function addTaunt(unit u, unit target, real duration)
+		tauntDurations.saveReal(u.getHandleId(), duration)
+		taunts.saveUnit(u.getHandleId(), target)
 	end
 
 	init

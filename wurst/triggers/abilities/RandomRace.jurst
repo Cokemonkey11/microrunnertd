@@ -1,6 +1,5 @@
 package RandomRace
 	import Units
-	import Players
 	import RegisterPlayerUnitEvent
 	import Game
 

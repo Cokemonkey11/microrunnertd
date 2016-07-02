@@ -11,6 +11,7 @@ library Quests initializer init
 			*/ "|n|cff999999JetFangInferno|r, for the custom crushing wave model." + /*
 			*/ "|n|cff999999Marcos DAB|r, for the lizard and crystal icons." + /*
 			*/ "|n|cff999999dhguardianes|r, for the White Ring effect." + /*
+			*/ "|n|cff999999morbent|r, for the mephisto icon." + /*
 			*/ "|n|cff999999CygX1|r, for \"Burning in Hell\"." + /*
 			*/ "|n|cff999999Vortigon|r, for the Wind Egg Model."
 		constant string CREDITS_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNBookOfTheDead.blp"

@@ -387,9 +387,6 @@ package Game
 		end
 
 		private static function afterChoose()
-			integer r
-			unit u
-
 			if Players.playing[0] and Units.runnerTypes[0] == 0 then
 				Units.choosers[0].issueImmediateOrder("berserk")
 			end

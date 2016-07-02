@@ -1,6 +1,5 @@
 package ChooseRace
 	import Units
-	import Players
 	import Game
 	import RegisterPlayerUnitEvent
 

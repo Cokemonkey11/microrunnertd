@@ -1,0 +1,32 @@
+package Taunt
+	import RegisterPlayerUnitEvent
+	import ClosureForGroups
+	import SpawnBehaviour
+
+	native UnitAlive takes unit u returns boolean
+
+	constant integer TAUNT_ID            = 'A018'
+	constant integer DAMAGE_REDUCTION_ID = 'A019'
+
+	constant real RADIUS   = 500.
+	constant real DURATION =   5.
+
+	function act()
+		if GetSpellAbilityId() == TAUNT_ID then
+			unit tU = GetTriggerUnit()
+			player p = tU.getOwner()
+
+			forUnitsInRange(vec2(tU.getX(), tU.getY()), RADIUS, (unit iter) -> begin
+				if IsUnitEnemy(iter, p)
+					iter..issueTargetOrder("attack", tU)
+					    ..addAbility(DAMAGE_REDUCTION_ID)
+
+					addTaunt(iter, tU, DURATION)
+				end
+			end)
+		end
+	end
+
+	init
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+	end
