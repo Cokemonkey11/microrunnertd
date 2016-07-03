@@ -1,0 +1,17 @@
+package ThallBox
+	import RegisterPlayerUnitEvent
+
+	constant int ID_THALL_BOX      = 'h02T'
+	constant int ID_UPGRADE_VIGOUR = 'h02V'
+
+	function a()
+		unit cons = GetConstructedStructure()
+
+		if cons.getTypeId() == ID_THALL_BOX
+			AddUnitToStock(cons, ID_UPGRADE_VIGOUR, 1, 1)
+		end
+	end
+
+	init
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH, function a)
+	end

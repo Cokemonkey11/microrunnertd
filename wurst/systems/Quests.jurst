@@ -13,7 +13,8 @@ library Quests initializer init
 			*/ "|n|cff999999dhguardianes|r, for the White Ring effect." + /*
 			*/ "|n|cff999999morbent|r, for the mephisto icon." + /*
 			*/ "|n|cff999999CygX1|r, for \"Burning in Hell\"." + /*
-			*/ "|n|cff999999Vortigon|r, for the Wind Egg Model."
+			*/ "|n|cff999999Vortigon|r, for the Wind Egg Model." + /*
+			*/ "|n|cff999999Vildhjarta|r, for the thall."
 		constant string CREDITS_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNBookOfTheDead.blp"
 		constant string CREDITS_TITLE = "Credits"
 
