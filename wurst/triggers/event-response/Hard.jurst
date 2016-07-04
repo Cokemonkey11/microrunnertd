@@ -11,17 +11,17 @@ package Hard
 	function cond takes nothing returns boolean
 		player p = GetTriggerPlayer()
 		int pid = GetPlayerId(p)
-		if not (Players.playing[0] and Players.playing[1]) then
+		if not (Players.playing[0] and Players.playing[1])
 			DestroyTrigger(GetTriggeringTrigger())
 			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Hard Mode|r not available in single player.")
 			return false
 		end
-		if Game.started then
+		if Game.started
 			DestroyTrigger(GetTriggeringTrigger())
 			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Hard Mode|r must be enabled before the practice round begins.")
-		elseif voted[pid] == false then
+		elseif voted[pid] == false
 			voted[pid] = true
-			if voted[0] and voted[1] then
+			if voted[0] and voted[1]
 				DestroyTrigger(GetTriggeringTrigger())
 
 				Sounds.play(LEVER, 1., 127)

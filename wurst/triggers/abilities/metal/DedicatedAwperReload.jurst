@@ -1,0 +1,38 @@
+package DedicatedAwperReload
+	import DamageType
+	import StructuredDD
+	import FloatText
+	import ClosureTimers
+
+	constant int ID_AWPER       = 'h02Z'
+	constant int ROUNDS_PER_MAG = 7
+	constant real RELOAD_TIME   = 2.2
+	Table tab                   = new Table
+
+	function h()
+		unit dS = GetEventDamageSource()
+
+		if GetUnitTypeId(dS) == ID_AWPER and DamageType.get() == DamageType.ATTACK
+			unit tU = GetTriggerUnit()
+
+			if tab.hasInt(dS.getHandleId())
+				if tab.loadInt(dS.getHandleId()) >= ROUNDS_PER_MAG - 1
+					tab.saveInt(dS.getHandleId(), 0)
+					dS.pause()
+					FloatText.reload(dS.getX(), dS.getY(), RELOAD_TIME)
+
+					doAfter(RELOAD_TIME, () -> begin
+						dS.unpause()
+					end)
+				else
+					tab.saveInt(dS.getHandleId(), tab.loadInt(dS.getHandleId()) + 1)
+				end
+			else
+				tab.saveInt(dS.getHandleId(), 1)
+			end
+		end
+	end
+
+	init
+		StructuredDD.addHandler(function h)
+	end

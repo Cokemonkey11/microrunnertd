@@ -57,7 +57,7 @@ library StructuredDD
 		private static method getBucket takes nothing returns int
 			int index = 0
 			Bucket tempDat
-			if dbIndex != -1 and bucketDB[dbIndex].bucketIndex < BUCKET_SIZE then
+			if dbIndex != -1 and bucketDB[dbIndex].bucketIndex < BUCKET_SIZE
 				return dbIndex
 			else
 				maxDBIndex++
@@ -145,7 +145,7 @@ library StructuredDD
 				exitwhen index == BUCKET_SIZE
 
 				//GetUnitTypeId(unit) == 0 means that the unit has been removed.
-				if GetUnitTypeId(tempDat.members[index]) != 0 then
+				if GetUnitTypeId(tempDat.members[index]) != 0
 					return false
 				end
 
@@ -162,14 +162,14 @@ library StructuredDD
 
 			loop
 				exitwhen index > maxDBIndex
-				if index != dbIndex and bucketIsEmpty(index) then
+				if index != dbIndex and bucketIsEmpty(index)
 					DestroyTrigger(bucketDB[index].trig)
 					destroy bucketDB[index]
 
 					bucketDB[index] = bucketDB[maxDBIndex]
 					maxDBIndex--
 
-					if maxDBIndex == dbIndex then
+					if maxDBIndex == dbIndex
 						dbIndex = index
 					end
 					index--
@@ -188,7 +188,7 @@ library StructuredDD
 		timer perCleanup
 		unit iter
 
-		if ADD_ALL_UNITS then
+		if ADD_ALL_UNITS
 			//Add starting units
 			grp = CreateGroup()
 			GroupEnumUnitsInRect(grp, bj_mapInitialPlayableArea, null)

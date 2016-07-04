@@ -126,60 +126,60 @@ package Game
 			unit u
 			DestroyEffect(bigFx)
 			Sounds.play(BEGIN, 1., 127)
-			if round == 0 then
+			if round == 0
 				DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Practice Round|r")
 			else
 				DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Round: |r" + I2S(round))
 			end
 
 			// Display upgrade tip only if neither player has upgraded already
-			if round == 10 and ( (not (upgraded[0] or upgraded[1]) or (not upgraded[0] and Players.playing[0]) or (not upgraded[1] and Players.playing[1])) ) then
+			if round == 10 and ( (not (upgraded[0] or upgraded[1]) or (not upgraded[0] and Players.playing[0]) or (not upgraded[1] and Players.playing[1])) )
 				TimerStart(CreateTimer(), 5., false, function hint0)
 			end
 
 			// Display hard mode tip only in co-operative normal mode
-			if round == 20 and not Game.hard and Players.playingCount > 1 then
+			if round == 20 and not Game.hard and Players.playingCount > 1
 				TimerStart(CreateTimer(), 5., false, function hint1)
 			end
 			size = SPAWN_SIZE
-			if ModuloInteger(round, 6) == 0 then
+			if ModuloInteger(round, 6) == 0
 				// Hero Round
-				if (round != 0) then
+				if (round != 0)
 					DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Boss Round!|r")
 				end
-				if (round == 6) then
+				if (round == 6)
 					Sounds.play(BANDIT, 1., 127)
 				end
-				if (round == 12) then
+				if (round == 12)
 					Sounds.play(KING, 1., 127)
 				end
-				if (round == 18) then
+				if (round == 18)
 					Sounds.play(QUILL, 1., 127)
 				end
-				if (round == 24) then
+				if (round == 24)
 					Sounds.play(CHIEF, 1., 127)
 				end
-				if (round == 30) then
+				if (round == 30)
 					Sounds.play(LORD, 1., 127)
 				end
 				size = 2
 			end
-			if ModuloInteger(round, 14) == 0 and round !=0 then
+			if ModuloInteger(round, 14) == 0 and round !=0
 				size = size * 2
 				DisplayTextToPlayer(Players.locl, 0., 0., "|cff222222Swarm Round!|r")
 			end
-			if ModuloInteger(round, 8) == 0 and round!= 0 then
+			if ModuloInteger(round, 8) == 0 and round!= 0
 				// Spell Immune Round
 				DisplayTextToPlayer(Players.locl, 0., 0., "|cffaacceeSpell Immune Round!|r")
 			end
-			if ModuloInteger(round, 15) == 0 and round !=0 then
+			if ModuloInteger(round, 15) == 0 and round !=0
 				// Gravity Round
 				DisplayTextToPlayer(Players.locl, 0., 0., "|cff999999High Gravity Round!|r")
 			end
 			loop
 				exitwhen index >= size
 				u = CreateUnit(Players.creeps, Units.spawns[round], Players.brownStartX, Players.brownStartY, 180.)
-				if Game.hard then
+				if Game.hard
 					UnitAddAbility(u, DAMAGE_BONUS)
 					UnitAddAbility(u, MOVE_SPEED_BONUS)
 				end
@@ -189,13 +189,13 @@ package Game
 
 		private static function runSound()
 			int q = ModuloInteger(round, 5)
-			if q == 0 then
+			if q == 0
 				Sounds.play(RUN1, 1., 127)
-			elseif q == 1 then
+			elseif q == 1
 				Sounds.play(RUN2, 1., 127)
-			elseif q == 2 then
+			elseif q == 2
 				Sounds.play(RUN3, 1., 127)
-			elseif q == 3 then
+			elseif q == 3
 				Sounds.play(RUN4, 1., 127)
 			else
 				Sounds.play(RUN5, 1., 127)
@@ -208,7 +208,7 @@ package Game
 			loop
 				fst = FirstOfGroup(grp)
 				exitwhen fst == null
-				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
 					UnitAddAbility(fst, 'A017')
 				end
 				GroupRemoveUnit(grp, fst)
@@ -217,7 +217,7 @@ package Game
 			loop
 				fst = FirstOfGroup(grp)
 				exitwhen fst == null
-				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
 					UnitAddAbility(fst, 'A017')
 				end
 				GroupRemoveUnit(grp, fst)
@@ -230,7 +230,7 @@ package Game
 			loop
 				fst = FirstOfGroup(grp)
 				exitwhen fst == null
-				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
 					UnitRemoveAbility(fst, 'A017')
 				end
 				GroupRemoveUnit(grp, fst)
@@ -239,7 +239,7 @@ package Game
 			loop
 				fst = FirstOfGroup(grp)
 				exitwhen fst == null
-				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+				if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
 					UnitRemoveAbility(fst, 'A017')
 				end
 				GroupRemoveUnit(grp, fst)
@@ -249,28 +249,28 @@ package Game
 		private static function roundBegin()
 			int index = 0
 			TimerDialogDisplay(roundDialog, false)
-			if not ended then
-				if round == 0 then
+			if not ended
+				if round == 0
 					started = true
 				end
 				bigFx = AddSpecialEffect(TELE_BIG_FX, Players.brownStartX, Players.brownStartY)
 				runSound()
 				DisplayTextToPlayer(Players.locl, 0., 0., "|cffff0000RUN AWAY|r")
-				if ModuloInteger(round, 15) == 0 and round != 0 then
+				if ModuloInteger(round, 15) == 0 and round != 0
 					applyTowerGravity()
 				end
 				loop
 					exitwhen index > 1
-					if Players.playing[index] then
+					if Players.playing[index]
 						Units.runners[index] = CreateUnit(Players.id[index], Units.runnerTypes[index], Players.startX[index], Players.startY[index]-16. + 32. * index, 180.)
-						if ModuloInteger(round, 15) == 0 and round != 0 then
+						if ModuloInteger(round, 15) == 0 and round != 0
 							UnitAddAbility(Units.runners[index], GRAVITY_ABILITY)
 							Knockback3D.setGravity(90.)
 						else
 							Knockback3D.setGravity(45.)
 						end
 						DestroyEffect(AddSpecialEffect(TELE_IN_FX, Players.startX[index], Players.startY[index]))
-						if Players.locl == Players.id[index] then
+						if Players.locl == Players.id[index]
 							ClearSelection()
 							SelectUnit(Units.runners[index], true)
 							PanCameraToTimed(Players.startX[index], Players.startY[index], 0.)
@@ -285,7 +285,7 @@ package Game
 		end
 
 		private static function queueRound()
-			if Game.hard then
+			if Game.hard
 				TimerStart(roundTimer, ROUND_DELAY_HARD, false, function roundBegin)
 			else
 				TimerStart(roundTimer, ROUND_DELAY, false, function roundBegin)
@@ -305,26 +305,26 @@ package Game
 			int index = 0
 			int val
 			round++
-			if not ended then
-				if ModuloInteger(round-1, 15) == 0 and round-1 !=0 then
+			if not ended
+				if ModuloInteger(round-1, 15) == 0 and round-1 !=0
 					removeTowerGravity()
 				end
 				loop
 					exitwhen index > 1
-					if UnitAlive(Units.runners[index]) then
+					if UnitAlive(Units.runners[index])
 						DestroyEffect(AddSpecialEffect(TELE_FX, GetUnitX(Units.runners[index]), GetUnitY(Units.runners[index])))
 						RemoveUnit(Units.runners[index])
 					end
 					index++
 				end
-				if round >= Units.ROUND_COUNT then
+				if round >= Units.ROUND_COUNT
 					RemovePlayer(Players.id[0], PLAYER_GAME_RESULT_VICTORY)
 					RemovePlayer(Players.id[1], PLAYER_GAME_RESULT_VICTORY)
 					DisplayTextToPlayer(Players.locl, 0., 0., "You won every round, |cffffcc00congratulations|r! The game will end in 30 seconds.")
 					Sounds.play(VICTORY, 1., 127)
 					end()
 				else
-					if round == 1 then
+					if round == 1
 						DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Great job!|r The first round will begin momentarily.")
 					else
 						val = R2I((GOLD_BASE + GOLD_PER_LEVEL * (round-1)) / Players.playingCount)
@@ -347,7 +347,7 @@ package Game
 		static function checkSkip()
 			if (Players.playingCount == 1)
 				doSkip()
-			elseif (Units.runnerTypes[0] != 0 and Units.runnerTypes[1] != 0) then
+			elseif (Units.runnerTypes[0] != 0 and Units.runnerTypes[1] != 0)
 				doSkip()
 			end
 		end
@@ -357,7 +357,7 @@ package Game
 			player p    = GetOwningPlayer(sold)
 			int pid = GetPlayerId(p)
 
-			if Players.locl == p then
+			if Players.locl == p
 				SelectUnit(sold, true)
 			end
 
@@ -387,11 +387,11 @@ package Game
 		end
 
 		private static function afterChoose()
-			if Players.playing[0] and Units.runnerTypes[0] == 0 then
+			if Players.playing[0] and Units.runnerTypes[0] == 0
 				Units.choosers[0].issueImmediateOrder("berserk")
 			end
 
-			if Players.playing[1] and Units.runnerTypes[1] == 0 then
+			if Players.playing[1] and Units.runnerTypes[1] == 0
 				Units.choosers[1].issueImmediateOrder("berserk")
 			end
 		end
@@ -465,11 +465,11 @@ package Game
 		// Iterate through players
 		loop
 			exitwhen index > 1
-			if Players.playing[index] then
+			if Players.playing[index]
 
 				// Spawn Starting Units
 				Units.choosers[index] = CreateUnit(Players.id[index], Units.RACE_SELECT, Players.startX[index], Players.startY[index], 270.)
-				if Players.locl == Players.id[index] then
+				if Players.locl == Players.id[index]
 					SelectUnit(Units.choosers[index], true)
 				end
 

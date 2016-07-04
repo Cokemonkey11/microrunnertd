@@ -13,7 +13,7 @@ package PieceOfBlackMetalEndowment
 	constant string ENDOW_FX    = "Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl"
 
 	function act()
-		if GetSpellAbilityId() == ID_ENDOW_BLACK_METAL then
+		if GetSpellAbilityId() == ID_ENDOW_BLACK_METAL
 			unit target  = GetSpellTargetUnit()
 			unit caster  = GetTriggerUnit()
 			player owner = caster.getOwner()

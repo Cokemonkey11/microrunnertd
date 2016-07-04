@@ -8,13 +8,13 @@ package SummonQuillbeast
 	constant string FX     = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 
 	function act()
-		if GetSpellAbilityId() == SUMMON_ID then
+		if GetSpellAbilityId() == SUMMON_ID
 			real x   = GetSpellTargetX()
 			real y   = GetSpellTargetY()
 			unit tU  = GetTriggerUnit()
 			player p = GetOwningPlayer(tU)
 
-			if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y,PATHING_TYPE_BUILDABILITY)) then
+			if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y,PATHING_TYPE_BUILDABILITY))
 				unit s = CreateUnit(p, UNIT_ID, x,y, 270.)
 				DestroyEffect(AddSpecialEffect(FX, GetUnitX(s), GetUnitY(s)))
 				UnitRemoveAbility(tU, SUMMON_ID)

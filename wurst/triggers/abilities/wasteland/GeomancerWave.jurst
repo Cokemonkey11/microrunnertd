@@ -10,7 +10,7 @@ package GeomancerWave
 	function h()
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
-		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1 then
+		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1
 			IssueTargetOrder(dS, "carrionswarm", tU)
 		end
 	end

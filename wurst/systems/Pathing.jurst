@@ -39,7 +39,7 @@ package Pathing
 	end
 
 	function opLimitCheck()
-		debug if not done then
+		debug if not done
 			debug call BJDebugMsg("Pathing: Op-Limit reached!")
 		debug end
 	end

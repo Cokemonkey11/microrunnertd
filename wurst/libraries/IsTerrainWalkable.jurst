@@ -28,7 +28,7 @@ library IsTerrainWalkable
     end
 
     function hideBothersomeItem()
-        if IsItemVisible(GetEnumItem()) then
+        if IsItemVisible(GetEnumItem())
             hidden[hiddenMax] = GetEnumItem()
             SetItemVisible(hidden[hiddenMax], false)
             hiddenMax++

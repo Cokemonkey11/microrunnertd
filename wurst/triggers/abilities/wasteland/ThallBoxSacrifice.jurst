@@ -28,7 +28,7 @@ package ThallBoxSacrifice
 		unit tU     = GetTriggerUnit()
 		real damage = GetEventDamage()
 
-		if hasSacrifice(dS) and DamageType.get() == DamageType.ATTACK and tU.getHP() < damage then
+		if hasSacrifice(dS) and DamageType.get() == DamageType.ATTACK and tU.getHP() < damage
 			tU.setHP(damage + 1.)
 			FloatText.prevented(dS.getX(), dS.getY())
 		end

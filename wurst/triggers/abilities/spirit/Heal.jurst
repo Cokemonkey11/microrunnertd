@@ -8,7 +8,7 @@ package Heal
 
 	function act()
 		unit tU
-		if GetSpellAbilityId() == HEAL_ID then
+		if GetSpellAbilityId() == HEAL_ID
 			tU = GetTriggerUnit()
 			SetUnitState(tU, UNIT_STATE_LIFE, GetUnitState(tU, UNIT_STATE_MAX_LIFE))
 			DestroyEffect(AddSpecialEffect(HEAL_FX, GetUnitX(tU), GetUnitY(tU)))

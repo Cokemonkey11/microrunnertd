@@ -9,7 +9,7 @@ package Crystalize
 	constant string  EFFECT_PATH     = "white-ring.mdx"
 
 	function act()
-		if GetSpellAbilityId() == CRYSTALIZE_ID then
+		if GetSpellAbilityId() == CRYSTALIZE_ID
 			unit tU = GetTriggerUnit()
 
 			tU..setTimeScale(0.)

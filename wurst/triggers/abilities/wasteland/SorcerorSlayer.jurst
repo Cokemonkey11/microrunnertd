@@ -3,22 +3,22 @@ package SorcerorSlayer
 	import StructuredDD
 	import FloatText
 
-	globals
-		constant int EX_ID = 'h027'
-		constant string FX = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
-		Table tab
-	end
+	constant int ID_SORCEROR    = 'h027'
+	constant string EFFECT_PATH = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
+	Table tab                   = new Table
 
 	function h()
 		unit dS = GetEventDamageSource()
-		unit tU = GetTriggerUnit()
-		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK then
-			if tab.hasInt(dS.getHandleId()) then
-				if tab.loadInt(dS.getHandleId()) >= 10 then
+
+		if GetUnitTypeId(dS) == ID_SORCEROR and DamageType.get() == DamageType.ATTACK
+			unit tU = GetTriggerUnit()
+
+			if tab.hasInt(dS.getHandleId())
+				if tab.loadInt(dS.getHandleId()) >= 10
 					tab.saveInt(dS.getHandleId(), 0)
 					DamageType.dealCodeDamage(dS, tU, 5000.)
 					FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(GetEventDamage() + 5000.))
-					DestroyEffect(AddSpecialEffect(FX, GetUnitX(dS), GetUnitY(dS)))
+					DestroyEffect(AddSpecialEffect(EFFECT_PATH, GetUnitX(dS), GetUnitY(dS)))
 				else
 					tab.saveInt(dS.getHandleId(), tab.loadInt(dS.getHandleId()) + 1)
 				end
@@ -30,5 +30,4 @@ package SorcerorSlayer
 
 	init
 		StructuredDD.addHandler(function h)
-		tab = new Table
 	end

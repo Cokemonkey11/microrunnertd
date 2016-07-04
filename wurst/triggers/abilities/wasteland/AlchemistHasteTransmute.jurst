@@ -8,7 +8,7 @@ package AlchemistHasteTransmute
 	function h()
 		unit dS = GetEventDamageSource()
 
-		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
+		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK
 			IssueImmediateOrder(dS, "berserk")
 			player p = GetOwningPlayer(dS)
 			SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + 1)

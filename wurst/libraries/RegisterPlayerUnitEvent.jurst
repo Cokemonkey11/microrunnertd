@@ -35,7 +35,7 @@ package RegisterPlayerUnitEvent // Special Thanks to Bribe and azlier
 	public function registerPlayerUnitEvent takes playerunitevent p, code c returns nothing
 		int i = GetHandleId(p)
 		int k = 15
-		if t[i] == null then
+		if t[i] == null
 			t[i] = CreateTrigger()
 			loop
 				TriggerRegisterPlayerUnitEvent(t[i], Player(k), p, null)
@@ -48,7 +48,7 @@ package RegisterPlayerUnitEvent // Special Thanks to Bribe and azlier
 
 	public function registerPlayerUnitEventForPlayer takes playerunitevent p, code c, player pl returns nothing
 		int i = 16 * GetHandleId(p) + GetPlayerId(pl)
-		if t[i] == null then
+		if t[i] == null
 			t[i] = CreateTrigger()
 			TriggerRegisterPlayerUnitEvent(t[i], pl, p, null)
 		end

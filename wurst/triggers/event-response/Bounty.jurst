@@ -8,7 +8,7 @@ package Bounty
 		int val
 		unit tU = GetTriggerUnit()
 		int id = GetUnitTypeId(tU)
-		if GetOwningPlayer(tU) == Players.creeps and Units.bounties.hasInt(id) then
+		if GetOwningPlayer(tU) == Players.creeps and Units.bounties.hasInt(id)
 			val = R2I(Units.bounties.loadInt(id) / Players.playingCount)
 			FloatText.bounty(GetUnitX(tU), GetUnitY(tU), val)
 			SetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD) + val)

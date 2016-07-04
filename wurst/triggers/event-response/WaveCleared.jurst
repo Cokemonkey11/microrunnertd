@@ -16,7 +16,7 @@ package WaveCleared
 		b = b and Game.started
 
 		// Evaluate:
-		if b then
+		if b
 			Game.success()
 			Sounds.play(WAVE_CLEAR, 1., 127)
 		end

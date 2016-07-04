@@ -51,7 +51,7 @@ package SellTower
 	end
 
 	function act()
-		if GetSpellAbilityId() == ID then
+		if GetSpellAbilityId() == ID
 			unit tU   = GetTriggerUnit()
 			real x    = GetUnitX(tU)
 			real y    = GetUnitY(tU)

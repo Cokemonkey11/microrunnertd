@@ -14,14 +14,14 @@ package Defeat
 	function a()
 		int count = 0
 		int id = GetUnitTypeId(GetTriggerUnit())
-		if tab.hasInt(id) then
-			if Players.playing[0] and UnitAlive(Units.runners[0]) then
+		if tab.hasInt(id)
+			if Players.playing[0] and UnitAlive(Units.runners[0])
 				count++
 			end
-			if Players.playing[1] and UnitAlive(Units.runners[1]) then
+			if Players.playing[1] and UnitAlive(Units.runners[1])
 				count++
 			end
-			if count == 0 then
+			if count == 0
 				DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Defeat!|r Better luck next time. This game will end in |cffffcc0030|r seconds." + /*
 					*/ "\n\nOn the bright side, you made it to round |cffffcc00" + I2S(Game.round) + "|r!")
 				Sounds.play(DEFEAT, 0.75, 127)

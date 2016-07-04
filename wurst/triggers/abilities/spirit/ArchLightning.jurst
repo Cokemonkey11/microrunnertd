@@ -8,7 +8,7 @@ package ArchLightning
 
 	function h()
 		unit dS = GetEventDamageSource()
-		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK then
+		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK
 			IssueTargetOrder(dS, "forkedlightning", GetTriggerUnit())
 		end
 	end

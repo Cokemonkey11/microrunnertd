@@ -4,8 +4,8 @@ library FloatText
 	public class FloatText
 		static function bounty takes real x, real y, int z returns nothing
 			texttag t = CreateTextTag()
-	        SetTextTagFadepoint(t, 3)
-	        SetTextTagLifespan(t, 4)
+	        SetTextTagFadepoint(t, 3.)
+	        SetTextTagLifespan(t,  4.)
 	        SetTextTagPermanent(t, false)
 	        SetTextTagPos(t, x, y, 100)
 	        SetTextTagText(t, " + " + I2S(z), .02)
@@ -16,14 +16,14 @@ library FloatText
 
 		static function bountyPlayer takes real x, real y, int z, player p returns nothing
 			texttag t = CreateTextTag()
-	        SetTextTagFadepoint(t, 3)
-	        SetTextTagLifespan(t, 4)
+	        SetTextTagFadepoint(t, 3.)
+	        SetTextTagLifespan(t,  4.)
 	        SetTextTagPermanent(t, false)
 	        SetTextTagPos(t, x, y, 100)
 	        SetTextTagText(t, " + " + I2S(z), .02)
 			SetTextTagColor(t, 255, 204, 0, 255)
 	        SetTextTagVelocity(t, 0, .07)
-			if Players.locl == p then
+			if Players.locl == p
 				SetTextTagVisibility(t, true)
 			else
 				SetTextTagVisibility(t, false)
@@ -32,8 +32,8 @@ library FloatText
 
 		static function bonus takes real x, real y, int z returns nothing
 			texttag t = CreateTextTag()
-	        SetTextTagFadepoint(t, 2)
-	        SetTextTagLifespan(t, 3)
+	        SetTextTagFadepoint(t, 2.)
+	        SetTextTagLifespan(t,  3.)
 	        SetTextTagPermanent(t, false)
 	        SetTextTagPos(t, x, y, 100)
 	        SetTextTagText(t, I2S(z) + "!", .02)
@@ -44,13 +44,25 @@ library FloatText
 
 		static function prevented takes real x, real y returns nothing
 			texttag t = CreateTextTag()
-	        SetTextTagFadepoint(t, 2)
-	        SetTextTagLifespan(t, 3)
+	        SetTextTagFadepoint(t, 2.)
+	        SetTextTagLifespan(t,  3.)
 	        SetTextTagPermanent(t, false)
 	        SetTextTagPos(t, x, y, 100)
 	        SetTextTagText(t, "!", .02)
 			SetTextTagColor(t, 155, 155, 155, 200)
 	        SetTextTagVelocity(t, 0, .04)
+			SetTextTagVisibility(t, true)
+		end
+
+		static function reload takes real x, real y, real duration returns nothing
+			texttag t = CreateTextTag()
+	        SetTextTagFadepoint(t, duration * .9)
+	        SetTextTagLifespan(t,  duration)
+	        SetTextTagPermanent(t, false)
+	        SetTextTagPos(t, x - 32., y, 100)
+	        SetTextTagText(t, "reloading", .02)
+			SetTextTagColor(t, 200, 100, 100, 200)
+	        SetTextTagVelocity(t, 0, 0.)
 			SetTextTagVisibility(t, true)
 		end
 	end

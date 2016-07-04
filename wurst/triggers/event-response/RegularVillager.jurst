@@ -81,14 +81,14 @@ package RegularVillager
 
 	function act()
 		unit tU = GetTriggerUnit()
-		if tU == vgr0 then
-			if state == 0 then
+		if tU == vgr0
+			if state == 0
 				state = 1
 				SetUnitVertexColor(vgr0, 255, 200, 200, 255)
 				SetUnitScale(vgr0, .9, .9, .9)
 				fx = AddSpecialEffectTarget(FX, vgr0, "overhead")
 				TimerStart(CreateTimer(), .5, false, function seq0)
-			elseif state == 2 then
+			elseif state == 2
 				ShowUnit(vgr0, false)
 				ShowUnit(vgr1, true)
 				SetUnitX(vgr1, X)

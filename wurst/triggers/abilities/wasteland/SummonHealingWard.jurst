@@ -15,12 +15,12 @@ package SummonHealingWard
 		unit s
 		unit tU
 		player p
-		if GetSpellAbilityId() == SUMMON_ID then
+		if GetSpellAbilityId() == SUMMON_ID
 			x = GetSpellTargetX()
 			y = GetSpellTargetY()
 			tU = GetTriggerUnit()
 			p = GetOwningPlayer(tU)
-			if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y,PATHING_TYPE_BUILDABILITY)) then
+			if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y,PATHING_TYPE_BUILDABILITY))
 				s = CreateUnit(p, UNIT_ID, x,y, 270.)
 				DestroyEffect(AddSpecialEffect(FX, GetUnitX(s), GetUnitY(s)))
 				UnitRemoveAbility(tU, SUMMON_ID)

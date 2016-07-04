@@ -24,7 +24,7 @@ library GetUnitArmorType
 		real hp
 		real q
 
-		if tab.hasInt(typ) then
+		if tab.hasInt(typ)
 			return tab.loadInt(typ)
 		else
 			hp = GetWidgetLife(u)
@@ -34,22 +34,22 @@ library GetUnitArmorType
 			UnitDamageTarget(u, u,1., true, true, ConvertAttackType(7), DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
 			StructuredDD.enable()
 			q = 10000 - GetWidgetLife(u)
-			if q == 1 then
+			if q == 1
 				tab.saveInt(typ, ArmorType.MEDIUM_FORTIFIED)
 				ret = ArmorType.MEDIUM_FORTIFIED
-			elseif q == 25 then
+			elseif q == 25
 				tab.saveInt(typ, ArmorType.UNARMORED)
 				ret = ArmorType.UNARMORED
-			elseif q == 150 then
+			elseif q == 150
 				tab.saveInt(typ, ArmorType.HERO)
 				ret = ArmorType.HERO
-			elseif q == 400 then
+			elseif q == 400
 				tab.saveInt(typ, ArmorType.DIVINE)
 				ret = ArmorType.DIVINE
-			elseif q == 522 then
+			elseif q == 522
 				tab.saveInt(typ, ArmorType.HEAVY_NORMAL)
 				ret = ArmorType.HEAVY_NORMAL
-			elseif q == 2048 then
+			elseif q == 2048
 				tab.saveInt(typ, ArmorType.LIGHT)
 				ret = ArmorType.LIGHT
 			else

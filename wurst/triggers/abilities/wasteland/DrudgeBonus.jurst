@@ -12,7 +12,7 @@ package DrudgeBonus
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 		real r
-		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and getUnitArmorType(tU) == ArmorType.HEAVY_NORMAL then
+		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and getUnitArmorType(tU) == ArmorType.HEAVY_NORMAL
 			r = GetEventDamage()
 			DamageType.dealCodeDamage(dS, tU, r)
 			FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(2.*r))

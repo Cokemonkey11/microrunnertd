@@ -10,7 +10,7 @@ package PieceOfMetalEndowment
 	constant int ID_ENDOWMENT_PAS = 'A01F'
 
 	function act()
-		if GetSpellAbilityId() == ID_ENDOW_METAL then
+		if GetSpellAbilityId() == ID_ENDOW_METAL
 			unit target  = GetSpellTargetUnit()
 			unit caster  = GetTriggerUnit()
 			player owner = caster.getOwner()

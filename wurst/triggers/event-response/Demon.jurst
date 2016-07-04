@@ -12,7 +12,7 @@ package Demon
 	end
 
 	function c takes nothing returns boolean
-		if GetPlayerId(GetOwningPlayer(GetTriggerUnit())) < 2 then
+		if GetPlayerId(GetOwningPlayer(GetTriggerUnit())) < 2
 			SetUnitVertexColor(house, 255, 255, 255, R2I(255/3))
 		end
 		return false
@@ -20,7 +20,7 @@ package Demon
 
 	function c2 takes nothing returns boolean
 		GroupEnumUnitsInRect(grp, rcts, null)
-		if FirstOfGroup(grp) == null then
+		if FirstOfGroup(grp) == null
 			SetUnitVertexColor(house, 255, 255, 255, 255)
 		end
 		return false

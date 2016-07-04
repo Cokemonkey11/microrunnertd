@@ -20,7 +20,7 @@ package ArcharchpriestHeal
 			fst = FirstOfGroup(grp2)
 			exitwhen fst == null
 			life = GetWidgetLife(fst)
-			if IsUnitAlly(fst, p) and UnitAlive(fst) and life < 100. and (life/GetUnitState(fst, UNIT_STATE_MAX_LIFE)) < 1. and not IsUnitType(fst, UNIT_TYPE_STRUCTURE) then
+			if IsUnitAlly(fst, p) and UnitAlive(fst) and life < 100. and (life/GetUnitState(fst, UNIT_STATE_MAX_LIFE)) < 1. and not IsUnitType(fst, UNIT_TYPE_STRUCTURE)
 				SetWidgetLife(fst, life + 3.)
 				SetUnitState(u, UNIT_STATE_MANA, GetUnitState(u, UNIT_STATE_MANA) - 10.)
 				DestroyEffect(AddSpecialEffectTarget(FX, fst, "origin"))
@@ -39,7 +39,7 @@ package ArcharchpriestHeal
 			loop
 				fst = FirstOfGroup(grp)
 				exitwhen fst == null
-				if GetUnitTypeId(fst) == PRIEST_ID and UnitAlive(fst) and GetUnitState(fst, UNIT_STATE_MANA)>=10 then
+				if GetUnitTypeId(fst) == PRIEST_ID and UnitAlive(fst) and GetUnitState(fst, UNIT_STATE_MANA)>=10
 					parsePriest(fst)
 				end
 				GroupRemoveUnit(grp, fst)

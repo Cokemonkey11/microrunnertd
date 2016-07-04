@@ -11,8 +11,8 @@ package PoacherPoach
 	function h()
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
-		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1 then
-			if GetUnitState(tU, UNIT_STATE_LIFE) < 200. then
+		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1
+			if GetUnitState(tU, UNIT_STATE_LIFE) < 200.
 				DamageType.dealCodeDamage(dS, tU, 200.)
 				FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(GetEventDamage() + 200.))
 			end

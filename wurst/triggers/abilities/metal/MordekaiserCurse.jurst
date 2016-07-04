@@ -1,0 +1,23 @@
+package MordekaiserCurse
+	import DamageType
+	import StructuredDD
+
+	constant int ID_MORDEKAISER  = 'h031'
+	constant int ID_CURSE_DEBUFF = 'A01N'
+
+	function h()
+		unit dS = GetEventDamageSource()
+		unit tU = GetTriggerUnit()
+
+		if GetUnitTypeId(dS) == ID_MORDEKAISER and DamageType.get() == DamageType.ATTACK
+			dS.issueImmediateOrder("stop")
+
+			if not tU.hasAbility(ID_CURSE_DEBUFF)
+				tU.addAbility(ID_CURSE_DEBUFF)
+			end
+		end
+	end
+
+	init
+		StructuredDD.addHandler(function h)
+	end

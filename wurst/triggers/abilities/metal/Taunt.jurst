@@ -12,7 +12,7 @@ package Taunt
 	constant real DURATION =   5.
 
 	function act()
-		if GetSpellAbilityId() == TAUNT_ID then
+		if GetSpellAbilityId() == TAUNT_ID
 			unit tU = GetTriggerUnit()
 			player p = tU.getOwner()
 

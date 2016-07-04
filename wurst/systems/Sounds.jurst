@@ -38,7 +38,7 @@ package Sounds
 
 		static method playForPlayer takes string str, real pitch, player who returns nothing
 			sound s = CreateSound(str, false, false, false, 12700, 12700, "")
-			if GetLocalPlayer() == who then
+			if GetLocalPlayer() == who
 				SetSoundVolume(s, 127)
 			else
 				SetSoundVolume(s, 0)

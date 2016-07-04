@@ -67,11 +67,11 @@ library DamageType
 		//* Use this to get damage type in a damage event handler.
 		static method get takes nothing returns int
 			real sourceDamage = GetEventDamage()
-			if lastDamageType == CODE then
+			if lastDamageType == CODE
 				return CODE
-			elseif sourceDamage > 0. then
+			elseif sourceDamage > 0.
 				return ATTACK
-			elseif sourceDamage < 0. then
+			elseif sourceDamage < 0.
 				return SPELL
 			end
 			return NULLED
@@ -84,7 +84,7 @@ library DamageType
 			real hp = GetWidgetLife(target) - .405
 			real d = damage
 			lastDamageType = CODE
-			if hp > d then
+			if hp > d
 				SetWidgetLife(target, hp - d + .405)
 				UnitDamageTarget(who, target, 0. , true, false, ATTACK_TYPE_UNIVERSAL, DAMAGE_TYPE_UNIVERSAL, null)
 			else
@@ -142,16 +142,16 @@ library DamageType
 			unit tU
 			real sampledLife
 			real scale
-			if get() == SPELL then
+			if get() == SPELL
 				tU = GetTriggerUnit()
-				if USE_BONUS_CALCULATOR then
+				if USE_BONUS_CALCULATOR
 					scale = getUnitBonusSpellResistance(tU)
-					if scale > 1. then
+					if scale > 1.
 						attemptedDamage = attemptedDamage*(scale + 1.)/2.
 					end
 				end
 				sampledLife = GetWidgetLife(tU) - .405
-				if sampledLife >= attemptedDamage and sampledLife <= 2.*attemptedDamage then
+				if sampledLife >= attemptedDamage and sampledLife <= 2.*attemptedDamage
 					SetWidgetLife(tU, sampledLife - attemptedDamage)
 					time = CreateTimer()
 					tempDat = new DelayDat

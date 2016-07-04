@@ -6,15 +6,15 @@ package RandomRace
 	constant int RANDOM_RACE_ID = 'A00S'
 
 	function act()
-		if GetSpellAbilityId() == RANDOM_RACE_ID then
+		if GetSpellAbilityId() == RANDOM_RACE_ID
 			unit tU  = GetTriggerUnit()
 			int rand = GetRandomInt(0, 2)
 			player p = GetOwningPlayer(tU)
 
-			if     rand == 0 then
+			if     rand == 0
 				unit u = CreateUnit(p, Units.ID_BUILDER_SPIRIT, GetUnitX(tU), GetUnitY(tU), 270.)
 				Game.setupRace(Units.ID_RUNNER_SPIRIT, Units.ID_ALTAR_SPIRIT, u)
-			elseif rand == 1 then
+			elseif rand == 1
 				unit u = CreateUnit(p, Units.ID_BUILDER_WASTE,  GetUnitX(tU), GetUnitY(tU), 270.)
 				Game.setupRace(Units.ID_RUNNER_WASTE,  Units.ID_ALTAR_WASTE,  u)
 			else

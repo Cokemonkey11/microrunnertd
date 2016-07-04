@@ -11,7 +11,7 @@ package Bristleburst
 	function h()
 		unit tU
 		unit dS = GetEventDamageSource()
-		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.SPELL then
+		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.SPELL
 			tU = GetTriggerUnit()
 			UnitAddAbility(tU, ARMOR)
 			UnitAddAbility(tU, EFFECT)

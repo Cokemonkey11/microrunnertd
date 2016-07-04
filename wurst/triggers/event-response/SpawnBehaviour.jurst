@@ -27,7 +27,7 @@ package SpawnBehaviour
 			real x = GetUnitX(q) - GetUnitX(Units.runners[index])
 			real y = GetUnitY(q) - GetUnitY(Units.runners[index])
 
-			if UnitAlive(Units.runners[index]) and (not Units.runners[index].hasAbility(INVULNERABLE_ID)) and (x * x) + (y * y) < r then
+			if UnitAlive(Units.runners[index]) and (not Units.runners[index].hasAbility(INVULNERABLE_ID)) and (x * x) + (y * y) < r
 				r = (x * x) + (y * y)
 				u = Units.runners[index]
 			end
@@ -63,14 +63,14 @@ package SpawnBehaviour
 		doPeriodically(AI_FIDELITY, (CallbackPeriodic _) -> begin
 			unit fst
 
-			if GetPlayerState(Players.creeps, PLAYER_STATE_RESOURCE_FOOD_USED) > 0 then
+			if GetPlayerState(Players.creeps, PLAYER_STATE_RESOURCE_FOOD_USED) > 0
 				GroupEnumUnitsOfPlayer(grp, Players.creeps, null)
 				loop
 					fst = FirstOfGroup(grp)
 					exitwhen fst == null
 
 					unit targ = getClosestRunner(fst)
-					if UnitAlive(fst) and targ != null then
+					if UnitAlive(fst) and targ != null
 						IssuePointOrder(fst, "attack", GetUnitX(targ), GetUnitY(targ))
 					end
 

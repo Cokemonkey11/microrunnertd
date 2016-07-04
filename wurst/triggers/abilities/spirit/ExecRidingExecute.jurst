@@ -13,7 +13,7 @@ package ExecRidingExecute
 		unit tU = GetTriggerUnit()
 		real q
 		real r
-		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1 then
+		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1
 			q = GetEventDamage()
 			r = 1. - GetUnitState(tU, UNIT_STATE_LIFE) / GetUnitState(tU, UNIT_STATE_MAX_LIFE)
 			DamageType.dealCodeDamage(dS, tU, q * r)

@@ -7,11 +7,11 @@ package ChooseRace
 		unit u         = GetSoldUnit()
 		int raceId = GetUnitTypeId(u)
 
-		if raceId == Units.ID_BUILDER_SPIRIT then
+		if raceId == Units.ID_BUILDER_SPIRIT
 			Game.setupRace(Units.ID_RUNNER_SPIRIT, Units.ID_ALTAR_SPIRIT, u)
-		elseif raceId == Units.ID_BUILDER_WASTE then
+		elseif raceId == Units.ID_BUILDER_WASTE
 			Game.setupRace(Units.ID_RUNNER_WASTE,  Units.ID_ALTAR_WASTE,  u)
-		elseif raceId == Units.ID_BUILDER_METAL then
+		elseif raceId == Units.ID_BUILDER_METAL
 			Game.setupRace(Units.ID_RUNNER_METAL,  Units.ID_ALTAR_METAL,  u)
 		end
 	end

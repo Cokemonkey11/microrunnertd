@@ -15,7 +15,7 @@ package Left
 		unit fst
 		player p
 		int q
-		if Players.playingCount > 1 then
+		if Players.playingCount > 1
 			p = GetTriggerPlayer()
 			id = GetPlayerId(p)
 			oid = 1 - id
@@ -29,14 +29,14 @@ package Left
 			loop
 				fst = FirstOfGroup(grp)
 				exitwhen fst== null
-				if GetUnitTypeId(fst) == Units.RACE_SELECT then
+				if GetUnitTypeId(fst) == Units.RACE_SELECT
 					RemoveUnit(fst)
 				else
 					SetUnitOwner(fst, Players.id[oid], false)
 				end
 				GroupRemoveUnit(grp, fst)
 			end
-			if not Game.ended then
+			if not Game.ended
 				DisplayTextToPlayer(Players.locl, 0., 0., "\n|cffffcc00" + GetPlayerName(p) + /*
 					*/ "|r has left the game. You received |cffffcc00" + I2S(q) + "|r gold.")
 				Sounds.play(LIGHTNING, 1., 127)

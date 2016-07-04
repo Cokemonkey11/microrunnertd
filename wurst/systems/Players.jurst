@@ -23,10 +23,10 @@ package Players
 			exitwhen index > 15
 			Players.id[index] = Player(index)
 
-			if index < 2 then
+			if index < 2
 				Players.playing[index] = (GetPlayerSlotState(Players.id[index]) == PLAYER_SLOT_STATE_PLAYING) and (GetPlayerController(Players.id[index]) == MAP_CONTROL_USER)
 
-				if Players.playing[index] then
+				if Players.playing[index]
 					Players.playingCount++
 				end
 

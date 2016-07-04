@@ -8,11 +8,11 @@ package EscapeKey
 	function c takes nothing returns boolean
 		int id = GetPlayerId(GetTriggerPlayer())
 
-		if Game.cinematicOn and not escapesPressed[id] then
+		if Game.cinematicOn and not escapesPressed[id]
 			escapesPressed[id] = true
 			escapePressedCount++
 
-			if escapePressedCount >= Players.playingCount then
+			if escapePressedCount >= Players.playingCount
 				Game.cinematicOn = false
 				DisplayTextToPlayer(Players.locl,       0., 0., "|cffffcc00[Notice]|r The cinematic was skipped due to popular vote.")
 			else
