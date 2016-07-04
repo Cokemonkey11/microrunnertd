@@ -6,9 +6,14 @@ package SellTower
 
 	native GetUnitGoldCost takes int id returns int
 
-	constant int ID                  = 'A00O'
-	constant int ID_THALL_BOX        = 'h02T'
-	constant int ID_ABILITY_SPLENDOR = 'A01C'
+	constant int ID                      = 'A00O'
+	constant int ID_THALL_BOX            = 'h02T'
+	constant int ID_ABILITY_SPLENDOR     = 'A01C'
+	constant int ID_ENDOWMENT            = 'A01E'
+	constant int ID_ENDOWMENT_PAS        = 'A01F'
+	constant int ID_ENDOWMENT_BLACK      = 'A01H'
+	constant int ID_ENDOWMENT_BLACK_MANA = 'A01J'
+	constant int ID_ENDOWMENT_BLACK_MR   = 'A01I'
 
 	constant real RADIUS = 90. + 16. * 3.
 
@@ -16,6 +21,9 @@ package SellTower
 	constant string SND = "Abilities\\Spells\\Items\\ResourceItems\\ReceiveGold.wav"
 
 	bool splendorCheck
+
+	public Table endowments      = new Table
+	public Table blackEndowments = new Table
 
 	function hasDoubleValue(unit u) returns bool
 		splendorCheck = false
@@ -29,6 +37,19 @@ package SellTower
 		return splendorCheck
 	end
 
+	function checkEndowments(unit metal)
+		if Table.ht.hasHandle(endowments      castTo int, metal.getHandleId())
+			endowments.loadUnit(metal.getHandleId())..removeAbility(ID_ENDOWMENT)
+			                                        ..removeAbility(ID_ENDOWMENT_PAS)
+		end
+
+		if Table.ht.hasHandle(blackEndowments castTo int, metal.getHandleId())
+			blackEndowments.loadUnit(metal.getHandleId())..removeAbility(ID_ENDOWMENT_BLACK)
+			                                             ..removeAbility(ID_ENDOWMENT_BLACK_MANA)
+			                                             ..removeAbility(ID_ENDOWMENT_BLACK_MR)
+		end
+	end
+
 	function act()
 		if GetSpellAbilityId() == ID then
 			unit tU   = GetTriggerUnit()
@@ -40,6 +61,8 @@ package SellTower
 			if not hasDoubleValue(tU)
 				i = R2I(i / 2.)
 			end
+
+			checkEndowments(tU)
 
 			SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + i)
 			FloatText.bountyPlayer(x, y, i, p)
