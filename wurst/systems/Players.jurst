@@ -1,6 +1,6 @@
 package Players
 	public class Players
-		static constant integer COUNT = 2
+		static constant int COUNT = 2
 		static player locl
 		static boolean array playing
 		static player array id
@@ -12,11 +12,11 @@ package Players
 		static real array altarY
 		static real brownStartX
 		static real brownStartY
-		static integer playingCount = 0
+		static int playingCount = 0
 	end
 
 	init
-		integer index = 0
+		int index = 0
 		Players.locl = GetLocalPlayer()
 
 		loop

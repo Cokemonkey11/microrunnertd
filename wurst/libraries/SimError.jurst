@@ -1,4 +1,4 @@
-library SimError initializer init
+package SimError
 //**************************************************************************************************
 //*
 //*  SimError
@@ -7,18 +7,14 @@ library SimError initializer init
 //*       call SimError(ForPlayer, msg)
 //*         ForPlayer : The player to show the error
 //*         msg       : The error
-//*    
+//*
 //*     To implement this function, copy this trigger and paste it in your map.
 //* Unless of course you are actually reading the library from wc3c's scripts section, then just
 //* paste the contents into some custom text trigger in your map.
 //*
 //**************************************************************************************************
 
-//==================================================================================================
-    globals
-        sound error
-    end
-    //====================================================================================================
+    sound error
 
     public function simError takes player forPlayer, string msg returns nothing
         msg = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n|cffffcc00" + msg + "|r"
@@ -29,7 +25,7 @@ library SimError initializer init
         end
     end
 
-    function init()
+    init
          error = CreateSoundFromLabel("InterfaceError", false, false, false, 10, 10)
          //call StartSound( error ) //apparently the bug in which you play a sound for the first time
                                     //and it doesn't work is not there anymore in patch 1.22

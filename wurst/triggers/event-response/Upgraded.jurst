@@ -3,7 +3,7 @@ scope Upgraded initializer init
 	import RegisterPlayerUnitEvent
 
 	function act()
-		integer pid = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))
+		int pid = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))
 		Game.upgraded[pid] = true
 	end
 

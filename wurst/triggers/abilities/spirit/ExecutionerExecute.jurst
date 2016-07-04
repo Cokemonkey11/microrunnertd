@@ -5,7 +5,7 @@ scope ExecutionerExecute initializer init
 	import FloatText
 
 	globals
-		constant integer EX_ID = 'h018'
+		constant int EX_ID = 'h018'
 	end
 
 	function h()

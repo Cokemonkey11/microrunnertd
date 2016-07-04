@@ -3,7 +3,7 @@ scope ArchLightning initializer init
 	import DamageType
 
 	globals
-		constant integer ARCH_ID = 'h00A'
+		constant int ARCH_ID = 'h00A'
 	end
 
 	function h()

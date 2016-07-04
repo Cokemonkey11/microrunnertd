@@ -4,8 +4,8 @@ package Crystalize
 
 	native UnitAlive takes unit u returns boolean
 
-	constant integer CRYSTALIZE_ID   = 'A012'
-	constant integer INVULNERABLE_ID = 'Avul'
+	constant int CRYSTALIZE_ID   = 'A012'
+	constant int INVULNERABLE_ID = 'Avul'
 	constant string  EFFECT_PATH     = "white-ring.mdx"
 
 	function act()

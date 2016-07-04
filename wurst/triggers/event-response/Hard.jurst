@@ -10,7 +10,7 @@ scope Hard initializer init
 
 	function cond takes nothing returns boolean
 		player p = GetTriggerPlayer()
-		integer pid = GetPlayerId(p)
+		int pid = GetPlayerId(p)
 		if not (Players.playing[0] and Players.playing[1]) then
 			DestroyTrigger(GetTriggeringTrigger())
 			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Hard Mode|r not available in single player.")

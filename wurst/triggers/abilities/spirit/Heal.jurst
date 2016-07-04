@@ -2,7 +2,7 @@ scope Heal initializer init
 	import RegisterPlayerUnitEvent
 
 	globals
-		constant integer HEAL_ID = 'A00C'
+		constant int HEAL_ID = 'A00C'
 		constant string HEAL_FX = "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl"
 	end
 

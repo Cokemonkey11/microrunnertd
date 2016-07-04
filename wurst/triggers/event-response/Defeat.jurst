@@ -12,8 +12,8 @@ package Defeat
 	constant string OOPS = "Sound\\Interface\\Rescue.wav"
 
 	function a()
-		integer count = 0
-		integer id = GetUnitTypeId(GetTriggerUnit())
+		int count = 0
+		int id = GetUnitTypeId(GetTriggerUnit())
 		if tab.hasInt(id) then
 			if Players.playing[0] and UnitAlive(Units.runners[0]) then
 				count++

@@ -9,12 +9,12 @@ scope Left initializer init
 	end
 
 	function cond takes nothing returns boolean
-		integer id
-		integer oid
+		int id
+		int oid
 		group grp
 		unit fst
 		player p
-		integer q
+		int q
 		if Players.playingCount > 1 then
 			p = GetTriggerPlayer()
 			id = GetPlayerId(p)

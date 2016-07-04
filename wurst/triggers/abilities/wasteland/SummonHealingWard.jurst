@@ -4,8 +4,8 @@ scope SummonHealingWard initializer init
 	import RegisterPlayerUnitEvent
 
 	globals
-		constant integer SUMMON_ID = 'A00T'
-		constant integer UNIT_ID = 'h023'
+		constant int SUMMON_ID = 'A00T'
+		constant int UNIT_ID = 'h023'
 		constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 	end
 

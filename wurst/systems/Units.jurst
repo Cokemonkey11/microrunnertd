@@ -3,25 +3,25 @@ package Units
 	import Players
 
 	public class Units
-		static constant integer ROUND_COUNT       = 43
+		static constant int ROUND_COUNT       = 43
 
-		static constant integer ID_BUILDER_SPIRIT = 'h000'
-		static constant integer ID_BUILDER_WASTE  = 'h01K'
-		static constant integer ID_BUILDER_METAL  = 'h02R'
-		static constant integer ID_RUNNER_SPIRIT  = 'h003'
-		static constant integer ID_RUNNER_WASTE   = 'h01G'
-		static constant integer ID_RUNNER_METAL   = 'h02S'
-		static constant integer ID_ALTAR_SPIRIT   = 'h01I'
-		static constant integer ID_ALTAR_WASTE    = 'h01J'
-		static constant integer ID_ALTAR_METAL    = 'h02Q'
+		static constant int ID_BUILDER_SPIRIT = 'h000'
+		static constant int ID_BUILDER_WASTE  = 'h01K'
+		static constant int ID_BUILDER_METAL  = 'h02R'
+		static constant int ID_RUNNER_SPIRIT  = 'h003'
+		static constant int ID_RUNNER_WASTE   = 'h01G'
+		static constant int ID_RUNNER_METAL   = 'h02S'
+		static constant int ID_ALTAR_SPIRIT   = 'h01I'
+		static constant int ID_ALTAR_WASTE    = 'h01J'
+		static constant int ID_ALTAR_METAL    = 'h02Q'
 
-		static constant integer RACE_SELECT       = 'h01O'
-		static constant integer IMMUNE            = 'ACmi'
+		static constant int RACE_SELECT       = 'h01O'
+		static constant int IMMUNE            = 'ACmi'
 
 		static unit array runners
 		static unit array choosers
-		static integer array spawns
-		static integer array runnerTypes
+		static int array spawns
+		static int array runnerTypes
 
 		static Table bounties
 		private static group grp = CreateGroup()
@@ -29,7 +29,7 @@ package Units
 		static function freezeAll()
 			unit fst
 
-			integer index = 0
+			int index = 0
 			loop
 				exitwhen index > 15
 

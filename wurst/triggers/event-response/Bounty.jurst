@@ -5,9 +5,9 @@ scope Bounty initializer init
 	import RegisterPlayerUnitEvent
 
 	function a()
-		integer val
+		int val
 		unit tU = GetTriggerUnit()
-		integer id = GetUnitTypeId(tU)
+		int id = GetUnitTypeId(tU)
 		if GetOwningPlayer(tU) == Players.creeps and Units.bounties.hasInt(id) then
 			val = R2I(Units.bounties.loadInt(id) / Players.playingCount)
 			FloatText.bounty(GetUnitX(tU), GetUnitY(tU), val)

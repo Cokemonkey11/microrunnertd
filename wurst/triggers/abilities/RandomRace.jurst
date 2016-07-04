@@ -3,7 +3,7 @@ package RandomRace
 	import RegisterPlayerUnitEvent
 	import Game
 
-	constant integer RANDOM_RACE_ID = 'A00S'
+	constant int RANDOM_RACE_ID = 'A00S'
 
 	function act()
 		if GetSpellAbilityId() == RANDOM_RACE_ID then

@@ -1,21 +1,21 @@
-package AuraOfVigour
+package AuraOfSplendorUpgrade
 	import RegisterPlayerUnitEvent
 	import Sounds
 
-	constant int VIGOUR_UPGRADE_ID = 'h02V'
-	constant int VIGOUR_ABILITY_ID = 'A01A'
+	constant int ID_UPGRADE_SPLENDOR = 'h02U'
+	constant int ID_ABILITY_SPELNDOR = 'A01C'
 	constant string THALL_SOUND = "thall.wav"
 
 	function a()
 		unit sold = GetSoldUnit()
 		int  id   = sold.getTypeId()
 
-		if id == VIGOUR_UPGRADE_ID
+		if id == ID_UPGRADE_SPLENDOR
 			sold.remove()
 
 			unit selling = GetSellingUnit()
 			RemoveUnitFromStock(selling, id)
-			selling.addAbility(VIGOUR_ABILITY_ID)
+			selling.addAbility(ID_ABILITY_SPELNDOR)
 
 			Sounds.playForPlayer(THALL_SOUND, 1., selling.getOwner())
 		end

@@ -5,22 +5,22 @@ library GetUnitArmorType initializer init
 
 	globals
 		Table tab
-		constant integer BONUS_HP = 'A00M'
+		constant int BONUS_HP = 'A00M'
 	end
 
 	public class ArmorType extends array
-		static constant integer UNKNOWN = 0
-		static constant integer MEDIUM_FORTIFIED = 1
-		static constant integer UNARMORED = 2
-		static constant integer HERO = 3
-		static constant integer DIVINE = 4
-		static constant integer HEAVY_NORMAL = 5
-		static constant integer LIGHT = 6
+		static constant int UNKNOWN = 0
+		static constant int MEDIUM_FORTIFIED = 1
+		static constant int UNARMORED = 2
+		static constant int HERO = 3
+		static constant int DIVINE = 4
+		static constant int HEAVY_NORMAL = 5
+		static constant int LIGHT = 6
 	end
 
-	public function getUnitArmorType takes unit u returns integer
-		integer typ = GetUnitTypeId(u)
-		integer ret
+	public function getUnitArmorType takes unit u returns int
+		int typ = GetUnitTypeId(u)
+		int ret
 		real hp
 		real q
 

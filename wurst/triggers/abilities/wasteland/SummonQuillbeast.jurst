@@ -4,8 +4,8 @@ scope SummonQuillbeast initializer init
 	import RegisterPlayerUnitEvent
 
 	globals
-		constant integer SUMMON_ID = 'A00G'
-		constant integer UNIT_ID = 'h01N'
+		constant int SUMMON_ID = 'A00G'
+		constant int UNIT_ID = 'h01N'
 		constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 	end
 

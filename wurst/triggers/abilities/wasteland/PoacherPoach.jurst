@@ -5,7 +5,7 @@ scope PoacherPoach initializer init
 	import FloatText
 
 	globals
-		constant integer EX_ID = 'h01S'
+		constant int EX_ID = 'h01S'
 	end
 
 	function h()

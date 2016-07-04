@@ -3,8 +3,8 @@ scope CowMasterSummon initializer init
 	import DamageType
 
 	globals
-		constant integer COW_ID = 'h00T'
-		constant integer TAUREN_ID = 'o000'
+		constant int COW_ID = 'h00T'
+		constant int TAUREN_ID = 'o000'
 		constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 	end
 

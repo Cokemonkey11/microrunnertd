@@ -6,7 +6,7 @@ package EscapeKey
 	int escapePressedCount = 0
 
 	function c takes nothing returns boolean
-		integer id = GetPlayerId(GetTriggerPlayer())
+		int id = GetPlayerId(GetTriggerPlayer())
 
 		if Game.cinematicOn and not escapesPressed[id] then
 			escapesPressed[id] = true
@@ -25,7 +25,7 @@ package EscapeKey
 
 	init
 		trigger t = CreateTrigger()
-		integer index = 0
+		int index = 0
 
 		loop
 			exitwhen index >= Players.COUNT

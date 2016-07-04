@@ -4,8 +4,8 @@ scope RegularVillager initializer init
 	import RegisterPlayerUnitEvent
 
 	globals
-		constant integer VGR0_ID = 'n000'
-		constant integer VGR1_ID = 'n001'
+		constant int VGR0_ID = 'n000'
+		constant int VGR1_ID = 'n001'
 		constant real X = 1820.
 		constant real Y = -1565.
 		constant real FACE_0 = 90.
@@ -16,7 +16,7 @@ scope RegularVillager initializer init
 
 		unit vgr0
 		unit vgr1
-		integer state = 0
+		int state = 0
 		effect fx
 	end
 

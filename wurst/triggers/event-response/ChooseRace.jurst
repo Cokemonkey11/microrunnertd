@@ -5,7 +5,7 @@ package ChooseRace
 
 	function act()
 		unit u         = GetSoldUnit()
-		integer raceId = GetUnitTypeId(u)
+		int raceId = GetUnitTypeId(u)
 
 		if raceId == Units.ID_BUILDER_SPIRIT then
 			Game.setupRace(Units.ID_RUNNER_SPIRIT, Units.ID_ALTAR_SPIRIT, u)

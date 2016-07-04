@@ -11,20 +11,20 @@ package Game
 		private static constant real ROUND_DELAY_HARD = 10.
 		private static constant real SPAWN_DELAY      =  3.
 
-		private static constant integer SPAWN_SIZE     = 10
-		private static constant integer GOLD_BASE      =  8
-		private static constant integer GOLD_PER_LEVEL =  2
+		private static constant int SPAWN_SIZE     = 10
+		private static constant int GOLD_BASE      =  8
+		private static constant int GOLD_PER_LEVEL =  2
 
-		private static constant integer DAMAGE_BONUS     = 'A00H'
-		private static constant integer MOVE_SPEED_BONUS = 'A00U'
-		private static constant integer GRAVITY_ABILITY  = 'A006'
+		private static constant int DAMAGE_BONUS     = 'A00H'
+		private static constant int MOVE_SPEED_BONUS = 'A00U'
+		private static constant int GRAVITY_ABILITY  = 'A006'
 
 		private static constant string TELE_FX     = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl"
 		private static constant string TELE_IN_FX  = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTarget.mdl"
 		private static constant string TELE_BIG_FX = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl"
 		private static constant string BLINK_FX    = "Abilities\\Spells\\NightElf\\Blink\\BlinkTarget.mdl"
 
-		static constant integer GOLD_START = 40
+		static constant int GOLD_START = 40
 
 		static constant string RUN1 = "run1.wav"
 		static constant string RUN2 = "run2.wav"
@@ -50,7 +50,7 @@ package Game
 		static boolean hard        = false
 
 		static boolean array upgraded
-		static integer round
+		static int round
 		private static timer roundTimer = CreateTimer()
 		private static timerdialog roundDialog
 
@@ -121,8 +121,8 @@ package Game
 		end
 
 		private static function spawn()
-			integer index = 0
-			integer size
+			int index = 0
+			int size
 			unit u
 			DestroyEffect(bigFx)
 			Sounds.play(BEGIN, 1., 127)
@@ -188,7 +188,7 @@ package Game
 		end
 
 		private static function runSound()
-			integer q = ModuloInteger(round, 5)
+			int q = ModuloInteger(round, 5)
 			if q == 0 then
 				Sounds.play(RUN1, 1., 127)
 			elseif q == 1 then
@@ -247,7 +247,7 @@ package Game
 		end
 
 		private static function roundBegin()
-			integer index = 0
+			int index = 0
 			TimerDialogDisplay(roundDialog, false)
 			if not ended then
 				if round == 0 then
@@ -302,8 +302,8 @@ package Game
 		end
 
 		static function success()
-			integer index = 0
-			integer val
+			int index = 0
+			int val
 			round++
 			if not ended then
 				if ModuloInteger(round-1, 15) == 0 and round-1 !=0 then
@@ -355,7 +355,7 @@ package Game
 		static function setupRace(int runnerType, int altarType, unit sold)
 			RemoveUnit(GetSellingUnit())
 			player p    = GetOwningPlayer(sold)
-			integer pid = GetPlayerId(p)
+			int pid = GetPlayerId(p)
 
 			if Players.locl == p then
 				SelectUnit(sold, true)
@@ -460,7 +460,7 @@ package Game
 	end
 
 	init
-		integer index = 0
+		int index = 0
 
 		// Iterate through players
 		loop

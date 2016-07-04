@@ -16,7 +16,7 @@ package SpawnBehaviour
 	Table tauntDurations = new Table
 
 	function getClosestRunner takes unit q returns unit
-		integer index = 0
+		int index = 0
 		unit u = null
 		real r = 9999999.
 		int  qHandleId = q.getHandleId()

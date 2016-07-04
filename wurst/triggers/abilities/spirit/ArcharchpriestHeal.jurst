@@ -4,7 +4,7 @@ scope ArcharchpriestHeal initializer init
 	native UnitAlive takes unit u returns boolean
 
 	globals
-		constant integer PRIEST_ID = 'h009'
+		constant int PRIEST_ID = 'h009'
 		constant real RADIUS = 400.
 		constant string FX = "Abilities\\Spells\\Other\\HealingSpray\\HealBottleMissile.mdl"
 		group grp = CreateGroup()
@@ -31,7 +31,7 @@ scope ArcharchpriestHeal initializer init
 	end
 
 	function p()
-		integer index = 0
+		int index = 0
 		unit fst
 		loop
 			exitwhen index > 1

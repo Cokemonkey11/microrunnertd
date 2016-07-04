@@ -1,0 +1,27 @@
+package AuraOfVigourUpgrade
+	import RegisterPlayerUnitEvent
+	import Sounds
+
+	constant int ID_UPGRADE_VIGOUR = 'h02V'
+	constant int ID_ABILITY_VIGOUR = 'A01A'
+	constant string THALL_SOUND = "thall.wav"
+
+	function a()
+		unit sold = GetSoldUnit()
+		int  id   = sold.getTypeId()
+
+		if id == ID_UPGRADE_VIGOUR
+			sold.remove()
+
+			unit selling = GetSellingUnit()
+			RemoveUnitFromStock(selling, id)
+			selling.addAbility(ID_ABILITY_VIGOUR)
+
+			Sounds.playForPlayer(THALL_SOUND, 1., selling.getOwner())
+		end
+	end
+
+	init
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL, function a)
+		Sounds.preload(THALL_SOUND)
+	end

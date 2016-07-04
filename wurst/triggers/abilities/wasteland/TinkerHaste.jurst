@@ -3,7 +3,7 @@ scope TinkerHaste initializer init
 	import StructuredDD
 
 	globals
-		constant integer ARCH_ID = 'h028'
+		constant int ARCH_ID = 'h028'
 	end
 
 	function h()

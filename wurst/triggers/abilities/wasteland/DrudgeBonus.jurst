@@ -5,7 +5,7 @@ scope DrudgeBonus initializer init
 	import GetUnitArmorType
 
 	globals
-		constant integer EX_ID = 'h01W'
+		constant int EX_ID = 'h01W'
 	end
 
 	function h()

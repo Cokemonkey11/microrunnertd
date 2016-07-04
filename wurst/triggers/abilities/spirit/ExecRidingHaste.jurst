@@ -3,7 +3,7 @@ scope ExecRidingHaste initializer init
 	import StructuredDD
 
 	globals
-		constant integer ARCH_ID = 'h01B'
+		constant int ARCH_ID = 'h01B'
 	end
 
 	function h()

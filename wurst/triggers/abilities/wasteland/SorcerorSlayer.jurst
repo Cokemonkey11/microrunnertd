@@ -4,7 +4,7 @@ scope SorcerorSlayer initializer init
 	import FloatText
 
 	globals
-		constant integer EX_ID = 'h027'
+		constant int EX_ID = 'h027'
 		constant string FX = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
 		Table tab
 	end

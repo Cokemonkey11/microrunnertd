@@ -4,7 +4,7 @@ scope AlchemistHasteTransmute initializer init
 	import FloatText
 
 	globals
-		constant integer ARCH_ID = 'h02A'
+		constant int ARCH_ID = 'h02A'
 	end
 
 	function h()

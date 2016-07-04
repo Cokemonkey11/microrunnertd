@@ -5,8 +5,8 @@ package Taunt
 
 	native UnitAlive takes unit u returns boolean
 
-	constant integer TAUNT_ID            = 'A018'
-	constant integer DAMAGE_REDUCTION_ID = 'A019'
+	constant int TAUNT_ID            = 'A018'
+	constant int DAMAGE_REDUCTION_ID = 'A019'
 
 	constant real RADIUS   = 500.
 	constant real DURATION =   5.

@@ -5,7 +5,7 @@ scope FrozenObeliskKnockup initializer init
 	import Knockback3D
 
 	globals
-		constant integer OB_ID = 'h00Y'
+		constant int OB_ID = 'h00Y'
 	end
 
 	function h()

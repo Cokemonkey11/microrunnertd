@@ -155,7 +155,7 @@ library Knockback3D
 		/**
 		 * The raw ID of crow form, which allows ground units to have adjusted fly-height.
 		 */
-        private static constant integer CROW_ID = 'Arav'
+        private static constant int CROW_ID = 'Arav'
 
 		/**
 		 * Flag used for reference when a destructable has been hit/destroyed.
@@ -165,7 +165,7 @@ library Knockback3D
 		/**
 		 * A stack size reference
 		 */
-        private static integer dbIndex = -1
+        private static int dbIndex = -1
 
 		/**
 		 * Stack of KnockDat references
@@ -236,7 +236,7 @@ library Knockback3D
 		 */
 		private static method p()
 			boolean newInMap
-			integer index = 0
+			int index = 0
 			real flyHeight
 			real unitX
 			real unitY
@@ -322,9 +322,9 @@ library Knockback3D
 		 * Gets the unit's stack index using linear search. Adding optional Table could potentially be
 		 * useful.
 		 */
-		private static method getUnitIndexFromStack takes unit u returns integer
-			integer index = 0
-			integer returner = -1
+		private static method getUnitIndexFromStack takes unit u returns int
+			int index = 0
+			int returner = -1
 			thistype tempDat
 			loop
 				exitwhen index > dbIndex or returner != -1
@@ -359,7 +359,7 @@ library Knockback3D
 		 *		alpha: The angle of attack (z-axis) to knock the unit, in radians (where 0 is no AoA)
 		 */
 		static method add takes unit u, real velocity, real angle, real alpha returns nothing
-			integer index = getUnitIndexFromStack(u)
+			int index = getUnitIndexFromStack(u)
 			thistype tempDat
 			real instVel = velocity*CLOCK_PERIOD
 			if index == -1 then
@@ -395,7 +395,7 @@ library Knockback3D
 		 *		alpha: The angle of attack (z-axis) to knock the unit, in radians (where 0 is no AoA)
 		 */
 		static method setVel takes unit u, real velocity, real angle, real alpha returns nothing
-			integer index = getUnitIndexFromStack(u)
+			int index = getUnitIndexFromStack(u)
 			thistype tempDat
 			real instVel = velocity*CLOCK_PERIOD
 			if index == -1 then
@@ -421,7 +421,7 @@ library Knockback3D
 		end
 
 		static method getVel takes unit u returns real
-			integer index = getUnitIndexFromStack(u)
+			int index = getUnitIndexFromStack(u)
 			thistype tempDat
 			real v
 			if index != -1 then

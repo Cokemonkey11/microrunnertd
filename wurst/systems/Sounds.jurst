@@ -48,7 +48,7 @@ package Sounds
 			KillSoundWhenDone(s)
 		end
 
-		static method play takes string str, real pitch, integer vol returns nothing
+		static method play takes string str, real pitch, int vol returns nothing
 			sound s = CreateSound(str, false, false, false, 12700, 12700, "")
 			SetSoundVolume(s, vol)
 			SetSoundPitch(s, pitch)

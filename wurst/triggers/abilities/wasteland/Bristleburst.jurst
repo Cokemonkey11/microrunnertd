@@ -3,9 +3,9 @@ scope Bristleburst initializer init
 	import StructuredDD
 
 	globals
-		constant integer ARCH_ID = 'h01G'
-		constant integer ARMOR = 'A00R'
-		constant integer EFFECT = 'A003'
+		constant int ARCH_ID = 'h01G'
+		constant int ARMOR = 'A00R'
+		constant int EFFECT = 'A003'
 	end
 
 	function h()

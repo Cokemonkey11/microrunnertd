@@ -2,7 +2,7 @@ library FloatText
 	import Players
 
 	public class FloatText
-		static function bounty takes real x, real y, integer z returns nothing
+		static function bounty takes real x, real y, int z returns nothing
 			texttag t = CreateTextTag()
 	        SetTextTagFadepoint(t, 3)
 	        SetTextTagLifespan(t, 4)
@@ -14,7 +14,7 @@ library FloatText
 			SetTextTagVisibility(t, true)
 		end
 
-		static function bountyPlayer takes real x, real y, integer z, player p returns nothing
+		static function bountyPlayer takes real x, real y, int z, player p returns nothing
 			texttag t = CreateTextTag()
 	        SetTextTagFadepoint(t, 3)
 	        SetTextTagLifespan(t, 4)
@@ -30,7 +30,7 @@ library FloatText
 			end
 		end
 
-		static function bonus takes real x, real y, integer z returns nothing
+		static function bonus takes real x, real y, int z returns nothing
 			texttag t = CreateTextTag()
 	        SetTextTagFadepoint(t, 2)
 	        SetTextTagLifespan(t, 3)

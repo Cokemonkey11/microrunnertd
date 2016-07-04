@@ -2,8 +2,8 @@ scope Demon initializer init
 	import Players
 
 	globals
-		constant integer DEMON_ID = 'h02F'
-		constant integer HOUSE_ID = 'h02G'
+		constant int DEMON_ID = 'h02F'
+		constant int HOUSE_ID = 'h02G'
 		unit d
 		unit house
 		group grp = CreateGroup()

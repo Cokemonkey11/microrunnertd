@@ -3,7 +3,7 @@ scope ArchmageLightning initializer init
 	import DamageType
 
 	globals
-		constant integer ARCH_ID = 'h00G'
+		constant int ARCH_ID = 'h00G'
 	end
 
 	function h()

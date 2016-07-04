@@ -4,7 +4,7 @@ scope GeomancerWave initializer init
 	import StructuredDD
 
 	globals
-		constant integer ARCH_ID = 'h01U'
+		constant int ARCH_ID = 'h01U'
 	end
 
 	function h()
