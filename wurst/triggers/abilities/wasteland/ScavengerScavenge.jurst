@@ -1,4 +1,4 @@
-scope ScavengerScavenge initializer init
+package ScavengerScavenge
 	import Units
 	import DamageType
 	import StructuredDD
@@ -19,6 +19,6 @@ scope ScavengerScavenge initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

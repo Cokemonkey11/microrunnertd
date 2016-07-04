@@ -1,4 +1,4 @@
-library GetUnitArmorType initializer init
+library GetUnitArmorType
 	import StructuredDD
 	import Table
 	import Players
@@ -63,6 +63,6 @@ library GetUnitArmorType initializer init
 		end
 	end
 
-	function init()
+	init
 		tab = new Table
 	end

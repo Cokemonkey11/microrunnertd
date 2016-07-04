@@ -1,4 +1,4 @@
-scope DrudgeBonus initializer init
+package DrudgeBonus
 	import DamageType
 	import StructuredDD
 	import FloatText
@@ -19,6 +19,6 @@ scope DrudgeBonus initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

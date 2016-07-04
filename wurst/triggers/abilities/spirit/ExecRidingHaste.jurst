@@ -1,4 +1,4 @@
-scope ExecRidingHaste initializer init
+package ExecRidingHaste
 	import DamageType
 	import StructuredDD
 
@@ -13,6 +13,6 @@ scope ExecRidingHaste initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

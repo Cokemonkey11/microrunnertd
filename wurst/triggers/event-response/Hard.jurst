@@ -1,4 +1,4 @@
-scope Hard initializer init
+package Hard
 	import Players
 	import Game
 	import Sounds
@@ -40,7 +40,7 @@ scope Hard initializer init
 		return false
 	end
 
-	function init()
+	init
 		trigger t = CreateTrigger()
 		TriggerRegisterPlayerChatEvent(t, Players.id[0], "-hard", true)
 		TriggerRegisterPlayerChatEvent(t, Players.id[1], "-hard", true)

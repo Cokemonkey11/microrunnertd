@@ -1,4 +1,4 @@
-scope ExecRidingExecute initializer init
+package ExecRidingExecute
 	import Units
 	import DamageType
 	import StructuredDD
@@ -21,6 +21,6 @@ scope ExecRidingExecute initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

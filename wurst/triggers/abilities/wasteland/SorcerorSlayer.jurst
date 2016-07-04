@@ -1,4 +1,4 @@
-scope SorcerorSlayer initializer init
+package SorcerorSlayer
 	import DamageType
 	import StructuredDD
 	import FloatText
@@ -28,7 +28,7 @@ scope SorcerorSlayer initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 		tab = new Table
 	end

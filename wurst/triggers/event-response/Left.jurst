@@ -1,4 +1,4 @@
-scope Left initializer init
+package Left
 	import Players
 	import Units
 	import Game
@@ -48,7 +48,7 @@ scope Left initializer init
 		return false
 	end
 
-	function init()
+	init
 		trigger t = CreateTrigger()
 		TriggerRegisterPlayerEvent(t, Players.id[0], EVENT_PLAYER_LEAVE)
 		TriggerRegisterPlayerEvent(t, Players.id[1], EVENT_PLAYER_LEAVE)

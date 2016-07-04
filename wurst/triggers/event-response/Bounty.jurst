@@ -1,4 +1,4 @@
-scope Bounty initializer init
+package Bounty
 	import Players
 	import Units
 	import FloatText
@@ -16,6 +16,6 @@ scope Bounty initializer init
 		end
 	end
 
-	function init()
+	init
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH, function a)
 	end

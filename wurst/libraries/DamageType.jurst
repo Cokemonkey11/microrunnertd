@@ -13,7 +13,7 @@
 //*                                     are of the form (unit, unit, real) where the
 //*                                     first unit deals real damage to the second
 //*                                     unit.
-library DamageType initializer ini
+library DamageType
 	import StructuredDD
 
 	//* This class contains data to deal damage to a target that would otherwise
@@ -169,7 +169,7 @@ library DamageType initializer ini
 		end
 	end
 
-	function ini()
+	init
 		group grp = CreateGroup()
 		region reg = CreateRegion()
 		trigger addBracer = CreateTrigger()

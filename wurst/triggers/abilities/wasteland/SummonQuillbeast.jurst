@@ -1,4 +1,4 @@
-scope SummonQuillbeast initializer init
+package SummonQuillbeast
 	import IsTerrainWalkable
 	import SimError
 	import RegisterPlayerUnitEvent
@@ -30,6 +30,6 @@ scope SummonQuillbeast initializer init
 		end
 	end
 
-	function init()
+	init
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
 	end

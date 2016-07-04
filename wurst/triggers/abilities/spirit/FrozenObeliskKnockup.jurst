@@ -1,4 +1,4 @@
-scope FrozenObeliskKnockup initializer init
+package FrozenObeliskKnockup
 	import Units
 	import DamageType
 	import StructuredDD
@@ -20,6 +20,6 @@ scope FrozenObeliskKnockup initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

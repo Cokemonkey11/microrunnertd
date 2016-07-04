@@ -1,4 +1,4 @@
-scope CowGodSummon initializer init
+package CowGodSummon
 	import StructuredDD
 	import DamageType
 
@@ -23,6 +23,6 @@ scope CowGodSummon initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

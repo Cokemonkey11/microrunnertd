@@ -1,4 +1,4 @@
-scope Bristleburst initializer init
+package Bristleburst
 	import DamageType
 	import StructuredDD
 
@@ -18,6 +18,6 @@ scope Bristleburst initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

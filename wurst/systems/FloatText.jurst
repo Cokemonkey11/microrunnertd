@@ -7,10 +7,10 @@ library FloatText
 	        SetTextTagFadepoint(t, 3)
 	        SetTextTagLifespan(t, 4)
 	        SetTextTagPermanent(t, false)
-	        SetTextTagPos(t, x,y, 100)
+	        SetTextTagPos(t, x, y, 100)
 	        SetTextTagText(t, " + " + I2S(z), .02)
-			SetTextTagColor(t, 255, 204, 0,255)
-	        SetTextTagVelocity(t, 0,.05)
+			SetTextTagColor(t, 255, 204, 0, 255)
+	        SetTextTagVelocity(t, 0, .05)
 			SetTextTagVisibility(t, true)
 		end
 
@@ -19,10 +19,10 @@ library FloatText
 	        SetTextTagFadepoint(t, 3)
 	        SetTextTagLifespan(t, 4)
 	        SetTextTagPermanent(t, false)
-	        SetTextTagPos(t, x,y, 100)
+	        SetTextTagPos(t, x, y, 100)
 	        SetTextTagText(t, " + " + I2S(z), .02)
-			SetTextTagColor(t, 255, 204, 0,255)
-	        SetTextTagVelocity(t, 0,.07)
+			SetTextTagColor(t, 255, 204, 0, 255)
+	        SetTextTagVelocity(t, 0, .07)
 			if Players.locl == p then
 				SetTextTagVisibility(t, true)
 			else
@@ -35,10 +35,22 @@ library FloatText
 	        SetTextTagFadepoint(t, 2)
 	        SetTextTagLifespan(t, 3)
 	        SetTextTagPermanent(t, false)
-	        SetTextTagPos(t, x,y, 100)
+	        SetTextTagPos(t, x, y, 100)
 	        SetTextTagText(t, I2S(z) + "!", .02)
-			SetTextTagColor(t, 255, 0,0, 200)
-	        SetTextTagVelocity(t, 0,.06)
+			SetTextTagColor(t, 255, 0, 0, 200)
+	        SetTextTagVelocity(t, 0, .06)
+			SetTextTagVisibility(t, true)
+		end
+
+		static function prevented takes real x, real y returns nothing
+			texttag t = CreateTextTag()
+	        SetTextTagFadepoint(t, 2)
+	        SetTextTagLifespan(t, 3)
+	        SetTextTagPermanent(t, false)
+	        SetTextTagPos(t, x, y, 100)
+	        SetTextTagText(t, "!", .02)
+			SetTextTagColor(t, 155, 155, 155, 200)
+	        SetTextTagVelocity(t, 0, .04)
 			SetTextTagVisibility(t, true)
 		end
 	end

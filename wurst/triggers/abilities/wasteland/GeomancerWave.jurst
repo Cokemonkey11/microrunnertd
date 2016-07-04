@@ -1,4 +1,4 @@
-scope GeomancerWave initializer init
+package GeomancerWave
 	import Units
 	import DamageType
 	import StructuredDD
@@ -15,6 +15,6 @@ scope GeomancerWave initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

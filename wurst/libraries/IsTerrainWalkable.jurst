@@ -5,7 +5,7 @@
  * API:
  *     boolean IsTerrainWalkable(real x, real y) - returns the walkability of (x, y)
  */
-library IsTerrainWalkable initializer init
+library IsTerrainWalkable
     globals
 
         // this value is how far from a point the item may end up for the point to be considered pathable
@@ -21,7 +21,7 @@ library IsTerrainWalkable initializer init
         int hiddenMax = 0
     end
 
-    function init()
+    init
         check = CreateItem('ciri', 0., 0.)
         SetItemVisible(check, false)
         r = Rect(0.0, 0.0, 128.0, 128.0)

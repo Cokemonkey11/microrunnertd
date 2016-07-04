@@ -1,0 +1,39 @@
+package ThallBoxSacrifice
+	import DamageType
+	import StructuredDD
+	import FloatText
+	import ClosureForGroups
+
+	constant int ID_THALL_BOX         = 'h02T'
+	constant int ID_ABILITY_SACRIFICE = 'A01B'
+
+	constant real RADIUS = 90. + 16. * 3.
+
+	bool willSacrifice
+
+	function hasSacrifice(unit u) returns bool
+		willSacrifice = false
+
+		forUnitsInRange(vec2(u.getX(), u.getY()), RADIUS, (unit iter) -> begin
+			if iter.getTypeId() == ID_THALL_BOX and iter.getOwner() == u.getOwner() and iter.hasAbility(ID_ABILITY_SACRIFICE)
+				willSacrifice = true
+			end
+		end)
+
+		return willSacrifice
+	end
+
+	function h()
+		unit dS     = GetEventDamageSource()
+		unit tU     = GetTriggerUnit()
+		real damage = GetEventDamage()
+
+		if hasSacrifice(dS) and DamageType.get() == DamageType.ATTACK and tU.getHP() < damage then
+			tU.setHP(damage + 1.)
+			FloatText.prevented(dS.getX(), dS.getY())
+		end
+	end
+
+	init
+		StructuredDD.addHandler(function h)
+	end

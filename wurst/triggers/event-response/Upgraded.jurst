@@ -1,4 +1,4 @@
-scope Upgraded initializer init
+package Upgraded
 	import Game
 	import RegisterPlayerUnitEvent
 
@@ -7,6 +7,6 @@ scope Upgraded initializer init
 		Game.upgraded[pid] = true
 	end
 
-	function init()
+	init
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_RESEARCH_START, function act)
 	end

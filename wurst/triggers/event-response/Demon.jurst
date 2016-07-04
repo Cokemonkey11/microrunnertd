@@ -1,4 +1,4 @@
-scope Demon initializer init
+package Demon
 	import Players
 
 	globals
@@ -26,7 +26,7 @@ scope Demon initializer init
 		return false
 	end
 
-	function init()
+	init
 		region reg = CreateRegion()
 		region reg2 = CreateRegion()
 		trigger t= CreateTrigger()

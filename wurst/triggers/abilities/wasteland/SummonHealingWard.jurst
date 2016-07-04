@@ -1,4 +1,4 @@
-scope SummonHealingWard initializer init
+package SummonHealingWard
 	import IsTerrainWalkable
 	import SimError
 	import RegisterPlayerUnitEvent
@@ -30,6 +30,6 @@ scope SummonHealingWard initializer init
 		end
 	end
 
-	function init()
+	init
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
 	end

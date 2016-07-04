@@ -1,4 +1,4 @@
-scope ArcharchpriestHeal initializer init
+package ArcharchpriestHeal
 	import Players
 
 	native UnitAlive takes unit u returns boolean
@@ -48,6 +48,6 @@ scope ArcharchpriestHeal initializer init
 		end
 	end
 
-	function init()
+	init
 		TimerStart(CreateTimer(), 1./2., true, function p)
 	end

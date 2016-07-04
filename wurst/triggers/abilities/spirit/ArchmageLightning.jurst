@@ -1,4 +1,4 @@
-scope ArchmageLightning initializer init
+package ArchmageLightning
 	import StructuredDD
 	import DamageType
 
@@ -13,6 +13,6 @@ scope ArchmageLightning initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

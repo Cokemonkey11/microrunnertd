@@ -12,7 +12,7 @@
 //*     unit damage event. Example: StructuredDD.addHandler(function h)
 //* static method add: Adds a unit to a bucket. If ADD_ALL_UNITS is enabled,
 //*     this method need not be used.
-library StructuredDD initializer ini
+library StructuredDD
 
 	//<< BEGIN SETTINGS SECTION
 
@@ -181,7 +181,7 @@ library StructuredDD initializer ini
 
 	//* This is a initialization function necessary for the setup of
 	//* StructuredDD.
-	function ini()
+	init
 		group grp
 		region reg
 		trigger autoAddUnits

@@ -1,4 +1,4 @@
-scope Heal initializer init
+package Heal
 	import RegisterPlayerUnitEvent
 
 	globals
@@ -15,6 +15,6 @@ scope Heal initializer init
 		end
 	end
 
-	function init()
+	init
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
 	end

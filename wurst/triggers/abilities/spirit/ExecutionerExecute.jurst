@@ -1,4 +1,4 @@
-scope ExecutionerExecute initializer init
+package ExecutionerExecute
 	import Units
 	import DamageType
 	import StructuredDD
@@ -21,6 +21,6 @@ scope ExecutionerExecute initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

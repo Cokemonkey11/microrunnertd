@@ -1,4 +1,4 @@
-scope TinkerHaste initializer init
+package TinkerHaste
 	import DamageType
 	import StructuredDD
 
@@ -13,6 +13,6 @@ scope TinkerHaste initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

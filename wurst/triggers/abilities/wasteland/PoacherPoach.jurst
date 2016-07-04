@@ -1,4 +1,4 @@
-scope PoacherPoach initializer init
+package PoacherPoach
 	import DamageType
 	import Units
 	import StructuredDD
@@ -19,6 +19,6 @@ scope PoacherPoach initializer init
 		end
 	end
 
-	function init()
+	init
 		StructuredDD.addHandler(function h)
 	end

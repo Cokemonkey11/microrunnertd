@@ -1,4 +1,4 @@
-scope FrogExplosion initializer init
+package FrogExplosion
 	import RegisterPlayerUnitEvent
 	import FloatText
 	import Players
@@ -15,7 +15,7 @@ scope FrogExplosion initializer init
 		end
 	end
 
-	function init()
+	init
 		frog = CreateUnit(Players.passive, 'nfro', 0., 0., 0.)
 		SetUnitExploded(frog, true)
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED, function a)
