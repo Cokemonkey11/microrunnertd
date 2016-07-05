@@ -1,5 +1,4 @@
 package PieceOfBlackMetalEndowment
-	import IsTerrainWalkable
 	import SimError
 	import RegisterPlayerUnitEvent
 	import SellTower

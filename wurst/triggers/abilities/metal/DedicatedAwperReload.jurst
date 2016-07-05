@@ -13,8 +13,6 @@ package DedicatedAwperReload
 		unit dS = GetEventDamageSource()
 
 		if GetUnitTypeId(dS) == ID_AWPER and DamageType.get() == DamageType.ATTACK
-			unit tU = GetTriggerUnit()
-
 			if tab.hasInt(dS.getHandleId())
 				if tab.loadInt(dS.getHandleId()) >= ROUNDS_PER_MAG - 1
 					tab.saveInt(dS.getHandleId(), 0)
