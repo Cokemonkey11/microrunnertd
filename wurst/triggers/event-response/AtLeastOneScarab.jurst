@@ -1,0 +1,37 @@
+package AtLeastOneScarab
+	import RegisterPlayerUnitEvent
+	import TerrainData
+	import Players
+
+	constant int ID_SCARAB       = 'h037'
+	constant int ID_AT_LEAST_ONE = 'h039'
+
+	bool array hasTechs
+
+	function a()
+		unit cons = GetConstructedStructure()
+
+		if cons.getTypeId() == ID_SCARAB
+			player owner = cons.getOwner()
+			int    pId   = owner.getId()
+
+			if not hasTechs[pId]
+				hasTechs[pId] = true
+				CreateUnit(owner, ID_AT_LEAST_ONE, TerrainData.SAFE_X, TerrainData.SAFE_Y, 0.)
+					..hide()
+			end
+		end
+	end
+
+	init
+		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH, function a)
+
+		int i = 0
+		loop
+			exitwhen i >= Players.COUNT
+
+			hasTechs[i] = false
+
+			i++
+		end
+	end
