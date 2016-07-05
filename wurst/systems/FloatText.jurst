@@ -65,4 +65,18 @@ library FloatText
 	        SetTextTagVelocity(t, 0, 0.)
 			SetTextTagVisibility(t, true)
 		end
+
+		static function guardPower takes real x, real y, int z returns nothing
+			real maxDuration = (z * 10.) / 4.
+
+			texttag t = CreateTextTag()
+	        SetTextTagFadepoint(t, maxDuration)
+	        SetTextTagLifespan(t,  maxDuration - 1.)
+	        SetTextTagPermanent(t, false)
+	        SetTextTagPos(t, x - 16. - 8., y, 100)
+	        SetTextTagText(t, I2S(z) + "+", .022)
+			SetTextTagColor(t, 137, 206, 255, 255)
+	        SetTextTagVelocity(t, 0, 0.)
+			SetTextTagVisibility(t, true)
+		end
 	end
