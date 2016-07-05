@@ -29,7 +29,7 @@ package Sounds
 
         static method play3D takes string str, real pitch, real x, real y, real z returns nothing
             sound s = CreateSound(str, false, true, true, 12700, 12700, "")
-            SetSoundPosition(s, x,y, z)
+            SetSoundPosition(s, x, y, z)
             SetSoundVolume(s, 127)
             SetSoundPitch(s, pitch)
             StartSound(s)
