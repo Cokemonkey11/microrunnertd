@@ -1,6 +1,7 @@
 package Units
 	import Table
 	import Players
+	import Invulnerable
 
 	public class Units
 		static constant int ROUND_COUNT       = 43
@@ -40,6 +41,7 @@ package Units
 
 					PauseUnit(fst, true)
 					SetUnitInvulnerable(fst, true)
+					Invulnerable.apply(fst, 60. * 60. * 24.)
 					UnitAddAbility(fst, 'Aloc')
 					SetUnitTimeScale(fst, 0.)
 

@@ -4,6 +4,7 @@ package GuardDevilUnbreakable
 	import ClosureForGroups
 	import ClosureTimers
 	import Players
+	import Invulnerable
 
 	constant int ID_GUARD_DEVIL         = 'h03B'
 	constant int ID_GUARD_DEVIL_GREATER = 'h03C'
@@ -44,16 +45,13 @@ package GuardDevilUnbreakable
 			unit unbreakableSource = findUnbreakable(tU)
 
 			if unbreakableSource != null
-				tU.addAbility(ID_INVULNERABLE)
-				// tU.setHP(damage + 1.)
+				Invulnerable.apply(tU, DURATION)
 				unbreakableSource.removeAbility(ID_ABILITY_UNBREAKABLE)
 				unbreakableSource.addAbility(   ID_ABILITY_UNBREAKA_CD)
 				effect shield = tU.addEffect(SHIELD_FX, "origin")
 
 				doAfter(DURATION, () -> begin
-					tU.removeAbility(ID_INVULNERABLE)
 					shield.destr()
-
 				end)
 
 				doAfter(COOLDOWN, () -> begin
