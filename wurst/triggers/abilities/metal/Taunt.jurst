@@ -1,6 +1,5 @@
 package Taunt
 	import RegisterPlayerUnitEvent
-	import ClosureForGroups
 	import SpawnBehaviour
 
 	native UnitAlive takes unit u returns boolean
@@ -11,19 +10,29 @@ package Taunt
 	constant real RADIUS   = 800.
 	constant real DURATION =   5.
 
+	group grp = CreateGroup()
+
 	function act()
 		if GetSpellAbilityId() == TAUNT_ID
 			unit tU = GetTriggerUnit()
 			player p = tU.getOwner()
 
-			forUnitsInRange(vec2(tU.getX(), tU.getY()), RADIUS, (unit iter) -> begin
+			unit iter
+
+			grp.enumUnitsInRange(vec2(tU.getX(), tU.getY()), RADIUS)
+			loop
+				iter = FirstOfGroup(grp)
+				exitwhen iter == null
+
 				if iter.isAlive() and IsUnitEnemy(iter, p)
 					iter..issueTargetOrder("attack", tU)
 					    ..addAbility(DAMAGE_REDUCTION_ID)
 
 					addTaunt(iter, tU, DURATION)
 				end
-			end)
+
+				grp.removeUnit(iter)
+			end
 		end
 	end
 

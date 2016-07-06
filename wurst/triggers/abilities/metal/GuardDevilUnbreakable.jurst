@@ -18,20 +18,27 @@ package GuardDevilUnbreakable
 
 	constant string SHIELD_FX = "Abilities\\Spells\\Human\\DivineShield\\DivineShieldTarget.mdl"
 
-	unit guard
+	group grp = CreateGroup()
 
 	function isGuardDevil(unit u) returns bool
 		return u.getTypeId() == ID_GUARD_DEVIL or u.getTypeId() == ID_GUARD_DEVIL_GREATER
 	end
 
 	function findUnbreakable(unit u) returns unit
-		guard = null
+		unit guard = null
+		unit iter
 
-		forUnitsInRange(vec2(u.getX(), u.getY()), RADIUS, (unit iter) -> begin
+		grp.enumUnitsInRange(vec2(u.getX(), u.getY()), RADIUS)
+		loop
+			iter = FirstOfGroup(grp)
+			exitwhen iter == null
+
 			if iter.isAlive() and isGuardDevil(iter) and iter.hasAbility(ID_ABILITY_UNBREAKABLE)
 				guard = iter
 			end
-		end)
+
+			grp.removeUnit(iter)
+		end
 
 		return guard
 	end

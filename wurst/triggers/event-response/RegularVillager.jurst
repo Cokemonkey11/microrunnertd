@@ -3,22 +3,20 @@ package RegularVillager
 	import Players
 	import RegisterPlayerUnitEvent
 
-	globals
-		constant int VGR0_ID = 'n000'
-		constant int VGR1_ID = 'n001'
-		constant real X = 1820.
-		constant real Y = -1565.
-		constant real FACE_0 = 90.
-		constant real FACE_1 = 45. + 180.
-		constant real FACE_2 = 135. + 180.
-		constant string FX = "Abilities\\Spells\\Other\\TalkToMe\\TalkToMe.mdl"
-		constant string FX2 = "Abilities\\Spells\\Undead\\AnimateDead\\AnimateDeadTarget.mdl"
+	constant int VGR0_ID = 'n000'
+	constant int VGR1_ID = 'n001'
+	constant real X = 1820.
+	constant real Y = -1565.
+	constant real FACE_0 = 90.
+	constant real FACE_1 = 45. + 180.
+	constant real FACE_2 = 135. + 180.
+	constant string FX = "Abilities\\Spells\\Other\\TalkToMe\\TalkToMe.mdl"
+	constant string FX2 = "Abilities\\Spells\\Undead\\AnimateDead\\AnimateDeadTarget.mdl"
 
-		unit vgr0
-		unit vgr1
-		int state = 0
-		effect fx
-	end
+	unit vgr0
+	unit vgr1
+	int state = 0
+	effect fx
 
 	function seq4()
 		state = 2
@@ -81,6 +79,7 @@ package RegularVillager
 
 	function act()
 		unit tU = GetTriggerUnit()
+
 		if tU == vgr0
 			if state == 0
 				state = 1
@@ -89,6 +88,7 @@ package RegularVillager
 				fx = AddSpecialEffectTarget(FX, vgr0, "overhead")
 				TimerStart(CreateTimer(), .5, false, function seq0)
 			elseif state == 2
+				state = 3
 				ShowUnit(vgr0, false)
 				ShowUnit(vgr1, true)
 				SetUnitX(vgr1, X)

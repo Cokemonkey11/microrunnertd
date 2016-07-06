@@ -2,7 +2,6 @@ package LeviathanWellSummon
 	import StructuredDD
 	import DamageType
 	import Players
-	import ClosureForGroups
 	import ClosureTimers
 	import TerrainData
 
@@ -19,7 +18,7 @@ package LeviathanWellSummon
 	vec2 array currWells
 	unit array currWellUnits
 
-	bool hasUnit
+	group grp = CreateGroup()
 
 	function h()
 		unit dS = GetEventDamageSource()
@@ -48,12 +47,20 @@ package LeviathanWellSummon
 				end)
 			end
 
-			hasUnit = false
-			forUnitsInRange(vec2(leviathans[pId].getX(), leviathans[pId].getY()), RADIUS, (unit iter) -> begin
+			bool hasUnit = false
+			unit iter
+
+			grp.enumUnitsInRange(vec2(leviathans[pId].getX(), leviathans[pId].getY()), RADIUS)
+			loop
+				iter = FirstOfGroup(grp)
+				exitwhen iter == null
+
 				if iter.isAlive() and IsUnitEnemy(iter, owner)
 					hasUnit = true
 				end
-			end)
+
+				grp.removeUnit(iter)
+			end
 
 			if (not hasUnit) and (not currWellUnits[pId] == dS)
 				currWells[pId] = vec2(dS.getX(), dS.getY())

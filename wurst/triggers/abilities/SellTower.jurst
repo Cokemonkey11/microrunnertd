@@ -2,7 +2,6 @@ package SellTower
 	import FloatText
 	import Sounds
 	import RegisterPlayerUnitEvent
-	import ClosureForGroups
 
 	native GetUnitGoldCost takes int id returns int
 
@@ -15,24 +14,32 @@ package SellTower
 	constant int ID_ENDOWMENT_BLACK_MANA = 'A01J'
 	constant int ID_ENDOWMENT_BLACK_MR   = 'A01I'
 
-	constant real RADIUS = 90. + 16. * 3.
+	constant real RADIUS = 90. + 16. * 2.
 
 	constant string FX  = "Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl"
 	constant string SND = "Abilities\\Spells\\Items\\ResourceItems\\ReceiveGold.wav"
 
-	bool splendorCheck
+	group grp = CreateGroup()
 
 	public Table endowments      = new Table
 	public Table blackEndowments = new Table
 
 	function hasDoubleValue(unit u) returns bool
-		splendorCheck = false
+		bool splendorCheck = false
 
-		forUnitsInRange(vec2(u.getX(), u.getY()), RADIUS, (unit iter) -> begin
+		unit iter
+
+		grp.enumUnitsInRange(vec2(u.getX(), u.getY()), RADIUS)
+		loop
+			iter = FirstOfGroup(grp)
+			exitwhen iter == null
+
 			if iter.isAlive() and iter.getTypeId() == ID_THALL_BOX and iter.getOwner() == u.getOwner() and iter.hasAbility(ID_ABILITY_SPLENDOR)
 				splendorCheck = true
 			end
-		end)
+
+			grp.removeUnit(iter)
+		end
 
 		return splendorCheck
 	end
