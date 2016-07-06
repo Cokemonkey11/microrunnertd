@@ -15,7 +15,7 @@ package ThallBoxSacrifice
 		willSacrifice = false
 
 		forUnitsInRange(vec2(u.getX(), u.getY()), RADIUS, (unit iter) -> begin
-			if iter.getTypeId() == ID_THALL_BOX and iter.getOwner() == u.getOwner() and iter.hasAbility(ID_ABILITY_SACRIFICE)
+			if iter.isAlive() and iter.getTypeId() == ID_THALL_BOX and iter.getOwner() == u.getOwner() and iter.hasAbility(ID_ABILITY_SACRIFICE)
 				willSacrifice = true
 			end
 		end)

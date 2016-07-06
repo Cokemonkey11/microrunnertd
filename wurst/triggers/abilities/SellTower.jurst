@@ -29,7 +29,7 @@ package SellTower
 		splendorCheck = false
 
 		forUnitsInRange(vec2(u.getX(), u.getY()), RADIUS, (unit iter) -> begin
-			if iter.getTypeId() == ID_THALL_BOX and iter.getOwner() == u.getOwner() and iter.hasAbility(ID_ABILITY_SPLENDOR)
+			if iter.isAlive() and iter.getTypeId() == ID_THALL_BOX and iter.getOwner() == u.getOwner() and iter.hasAbility(ID_ABILITY_SPLENDOR)
 				splendorCheck = true
 			end
 		end)

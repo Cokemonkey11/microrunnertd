@@ -50,12 +50,12 @@ package LeviathanWellSummon
 
 			hasUnit = false
 			forUnitsInRange(vec2(leviathans[pId].getX(), leviathans[pId].getY()), RADIUS, (unit iter) -> begin
-				if IsUnitEnemy(iter, owner) and iter.isAlive()
+				if iter.isAlive() and IsUnitEnemy(iter, owner)
 					hasUnit = true
 				end
 			end)
 
-			if not hasUnit
+			if (not hasUnit) and (not currWellUnits[pId] == dS)
 				currWells[pId] = vec2(dS.getX(), dS.getY())
 				currWellUnits[pId] = dS
 				addEffect(BLINK_CASTER, vec3(leviathans[pId].getX(), leviathans[pId].getY(), 200.))
@@ -74,7 +74,8 @@ package LeviathanWellSummon
 		loop
 			exitwhen i >= Players.COUNT
 
-			leviathans[i] = null
+			leviathans[i]    = null
+			currWellUnits[i] = null
 
 			i++
 		end

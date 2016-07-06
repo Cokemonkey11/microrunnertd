@@ -28,7 +28,7 @@ package GuardDevilUnbreakable
 		guard = null
 
 		forUnitsInRange(vec2(u.getX(), u.getY()), RADIUS, (unit iter) -> begin
-			if isGuardDevil(iter) and iter.hasAbility(ID_ABILITY_UNBREAKABLE)
+			if iter.isAlive() and isGuardDevil(iter) and iter.hasAbility(ID_ABILITY_UNBREAKABLE)
 				guard = iter
 			end
 		end)
