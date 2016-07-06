@@ -20,7 +20,7 @@ package GuardDevilUnbreakable
 
 	unit guard
 
-	constant function isGuardDevil(unit u) returns bool
+	function isGuardDevil(unit u) returns bool
 		return u.getTypeId() == ID_GUARD_DEVIL or u.getTypeId() == ID_GUARD_DEVIL_GREATER
 	end
 
@@ -37,7 +37,6 @@ package GuardDevilUnbreakable
 	end
 
 	function h()
-		unit dS     = GetEventDamageSource()
 		unit tU     = GetTriggerUnit()
 		real damage = GetEventDamage()
 

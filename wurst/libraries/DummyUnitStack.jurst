@@ -1,0 +1,192 @@
+//*
+//* DummyUnitStack is a library designed to give spell developers immediate
+//* access to any number of dummy units at any time by hacking around the
+//* engine limitations associated with CreateUnit() - essentially, all we do
+//* is create units in a deferred manner which not only caches dummies, but
+//* also prevents simultaneous unit instantiations on a more global scale.
+//* In other words, we create a few units, very often, until we have a lot.
+//*
+//* The public API for DummyUnitStack is simple - just get and release:
+//*     unit u = DummyUnitStack.get()
+//*     DummyUnitStack.release(u)
+//*
+//* The more complex part is the preloading options available. For most cases
+//* the default options will more than suffice, but if you really want to get
+//* aggressive with your optimizations, you can do some maths yourself and
+//* decide on every limit used in the system.
+//*
+//* Enjoy,
+//*     -Cokemonkey11
+//*
+library DummyUnitStack initializer ini
+	struct UnitAlloc
+		unit u
+	end
+
+	// Just a shim for the API, the struct is not actually instanciated.
+	public struct DummyUnitStack
+
+
+		//*********************************************************************
+		//* CUSTOMIZABLE SECTION
+		//*********************************************************************
+
+		// This bit is important - make sure this refers to the dummy unit
+		// in the test map
+		private static constant integer DUMMY_UNIT_ID = 'u000'
+
+		// Whenever the preloading process turns on, we a minimum number
+		// of units to load, to prevent turning the system on and off too
+		// often - here you can choose the minimum count (default 10)
+		private static constant integer MIN_PRELOAD_BLOCK_SIZE = 10
+
+		// This value is the initialization preload value. Higher numbers
+		// will increase map load time, but give the best performance. The
+		// ideal value should be something between the number of dummies used
+		// in the first few minutes, and the maximum number of dummies used
+		// in theory. Additionally, you can turn the feature off entirely.
+		// (default 200)
+		static constant integer PRELOAD_INIT_COUNT = 200
+		static constant boolean DO_PIC = true
+
+		// When a series of dummies are retrived using .get(), the stack size
+		// falls and approaches 0 - with this setting, we can turn on the
+		// preloader whenever the stack size falls to an arbitrary number.
+		// Again, this feature can be turned off. (default 20)
+		private static constant integer DYNAMIC_DEFERRED_PRELOAD_COUNT = 10
+		private static constant boolean DO_DDPC = true
+
+		// When the map starts, the preloader turns on right away, preloading
+		// more units - this can be tweaked to reduce loading time without
+		// losing dummies available at the beginning of the game. (default 20)
+		static constant integer INITIAL_DEFERRED_PRELOAD_COUNT = 20
+		static constant boolean DO_IDPC = false
+
+		// If a dummy unit is released and the stack exceeds this size, the unit
+		// will instead be removed.
+		private static constant integer MAX_PRELOADED_UNITS = 5000
+		private static constant boolean DO_MPU = true
+
+		// Here we have another "hack-like" design choice. The developer must
+		// specify an (x,y) coordinate pair where dummy units can be moved on
+		// release - we do this because there is a bug associaed with ShowUnit()
+		// and the locust ability. :(
+		private static constant real SAFE_LOC_X = -5650.
+		private static constant real SAFE_LOC_Y =  5565.
+
+		// Normally a not-so-useful tweaking variable, clock period in dummy unit
+		// stack is actually quite powerful because we're not relying on any
+		// kind of smooth movement for releasing/getting. (default 1./60.)
+		static constant real CLOCK_PERIOD = 1./60.
+
+		//*********************************************************************
+		//* END CUSTOMIZABLE SECTION
+		//*********************************************************************
+
+
+		private static unit array dummyStack
+		private static integer stackIndex = -1
+		static integer deferredTodoCount = 0
+		static timer clock = CreateTimer()
+
+		//* Private method used for creating a unit by the system
+		static method add takes boolean preloading returns unit
+			bj_lastCreatedUnit = CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), DUMMY_UNIT_ID, SAFE_LOC_X, SAFE_LOC_Y, 0.)
+			UnitAddAbility(bj_lastCreatedUnit, 'Aloc')
+			UnitAddAbility(bj_lastCreatedUnit, 'Arav')
+
+			if preloading then
+				stackIndex++
+				dummyStack[stackIndex] = bj_lastCreatedUnit
+			else
+				return bj_lastCreatedUnit
+			end
+
+			return null
+		end
+
+		//* Private periodic method used for preloading
+		static method deferredPreloader takes nothing returns nothing
+			deferredTodoCount--
+			add(true)
+
+			if deferredTodoCount < 1 then
+				PauseTimer(clock)
+			end
+		end
+
+		//* Public method used to get a dummy. Use this at any time, as much
+		//* as you want.
+		static method get takes nothing returns unit
+			unit result
+			if stackIndex != -1 then
+				stackIndex--
+				result = dummyStack[stackIndex+1]
+			else
+				result = add(false)
+			end
+			if DO_DDPC then
+				if stackIndex < (DYNAMIC_DEFERRED_PRELOAD_COUNT - 1) and deferredTodoCount<1 then
+					deferredTodoCount = MIN_PRELOAD_BLOCK_SIZE
+					TimerStart(clock, CLOCK_PERIOD, true, function deferredPreloader)
+				end
+			end
+			return result
+		end
+
+		//* Public method for releasing a dummy. Make sure you don't release
+		//* units that don't come from DummyUnitStack. Make sure you destroy
+		//* effects and anything else attached the unit because its handle
+		//* will be RECYCLED.
+		static method release takes unit u returns nothing
+			if DO_MPU then
+				if stackIndex >= MAX_PRELOADED_UNITS then
+					RemoveUnit(u)
+					return
+				end
+			end
+			SetUnitFlyHeight(u, 0., 0.)
+			SetUnitScale(u, 1., 1., 1.)
+			SetUnitOwner(u, Player(PLAYER_NEUTRAL_PASSIVE), true)
+			SetUnitX(u, SAFE_LOC_X)
+			SetUnitY(u, SAFE_LOC_Y)
+			stackIndex++
+			dummyStack[stackIndex] = u
+		end
+
+		private static method afterDelay takes nothing returns nothing
+			timer tim = GetExpiredTimer()
+			UnitAlloc u = tim.getData() castTo UnitAlloc
+
+			release(u.u)
+			destroy u
+
+			DestroyTimer(tim)
+		end
+
+		static method delayedRelease takes unit u, real delay returns nothing
+			UnitAlloc ua = new UnitAlloc
+			timer tim = CreateTimer()
+
+			ua.u = u
+			tim.setData(ua castTo integer)
+			TimerStart(tim, delay, false, function afterDelay)
+		end
+	end
+
+	function ini takes nothing returns nothing
+		integer index = 1
+
+		if DummyUnitStack.DO_PIC then
+			loop
+				exitwhen index > DummyUnitStack.PRELOAD_INIT_COUNT
+				DummyUnitStack.add(true)
+				index++
+			end
+		end
+		if DummyUnitStack.DO_IDPC then
+			DummyUnitStack.deferredTodoCount = DummyUnitStack.INITIAL_DEFERRED_PRELOAD_COUNT
+			TimerStart(DummyUnitStack.clock, DummyUnitStack.CLOCK_PERIOD, true, function DummyUnitStack.deferredPreloader)
+		end
+	end
+endlibrary

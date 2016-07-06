@@ -15,7 +15,8 @@ library Quests
 		*/ "|n|cff999999Vortigon|r, for the Wind Egg Model." + /*
 		*/ "|n|cff999999Vildhjarta|r, for the thall." + /*
 		*/ "|n|cff999999Talon the Mage|r, for the negev missile." + /*
-		*/ "|n|cff999999-Grendel|r, for the Crypt Mother model."
+		*/ "|n|cff999999-Grendel|r, for the Crypt Mother model." + /*
+		*/ "|n|cff999999Tarrasque|r, for the Tidal Lord model."
 	constant string CREDITS_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNBookOfTheDead.blp"
 	constant string CREDITS_TITLE = "Credits"
 

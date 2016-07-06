@@ -1,0 +1,81 @@
+package LeviathanWellSummon
+	import StructuredDD
+	import DamageType
+	import Players
+	import ClosureForGroups
+	import ClosureTimers
+	import TerrainData
+
+	constant int ID_LEVIATHAN_WELL   = 'h03E'
+	constant int ID_LEVIATHAN_SUMMON = 'o001'
+
+	constant string BLINK_CASTER = "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl"
+	constant string BLINK_TARGET = "Abilities\\Spells\\NightElf\\Blink\\BlinkTarget.mdl"
+
+	constant real RADIUS       = 500.
+	constant real CLOCK_PERIOD =   1. / 30.
+
+	unit array leviathans
+	vec2 array currWells
+	unit array currWellUnits
+
+	bool hasUnit
+
+	function h()
+		unit dS = GetEventDamageSource()
+
+		if GetUnitTypeId(dS) == ID_LEVIATHAN_WELL and DamageType.get() == DamageType.ATTACK
+			player owner = dS.getOwner()
+			int    pId   = owner.getId()
+
+			if leviathans[pId] == null
+				currWells[pId]  = vec2(dS.getX(), dS.getY())
+				currWellUnits[pId] = dS
+				leviathans[pId] = CreateUnit(owner, ID_LEVIATHAN_SUMMON, dS.getX(), dS.getY(), 270.)
+				leviathans[pId]..addAbility('Aloc')
+							   ..setVertexColor(255, 255, 255, 125)
+							   ..setTimeScale(.8)
+				leviathans[pId].addEffect(BLINK_TARGET, "origin").destr()
+
+				doPeriodically(CLOCK_PERIOD, (CallbackPeriodic _) -> begin
+					if currWellUnits[pId] == null or (not currWellUnits[pId].isAlive())
+						currWellUnits[pId] = null
+						currWells[pId] = vec2(TerrainData.SAFE_X, TerrainData.SAFE_Y)
+					end
+
+					leviathans[pId]..setX(currWells[pId].x)
+					               ..setY(currWells[pId].y)
+				end)
+			end
+
+			hasUnit = false
+			forUnitsInRange(vec2(leviathans[pId].getX(), leviathans[pId].getY()), RADIUS, (unit iter) -> begin
+				if IsUnitEnemy(iter, owner) and iter.isAlive()
+					hasUnit = true
+				end
+			end)
+
+			if not hasUnit
+				currWells[pId] = vec2(dS.getX(), dS.getY())
+				currWellUnits[pId] = dS
+				addEffect(BLINK_CASTER, vec3(leviathans[pId].getX(), leviathans[pId].getY(), 200.))
+
+				leviathans[pId]..setPos(currWells[pId])
+					           ..issueImmediateOrder("stop")
+				leviathans[pId].addEffect(BLINK_TARGET, "origin").destr()
+			end
+		end
+	end
+
+	init
+		StructuredDD.addHandler(function h)
+
+		int i = 0
+		loop
+			exitwhen i >= Players.COUNT
+
+			leviathans[i] = null
+
+			i++
+		end
+	end

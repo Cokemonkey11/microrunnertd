@@ -1,8 +1,6 @@
 package ScarabOverseerConsumeScarab
-	import IsTerrainWalkable
 	import SimError
 	import RegisterPlayerUnitEvent
-	import SellTower
 	import Sounds
 	import ClosureTimers
 

@@ -28,7 +28,7 @@ package ThallBoxSacrifice
 		unit tU     = GetTriggerUnit()
 		real damage = GetEventDamage()
 
-		if hasSacrifice(dS) and DamageType.get() == DamageType.ATTACK and tU.getHP() < damage
+		if hasSacrifice(dS) and DamageType.get() == DamageType.ATTACK and tU.getHP() - damage < 1.
 			tU.setHP(damage + 1.)
 			FloatText.prevented(dS.getX(), dS.getY())
 			dS.issueImmediateOrder("stop")

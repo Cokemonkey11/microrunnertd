@@ -2,7 +2,6 @@ package GreaterGuardDevilSoulSiphon
 	import DamageType
 	import StructuredDD
 	import FloatText
-	import ClosureTimers
 	import RegisterPlayerUnitEvent
 
 	constant int ID_GREATER_GDEVIL = 'h03C'
