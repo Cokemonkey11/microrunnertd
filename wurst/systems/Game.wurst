@@ -1,0 +1,421 @@
+package Game
+import Players
+import Units
+import Sounds
+import Knockback3D
+
+native UnitAlive(unit u) returns boolean
+
+public class Game
+	private static constant real ROUND_DELAY      = 20.
+	private static constant real ROUND_DELAY_HARD = 10.
+	private static constant real SPAWN_DELAY      =  3.
+
+	private static constant int SPAWN_SIZE     = 10
+	private static constant int GOLD_BASE      =  8
+	private static constant int GOLD_PER_LEVEL =  2
+
+	private static constant int DAMAGE_BONUS     = 'A00H'
+	private static constant int MOVE_SPEED_BONUS = 'A00U'
+	private static constant int GRAVITY_ABILITY  = 'A006'
+
+	private static constant string TELE_FX     = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl"
+	private static constant string TELE_IN_FX  = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTarget.mdl"
+	private static constant string TELE_BIG_FX = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl"
+	private static constant string BLINK_FX    = "Abilities\\Spells\\NightElf\\Blink\\BlinkTarget.mdl"
+
+	static constant int GOLD_START = 40
+
+	static constant string RUN1 = "run1.wav"
+	static constant string RUN2 = "run2.wav"
+	static constant string RUN3 = "run3.wav"
+	static constant string RUN4 = "scar-clip-15db.wav"
+	static constant string RUN5 = "csgo_st6_toolaterun.wav"
+
+	static constant string BANDIT_DEMO = "Units\\Creeps\\Bandit\\BanditYesAttack3.wav"
+	static constant string BANDIT      = "Units\\Creeps\\Bandit\\BanditYesAttack2.wav"
+	static constant string KING        = "Units\\Human\\HeroMountainKing\\HeroMountainKingPissed7.wav"
+	static constant string QUILL       = "Units\\Creeps\\QuillBeast\\QuillBoarReady1.wav"
+	static constant string CHIEF       = "Units\\Orc\\Cairne\\CairnePissed1.wav"
+	static constant string LORD        = "Units\\Demon\\HeroPitLord\\HPitLordPissed4.wav"
+	static constant string VICTORY     = "Sound\\Interface\\ClanInvitation.wav"
+	static constant string BEGIN       = "Sound\\Interface\\QuestLog.wav"
+	static constant string TIP         = "Sound\\Interface\\SecretFound.wav"
+
+	private static effect bigFx
+
+	static boolean cinematicOn = true
+	static boolean ended       = false
+	static boolean started     = false
+	static boolean hard        = false
+
+	static boolean array upgraded
+	static int round
+	private static timer roundTimer = CreateTimer()
+	private static timerdialog roundDialog
+
+	static timer chooseTimer = CreateTimer()
+	static timerdialog chooseDialog
+
+	private static unit demoRunner
+	private static unit demoChaser
+	private static unit demoTower
+
+	private static camerasetup setup
+
+	private static group grp = CreateGroup()
+
+	static function fadeOut(real duration)
+		EnableUserUI(false)
+		SetCineFilterTexture("ReplaceableTextures\\CameraMasks\\White_mask.blp")
+		SetCineFilterBlendMode(BLEND_MODE_BLEND)
+		SetCineFilterTexMapFlags(TEXMAP_FLAG_NONE)
+		SetCineFilterStartUV(0, 0, 1, 1)
+		SetCineFilterEndUV(0, 0, 1, 1)
+		SetCineFilterStartColor(0, 0, 0, 0)
+		SetCineFilterEndColor(0, 0, 0, 255)
+		SetCineFilterDuration(duration)
+		DisplayCineFilter(true)
+
+	static function fadeIn(real duration)
+		EnableUserUI(true)
+		SetCineFilterTexture("ReplaceableTextures\\CameraMasks\\White_mask.blp")
+		SetCineFilterBlendMode(BLEND_MODE_BLEND)
+		SetCineFilterTexMapFlags(TEXMAP_FLAG_NONE)
+		SetCineFilterStartUV(0, 0, 1, 1)
+		SetCineFilterEndUV(0, 0, 1, 1)
+		SetCineFilterStartColor(0, 0, 0, 255)
+		SetCineFilterEndColor(0, 0, 0, 0)
+		SetCineFilterDuration(duration)
+		DisplayCineFilter(true)
+
+	private static function afterEnd()
+		DestroyTimer(GetExpiredTimer())
+		EndGame(true)
+
+	private static function fadeWait()
+		DestroyTimer(GetExpiredTimer())
+		fadeOut(10.)
+
+	static function _end()
+		if not ended
+			Units.freezeAll()
+			ended = true
+			TimerStart(CreateTimer(), 20., false, function fadeWait)
+			TimerStart(CreateTimer(), 30., false, function afterEnd)
+
+	private static function hint0()
+		DestroyTimer(GetExpiredTimer())
+		DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Tip:|r You can upgrade various runner improvements at your altar.")
+		Sounds.play(TIP, 1., 127)
+
+	private static function hint1()
+		DestroyTimer(GetExpiredTimer())
+		DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Tip:|r If both players type |cffffcc00-hard|r before the practice round begins, the game becomes more difficult.")
+		Sounds.play(TIP, 1., 127)
+
+	private static function spawn()
+		int size
+		unit u
+		DestroyEffect(bigFx)
+		Sounds.play(BEGIN, 1., 127)
+		if round == 0
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Practice Round|r")
+		else
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Round: |r" + I2S(round))
+
+		// Display upgrade tip only if neither player has upgraded already
+		if round == 10 and ( (not (upgraded[0] or upgraded[1]) or (not upgraded[0] and Players.playing[0]) or (not upgraded[1] and Players.playing[1])) )
+			TimerStart(CreateTimer(), 5., false, function hint0)
+
+		// Display hard mode tip only in co-operative normal mode
+		if round == 20 and not Game.hard and Players.playingCount > 1
+			TimerStart(CreateTimer(), 5., false, function hint1)
+		size = SPAWN_SIZE
+		if ModuloInteger(round, 6) == 0
+			// Hero Round
+			if (round != 0)
+				DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Boss Round!|r")
+			if (round == 6)
+				Sounds.play(BANDIT, 1., 127)
+			if (round == 12)
+				Sounds.play(KING, 1., 127)
+			if (round == 18)
+				Sounds.play(QUILL, 1., 127)
+			if (round == 24)
+				Sounds.play(CHIEF, 1., 127)
+			if (round == 30)
+				Sounds.play(LORD, 1., 127)
+			size = 2
+		if ModuloInteger(round, 14) == 0 and round !=0
+			size = size * 2
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cff222222Swarm Round!|r")
+		if ModuloInteger(round, 8) == 0 and round!= 0
+			// Spell Immune Round
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cffaacceeSpell Immune Round!|r")
+		if ModuloInteger(round, 15) == 0 and round !=0
+			// Gravity Round
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cff999999High Gravity Round!|r")
+
+		for index = 0 to size - 1
+			u = CreateUnit(Players.creeps, Units.spawns[round], Players.brownStartX, Players.brownStartY, 180.)
+			if Game.hard
+				UnitAddAbility(u, DAMAGE_BONUS)
+				UnitAddAbility(u, MOVE_SPEED_BONUS)
+
+	private static function runSound()
+		int q = ModuloInteger(round, 5)
+		if q == 0
+			Sounds.play(RUN1, 1., 127)
+		else if q == 1
+			Sounds.play(RUN2, 1., 127)
+		else if q == 2
+			Sounds.play(RUN3, 1., 127)
+		else if q == 3
+			Sounds.play(RUN4, 1., 127)
+		else
+			Sounds.play(RUN5, 1., 127)
+
+	private static function applyTowerGravity()
+		GroupEnumUnitsOfPlayer(grp, Players.id[0], null)
+		for fst from grp
+			if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
+				UnitAddAbility(fst, 'A017')
+
+		GroupEnumUnitsOfPlayer(grp, Players.id[1], null)
+		for fst from grp
+			if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
+				UnitAddAbility(fst, 'A017')
+
+	private static function removeTowerGravity()
+		unit fst
+		GroupEnumUnitsOfPlayer(grp, Players.id[0], null)
+		for fst from grp
+			if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
+				UnitRemoveAbility(fst, 'A017')
+
+		GroupEnumUnitsOfPlayer(grp, Players.id[1], null)
+		for fst from grp
+			if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
+				UnitRemoveAbility(fst, 'A017')
+
+	private static function roundBegin()
+		TimerDialogDisplay(roundDialog, false)
+
+		if not ended
+			if round == 0
+				started = true
+
+			bigFx = AddSpecialEffect(TELE_BIG_FX, Players.brownStartX, Players.brownStartY)
+			runSound()
+			DisplayTextToPlayer(Players.locl, 0., 0., "|cffff0000RUN AWAY|r")
+
+			if ModuloInteger(round, 15) == 0 and round != 0
+				applyTowerGravity()
+
+			for i = 0 to 1
+				if Players.playing[index]
+					Units.runners[index] = CreateUnit(Players.id[index], Units.runnerTypes[index], Players.startX[index], Players.startY[index]-16. + 32. * index, 180.)
+					if ModuloInteger(round, 15) == 0 and round != 0
+						UnitAddAbility(Units.runners[index], GRAVITY_ABILITY)
+						Knockback3D.setGravity(90.)
+						Knockback3D.setGravity(45.)
+					DestroyEffect(AddSpecialEffect(TELE_IN_FX, Players.startX[index], Players.startY[index]))
+
+					if Players.locl == Players.id[index]
+						ClearSelection()
+						SelectUnit(Units.runners[index], true)
+						PanCameraToTimed(Players.startX[index], Players.startY[index], 0.)
+					UnitAddAbility(Units.runners[index], 'Adef')
+					UnitRemoveAbility(Units.runners[index], 'Adef')
+
+			TimerStart(GetExpiredTimer(), SPAWN_DELAY, false, function spawn)
+
+	private static function queueRound()
+		if Game.hard
+			TimerStart(roundTimer, ROUND_DELAY_HARD, false, function roundBegin)
+		else
+			TimerStart(roundTimer, ROUND_DELAY, false, function roundBegin)
+		TimerDialogSetTitle(roundDialog, "Round " + I2S(round) + " in")
+		TimerDialogDisplay(roundDialog, true)
+
+	static function practiceRound()
+		DestroyTimer(GetExpiredTimer())
+		DisplayTextToPlayer(Players.locl, 0., 0., "\nThe first round will be a |cffffcc00practice|r round to show you how it works!")
+		round = 0
+		queueRound()
+
+	static function success()
+		int val
+		round++
+		if not ended
+			if ModuloInteger(round-1, 15) == 0 and round-1 !=0
+				removeTowerGravity()
+
+			for index = 0 to 1
+				if UnitAlive(Units.runners[index])
+					DestroyEffect(AddSpecialEffect(TELE_FX, GetUnitX(Units.runners[index]), GetUnitY(Units.runners[index])))
+					RemoveUnit(Units.runners[index])
+
+			if round >= Units.ROUND_COUNT
+				RemovePlayer(Players.id[0], PLAYER_GAME_RESULT_VICTORY)
+				RemovePlayer(Players.id[1], PLAYER_GAME_RESULT_VICTORY)
+				DisplayTextToPlayer(Players.locl, 0., 0., "You won every round, |cffffcc00congratulations|r! The game will end in 30 seconds.")
+				Sounds.play(VICTORY, 1., 127)
+				_end()
+			else
+				if round == 1
+					DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Great job!|r The first round will begin momentarily.")
+				else
+					val = R2I((GOLD_BASE + GOLD_PER_LEVEL * (round-1)) / Players.playingCount)
+					DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Success!|r You received |cffffcc00" + I2S(val) + /*
+						*/ "|r bonus gold for completing |cffffcc00round " + I2S(round-1) + "|r. The next round will begin momentarily!")
+					SetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD) + val)
+					SetPlayerState(Players.id[1], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[1], PLAYER_STATE_RESOURCE_GOLD) + val)
+				queueRound()
+
+	static function doSkip()
+		DestroyTimer(Game.chooseTimer)
+		DestroyTimerDialog(Game.chooseDialog)
+		TimerStart(CreateTimer(), 15., false, function Game.practiceRound)
+
+	static function checkSkip()
+		if (Players.playingCount == 1)
+			doSkip()
+		else if (Units.runnerTypes[0] != 0 and Units.runnerTypes[1] != 0)
+			doSkip()
+
+	static function setupRace(int runnerType, int altarType, unit sold)
+		RemoveUnit(GetSellingUnit())
+		player p    = GetOwningPlayer(sold)
+		int pid = GetPlayerId(p)
+
+		if Players.locl == p
+			SelectUnit(sold, true)
+
+		Units.runnerTypes[pid] = runnerType
+		CreateUnit(Players.id[pid], altarType, Players.altarX[pid], Players.altarY[pid], 270.)
+
+		checkSkip()
+
+	private static function fadeCameraAsyncAfter()
+		DestroyTimer(GetExpiredTimer())
+		CameraSetupApply(setup, true, true)
+		fadeIn(.25)
+
+	private static function fadeCameraAsync(camerasetup q)
+		setup = q
+		fadeOut(.25)
+		TimerStart(CreateTimer(), .25, false, function fadeCameraAsyncAfter)
+
+	private static function tip0()
+		DestroyTimer(GetExpiredTimer())
+		DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Tip:|r There are |cffffcc00Boss|r, " + /*
+			*/ "|cffaacceeSpell Immune|r, |cff222222Swarm|r, and |cff999999High Gravity|r Rounds.")
+		Sounds.play(TIP, 1., 127)
+
+	private static function afterChoose()
+		if Players.playing[0] and Units.runnerTypes[0] == 0
+			Units.choosers[0].issueImmediateOrder("berserk")
+
+		if Players.playing[1] and Units.runnerTypes[1] == 0
+			Units.choosers[1].issueImmediateOrder("berserk")
+
+	private static function endCinematic()
+		DestroyTimer(GetExpiredTimer())
+		ShowInterface(true, .5)
+		fadeCameraAsync(gg_cam_defaultCamera)
+		EnableUserControl(true)
+		RemoveUnit(demoRunner)
+		RemoveUnit(demoTower)
+		RemoveUnit(demoChaser)
+		chooseDialog = CreateTimerDialog(chooseTimer)
+		TimerStart(chooseTimer, 20., false, function afterChoose)
+		TimerDialogSetTitle(chooseDialog, "Race select")
+		TimerDialogDisplay(chooseDialog, true)
+		roundDialog = CreateTimerDialog(roundTimer)
+		TimerStart(CreateTimer(), 24., false, function tip0)
+		DisplayTextToPlayer(Players.locl, 0., 0., "\n|cffffcc00Tip:|r You have |cffffcc0020|r seconds to choose a race.")
+		Sounds.play(TIP, 1., 127)
+		cinematicOn = false
+
+	private static function cinematicSequence2()
+		DestroyTimer(GetExpiredTimer())
+		if cinematicOn
+			fadeCameraAsync(gg_cam_cinematicCamera2)
+			DisplayTextToPlayer(Players.locl, 0., 0., "\nBuild towers on the |cff33cc66grass|r, and bait the enemy to their death.")
+			TimerStart(CreateTimer(), 5., false, function endCinematic)
+		else
+			endCinematic()
+
+	private static function cinematicSequence1()
+		DestroyTimer(GetExpiredTimer())
+		if cinematicOn
+			fadeIn(.5)
+			demoRunner = CreateUnit(Player(2), Units.ID_RUNNER_SPIRIT, 0., 1024., 180.)
+			demoTower  = CreateUnit(Player(2), 'h007', -851., 562., 270.)
+			demoChaser = CreateUnit(Players.creeps, 'h022', 256. + 128., 1024., 0.)
+			SetUnitState(demoTower, UNIT_STATE_MANA, 500.)
+			SetUnitMoveSpeed(demoRunner, 200.)
+			SetUnitMoveSpeed(demoChaser, 230.)
+			CameraSetupApply(gg_cam_cinematicCamera1, true, true)
+			IssueTargetOrder(demoChaser, "attack", demoRunner)
+			IssuePointOrder(demoRunner, "move", -1024., 0.)
+			Sounds.play(BANDIT_DEMO, 1., 127)
+			DisplayTextToPlayer(Players.locl, 0., 0., "\nThe forces of |cff993333Doom|r are after your runner!")
+			TimerStart(CreateTimer(), 3.5, false, function cinematicSequence2)
+		else
+			endCinematic()
+
+	static function cinematicSequence0()
+		DestroyTimer(GetExpiredTimer())
+		if cinematicOn
+			fadeOut(.01)
+			ShowInterface(false, 0.)
+			EnableUserControl(false)
+			TimerStart(CreateTimer(), 1., false, function cinematicSequence1)
+		else
+			endCinematic()
+
+init
+	// Iterate through players
+	for index = 0 to 1
+		if Players.playing[index]
+
+			// Spawn Starting Units
+			Units.choosers[index] = CreateUnit(Players.id[index], Units.RACE_SELECT, Players.startX[index], Players.startY[index], 270.)
+			if Players.locl == Players.id[index]
+				SelectUnit(Units.choosers[index], true)
+
+			// Adjust Starting Gold
+			SetPlayerState(Players.id[index], PLAYER_STATE_RESOURCE_GOLD, R2I(Game.GOLD_START / Players.playingCount))
+
+	// Adjust Fog
+	FogEnable(false)
+	FogMaskEnable(false)
+
+	// Messages
+	TimerStart(CreateTimer(), 0., false, function Game.cinematicSequence0)
+
+	// Preload runaway sounds
+	Sounds.preload(Game.RUN1)
+	Sounds.preload(Game.RUN2)
+	Sounds.preload(Game.RUN3)
+	Sounds.preload(Game.RUN4)
+	Sounds.preload(Game.RUN5)
+
+	// Preload boss sounds
+	Sounds.preload(Game.BANDIT_DEMO)
+	Sounds.preload(Game.BANDIT)
+	Sounds.preload(Game.KING)
+	Sounds.preload(Game.QUILL)
+	Sounds.preload(Game.CHIEF)
+	Sounds.preload(Game.LORD)
+
+	// Preload event sounds
+	Sounds.preload(Game.VICTORY)
+	Sounds.preload(Game.BEGIN)
+	Sounds.preload(Game.TIP)
+
+	// Lock time of day
+	SetTimeOfDayScale(0.)

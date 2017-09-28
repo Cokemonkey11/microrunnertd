@@ -1,0 +1,171 @@
+package Units
+import Table
+import Players
+import Invulnerable
+
+public class Units
+	static constant int ROUND_COUNT       = 43
+
+	static constant int ID_BUILDER_SPIRIT = 'h000'
+	static constant int ID_BUILDER_WASTE  = 'h01K'
+	static constant int ID_BUILDER_METAL  = 'h02R'
+	static constant int ID_RUNNER_SPIRIT  = 'h003'
+	static constant int ID_RUNNER_WASTE   = 'h01G'
+	static constant int ID_RUNNER_METAL   = 'h02S'
+	static constant int ID_ALTAR_SPIRIT   = 'h01I'
+	static constant int ID_ALTAR_WASTE    = 'h01J'
+	static constant int ID_ALTAR_METAL    = 'h02Q'
+
+	static constant int RACE_SELECT       = 'h01O'
+	static constant int IMMUNE            = 'ACmi'
+
+	static unit array runners
+	static unit array choosers
+	static int array spawns
+	static int array runnerTypes
+
+	static Table bounties = new Table
+	private static group grp = CreateGroup()
+
+	static function freezeAll()
+		for index = 0 to 15
+			GroupEnumUnitsOfPlayer(grp, Players.id[index], null)
+			for fst from grp
+				PauseUnit(fst, true)
+				SetUnitInvulnerable(fst, true)
+				Invulnerable.apply(fst, 60. * 60. * 24.)
+				UnitAddAbility(fst, 'Aloc')
+				SetUnitTimeScale(fst, 0.)
+
+init
+	Units.runnerTypes[0] = 0
+	Units.runnerTypes[1] = 0
+
+	Units.spawns[0] = 'h002'
+	Units.bounties.saveInt('h002', 2)
+
+	Units.spawns[1] = 'h004'
+	Units.bounties.saveInt('h004', 2)
+
+	Units.spawns[2] = 'h005'
+	Units.bounties.saveInt('h005', 2)
+
+	Units.spawns[3] = 'h006'
+	Units.bounties.saveInt('h006', 2)
+
+	Units.spawns[4] = 'h008'
+	Units.bounties.saveInt('h008', 2)
+
+	Units.spawns[5] = 'h00B'
+	Units.bounties.saveInt('h00B', 2)
+
+	Units.spawns[6] = 'h00C'
+	Units.bounties.saveInt('h00C', 20)
+
+	Units.spawns[7] = 'h00D'
+	Units.bounties.saveInt('h00D', 4)
+
+	Units.spawns[8] = 'h00E'
+	Units.bounties.saveInt('h00E', 4)
+
+	Units.spawns[9] = 'h00F'
+	Units.bounties.saveInt('h00F', 4)
+
+	Units.spawns[10] = 'h00J'
+	Units.bounties.saveInt('h00J', 4)
+
+	Units.spawns[11] = 'h00K'
+	Units.bounties.saveInt('h00K', 4)
+
+	Units.spawns[12] = 'h00L'
+	Units.bounties.saveInt('h00L', 40)
+
+	Units.spawns[13] = 'h00O'
+	Units.bounties.saveInt('h00O', 6)
+
+	Units.spawns[14] = 'h00P'
+	Units.bounties.saveInt('h00P', 6)
+
+	Units.spawns[15] = 'h00Q'
+	Units.bounties.saveInt('h00Q', 6)
+
+	Units.spawns[16] = 'h00R'
+	Units.bounties.saveInt('h00R', 6)
+
+	Units.spawns[17] = 'h00U'
+	Units.bounties.saveInt('h00U', 6)
+
+	Units.spawns[18] = 'h00W'
+	Units.bounties.saveInt('h00W', 60)
+
+	Units.spawns[19] = 'h00Z'
+	Units.bounties.saveInt('h00Z', 8)
+
+	Units.spawns[20] = 'h010'
+	Units.bounties.saveInt('h010', 8)
+
+	Units.spawns[21] = 'h011'
+	Units.bounties.saveInt('h011', 8)
+
+	Units.spawns[22] = 'h012'
+	Units.bounties.saveInt('h012', 8)
+
+	Units.spawns[23] = 'h013'
+	Units.bounties.saveInt('h013', 8)
+
+	Units.spawns[24] = 'h014'
+	Units.bounties.saveInt('h014', 80)
+
+	Units.spawns[25] = 'h017'
+	Units.bounties.saveInt('h017', 10)
+
+	Units.spawns[26] = 'h019'
+	Units.bounties.saveInt('h019', 10)
+
+	Units.spawns[27] = 'h01A'
+	Units.bounties.saveInt('h01A', 10)
+
+	Units.spawns[28] = 'h01D'
+	Units.bounties.saveInt('h01D', 10)
+
+	Units.spawns[29] = 'h01E'
+	Units.bounties.saveInt('h01E', 10)
+
+	Units.spawns[30] = 'h01F'
+	Units.bounties.saveInt('h01F', 100)
+
+	Units.spawns[31] = 'h01X'
+	Units.bounties.saveInt('h01X', 12)
+
+	Units.spawns[32] = 'h01Y'
+	Units.bounties.saveInt('h01Y', 12)
+
+	Units.spawns[33] = 'h01Z'
+	Units.bounties.saveInt('h01Z', 12)
+
+	Units.spawns[34] = 'h020'
+	Units.bounties.saveInt('h020', 12)
+
+	Units.spawns[35] = 'h021'
+	Units.bounties.saveInt('h021', 12)
+
+	Units.spawns[36] = 'h029'
+	Units.bounties.saveInt('h029', 120)
+
+	Units.spawns[37] = 'h02H'
+	Units.bounties.saveInt('h02H', 14)
+
+	Units.spawns[38] = 'h02I'
+	Units.bounties.saveInt('h02I', 14)
+
+	Units.spawns[39] = 'h02J'
+	Units.bounties.saveInt('h02J', 14)
+
+	Units.spawns[40] = 'h02K'
+	Units.bounties.saveInt('h02K', 14)
+
+	Units.spawns[41] = 'h02L'
+	Units.bounties.saveInt('h02L', 14)
+
+	Units.spawns[42] = 'h02M'
+	Units.bounties.saveInt('h02M', 140)
