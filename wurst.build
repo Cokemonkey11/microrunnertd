@@ -1,0 +1,3 @@
+!!file.WurstProjectConfig
+dependencies: ['https://github.com/peq/wurstStdlib']
+releaseName: myRelease.w3x

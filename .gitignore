@@ -4,3 +4,4 @@ wurst.dependencies
 wurst/war3map.j
 compiled.j.txt
 _build/
+.vscode/settings.json
