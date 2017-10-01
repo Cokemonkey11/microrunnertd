@@ -28,9 +28,7 @@
 //           - Returns the trigger corresponding to ALL functions of a playerunitevent.
 //
 package RegisterPlayerUnitEvent // Special Thanks to Bribe and azlier
-	globals
-		trigger array t
-	end
+	trigger array t
 
 	public function registerPlayerUnitEvent takes playerunitevent p, code c returns nothing
 		int i = GetHandleId(p)

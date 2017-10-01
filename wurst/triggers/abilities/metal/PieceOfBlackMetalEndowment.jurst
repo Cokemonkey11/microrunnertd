@@ -3,13 +3,13 @@ package PieceOfBlackMetalEndowment
 	import RegisterPlayerUnitEvent
 	import SellTower
 
-	constant int ID_ENDOW_BLACK_METAL    = 'A01G'
-	constant int ID_DORRAN               = 'h01H'
-	constant int ID_ENDOWMENT_BLACK      = 'A01H'
-	constant int ID_ENDOWMENT_BLACK_MANA = 'A01J'
-	constant int ID_ENDOWMENT_BLACK_MR   = 'A01I'
+	constant ID_ENDOW_BLACK_METAL    = 'A01G'
+	constant ID_DORRAN               = 'h01H'
+	constant ID_ENDOWMENT_BLACK      = 'A01H'
+	constant ID_ENDOWMENT_BLACK_MANA = 'A01J'
+	constant ID_ENDOWMENT_BLACK_MR   = 'A01I'
 
-	constant string ENDOW_FX    = "Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl"
+	constant ENDOW_FX = "Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl"
 
 	function act()
 		if GetSpellAbilityId() == ID_ENDOW_BLACK_METAL

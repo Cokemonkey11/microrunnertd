@@ -1,24 +1,24 @@
 package Demon
 	import Players
 
-	globals
-		constant int DEMON_ID = 'h02F'
-		constant int HOUSE_ID = 'h02G'
-		unit d
-		unit house
-		group grp = CreateGroup()
-		rect rctb
-		rect rcts
-	end
+	constant DEMON_ID = 'h02F'
+	constant HOUSE_ID = 'h02G'
+	constant grp = CreateGroup()
 
-	function c takes nothing returns boolean
+	unit d
+	unit house
+
+	rect rctb
+	rect rcts
+
+	function c() returns boolean
 		if GetPlayerId(GetOwningPlayer(GetTriggerUnit())) < 2
 			SetUnitVertexColor(house, 255, 255, 255, R2I(255/3))
 		end
 		return false
 	end
 
-	function c2 takes nothing returns boolean
+	function c2() returns boolean
 		GroupEnumUnitsInRect(grp, rcts, null)
 		if FirstOfGroup(grp) == null
 			SetUnitVertexColor(house, 255, 255, 255, 255)

@@ -2,17 +2,15 @@ package Bristleburst
 	import DamageType
 	import StructuredDD
 
-	globals
-		constant int ARCH_ID = 'h01G'
-		constant int ARMOR = 'A00R'
-		constant int EFFECT = 'A003'
-	end
+	constant ARCH_ID = 'h01G'
+	constant ARMOR = 'A00R'
+	constant EFFECT = 'A003'
 
 	function h()
-		unit tU
-		unit dS = GetEventDamageSource()
+		let dS = GetEventDamageSource()
+
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.SPELL
-			tU = GetTriggerUnit()
+			let tU = GetTriggerUnit()
 			UnitAddAbility(tU, ARMOR)
 			UnitAddAbility(tU, EFFECT)
 		end

@@ -2,12 +2,11 @@ package TinkerHaste
 	import DamageType
 	import StructuredDD
 
-	globals
-		constant int ARCH_ID = 'h028'
-	end
+	constant ARCH_ID = 'h028'
 
 	function h()
-		unit dS = GetEventDamageSource()
+		let dS = GetEventDamageSource()
+
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK
 			IssueImmediateOrder(dS, "berserk")
 		end

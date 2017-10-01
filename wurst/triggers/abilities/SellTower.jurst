@@ -5,21 +5,21 @@ package SellTower
 
 	native GetUnitGoldCost takes int id returns int
 
-	constant int ID                      = 'A00O'
-	constant int ID_THALL_BOX            = 'h02T'
-	constant int ID_ABILITY_SPLENDOR     = 'A01C'
-	constant int ID_ENDOWMENT            = 'A01E'
-	constant int ID_ENDOWMENT_PAS        = 'A01F'
-	constant int ID_ENDOWMENT_BLACK      = 'A01H'
-	constant int ID_ENDOWMENT_BLACK_MANA = 'A01J'
-	constant int ID_ENDOWMENT_BLACK_MR   = 'A01I'
+	constant ID                      = 'A00O'
+	constant ID_THALL_BOX            = 'h02T'
+	constant ID_ABILITY_SPLENDOR     = 'A01C'
+	constant ID_ENDOWMENT            = 'A01E'
+	constant ID_ENDOWMENT_PAS        = 'A01F'
+	constant ID_ENDOWMENT_BLACK      = 'A01H'
+	constant ID_ENDOWMENT_BLACK_MANA = 'A01J'
+	constant ID_ENDOWMENT_BLACK_MR   = 'A01I'
 
-	constant real RADIUS = 90. + 16. * 2.
+	constant RADIUS = 90. + 16. * 2.
 
-	constant string FX  = "Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl"
-	constant string SND = "Abilities\\Spells\\Items\\ResourceItems\\ReceiveGold.wav"
+	constant FX  = "Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl"
+	constant SND = "Abilities\\Spells\\Items\\ResourceItems\\ReceiveGold.wav"
 
-	group grp = CreateGroup()
+	constant grp = CreateGroup()
 
 	public Table endowments      = new Table
 	public Table blackEndowments = new Table
@@ -73,7 +73,7 @@ package SellTower
 
 			SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + i)
 			FloatText.bountyPlayer(x, y, i, p)
-			DestroyEffect(AddSpecialEffect(FX, x,y))
+			DestroyEffect(AddSpecialEffect(FX, x, y))
 			Sounds.play(SND, 1., 127)
 
 			RemoveUnit(tU)

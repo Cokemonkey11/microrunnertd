@@ -3,19 +3,19 @@ package RegularVillager
 	import Players
 	import RegisterPlayerUnitEvent
 
-	constant int VGR0_ID = 'n000'
-	constant int VGR1_ID = 'n001'
-	constant real X = 1820.
-	constant real Y = -1565.
-	constant real FACE_0 = 90.
-	constant real FACE_1 = 45. + 180.
-	constant real FACE_2 = 135. + 180.
-	constant string FX = "Abilities\\Spells\\Other\\TalkToMe\\TalkToMe.mdl"
-	constant string FX2 = "Abilities\\Spells\\Undead\\AnimateDead\\AnimateDeadTarget.mdl"
+	constant VGR0_ID = 'n000'
+	constant VGR1_ID = 'n001'
+	constant X = 1820.
+	constant Y = -1565.
+	constant FACE_0 = 90.
+	constant FACE_1 = 45. + 180.
+	constant FACE_2 = 135. + 180.
+	constant FX = "Abilities\\Spells\\Other\\TalkToMe\\TalkToMe.mdl"
+	constant FX2 = "Abilities\\Spells\\Undead\\AnimateDead\\AnimateDeadTarget.mdl"
 
 	unit vgr0
 	unit vgr1
-	int state = 0
+	var state = 0
 	effect fx
 
 	function seq4()
@@ -54,7 +54,7 @@ package RegularVillager
 		ShowUnit(vgr0, true)
 		SetUnitX(vgr0, X)
 		SetUnitY(vgr0, Y)
-		DestroyEffect(AddSpecialEffect(FX2, X,Y))
+		DestroyEffect(AddSpecialEffect(FX2, X, Y))
 		SetUnitScale(vgr0, .8, .8, .8)
 		SetUnitVertexColor(vgr0, 255, 255, 255, 255)
 		SetUnitFacingTimed(vgr0, FACE_0, 1.)
@@ -78,7 +78,7 @@ package RegularVillager
 	end
 
 	function act()
-		unit tU = GetTriggerUnit()
+		let tU = GetTriggerUnit()
 
 		if tU == vgr0
 			if state == 0
@@ -93,7 +93,7 @@ package RegularVillager
 				ShowUnit(vgr1, true)
 				SetUnitX(vgr1, X)
 				SetUnitY(vgr1, Y)
-				DestroyEffect(AddSpecialEffect(FX2, X,Y))
+				DestroyEffect(AddSpecialEffect(FX2, X, Y))
 				SetUnitFacing(vgr1, 270.)
 				TimerStart(CreateTimer(), 1., false, function seq20)
 			end
@@ -102,7 +102,7 @@ package RegularVillager
 
 	init
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED, function act)
-		vgr0 = CreateUnit(Players.passive, VGR0_ID, X,Y, FACE_0)
+		vgr0 = CreateUnit(Players.passive, VGR0_ID, X, Y, FACE_0)
 		vgr1 = CreateUnit(Players.passive, VGR1_ID, 0., 0., FACE_0)
 		ShowUnit(vgr1, false)
 		SetUnitX(vgr1, X)

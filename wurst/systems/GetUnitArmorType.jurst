@@ -3,19 +3,17 @@ library GetUnitArmorType
 	import Table
 	import Players
 
-	globals
-		Table tab
-		constant int BONUS_HP = 'A00M'
-	end
+	constant tab = new Table
+	constant BONUS_HP = 'A00M'
 
 	public class ArmorType extends array
-		static constant int UNKNOWN = 0
-		static constant int MEDIUM_FORTIFIED = 1
-		static constant int UNARMORED = 2
-		static constant int HERO = 3
-		static constant int DIVINE = 4
-		static constant int HEAVY_NORMAL = 5
-		static constant int LIGHT = 6
+		static constant UNKNOWN = 0
+		static constant MEDIUM_FORTIFIED = 1
+		static constant UNARMORED = 2
+		static constant HERO = 3
+		static constant DIVINE = 4
+		static constant HEAVY_NORMAL = 5
+		static constant LIGHT = 6
 	end
 
 	public function getUnitArmorType takes unit u returns int
@@ -31,7 +29,7 @@ library GetUnitArmorType
 			UnitAddAbility(u, BONUS_HP)
 			SetUnitState(u, UNIT_STATE_LIFE, 10000)
 			StructuredDD.disable()
-			UnitDamageTarget(u, u,1., true, true, ConvertAttackType(7), DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
+			UnitDamageTarget(u, u, 1., true, true, ConvertAttackType(7), DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
 			StructuredDD.enable()
 			q = 10000 - GetWidgetLife(u)
 			if q == 1
@@ -61,8 +59,4 @@ library GetUnitArmorType
 			SetWidgetLife(u, hp)
 			return ret
 		end
-	end
-
-	init
-		tab = new Table
 	end

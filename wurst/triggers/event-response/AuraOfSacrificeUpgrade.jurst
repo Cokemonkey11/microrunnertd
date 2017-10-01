@@ -2,18 +2,18 @@ package AuraOfSacrificeUpgrade
 	import RegisterPlayerUnitEvent
 	import Sounds
 
-	constant int ID_UPGRADE_SACRIFICE = 'h02W'
-	constant int ID_ABILITY_SACRIFICE = 'A01B'
-	constant string THALL_SOUND = "thall.wav"
+	constant ID_UPGRADE_SACRIFICE = 'h02W'
+	constant ID_ABILITY_SACRIFICE = 'A01B'
+	constant THALL_SOUND = "thall.wav"
 
 	function a()
-		unit sold = GetSoldUnit()
-		int  id   = sold.getTypeId()
+		let sold = GetSoldUnit()
+		let id   = sold.getTypeId()
 
 		if id == ID_UPGRADE_SACRIFICE
 			sold.remove()
 
-			unit selling = GetSellingUnit()
+			let selling = GetSellingUnit()
 			RemoveUnitFromStock(selling, id)
 			selling.addAbility(ID_ABILITY_SACRIFICE)
 

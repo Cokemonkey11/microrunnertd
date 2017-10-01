@@ -2,9 +2,7 @@ package ArchmageLightning
 	import StructuredDD
 	import DamageType
 
-	globals
-		constant int ARCH_ID = 'h00G'
-	end
+    constant ARCH_ID = 'h00G'
 
 	function h()
 		unit dS = GetEventDamageSource()

@@ -4,8 +4,8 @@ package GreaterGuardDevilSoulSiphon
 	import FloatText
 	import RegisterPlayerUnitEvent
 
-	constant int ID_GREATER_GDEVIL = 'h03C'
-	Table tab                      = new Table
+	constant ID_GREATER_GDEVIL = 'h03C'
+	Table tab = new Table
 
 	function h()
 		unit dS = GetEventDamageSource()

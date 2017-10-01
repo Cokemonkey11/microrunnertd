@@ -4,19 +4,19 @@ package ScarabOverseerConsumeScarab
 	import Sounds
 	import ClosureTimers
 
-	constant int ID_CONSUME_SCARAB = 'A01V'
-	constant int ID_SCARAB         = 'h037'
-	constant int ID_BONUS          = 'A01T'
-	constant int ID_BONUS_PAS      = 'A01U'
+	constant ID_CONSUME_SCARAB = 'A01V'
+	constant ID_SCARAB         = 'h037'
+	constant ID_BONUS          = 'A01T'
+	constant ID_BONUS_PAS      = 'A01U'
 
-	constant real INITIAL_CAST_TIME = .5
-	constant real SECOND_WAIT_TIME  = .25
+	constant INITIAL_CAST_TIME = .5
+	constant SECOND_WAIT_TIME  = .25
 
-	constant string SOUND_CAST_BEGIN         = "Units\\Undead\\Scarab\\ScarabBirth.wav"
-	constant string SOUND_SCARAB_DEATH       = "Units\\Undead\\Scarab\\ScarabYes3.wav"
-	constant string SOUND_OVERSEER_FEASTING  = "Units\\Undead\\HeroCryptLord\\CryptLordAttackEffort1.wav"
-	constant string SOUND_OVERSEER_FEASTING2 = "Units\\Undead\\HeroCryptLord\\CryptLordAttackEffort2.wav"
-	constant string EFFECT_BENEFIT_RECEIVED  = "Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl"
+	constant SOUND_CAST_BEGIN         = "Units\\Undead\\Scarab\\ScarabBirth.wav"
+	constant SOUND_SCARAB_DEATH       = "Units\\Undead\\Scarab\\ScarabYes3.wav"
+	constant SOUND_OVERSEER_FEASTING  = "Units\\Undead\\HeroCryptLord\\CryptLordAttackEffort1.wav"
+	constant SOUND_OVERSEER_FEASTING2 = "Units\\Undead\\HeroCryptLord\\CryptLordAttackEffort2.wav"
+	constant EFFECT_BENEFIT_RECEIVED  = "Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl"
 
 	function act()
 		if GetSpellAbilityId() == ID_CONSUME_SCARAB

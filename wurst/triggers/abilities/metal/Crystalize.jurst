@@ -5,15 +5,15 @@ package Crystalize
 
 	native UnitAlive takes unit u returns boolean
 
-	constant int CRYSTALIZE_ID   = 'A012'
-	constant int INVULNERABLE_ID = 'Avul'
+	constant CRYSTALIZE_ID   = 'A012'
+	constant INVULNERABLE_ID = 'Avul'
 
-	constant real DURATION       = 5.
-	constant string  EFFECT_PATH     = "white-ring.mdx"
+	constant DURATION = 5.
+	constant EFFECT_PATH = "white-ring.mdx"
 
 	function act()
 		if GetSpellAbilityId() == CRYSTALIZE_ID
-			unit tU = GetTriggerUnit()
+			let tU = GetTriggerUnit()
 
 			Invulnerable.apply(tU, DURATION)
 

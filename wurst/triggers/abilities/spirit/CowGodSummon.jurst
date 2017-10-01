@@ -2,11 +2,9 @@ package CowGodSummon
 	import StructuredDD
 	import DamageType
 
-	globals
-		constant int COW_ID = 'h00V'
-		constant int TAUREN_ID = 'o000'
-		constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
-	end
+	constant COW_ID = 'h00V'
+	constant TAUREN_ID = 'o000'
+	constant FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 
 	function h()
 		unit q

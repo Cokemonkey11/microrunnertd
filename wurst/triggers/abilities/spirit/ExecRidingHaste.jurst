@@ -2,9 +2,7 @@ package ExecRidingHaste
 	import DamageType
 	import StructuredDD
 
-	globals
-		constant int ARCH_ID = 'h01B'
-	end
+	constant ARCH_ID = 'h01B'
 
 	function h()
 		unit dS = GetEventDamageSource()

@@ -7,40 +7,40 @@ import Knockback3D
 native UnitAlive(unit u) returns boolean
 
 public class Game
-	private static constant real ROUND_DELAY      = 20.
-	private static constant real ROUND_DELAY_HARD = 10.
-	private static constant real SPAWN_DELAY      =  3.
+	private static constant ROUND_DELAY      = 20.
+	private static constant ROUND_DELAY_HARD = 10.
+	private static constant SPAWN_DELAY      =  3.
 
-	private static constant int SPAWN_SIZE     = 10
-	private static constant int GOLD_BASE      =  8
-	private static constant int GOLD_PER_LEVEL =  2
+	private static constant SPAWN_SIZE     = 10
+	private static constant GOLD_BASE      =  8
+	private static constant GOLD_PER_LEVEL =  2
 
-	private static constant int DAMAGE_BONUS     = 'A00H'
-	private static constant int MOVE_SPEED_BONUS = 'A00U'
-	private static constant int GRAVITY_ABILITY  = 'A006'
+	private static constant DAMAGE_BONUS     = 'A00H'
+	private static constant MOVE_SPEED_BONUS = 'A00U'
+	private static constant GRAVITY_ABILITY  = 'A006'
 
-	private static constant string TELE_FX     = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl"
-	private static constant string TELE_IN_FX  = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTarget.mdl"
-	private static constant string TELE_BIG_FX = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl"
-	private static constant string BLINK_FX    = "Abilities\\Spells\\NightElf\\Blink\\BlinkTarget.mdl"
+	private static constant TELE_FX     = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl"
+	private static constant TELE_IN_FX  = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTarget.mdl"
+	private static constant TELE_BIG_FX = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl"
+	private static constant BLINK_FX    = "Abilities\\Spells\\NightElf\\Blink\\BlinkTarget.mdl"
 
-	static constant int GOLD_START = 40
+	static constant GOLD_START = 40
 
-	static constant string RUN1 = "run1.wav"
-	static constant string RUN2 = "run2.wav"
-	static constant string RUN3 = "run3.wav"
-	static constant string RUN4 = "scar-clip-15db.wav"
-	static constant string RUN5 = "csgo_st6_toolaterun.wav"
+	static constant RUN1 = "run1.wav"
+	static constant RUN2 = "run2.wav"
+	static constant RUN3 = "run3.wav"
+	static constant RUN4 = "scar-clip-15db.wav"
+	static constant RUN5 = "csgo_st6_toolaterun.wav"
 
-	static constant string BANDIT_DEMO = "Units\\Creeps\\Bandit\\BanditYesAttack3.wav"
-	static constant string BANDIT      = "Units\\Creeps\\Bandit\\BanditYesAttack2.wav"
-	static constant string KING        = "Units\\Human\\HeroMountainKing\\HeroMountainKingPissed7.wav"
-	static constant string QUILL       = "Units\\Creeps\\QuillBeast\\QuillBoarReady1.wav"
-	static constant string CHIEF       = "Units\\Orc\\Cairne\\CairnePissed1.wav"
-	static constant string LORD        = "Units\\Demon\\HeroPitLord\\HPitLordPissed4.wav"
-	static constant string VICTORY     = "Sound\\Interface\\ClanInvitation.wav"
-	static constant string BEGIN       = "Sound\\Interface\\QuestLog.wav"
-	static constant string TIP         = "Sound\\Interface\\SecretFound.wav"
+	static constant BANDIT_DEMO = "Units\\Creeps\\Bandit\\BanditYesAttack3.wav"
+	static constant BANDIT      = "Units\\Creeps\\Bandit\\BanditYesAttack2.wav"
+	static constant KING        = "Units\\Human\\HeroMountainKing\\HeroMountainKingPissed7.wav"
+	static constant QUILL       = "Units\\Creeps\\QuillBeast\\QuillBoarReady1.wav"
+	static constant CHIEF       = "Units\\Orc\\Cairne\\CairnePissed1.wav"
+	static constant LORD        = "Units\\Demon\\HeroPitLord\\HPitLordPissed4.wav"
+	static constant VICTORY     = "Sound\\Interface\\ClanInvitation.wav"
+	static constant BEGIN       = "Sound\\Interface\\QuestLog.wav"
+	static constant TIP         = "Sound\\Interface\\SecretFound.wav"
 
 	private static effect bigFx
 

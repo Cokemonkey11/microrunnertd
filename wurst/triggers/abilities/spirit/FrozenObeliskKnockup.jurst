@@ -4,17 +4,14 @@ package FrozenObeliskKnockup
 	import StructuredDD
 	import Knockback3D
 
-	globals
-		constant int OB_ID = 'h00Y'
-	end
+	constant OB_ID = 'h00Y'
 
 	function h()
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
+
 		if GetUnitTypeId(dS) == OB_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1
 			if Knockback3D.getVel(tU) == 0.
-
-				// ehhh
 				Knockback3D.add(tU, 500., 0., bj_PI/2.)
 			end
 		end

@@ -3,10 +3,10 @@ package PieceOfMetalEndowment
 	import RegisterPlayerUnitEvent
 	import SellTower
 
-	constant int ID_ENDOW_METAL   = 'A01D'
-	constant int ID_DORRAN        = 'h01H'
-	constant int ID_ENDOWMENT     = 'A01E'
-	constant int ID_ENDOWMENT_PAS = 'A01F'
+	constant ID_ENDOW_METAL   = 'A01D'
+	constant ID_DORRAN        = 'h01H'
+	constant ID_ENDOWMENT     = 'A01E'
+	constant ID_ENDOWMENT_PAS = 'A01F'
 
 	function act()
 		if GetSpellAbilityId() == ID_ENDOW_METAL

@@ -2,18 +2,18 @@ package AuraOfVigourUpgrade
 	import RegisterPlayerUnitEvent
 	import Sounds
 
-	constant int ID_UPGRADE_VIGOUR = 'h02V'
-	constant int ID_ABILITY_VIGOUR = 'A01A'
-	constant string THALL_SOUND = "thall.wav"
+	constant ID_UPGRADE_VIGOUR = 'h02V'
+	constant ID_ABILITY_VIGOUR = 'A01A'
+	constant THALL_SOUND = "thall.wav"
 
 	function a()
-		unit sold = GetSoldUnit()
-		int  id   = sold.getTypeId()
+		let sold = GetSoldUnit()
+		let id   = sold.getTypeId()
 
 		if id == ID_UPGRADE_VIGOUR
 			sold.remove()
 
-			unit selling = GetSellingUnit()
+			let selling = GetSellingUnit()
 			RemoveUnitFromStock(selling, id)
 			selling.addAbility(ID_ABILITY_VIGOUR)
 

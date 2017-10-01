@@ -1,13 +1,13 @@
 package ThallBox
 	import RegisterPlayerUnitEvent
 
-	constant int ID_THALL_BOX         = 'h02T'
-	constant int ID_UPGRADE_VIGOUR    = 'h02V'
-	constant int ID_UPGRADE_SPLENDOR  = 'h02U'
-	constant int ID_UPGRADE_SACRIFICE = 'h02W'
+	constant ID_THALL_BOX         = 'h02T'
+	constant ID_UPGRADE_VIGOUR    = 'h02V'
+	constant ID_UPGRADE_SPLENDOR  = 'h02U'
+	constant ID_UPGRADE_SACRIFICE = 'h02W'
 
 	function a()
-		unit cons = GetConstructedStructure()
+		let cons = GetConstructedStructure()
 
 		if cons.getTypeId() == ID_THALL_BOX
 			AddUnitToStock(cons, ID_UPGRADE_VIGOUR,    1, 1)

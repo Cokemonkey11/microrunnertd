@@ -3,9 +3,7 @@ package FrogExplosion
 	import FloatText
 	import Players
 
-	globals
-		unit frog
-	end
+	constant frog = CreateUnit(Players.passive, 'nfro', 0., 0., 0.)
 
 	function a()
 		unit tU = GetTriggerUnit()
@@ -16,7 +14,6 @@ package FrogExplosion
 	end
 
 	init
-		frog = CreateUnit(Players.passive, 'nfro', 0., 0., 0.)
 		SetUnitExploded(frog, true)
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED, function a)
 	end

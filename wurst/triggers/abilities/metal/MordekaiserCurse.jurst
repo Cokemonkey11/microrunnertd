@@ -2,8 +2,8 @@ package MordekaiserCurse
 	import DamageType
 	import StructuredDD
 
-	constant int ID_MORDEKAISER  = 'h031'
-	constant int ID_CURSE_DEBUFF = 'A01N'
+	constant ID_MORDEKAISER  = 'h031'
+	constant ID_CURSE_DEBUFF = 'A01N'
 
 	function h()
 		unit dS = GetEventDamageSource()

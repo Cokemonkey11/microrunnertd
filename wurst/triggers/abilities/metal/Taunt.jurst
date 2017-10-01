@@ -4,13 +4,13 @@ package Taunt
 
 	native UnitAlive takes unit u returns boolean
 
-	constant int TAUNT_ID            = 'A018'
-	constant int DAMAGE_REDUCTION_ID = 'A019'
+	constant TAUNT_ID            = 'A018'
+	constant DAMAGE_REDUCTION_ID = 'A019'
 
-	constant real RADIUS   = 800.
-	constant real DURATION =   5.
+	constant RADIUS   = 800.
+	constant DURATION =   5.
 
-	group grp = CreateGroup()
+	constant grp = CreateGroup()
 
 	function act()
 		if GetSpellAbilityId() == TAUNT_ID

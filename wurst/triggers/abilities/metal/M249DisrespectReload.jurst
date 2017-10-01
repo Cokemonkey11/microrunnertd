@@ -4,10 +4,10 @@ package M249DisrespectReload
 	import FloatText
 	import ClosureTimers
 
-	constant int ID_M249        = 'h035'
-	constant int ROUNDS_PER_MAG = 100
-	constant real RELOAD_TIME   = 5.7
-	Table tab                   = new Table
+	constant ID_M249        = 'h035'
+	constant ROUNDS_PER_MAG = 100
+	constant RELOAD_TIME   = 5.7
+	Table tab = new Table
 
 	function h()
 		unit dS = GetEventDamageSource()

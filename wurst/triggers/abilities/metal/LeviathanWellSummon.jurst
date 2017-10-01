@@ -5,14 +5,14 @@ package LeviathanWellSummon
 	import ClosureTimers
 	import TerrainData
 
-	constant int ID_LEVIATHAN_WELL   = 'h03E'
-	constant int ID_LEVIATHAN_SUMMON = 'o001'
+	constant ID_LEVIATHAN_WELL   = 'h03E'
+	constant ID_LEVIATHAN_SUMMON = 'o001'
 
-	constant string BLINK_CASTER = "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl"
-	constant string BLINK_TARGET = "Abilities\\Spells\\NightElf\\Blink\\BlinkTarget.mdl"
+	constant BLINK_CASTER = "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl"
+	constant BLINK_TARGET = "Abilities\\Spells\\NightElf\\Blink\\BlinkTarget.mdl"
 
-	constant real RADIUS       = 500.
-	constant real CLOCK_PERIOD =   1. / 30.
+	constant RADIUS       = 500.
+	constant CLOCK_PERIOD =   1. / 30.
 
 	unit array leviathans
 	vec2 array currWells

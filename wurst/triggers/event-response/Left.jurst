@@ -4,30 +4,23 @@ package Left
 	import Game
 	import Sounds
 
-	globals
-		constant string LIGHTNING = "Doodads\\Cinematic\\Lightningbolt\\LightningBolt1.wav"
-	end
+	constant LIGHTNING = "Doodads\\Cinematic\\Lightningbolt\\LightningBolt1.wav"
+
+	constant grp = CreateGroup()
 
 	function cond takes nothing returns boolean
-		int id
-		int oid
-		group grp
-		unit fst
-		player p
-		int q
 		if Players.playingCount > 1
-			p = GetTriggerPlayer()
-			id = GetPlayerId(p)
-			oid = 1 - id
-			grp = CreateGroup()
+			let p = GetTriggerPlayer()
+			let id = GetPlayerId(p)
+			let oid = 1 - id
 			Players.playing[id] = false
 			Players.playingCount--
-			q = GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD)
+			let q = GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD)
 			SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, 0)
 			SetPlayerState(Players.id[oid], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[oid], PLAYER_STATE_RESOURCE_GOLD) + q)
 			GroupEnumUnitsOfPlayer(grp, Players.id[id], null)
 			loop
-				fst = FirstOfGroup(grp)
+				let fst = FirstOfGroup(grp)
 				exitwhen fst== null
 				if GetUnitTypeId(fst) == Units.RACE_SELECT
 					RemoveUnit(fst)

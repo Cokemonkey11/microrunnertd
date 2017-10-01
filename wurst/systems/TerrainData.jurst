@@ -1,5 +1,5 @@
 package TerrainData
 	public class TerrainData
-		static constant real SAFE_X = -1986.
-		static constant real SAFE_Y =  1986.
+		static constant SAFE_X = -1986.
+		static constant SAFE_Y =  1986.
 	end

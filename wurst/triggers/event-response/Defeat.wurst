@@ -7,9 +7,9 @@ import RegisterPlayerUnitEvent
 
 native UnitAlive(unit u) returns boolean
 
-Table tab = new Table
-constant string DEFEAT = "Sound\\Interface\\QuestFailed.wav"
-constant string OOPS   = "Sound\\Interface\\Rescue.wav"
+constant tab = new Table
+constant DEFEAT = "Sound\\Interface\\QuestFailed.wav"
+constant OOPS   = "Sound\\Interface\\Rescue.wav"
 
 function a()
 	let count = 0

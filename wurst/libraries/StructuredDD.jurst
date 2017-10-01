@@ -19,19 +19,19 @@ library StructuredDD
 	//* Set this to true if you want all units in your map to be
 	//* automatically added to StructuredDD. Otherwise you will have to
 	//* manually add them with StructuredDD.add(u).
-	public constant bool ADD_ALL_UNITS = true
+	public constant ADD_ALL_UNITS = true
 
 	//* This is the amount of units that exist in each trigger bucket.
 	//* This number should be something between 5 and 30. A good starting
 	//* value will be an estimate of your map's average count of units,
 	//* divided by 10. When in doubt, just use 20.
-	constant int BUCKET_SIZE = 5
+	constant BUCKET_SIZE = 5
 
 	//* This is how often StructuredDD will search for empty buckets. If
 	//* your map has units being created and dying often, a lower value
 	//* is better. Anything between 10 and 180 is good. When in doubt,
 	//* just use 60.
-	constant real PER_CLEANUP_TIMEOUT = 60.
+	constant PER_CLEANUP_TIMEOUT = 60.
 
 	//>> END SETTINGS SECTION
 
@@ -47,15 +47,15 @@ library StructuredDD
 	public class StructuredDD
 		private static boolexpr array conditions
 		private static Bucket array bucketDB
-		private static int conditionsIndex = -1
-		private static int dbIndex = -1
-		private static int maxDBIndex = -1
+		private static var conditionsIndex = -1
+		private static var dbIndex = -1
+		private static var maxDBIndex = -1
 
 		//* This method gets a readily available bucket for a unit to be added.
 		//* If the "current" bucket is full, it returns a new one, otherwise
 		//* it just returns the current bucket.
 		private static method getBucket takes nothing returns int
-			int index = 0
+			var index = 0
 			Bucket tempDat
 			if dbIndex != -1 and bucketDB[dbIndex].bucketIndex < BUCKET_SIZE
 				return dbIndex

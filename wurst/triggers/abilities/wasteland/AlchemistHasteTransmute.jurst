@@ -3,16 +3,16 @@ package AlchemistHasteTransmute
 	import StructuredDD
 	import FloatText
 
-	constant int ARCH_ID = 'h02A'
+	constant ARCH_ID = 'h02A'
 
 	function h()
-		unit dS = GetEventDamageSource()
+		let dS = GetEventDamageSource()
 
 		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK
 			IssueImmediateOrder(dS, "berserk")
-			player p = GetOwningPlayer(dS)
+			let p = GetOwningPlayer(dS)
 			SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + 1)
-			unit tU = GetTriggerUnit()
+			let tU = GetTriggerUnit()
 			FloatText.bountyPlayer(GetUnitX(tU), GetUnitY(tU), 1, p)
 		end
 	end

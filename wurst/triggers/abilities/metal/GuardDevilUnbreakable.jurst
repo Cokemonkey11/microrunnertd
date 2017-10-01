@@ -6,17 +6,17 @@ package GuardDevilUnbreakable
 	import Players
 	import Invulnerable
 
-	constant int ID_GUARD_DEVIL         = 'h03B'
-	constant int ID_GUARD_DEVIL_GREATER = 'h03C'
-	constant int ID_ABILITY_UNBREAKABLE = 'A01W'
-	constant int ID_ABILITY_UNBREAKA_CD = 'A01X'
-	constant int ID_INVULNERABLE        = 'Avul'
+	constant ID_GUARD_DEVIL         = 'h03B'
+	constant ID_GUARD_DEVIL_GREATER = 'h03C'
+	constant ID_ABILITY_UNBREAKABLE = 'A01W'
+	constant ID_ABILITY_UNBREAKA_CD = 'A01X'
+	constant ID_INVULNERABLE        = 'Avul'
 
-	constant real RADIUS   = 600.
-	constant real DURATION =   1.
-	constant real COOLDOWN =  60.
+	constant RADIUS   = 600.
+	constant DURATION =   1.
+	constant COOLDOWN =  60.
 
-	constant string SHIELD_FX = "Abilities\\Spells\\Human\\DivineShield\\DivineShieldTarget.mdl"
+	constant SHIELD_FX = "Abilities\\Spells\\Human\\DivineShield\\DivineShieldTarget.mdl"
 
 	group grp = CreateGroup()
 

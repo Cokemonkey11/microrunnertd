@@ -37,116 +37,114 @@ library Knockback3D
 	// <<===========================================================================================
 	// Begin Customizable Section
 	// <<===========================================================================================
-	globals
-		/**
-		 * Defines whether units should have their movespeed set to 0 and then back to "default"
-		 * speed. If false, units in mid air can still fully control themselves. Warning: This is
-		 * not a lock-safe crowd-control implementation.
-		 */
-        constant boolean USE_MOVESPEED_MODIFIERS = true
-
-		/**
-		 * Defines whether the script should check enumerated destructables as being trees or not.
-		 * If enabled, will only work if IsDestructableTree library is available.
-		 */
-		constant boolean USE_TREE_CHECKER = false
-
-		/**
-		 * Defines whether to enumerate and destroy destructables in contact with projectile bodies.
-		 */
-		constant boolean DESTROY_DESTRUCTABLES_ONHIT = false
-	end
+	/**
+	* Defines whether units should have their movespeed set to 0 and then back to "default"
+	* speed. If false, units in mid air can still fully control themselves. Warning: This is
+	* not a lock-safe crowd-control implementation.
+	*/
+	constant USE_MOVESPEED_MODIFIERS = true
 
 	/**
-	 * Object which holds knockback data, not to be modified by the client.
-	 */
+	* Defines whether the script should check enumerated destructables as being trees or not.
+	* If enabled, will only work if IsDestructableTree library is available.
+	*/
+	constant USE_TREE_CHECKER = false
+
+	/**
+	* Defines whether to enumerate and destroy destructables in contact with projectile bodies.
+	*/
+	constant DESTROY_DESTRUCTABLES_ONHIT = false
+
+	/**
+	* Object which holds knockback data, not to be modified by the client.
+	*/
     public class Knockback3D
 
 		/**
 		 * A parameter for controlling the system clock, in seconds. 1/30 runs 30 times per second.
 		 */
-        private static constant real CLOCK_PERIOD = 1./30.
+        private static constant CLOCK_PERIOD = 1./30.
 
 		/**
 		 * A measure of velocity retention after colliding with ground. 0.4 means 40% retention.
 		 */
-        private static constant real COEFF_RESTITUTION_GROUND = .2
+        private static constant COEFF_RESTITUTION_GROUND = .2
 
 		/**
 		 * How much velocity should be retained after hitting a destructable. A value of .3 means
 		 * 30% velocity is retained.
 		 */
-        private static constant real COEFF_RESTITUTION_DSTRBL = .3
+        private static constant COEFF_RESTITUTION_DSTRBL = .3
 
 		/**
 		 * What fraction of velocity should be lost with every iteration of ground friction. Note
 		 * that simulating an abstraction of friction in units per second overflows real precision
 		 * numbers. Thus, you must adjust this according to your clock period.
 		 */
-        private static constant real FRICTION_ITER_MULTIPLIER = .15
+        private static constant FRICTION_ITER_MULTIPLIER = .15
 
 		/**
 		 * The downward acceleration of units in motion. A value of CLOCK_PERIOD*41.25 means they
 		 * accelerate downwards by 41.25 game units per second.
 		 */
-        private static constant real GRAVITY = CLOCK_PERIOD*45.
+        private static constant GRAVITY = CLOCK_PERIOD*45.
 
 		/**
 		 * The minimum fall-speed for a unit to bounce. CLOCK_PERIOD*-300. means that the a unit
 		 * must be falling at 300 units per second to bounce.
 		 */
-        private static constant real MAX_Z_VELOCITY_TO_BOUNCE = CLOCK_PERIOD*-300.
+        private static constant MAX_Z_VELOCITY_TO_BOUNCE = CLOCK_PERIOD*-300.
 
 		/**
 		 * The minimum z-velocity of a unit to actually have it's flying height changed, instead of
 		 * simply sliding. Note: This may need refactoring in combination with
 		 * MAX_Z_VELOCITY_TO_BOUNCE
 		 */
-        private static constant real MIN_Z_VELOCITY_TO_BECOME_AIRBORNE = CLOCK_PERIOD*150.
+        private static constant MIN_Z_VELOCITY_TO_BECOME_AIRBORNE = CLOCK_PERIOD*150.
 
 		/**
 		 * This is the minimum height a unit can be at before friction is applied. Recommend a value
 		 * greater than 0 as floating units have a small non-zero value.
 		 */
-        private static constant real MIN_FLY_HEIGHT = 5.
+        private static constant MIN_FLY_HEIGHT = 5.
 
 		/**
 		 * The minimum horizontal velocity a unit can be sliding before the system ignores it. A
 		 * value of CLOCK_PERIOD*30 means the unit will stop sliding when its slide speed reduces
 		 * past 30 units per second.
 		 */
-        private static constant real MIN_FOR_KNOCKBACK = CLOCK_PERIOD*30.
+        private static constant MIN_FOR_KNOCKBACK = CLOCK_PERIOD*30.
 
 		/**
 		 * The minimum speed a sliding unit must be moving to spawn a "friction" special effect. A
 		 * value of CLOCK_PERIOD*180 means the effect is applied while units are moving faster than
 		 * 180 game units per second.
 		 */
-        private static constant real MIN_SPEED_FRICTION_FX = CLOCK_PERIOD*180.
+        private static constant MIN_SPEED_FRICTION_FX = CLOCK_PERIOD*180.
 
 		/**
 		 * The model to spawn when a unit's horizontal velocity > MIN_SPEED_FRICTION_FX
 		 */
-        private static constant string FRICTION_MODEL = "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl"
+        private static constant FRICTION_MODEL = "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl"
 
 		/**
 		 * The square size to search for destructables when destroying them. Note that a square's
 		 * diagonal is Sqrt(2) times bigger than this.
 		 */
-        static constant real DESTRUCTABLE_ENUM_RADIUS = 130.
+        static constant DESTRUCTABLE_ENUM_RADIUS = 130.
 
 		/**
 		 * This is the minimum horizontal velocity a unit must have to destroy a destructable. You
 		 * can set this to a very high number to disable the feature. A value of CLOCK_PERIOD*300
 		 * means the unit must travel at 300 units per second on the XY plane, to destroy obstacles.
 		 */
-        private static constant real MIN_VEL_DESTROY_DESTRUCTABLE = CLOCK_PERIOD*300.
+        private static constant MIN_VEL_DESTROY_DESTRUCTABLE = CLOCK_PERIOD*300.
 
 		/**
 		 * The height below which a unit in the stack is elligible to destroy a destructable.
 		 * Ideally it should be the average height of your destructables.
 		 */
-        private static constant real MAX_HEIGHT_DESTROY_DESTRUCTABLE = 150.
+        private static constant MAX_HEIGHT_DESTROY_DESTRUCTABLE = 150.
 
 		// =======================================================================================>>
 		// End Customizable Section
@@ -155,7 +153,7 @@ library Knockback3D
 		/**
 		 * The raw ID of crow form, which allows ground units to have adjusted fly-height.
 		 */
-        private static constant int CROW_ID = 'Arav'
+        private static constant CROW_ID = 'Arav'
 
 		/**
 		 * Flag used for reference when a destructable has been hit/destroyed.
@@ -165,7 +163,7 @@ library Knockback3D
 		/**
 		 * A stack size reference
 		 */
-        private static int dbIndex = -1
+        private static var dbIndex = -1
 
 		/**
 		 * Stack of KnockDat references
@@ -175,7 +173,7 @@ library Knockback3D
 		/**
 		 * Temp object for the getZ shim
 		 */
-        private static location zLoc = Location(0., 0.)
+        private static var zLoc = Location(0., 0.)
 
 		/**
 		 * A reference to the map's minimum x co-ordinate
@@ -217,7 +215,7 @@ library Knockback3D
 		 * A simple shim for getting the z heigh of a co-ordinate pair.
 		 */
 		private static method getZ takes real x, real y returns real
-			MoveLocation(zLoc, x,y)
+			MoveLocation(zLoc, x, y)
 			return GetLocationZ(zLoc)
 		end
 
@@ -266,7 +264,7 @@ library Knockback3D
 								DestroyEffect(AddSpecialEffect(FRICTION_MODEL, unitX, unitY))
 							end
 						end
-						static if USE_MOVESPEED_MODIFIERS
+						if USE_MOVESPEED_MODIFIERS
 							SetUnitMoveSpeed(tempDat.u, GetUnitDefaultMoveSpeed(tempDat.u))
 						end
 					else
@@ -288,15 +286,15 @@ library Knockback3D
 					SetUnitFlyHeight(tempDat.u, flyHeight + tempDat.delZ-heightDifference, 0)
 					SetUnitX(tempDat.u, newX)
 					SetUnitY(tempDat.u, newY)
-					static if USE_MOVESPEED_MODIFIERS
+					if USE_MOVESPEED_MODIFIERS
 						SetUnitMoveSpeed(tempDat.u, 0)
 					end
 				end
 				if velXY < MIN_FOR_KNOCKBACK and tempDat.delZ > MAX_Z_VELOCITY_TO_BOUNCE and tempDat.delZ < -1*MAX_Z_VELOCITY_TO_BOUNCE and flyHeight < MIN_FLY_HEIGHT
 					knockDB[index] = knockDB[dbIndex]
 					dbIndex--
-					SetUnitFlyHeight(tempDat.u, 0,0)
-					static if USE_MOVESPEED_MODIFIERS
+					SetUnitFlyHeight(tempDat.u, 0., 0.)
+					if USE_MOVESPEED_MODIFIERS
 						SetUnitMoveSpeed(tempDat.u, GetUnitDefaultMoveSpeed(tempDat.u))
 					end
 					destroy tempDat

@@ -1,6 +1,6 @@
 package Players
 	public class Players
-		static constant int COUNT = 2
+		static constant COUNT = 2
 		static player locl
 		static boolean array playing
 		static player array id

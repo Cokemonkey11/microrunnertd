@@ -6,20 +6,18 @@
  *     boolean IsTerrainWalkable(real x, real y) - returns the walkability of (x, y)
  */
 library IsTerrainWalkable
-    globals
 
-        // this value is how far from a point the item may end up for the point to be considered pathable
-        constant real MAX_RANGE = 10.
+    // this value is how far from a point the item may end up for the point to be considered pathable
+    constant MAX_RANGE = 10.
 
-        // the following two variables are set to the position of the item after each pathing check
-        // that way, if a point isn't pathable, these will be the coordinates of the nearest point that is
-        public real X = 0.
-        public real Y = 0.
-        rect r
-        item check
-        item array hidden
-        int hiddenMax = 0
-    end
+    // the following two variables are set to the position of the item after each pathing check
+    // that way, if a point isn't pathable, these will be the coordinates of the nearest point that is
+    public var X = 0.
+    public var Y = 0.
+    rect r
+    item check
+    item array hidden
+    int hiddenMax = 0
 
     init
         check = CreateItem('ciri', 0., 0.)
@@ -38,12 +36,12 @@ library IsTerrainWalkable
     public function isTerrainWalkable takes real x, real y returns boolean
 
         // first, hide any items in the area so they don't get in the way of our item
-        MoveRectTo(r, x,y)
+        MoveRectTo(r, x, y)
         EnumItemsInRect(r, null, function hideBothersomeItem)
 
         // try to move the check item and get its coordinates
 		// this unhides the item...
-        SetItemPosition(check, x,y)
+        SetItemPosition(check, x, y)
         X = GetItemX(check)
         Y = GetItemY(check)
 

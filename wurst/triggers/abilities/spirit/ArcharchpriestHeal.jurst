@@ -3,13 +3,11 @@ package ArcharchpriestHeal
 
 	native UnitAlive takes unit u returns boolean
 
-	globals
-		constant int PRIEST_ID = 'h009'
-		constant real RADIUS = 400.
-		constant string FX = "Abilities\\Spells\\Other\\HealingSpray\\HealBottleMissile.mdl"
-		group grp = CreateGroup()
-		group grp2 = CreateGroup()
-	end
+	constant PRIEST_ID = 'h009'
+	constant RADIUS = 400.
+	constant FX = "Abilities\\Spells\\Other\\HealingSpray\\HealBottleMissile.mdl"
+	constant grp = CreateGroup()
+	constant grp2 = CreateGroup()
 
 	function parsePriest takes unit u returns nothing
 		unit fst

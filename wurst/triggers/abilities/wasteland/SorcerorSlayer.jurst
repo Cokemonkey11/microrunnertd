@@ -3,15 +3,15 @@ package SorcerorSlayer
 	import StructuredDD
 	import FloatText
 
-	constant int ID_SORCEROR    = 'h027'
-	constant string EFFECT_PATH = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
-	Table tab                   = new Table
+	constant ID_SORCEROR = 'h027'
+	constant EFFECT_PATH = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
+	let tab = new Table
 
 	function h()
-		unit dS = GetEventDamageSource()
+		let dS = GetEventDamageSource()
 
 		if GetUnitTypeId(dS) == ID_SORCEROR and DamageType.get() == DamageType.ATTACK
-			unit tU = GetTriggerUnit()
+			let tU = GetTriggerUnit()
 
 			if tab.hasInt(dS.getHandleId())
 				if tab.loadInt(dS.getHandleId()) >= 10

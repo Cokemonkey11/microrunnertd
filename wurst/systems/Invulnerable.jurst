@@ -1,8 +1,8 @@
 package Invulnerable
 	public class Invulnerable
-		private static constant int ID_INVULNERABLE = 'Avul'
+		private static constant ID_INVULNERABLE = 'Avul'
 
-		private static constant real FIDELITY = 1. / 30.
+		private static constant FIDELITY = 1. / 30.
 
 		private static timer clock = CreateTimer()
 

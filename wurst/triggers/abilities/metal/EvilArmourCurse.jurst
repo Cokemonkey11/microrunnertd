@@ -2,8 +2,8 @@ package EvilArmourCurse
 	import DamageType
 	import StructuredDD
 
-	constant int ID_EVILARMOUR   = 'h032'
-	constant int ID_CURSE_DEBUFF = 'A01P'
+	constant ID_EVILARMOUR   = 'h032'
+	constant ID_CURSE_DEBUFF = 'A01P'
 
 	function h()
 		unit dS = GetEventDamageSource()

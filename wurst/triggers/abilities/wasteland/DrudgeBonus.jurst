@@ -4,16 +4,14 @@ package DrudgeBonus
 	import FloatText
 	import GetUnitArmorType
 
-	globals
-		constant int EX_ID = 'h01W'
-	end
+	constant EX_ID = 'h01W'
 
 	function h()
-		unit dS = GetEventDamageSource()
-		unit tU = GetTriggerUnit()
-		real r
+		let dS = GetEventDamageSource()
+		let tU = GetTriggerUnit()
+
 		if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and getUnitArmorType(tU) == ArmorType.HEAVY_NORMAL
-			r = GetEventDamage()
+			let r = GetEventDamage()
 			DamageType.dealCodeDamage(dS, tU, r)
 			FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(2.*r))
 		end

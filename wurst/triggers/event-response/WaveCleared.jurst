@@ -4,13 +4,13 @@ package WaveCleared
 	import Players
 	import Game
 
-	constant string WAVE_CLEAR = "Sound\\Interace\\GoodJob.wav"
+	constant WAVE_CLEAR = "Sound\\Interace\\GoodJob.wav"
 
 	function act()
-		unit tU = GetTriggerUnit()
+		let tU = GetTriggerUnit()
 
 		// Execution conditions:
-		boolean b = GetOwningPlayer(tU) == Players.creeps
+		var b = GetOwningPlayer(tU) == Players.creeps
 		b = b and not IsUnitType(tU, UNIT_TYPE_SUMMONED)
 		b = b and GetPlayerState(Players.creeps, PLAYER_STATE_RESOURCE_FOOD_USED)<=0
 		b = b and Game.started

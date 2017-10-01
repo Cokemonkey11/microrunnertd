@@ -6,26 +6,26 @@ package SpawnBehaviour
 
 	native UnitAlive takes unit u returns boolean
 
-	constant int  INVULNERABLE_ID = 'Avul'
+	constant INVULNERABLE_ID = 'Avul'
 
-	constant real AI_FIDELITY = 1.
+	constant AI_FIDELITY = 1.
 
-	group grp = CreateGroup()
+	constant grp = CreateGroup()
 
-	Table taunts         = new Table
-	Table tauntDurations = new Table
+	constant taunts         = new Table
+	constant tauntDurations = new Table
 
 	function getClosestRunner takes unit q returns unit
-		int index = 0
+		var index = 0
 		unit u = null
-		real r = 9999999.
-		int  qHandleId = q.getHandleId()
+		var r = 9999999.
+		let  qHandleId = q.getHandleId()
 
 		loop
 			exitwhen index >= Players.COUNT
 
-			real x = GetUnitX(q) - GetUnitX(Units.runners[index])
-			real y = GetUnitY(q) - GetUnitY(Units.runners[index])
+			let x = GetUnitX(q) - GetUnitX(Units.runners[index])
+			let y = GetUnitY(q) - GetUnitY(Units.runners[index])
 
 			if UnitAlive(Units.runners[index]) and (not Units.runners[index].hasAbility(INVULNERABLE_ID)) and (x * x) + (y * y) < r
 				r = (x * x) + (y * y)

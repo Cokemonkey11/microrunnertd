@@ -4,10 +4,10 @@ package NegevDisrespectReload
 	import FloatText
 	import ClosureTimers
 
-	constant int ID_NEGEV       = 'h036'
-	constant int ROUNDS_PER_MAG = 150
-	constant real RELOAD_TIME   = 5.7
-	Table tab                   = new Table
+	constant ID_NEGEV = 'h036'
+	constant ROUNDS_PER_MAG = 150
+	constant RELOAD_TIME = 5.7
+	constant tab = new Table
 
 	function h()
 		unit dS = GetEventDamageSource()

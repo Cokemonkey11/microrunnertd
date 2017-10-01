@@ -4,10 +4,10 @@ package DedicatedAwperReload
 	import FloatText
 	import ClosureTimers
 
-	constant int ID_AWPER       = 'h02Z'
-	constant int ROUNDS_PER_MAG = 7
-	constant real RELOAD_TIME   = 2.2
-	Table tab                   = new Table
+	constant ID_AWPER       = 'h02Z'
+	constant ROUNDS_PER_MAG = 7
+	constant RELOAD_TIME = 2.2
+	Table tab = new Table
 
 	function h()
 		unit dS = GetEventDamageSource()

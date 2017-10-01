@@ -18,13 +18,13 @@
 //* Enjoy,
 //*     -Cokemonkey11
 //*
-library DummyUnitStack initializer ini
-	struct UnitAlloc
+library DummyUnitStack
+	class UnitAlloc
 		unit u
 	end
 
-	// Just a shim for the API, the struct is not actually instanciated.
-	public struct DummyUnitStack
+	// Just a shim for the API, the class is not actually instanciated.
+	public class DummyUnitStack
 
 
 		//*********************************************************************
@@ -33,12 +33,12 @@ library DummyUnitStack initializer ini
 
 		// This bit is important - make sure this refers to the dummy unit
 		// in the test map
-		private static constant integer DUMMY_UNIT_ID = 'u000'
+		private static constant DUMMY_UNIT_ID = 'u000'
 
 		// Whenever the preloading process turns on, we a minimum number
 		// of units to load, to prevent turning the system on and off too
 		// often - here you can choose the minimum count (default 10)
-		private static constant integer MIN_PRELOAD_BLOCK_SIZE = 10
+		private static constant MIN_PRELOAD_BLOCK_SIZE = 10
 
 		// This value is the initialization preload value. Higher numbers
 		// will increase map load time, but give the best performance. The
@@ -46,38 +46,38 @@ library DummyUnitStack initializer ini
 		// in the first few minutes, and the maximum number of dummies used
 		// in theory. Additionally, you can turn the feature off entirely.
 		// (default 200)
-		static constant integer PRELOAD_INIT_COUNT = 200
-		static constant boolean DO_PIC = true
+		static constant PRELOAD_INIT_COUNT = 200
+		static constant DO_PIC = true
 
 		// When a series of dummies are retrived using .get(), the stack size
 		// falls and approaches 0 - with this setting, we can turn on the
 		// preloader whenever the stack size falls to an arbitrary number.
 		// Again, this feature can be turned off. (default 20)
-		private static constant integer DYNAMIC_DEFERRED_PRELOAD_COUNT = 10
-		private static constant boolean DO_DDPC = true
+		private static constant DYNAMIC_DEFERRED_PRELOAD_COUNT = 10
+		private static constant DO_DDPC = true
 
 		// When the map starts, the preloader turns on right away, preloading
 		// more units - this can be tweaked to reduce loading time without
 		// losing dummies available at the beginning of the game. (default 20)
-		static constant integer INITIAL_DEFERRED_PRELOAD_COUNT = 20
-		static constant boolean DO_IDPC = false
+		static constant INITIAL_DEFERRED_PRELOAD_COUNT = 20
+		static constant DO_IDPC = false
 
 		// If a dummy unit is released and the stack exceeds this size, the unit
 		// will instead be removed.
-		private static constant integer MAX_PRELOADED_UNITS = 5000
-		private static constant boolean DO_MPU = true
+		private static constant MAX_PRELOADED_UNITS = 5000
+		private static constant DO_MPU = true
 
 		// Here we have another "hack-like" design choice. The developer must
-		// specify an (x,y) coordinate pair where dummy units can be moved on
+		// specify an (x, y) coordinate pair where dummy units can be moved on
 		// release - we do this because there is a bug associaed with ShowUnit()
 		// and the locust ability. :(
-		private static constant real SAFE_LOC_X = -5650.
-		private static constant real SAFE_LOC_Y =  5565.
+		private static constant SAFE_LOC_X = -5650.
+		private static constant SAFE_LOC_Y =  5565.
 
 		// Normally a not-so-useful tweaking variable, clock period in dummy unit
 		// stack is actually quite powerful because we're not relying on any
 		// kind of smooth movement for releasing/getting. (default 1./60.)
-		static constant real CLOCK_PERIOD = 1./60.
+		static constant CLOCK_PERIOD = 1./60.
 
 		//*********************************************************************
 		//* END CUSTOMIZABLE SECTION
@@ -85,8 +85,8 @@ library DummyUnitStack initializer ini
 
 
 		private static unit array dummyStack
-		private static integer stackIndex = -1
-		static integer deferredTodoCount = 0
+		private static int stackIndex = -1
+		static int deferredTodoCount = 0
 		static timer clock = CreateTimer()
 
 		//* Private method used for creating a unit by the system
@@ -95,7 +95,7 @@ library DummyUnitStack initializer ini
 			UnitAddAbility(bj_lastCreatedUnit, 'Aloc')
 			UnitAddAbility(bj_lastCreatedUnit, 'Arav')
 
-			if preloading then
+			if preloading
 				stackIndex++
 				dummyStack[stackIndex] = bj_lastCreatedUnit
 			else
@@ -106,11 +106,11 @@ library DummyUnitStack initializer ini
 		end
 
 		//* Private periodic method used for preloading
-		static method deferredPreloader takes nothing returns nothing
+		static method deferredPreloader()
 			deferredTodoCount--
 			add(true)
 
-			if deferredTodoCount < 1 then
+			if deferredTodoCount < 1
 				PauseTimer(clock)
 			end
 		end
@@ -119,14 +119,14 @@ library DummyUnitStack initializer ini
 		//* as you want.
 		static method get takes nothing returns unit
 			unit result
-			if stackIndex != -1 then
+			if stackIndex != -1
 				stackIndex--
-				result = dummyStack[stackIndex+1]
+				result = dummyStack[stackIndex + 1]
 			else
 				result = add(false)
 			end
-			if DO_DDPC then
-				if stackIndex < (DYNAMIC_DEFERRED_PRELOAD_COUNT - 1) and deferredTodoCount<1 then
+			if DO_DDPC
+				if stackIndex < (DYNAMIC_DEFERRED_PRELOAD_COUNT - 1) and deferredTodoCount < 1
 					deferredTodoCount = MIN_PRELOAD_BLOCK_SIZE
 					TimerStart(clock, CLOCK_PERIOD, true, function deferredPreloader)
 				end
@@ -139,8 +139,8 @@ library DummyUnitStack initializer ini
 		//* effects and anything else attached the unit because its handle
 		//* will be RECYCLED.
 		static method release takes unit u returns nothing
-			if DO_MPU then
-				if stackIndex >= MAX_PRELOADED_UNITS then
+			if DO_MPU
+				if stackIndex >= MAX_PRELOADED_UNITS
 					RemoveUnit(u)
 					return
 				end
@@ -154,7 +154,7 @@ library DummyUnitStack initializer ini
 			dummyStack[stackIndex] = u
 		end
 
-		private static method afterDelay takes nothing returns nothing
+		private static method afterDelay()
 			timer tim = GetExpiredTimer()
 			UnitAlloc u = tim.getData() castTo UnitAlloc
 
@@ -169,24 +169,24 @@ library DummyUnitStack initializer ini
 			timer tim = CreateTimer()
 
 			ua.u = u
-			tim.setData(ua castTo integer)
+			tim.setData(ua castTo int)
 			TimerStart(tim, delay, false, function afterDelay)
 		end
 	end
 
-	function ini takes nothing returns nothing
-		integer index = 1
+	init
+		int index = 1
 
-		if DummyUnitStack.DO_PIC then
+		if DummyUnitStack.DO_PIC
 			loop
 				exitwhen index > DummyUnitStack.PRELOAD_INIT_COUNT
 				DummyUnitStack.add(true)
 				index++
 			end
 		end
-		if DummyUnitStack.DO_IDPC then
+		if DummyUnitStack.DO_IDPC
 			DummyUnitStack.deferredTodoCount = DummyUnitStack.INITIAL_DEFERRED_PRELOAD_COUNT
 			TimerStart(DummyUnitStack.clock, DummyUnitStack.CLOCK_PERIOD, true, function DummyUnitStack.deferredPreloader)
 		end
 	end
-endlibrary
+

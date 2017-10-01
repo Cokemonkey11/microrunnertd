@@ -4,12 +4,12 @@ package ThallBoxSacrifice
 	import FloatText
 	import ClosureForGroups
 
-	constant int ID_THALL_BOX         = 'h02T'
-	constant int ID_ABILITY_SACRIFICE = 'A01B'
+	constant ID_THALL_BOX         = 'h02T'
+	constant ID_ABILITY_SACRIFICE = 'A01B'
 
-	constant real RADIUS = 90. + 16. * 2.
+	constant RADIUS = 90. + 16. * 2.
 
-	group grp = CreateGroup()
+	constant grp = CreateGroup()
 
 	function hasSacrifice(unit u) returns bool
 		bool willSacrifice = false

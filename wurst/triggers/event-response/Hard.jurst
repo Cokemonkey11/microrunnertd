@@ -3,24 +3,25 @@ package Hard
 	import Game
 	import Sounds
 
-	globals
-		boolean array voted
-		constant string LEVER = "Doodads\\Cinematic\\DungeonLever\\Lever.wav"
-	end
+	boolean array voted
+	constant LEVER = "Doodads\\Cinematic\\DungeonLever\\Lever.wav"
 
-	function cond takes nothing returns boolean
-		player p = GetTriggerPlayer()
-		int pid = GetPlayerId(p)
+	function cond() returns boolean
+		let p = GetTriggerPlayer()
+		let pid = GetPlayerId(p)
+
 		if not (Players.playing[0] and Players.playing[1])
 			DestroyTrigger(GetTriggeringTrigger())
 			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Hard Mode|r not available in single player.")
 			return false
 		end
+
 		if Game.started
 			DestroyTrigger(GetTriggeringTrigger())
 			DisplayTextToPlayer(Players.locl, 0., 0., "|cffffcc00Hard Mode|r must be enabled before the practice round begins.")
-		elseif voted[pid] == false
+		elseif not voted[pid]
 			voted[pid] = true
+
 			if voted[0] and voted[1]
 				DestroyTrigger(GetTriggeringTrigger())
 
@@ -41,7 +42,7 @@ package Hard
 	end
 
 	init
-		trigger t = CreateTrigger()
+		let t = CreateTrigger()
 		TriggerRegisterPlayerChatEvent(t, Players.id[0], "-hard", true)
 		TriggerRegisterPlayerChatEvent(t, Players.id[1], "-hard", true)
 		TriggerAddCondition(t, Condition(function cond))

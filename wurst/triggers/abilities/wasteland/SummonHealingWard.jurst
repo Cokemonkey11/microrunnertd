@@ -3,25 +3,19 @@ package SummonHealingWard
 	import SimError
 	import RegisterPlayerUnitEvent
 
-	globals
-		constant int SUMMON_ID = 'A00T'
-		constant int UNIT_ID = 'h023'
-		constant string FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
-	end
+	constant SUMMON_ID = 'A00T'
+	constant UNIT_ID = 'h023'
+	constant FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 
 	function act()
-		real x
-		real y
-		unit s
-		unit tU
-		player p
 		if GetSpellAbilityId() == SUMMON_ID
-			x = GetSpellTargetX()
-			y = GetSpellTargetY()
-			tU = GetTriggerUnit()
-			p = GetOwningPlayer(tU)
-			if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y,PATHING_TYPE_BUILDABILITY))
-				s = CreateUnit(p, UNIT_ID, x,y, 270.)
+			let x = GetSpellTargetX()
+			let y = GetSpellTargetY()
+			let tU = GetTriggerUnit()
+			let p = GetOwningPlayer(tU)
+
+			if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y, PATHING_TYPE_BUILDABILITY))
+				let s = CreateUnit(p, UNIT_ID, x, y, 270.)
 				DestroyEffect(AddSpecialEffect(FX, GetUnitX(s), GetUnitY(s)))
 				UnitRemoveAbility(tU, SUMMON_ID)
 			else
