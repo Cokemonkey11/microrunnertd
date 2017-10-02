@@ -1,0 +1,18 @@
+package ThallBox
+import RegisterPlayerUnitEvent
+
+constant ID_THALL_BOX         = 'h02T'
+constant ID_UPGRADE_VIGOUR    = 'h02V'
+constant ID_UPGRADE_SPLENDOR  = 'h02U'
+constant ID_UPGRADE_SACRIFICE = 'h02W'
+
+function a()
+	let cons = GetConstructedStructure()
+
+	if cons.getTypeId() == ID_THALL_BOX
+		AddUnitToStock(cons, ID_UPGRADE_VIGOUR,    1, 1)
+		AddUnitToStock(cons, ID_UPGRADE_SPLENDOR,  1, 1)
+		AddUnitToStock(cons, ID_UPGRADE_SACRIFICE, 1, 1)
+
+init
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH, function a)

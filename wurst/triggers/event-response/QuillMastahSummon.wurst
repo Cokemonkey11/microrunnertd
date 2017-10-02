@@ -1,0 +1,26 @@
+package QuillMastahSummon
+import Assets
+import ClosureTimers
+import HashMap
+
+import Players
+import StructuredDD
+import UnitApi
+
+constant summoned = new HashMap<unit, bool>
+
+init
+    StructuredDD.addHandler(() -> begin
+        let tU = GetTriggerUnit()
+
+        if tU.getTypeId() == UnitApi.ID_QUILL_MASTAH and not summoned.get(tU)
+            summoned.put(tU, true)
+
+            tU..pause()..setAnimation("cast")
+
+            doAfter(0.5, () -> begin
+                tU.unpause()
+                createUnit(Players.creeps, UnitApi.ID_BOAR, tU.getPos().polarOffset(tU.getFacingAngle(), 16.), tU.getFacingAngle())
+                    .addEffect(Other.feralspiritdone, "origin").destr()
+            end)
+    end)

@@ -1,0 +1,96 @@
+package RegularVillager
+import Knockback3D
+import Players
+import RegisterPlayerUnitEvent
+
+constant VGR0_ID = 'n000'
+constant VGR1_ID = 'n001'
+constant X = 1820.
+constant Y = -1565.
+constant FACE_0 = 90.
+constant FACE_1 = 45. + 180.
+constant FACE_2 = 135. + 180.
+constant FX = "Abilities\\Spells\\Other\\TalkToMe\\TalkToMe.mdl"
+constant FX2 = "Abilities\\Spells\\Undead\\AnimateDead\\AnimateDeadTarget.mdl"
+
+unit vgr0
+unit vgr1
+var state = 0
+effect fx
+
+function seq4()
+	state = 2
+	DestroyTimer(GetExpiredTimer())
+
+function seq3()
+	SetUnitFacingTimed(vgr0, FACE_0, 0.)
+	DestroyEffect(fx)
+	TimerStart(GetExpiredTimer(), 1., false, function seq4)
+
+function seq2()
+	SetUnitFacingTimed(vgr0, FACE_1, 2.)
+	TimerStart(GetExpiredTimer(), 2., false, function seq3)
+
+function seq1()
+	SetUnitFacingTimed(vgr0, FACE_2, 2.)
+	TimerStart(GetExpiredTimer(), 2., false, function seq2)
+
+function seq0()
+	SetUnitFacingTimed(vgr0, FACE_1, 0.)
+	TimerStart(GetExpiredTimer(), 1., false, function seq1)
+
+function seq24()
+	state = 0
+	DestroyTimer(GetExpiredTimer())
+
+function seq23()
+	ShowUnit(vgr1, false)
+	ShowUnit(vgr0, true)
+	SetUnitX(vgr0, X)
+	SetUnitY(vgr0, Y)
+	DestroyEffect(AddSpecialEffect(FX2, X, Y))
+	SetUnitScale(vgr0, .8, .8, .8)
+	SetUnitVertexColor(vgr0, 255, 255, 255, 255)
+	SetUnitFacingTimed(vgr0, FACE_0, 1.)
+	TimerStart(GetExpiredTimer(), 1., false, function seq24)
+
+function seq22()
+	SetUnitFacing(vgr1, FACE_2)
+	TimerStart(GetExpiredTimer(), 1., false, function seq23)
+
+function seq21()
+	Knockback3D.add(vgr1, 400., 0., bj_PI/2.)
+	TimerStart(GetExpiredTimer(), 1., false, function seq22)
+
+function seq20()
+	Knockback3D.add(vgr1, 400., 0., bj_PI/2.)
+	SetUnitFacing(vgr0, FACE_2)
+	TimerStart(GetExpiredTimer(), .7, false, function seq21)
+
+function act()
+	let tU = GetTriggerUnit()
+
+	if tU == vgr0
+		if state == 0
+			state = 1
+			SetUnitVertexColor(vgr0, 255, 200, 200, 255)
+			SetUnitScale(vgr0, .9, .9, .9)
+			fx = AddSpecialEffectTarget(FX, vgr0, "overhead")
+			TimerStart(CreateTimer(), .5, false, function seq0)
+		else if state == 2
+			state = 3
+			ShowUnit(vgr0, false)
+			ShowUnit(vgr1, true)
+			SetUnitX(vgr1, X)
+			SetUnitY(vgr1, Y)
+			DestroyEffect(AddSpecialEffect(FX2, X, Y))
+			SetUnitFacing(vgr1, 270.)
+			TimerStart(CreateTimer(), 1., false, function seq20)
+
+init
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED, function act)
+	vgr0 = CreateUnit(Players.passive, VGR0_ID, X, Y, FACE_0)
+	vgr1 = CreateUnit(Players.passive, VGR1_ID, 0., 0., FACE_0)
+	ShowUnit(vgr1, false)
+	SetUnitX(vgr1, X)
+	SetUnitY(vgr1, Y)

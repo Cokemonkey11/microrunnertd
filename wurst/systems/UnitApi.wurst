@@ -1,0 +1,173 @@
+package UnitApi
+import Players
+import Invulnerable
+
+public class UnitApi
+	static constant ROUND_COUNT       = 43
+
+	static constant ID_BUILDER_SPIRIT = 'h000'
+	static constant ID_BUILDER_WASTE  = 'h01K'
+	static constant ID_BUILDER_METAL  = 'h02R'
+	static constant ID_RUNNER_SPIRIT  = 'h003'
+	static constant ID_RUNNER_WASTE   = 'h01G'
+	static constant ID_RUNNER_METAL   = 'h02S'
+	static constant ID_ALTAR_SPIRIT   = 'h01I'
+	static constant ID_ALTAR_WASTE    = 'h01J'
+	static constant ID_ALTAR_METAL    = 'h02Q'
+
+	static constant RACE_SELECT       = 'h01O'
+	static constant IMMUNE            = 'ACmi'
+
+	static constant ID_BOAR           = 'h02O'
+	static constant ID_QUILL_MASTAH   = 'h00W'
+
+	static unit array runners
+	static unit array choosers
+	static int array spawns
+	static int array runnerTypes
+
+	static constant bounties = new Table
+	private static constant grp = CreateGroup()
+
+	static function freezeAll()
+		for index = 0 to 15
+			GroupEnumUnitsOfPlayer(grp, Players.id[index], null)
+			for fst from grp
+				PauseUnit(fst, true)
+				SetUnitInvulnerable(fst, true)
+				Invulnerable.apply(fst, 60. * 60. * 24.)
+				UnitAddAbility(fst, 'Aloc')
+				SetUnitTimeScale(fst, 0.)
+
+init
+	UnitApi.runnerTypes[0] = 0
+	UnitApi.runnerTypes[1] = 0
+
+	UnitApi.spawns[0] = 'h002'
+	UnitApi.bounties.saveInt('h002', 2)
+
+	UnitApi.spawns[1] = 'h004'
+	UnitApi.bounties.saveInt('h004', 2)
+
+	UnitApi.spawns[2] = 'h005'
+	UnitApi.bounties.saveInt('h005', 2)
+
+	UnitApi.spawns[3] = 'h006'
+	UnitApi.bounties.saveInt('h006', 2)
+
+	UnitApi.spawns[4] = 'h008'
+	UnitApi.bounties.saveInt('h008', 2)
+
+	UnitApi.spawns[5] = 'h00B'
+	UnitApi.bounties.saveInt('h00B', 2)
+
+	UnitApi.spawns[6] = 'h00C'
+	UnitApi.bounties.saveInt('h00C', 20)
+
+	UnitApi.spawns[7] = 'h00D'
+	UnitApi.bounties.saveInt('h00D', 4)
+
+	UnitApi.spawns[8] = 'h00E'
+	UnitApi.bounties.saveInt('h00E', 4)
+
+	UnitApi.spawns[9] = 'h00F'
+	UnitApi.bounties.saveInt('h00F', 4)
+
+	UnitApi.spawns[10] = 'h00J'
+	UnitApi.bounties.saveInt('h00J', 4)
+
+	UnitApi.spawns[11] = 'h00K'
+	UnitApi.bounties.saveInt('h00K', 4)
+
+	UnitApi.spawns[12] = 'h00L'
+	UnitApi.bounties.saveInt('h00L', 40)
+
+	UnitApi.spawns[13] = 'h00O'
+	UnitApi.bounties.saveInt('h00O', 6)
+
+	UnitApi.spawns[14] = 'h00P'
+	UnitApi.bounties.saveInt('h00P', 6)
+
+	UnitApi.spawns[15] = 'h00Q'
+	UnitApi.bounties.saveInt('h00Q', 6)
+
+	UnitApi.spawns[16] = 'h00R'
+	UnitApi.bounties.saveInt('h00R', 6)
+
+	UnitApi.spawns[17] = 'h00U'
+	UnitApi.bounties.saveInt('h00U', 6)
+
+	UnitApi.spawns[18] = UnitApi.ID_QUILL_MASTAH
+	UnitApi.bounties.saveInt(UnitApi.ID_QUILL_MASTAH, 60)
+
+	UnitApi.spawns[19] = 'h00Z'
+	UnitApi.bounties.saveInt('h00Z', 8)
+
+	UnitApi.spawns[20] = 'h010'
+	UnitApi.bounties.saveInt('h010', 8)
+
+	UnitApi.spawns[21] = 'h011'
+	UnitApi.bounties.saveInt('h011', 8)
+
+	UnitApi.spawns[22] = 'h012'
+	UnitApi.bounties.saveInt('h012', 8)
+
+	UnitApi.spawns[23] = 'h013'
+	UnitApi.bounties.saveInt('h013', 8)
+
+	UnitApi.spawns[24] = 'h014'
+	UnitApi.bounties.saveInt('h014', 80)
+
+	UnitApi.spawns[25] = 'h017'
+	UnitApi.bounties.saveInt('h017', 10)
+
+	UnitApi.spawns[26] = 'h019'
+	UnitApi.bounties.saveInt('h019', 10)
+
+	UnitApi.spawns[27] = 'h01A'
+	UnitApi.bounties.saveInt('h01A', 10)
+
+	UnitApi.spawns[28] = 'h01D'
+	UnitApi.bounties.saveInt('h01D', 10)
+
+	UnitApi.spawns[29] = 'h01E'
+	UnitApi.bounties.saveInt('h01E', 10)
+
+	UnitApi.spawns[30] = 'h01F'
+	UnitApi.bounties.saveInt('h01F', 100)
+
+	UnitApi.spawns[31] = 'h01X'
+	UnitApi.bounties.saveInt('h01X', 12)
+
+	UnitApi.spawns[32] = 'h01Y'
+	UnitApi.bounties.saveInt('h01Y', 12)
+
+	UnitApi.spawns[33] = 'h01Z'
+	UnitApi.bounties.saveInt('h01Z', 12)
+
+	UnitApi.spawns[34] = 'h020'
+	UnitApi.bounties.saveInt('h020', 12)
+
+	UnitApi.spawns[35] = 'h021'
+	UnitApi.bounties.saveInt('h021', 12)
+
+	UnitApi.spawns[36] = 'h029'
+	UnitApi.bounties.saveInt('h029', 120)
+
+	UnitApi.spawns[37] = 'h02H'
+	UnitApi.bounties.saveInt('h02H', 14)
+
+	UnitApi.spawns[38] = 'h02I'
+	UnitApi.bounties.saveInt('h02I', 14)
+
+	UnitApi.spawns[39] = 'h02J'
+	UnitApi.bounties.saveInt('h02J', 14)
+
+	UnitApi.spawns[40] = 'h02K'
+	UnitApi.bounties.saveInt('h02K', 14)
+
+	UnitApi.spawns[41] = 'h02L'
+	UnitApi.bounties.saveInt('h02L', 14)
+
+	UnitApi.spawns[42] = 'h02M'
+	UnitApi.bounties.saveInt('h02M', 140)

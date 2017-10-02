@@ -1,0 +1,57 @@
+package SpawnBehaviour
+	import ClosureTimers
+	import GameTimer
+	import HashMap
+
+	import UnitApi
+	import Players
+
+	native UnitAlive(unit u) returns boolean
+
+	constant INVULNERABLE_ID = 'Avul'
+
+	constant AI_FIDELITY = 1.
+
+	constant grp = CreateGroup()
+
+	constant taunts         = new HashMap<unit, unit>
+	constant tauntDurations = new HashMap<unit, int>
+
+	function getClosestRunner(unit q) returns unit
+		unit u = null
+		var r = 9999999.
+
+		for index = 0 to Players.COUNT - 1
+			let x = GetUnitX(q) - GetUnitX(UnitApi.runners[index])
+			let y = GetUnitY(q) - GetUnitY(UnitApi.runners[index])
+
+			if UnitAlive(UnitApi.runners[index]) and (not UnitApi.runners[index].hasAbility(INVULNERABLE_ID)) and (x * x) + (y * y) < r
+				r = (x * x) + (y * y)
+				u = UnitApi.runners[index]
+
+		if taunts.has(q)
+			let target = taunts.get(q)
+			let left = tauntDurations.get(q) - getElapsedGameTime()
+
+			if left <= 0. or not target.isAlive()
+				taunts.remove(q)
+				tauntDurations.remove(q)
+			else
+				if not target.hasAbility(INVULNERABLE_ID)
+					u = target
+
+		return u
+
+	public function addTaunt(unit u, unit target, real duration)
+		tauntDurations.put(u, (getElapsedGameTime() + duration).toInt())
+		taunts.put(u, target)
+
+	init
+		doPeriodically(AI_FIDELITY, (CallbackPeriodic _) -> begin
+			if GetPlayerState(Players.creeps, PLAYER_STATE_RESOURCE_FOOD_USED) > 0
+				GroupEnumUnitsOfPlayer(grp, Players.creeps, null)
+				for fst from grp
+					let targ = getClosestRunner(fst)
+					if UnitAlive(fst) and targ != null
+						IssuePointOrder(fst, "attack", GetUnitX(targ), GetUnitY(targ))
+		end)

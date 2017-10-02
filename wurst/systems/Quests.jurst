@@ -42,7 +42,7 @@ library Quests
 	constant ABOUT_TITLE = "About"
 
 	function addQuest takes string desc, string iconPath, boolean required, string title returns quest
-		quest q = CreateQuest()
+		let q = CreateQuest()
 		QuestSetCompleted(q, false)
         QuestSetDescription(q, desc)
         QuestSetDiscovered(q, true)

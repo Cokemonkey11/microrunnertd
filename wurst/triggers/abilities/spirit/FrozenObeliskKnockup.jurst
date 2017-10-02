@@ -1,5 +1,5 @@
 package FrozenObeliskKnockup
-	import Units
+	import UnitApi
 	import DamageType
 	import StructuredDD
 	import Knockback3D
@@ -10,7 +10,7 @@ package FrozenObeliskKnockup
 		unit dS = GetEventDamageSource()
 		unit tU = GetTriggerUnit()
 
-		if GetUnitTypeId(dS) == OB_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1
+		if GetUnitTypeId(dS) == OB_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 			if Knockback3D.getVel(tU) == 0.
 				Knockback3D.add(tU, 500., 0., bj_PI/2.)
 			end

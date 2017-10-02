@@ -1,6 +1,6 @@
 package Game
 import Players
-import Units
+import UnitApi
 import Sounds
 import Knockback3D
 
@@ -99,7 +99,7 @@ public class Game
 
 	static function _end()
 		if not ended
-			Units.freezeAll()
+			UnitApi.freezeAll()
 			ended = true
 			TimerStart(CreateTimer(), 20., false, function fadeWait)
 			TimerStart(CreateTimer(), 30., false, function afterEnd)
@@ -158,7 +158,7 @@ public class Game
 			DisplayTextToPlayer(Players.locl, 0., 0., "|cff999999High Gravity Round!|r")
 
 		for index = 0 to size - 1
-			u = CreateUnit(Players.creeps, Units.spawns[round], Players.brownStartX, Players.brownStartY, 180.)
+			u = CreateUnit(Players.creeps, UnitApi.spawns[round], Players.brownStartX, Players.brownStartY, 180.)
 			if Game.hard
 				UnitAddAbility(u, DAMAGE_BONUS)
 				UnitAddAbility(u, MOVE_SPEED_BONUS)
@@ -188,7 +188,6 @@ public class Game
 				UnitAddAbility(fst, 'A017')
 
 	private static function removeTowerGravity()
-		unit fst
 		GroupEnumUnitsOfPlayer(grp, Players.id[0], null)
 		for fst from grp
 			if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
@@ -213,21 +212,21 @@ public class Game
 			if ModuloInteger(round, 15) == 0 and round != 0
 				applyTowerGravity()
 
-			for i = 0 to 1
+			for index = 0 to 1
 				if Players.playing[index]
-					Units.runners[index] = CreateUnit(Players.id[index], Units.runnerTypes[index], Players.startX[index], Players.startY[index]-16. + 32. * index, 180.)
+					UnitApi.runners[index] = CreateUnit(Players.id[index], UnitApi.runnerTypes[index], Players.startX[index], Players.startY[index]-16. + 32. * index, 180.)
 					if ModuloInteger(round, 15) == 0 and round != 0
-						UnitAddAbility(Units.runners[index], GRAVITY_ABILITY)
+						UnitAddAbility(UnitApi.runners[index], GRAVITY_ABILITY)
 						Knockback3D.setGravity(90.)
 						Knockback3D.setGravity(45.)
 					DestroyEffect(AddSpecialEffect(TELE_IN_FX, Players.startX[index], Players.startY[index]))
 
 					if Players.locl == Players.id[index]
 						ClearSelection()
-						SelectUnit(Units.runners[index], true)
+						SelectUnit(UnitApi.runners[index], true)
 						PanCameraToTimed(Players.startX[index], Players.startY[index], 0.)
-					UnitAddAbility(Units.runners[index], 'Adef')
-					UnitRemoveAbility(Units.runners[index], 'Adef')
+					UnitAddAbility(UnitApi.runners[index], 'Adef')
+					UnitRemoveAbility(UnitApi.runners[index], 'Adef')
 
 			TimerStart(GetExpiredTimer(), SPAWN_DELAY, false, function spawn)
 
@@ -253,11 +252,11 @@ public class Game
 				removeTowerGravity()
 
 			for index = 0 to 1
-				if UnitAlive(Units.runners[index])
-					DestroyEffect(AddSpecialEffect(TELE_FX, GetUnitX(Units.runners[index]), GetUnitY(Units.runners[index])))
-					RemoveUnit(Units.runners[index])
+				if UnitAlive(UnitApi.runners[index])
+					DestroyEffect(AddSpecialEffect(TELE_FX, GetUnitX(UnitApi.runners[index]), GetUnitY(UnitApi.runners[index])))
+					RemoveUnit(UnitApi.runners[index])
 
-			if round >= Units.ROUND_COUNT
+			if round >= UnitApi.ROUND_COUNT
 				RemovePlayer(Players.id[0], PLAYER_GAME_RESULT_VICTORY)
 				RemovePlayer(Players.id[1], PLAYER_GAME_RESULT_VICTORY)
 				DisplayTextToPlayer(Players.locl, 0., 0., "You won every round, |cffffcc00congratulations|r! The game will end in 30 seconds.")
@@ -282,7 +281,7 @@ public class Game
 	static function checkSkip()
 		if (Players.playingCount == 1)
 			doSkip()
-		else if (Units.runnerTypes[0] != 0 and Units.runnerTypes[1] != 0)
+		else if (UnitApi.runnerTypes[0] != 0 and UnitApi.runnerTypes[1] != 0)
 			doSkip()
 
 	static function setupRace(int runnerType, int altarType, unit sold)
@@ -293,7 +292,7 @@ public class Game
 		if Players.locl == p
 			SelectUnit(sold, true)
 
-		Units.runnerTypes[pid] = runnerType
+		UnitApi.runnerTypes[pid] = runnerType
 		CreateUnit(Players.id[pid], altarType, Players.altarX[pid], Players.altarY[pid], 270.)
 
 		checkSkip()
@@ -315,11 +314,11 @@ public class Game
 		Sounds.play(TIP, 1., 127)
 
 	private static function afterChoose()
-		if Players.playing[0] and Units.runnerTypes[0] == 0
-			Units.choosers[0].issueImmediateOrder("berserk")
+		if Players.playing[0] and UnitApi.runnerTypes[0] == 0
+			UnitApi.choosers[0].issueImmediateOrder("berserk")
 
-		if Players.playing[1] and Units.runnerTypes[1] == 0
-			Units.choosers[1].issueImmediateOrder("berserk")
+		if Players.playing[1] and UnitApi.runnerTypes[1] == 0
+			UnitApi.choosers[1].issueImmediateOrder("berserk")
 
 	private static function endCinematic()
 		DestroyTimer(GetExpiredTimer())
@@ -352,7 +351,7 @@ public class Game
 		DestroyTimer(GetExpiredTimer())
 		if cinematicOn
 			fadeIn(.5)
-			demoRunner = CreateUnit(Player(2), Units.ID_RUNNER_SPIRIT, 0., 1024., 180.)
+			demoRunner = CreateUnit(Player(2), UnitApi.ID_RUNNER_SPIRIT, 0., 1024., 180.)
 			demoTower  = CreateUnit(Player(2), 'h007', -851., 562., 270.)
 			demoChaser = CreateUnit(Players.creeps, 'h022', 256. + 128., 1024., 0.)
 			SetUnitState(demoTower, UNIT_STATE_MANA, 500.)
@@ -383,9 +382,9 @@ init
 		if Players.playing[index]
 
 			// Spawn Starting Units
-			Units.choosers[index] = CreateUnit(Players.id[index], Units.RACE_SELECT, Players.startX[index], Players.startY[index], 270.)
+			UnitApi.choosers[index] = CreateUnit(Players.id[index], UnitApi.RACE_SELECT, Players.startX[index], Players.startY[index], 270.)
 			if Players.locl == Players.id[index]
-				SelectUnit(Units.choosers[index], true)
+				SelectUnit(UnitApi.choosers[index], true)
 
 			// Adjust Starting Gold
 			SetPlayerState(Players.id[index], PLAYER_STATE_RESOURCE_GOLD, R2I(Game.GOLD_START / Players.playingCount))

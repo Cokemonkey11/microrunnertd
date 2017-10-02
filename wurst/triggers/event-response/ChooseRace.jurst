@@ -1,5 +1,5 @@
 package ChooseRace
-	import Units
+	import UnitApi
 	import Game
 	import RegisterPlayerUnitEvent
 
@@ -7,12 +7,12 @@ package ChooseRace
 		unit u         = GetSoldUnit()
 		int raceId = GetUnitTypeId(u)
 
-		if raceId == Units.ID_BUILDER_SPIRIT
-			Game.setupRace(Units.ID_RUNNER_SPIRIT, Units.ID_ALTAR_SPIRIT, u)
-		elseif raceId == Units.ID_BUILDER_WASTE
-			Game.setupRace(Units.ID_RUNNER_WASTE,  Units.ID_ALTAR_WASTE,  u)
-		elseif raceId == Units.ID_BUILDER_METAL
-			Game.setupRace(Units.ID_RUNNER_METAL,  Units.ID_ALTAR_METAL,  u)
+		if raceId == UnitApi.ID_BUILDER_SPIRIT
+			Game.setupRace(UnitApi.ID_RUNNER_SPIRIT, UnitApi.ID_ALTAR_SPIRIT, u)
+		elseif raceId == UnitApi.ID_BUILDER_WASTE
+			Game.setupRace(UnitApi.ID_RUNNER_WASTE,  UnitApi.ID_ALTAR_WASTE,  u)
+		elseif raceId == UnitApi.ID_BUILDER_METAL
+			Game.setupRace(UnitApi.ID_RUNNER_METAL,  UnitApi.ID_ALTAR_METAL,  u)
 		end
 	end
 

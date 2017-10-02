@@ -1,0 +1,67 @@
+package Pathing
+var done = false
+real xIter
+
+function yIterRightSide()
+	var index = -1710.
+	while index <= 450.
+		SetTerrainPathable(xIter, index, PATHING_TYPE_BUILDABILITY, false)
+		index += 16.
+
+function yIterLeftSide()
+	var index = -1940.
+	while index <= 1340.
+		SetTerrainPathable(xIter, index, PATHING_TYPE_BUILDABILITY, false)
+		index += 16.
+
+function yIterCenterArea()
+	var index = 275.
+	while index <= 575.
+		SetTerrainPathable(xIter, index, PATHING_TYPE_WALKABILITY, false)
+		index += 16.
+
+function yIterTop()
+	var index = 1360.
+	while index <= 1630.
+		SetTerrainPathable(xIter, index, PATHING_TYPE_BUILDABILITY, false)
+		index += 16.
+
+function opLimitCheck()
+	if not done
+		BJDebugMsg("Pathing: Op-Limit reached!")
+
+init
+	real index
+
+	// Op-limit checker.
+	TimerStart(CreateTimer(), 1., false, function opLimitCheck)
+
+	// Right side of the map "fancy" houses.
+	index = 1230.
+	while index <= 1920.
+		xIter = index
+		ExecuteFunc("yIterRightSide")
+		index += 16.
+
+	// Left side of the map various houses.
+	index = -1940.
+	while index <= -1340.
+		xIter = index
+		ExecuteFunc("yIterLeftSide")
+		index += 16.
+
+	// Top of the map various houses.
+	index = -1360.
+	while index <= 1470.
+		xIter = index
+		ExecuteFunc("yIterTop")
+		index += 16.
+
+	// Unwalkable middle area (frog).
+	index = -690.
+	while index <= 190.
+		xIter = index
+		ExecuteFunc("yIterCenterArea")
+		index += 16.
+
+	done = true

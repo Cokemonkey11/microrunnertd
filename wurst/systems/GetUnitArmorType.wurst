@@ -1,0 +1,58 @@
+package GetUnitArmorType
+import StructuredDD
+import Players
+
+constant tab = new Table
+constant BONUS_HP = 'A00M'
+
+public class ArmorType
+	static constant UNKNOWN = 0
+	static constant MEDIUM_FORTIFIED = 1
+	static constant UNARMORED = 2
+	static constant HERO = 3
+	static constant DIVINE = 4
+	static constant HEAVY_NORMAL = 5
+	static constant LIGHT = 6
+
+public function getUnitArmorType(unit u) returns int
+	let typ = GetUnitTypeId(u)
+	int ret
+	real q
+
+	if tab.hasInt(typ)
+		return tab.loadInt(typ)
+	else
+		let hp = GetWidgetLife(u)
+		UnitAddAbility(u, BONUS_HP)
+		SetUnitState(u, UNIT_STATE_LIFE, 10000)
+		StructuredDD.disable()
+		UnitDamageTarget(u, u, 1., true, true, ConvertAttackType(7), DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
+		StructuredDD.enable()
+		q = 10000 - GetWidgetLife(u)
+		if q == 1
+			tab.saveInt(typ, ArmorType.MEDIUM_FORTIFIED)
+			ret = ArmorType.MEDIUM_FORTIFIED
+		else if q == 25
+			tab.saveInt(typ, ArmorType.UNARMORED)
+			ret = ArmorType.UNARMORED
+		else if q == 150
+			tab.saveInt(typ, ArmorType.HERO)
+			ret = ArmorType.HERO
+		else if q == 400
+			tab.saveInt(typ, ArmorType.DIVINE)
+			ret = ArmorType.DIVINE
+		else if q == 522
+			tab.saveInt(typ, ArmorType.HEAVY_NORMAL)
+			ret = ArmorType.HEAVY_NORMAL
+		else if q == 2048
+			tab.saveInt(typ, ArmorType.LIGHT)
+			ret = ArmorType.LIGHT
+		else
+			tab.saveInt(typ, ArmorType.UNKNOWN)
+			DisplayTextToPlayer(Players.locl, 0., 0., "Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(q))
+			ret = ArmorType.UNKNOWN
+
+		UnitRemoveAbility(u, BONUS_HP)
+		SetWidgetLife(u, hp)
+
+		return ret

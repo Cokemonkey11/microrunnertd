@@ -3,9 +3,10 @@ package SummonHealingWard
 	import SimError
 	import RegisterPlayerUnitEvent
 
+	import Assets
+
 	constant SUMMON_ID = 'A00T'
 	constant UNIT_ID = 'h023'
-	constant FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 
 	function act()
 		if GetSpellAbilityId() == SUMMON_ID
@@ -16,7 +17,7 @@ package SummonHealingWard
 
 			if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y, PATHING_TYPE_BUILDABILITY))
 				let s = CreateUnit(p, UNIT_ID, x, y, 270.)
-				DestroyEffect(AddSpecialEffect(FX, GetUnitX(s), GetUnitY(s)))
+				DestroyEffect(AddSpecialEffect(Other.feralspiritdone, GetUnitX(s), GetUnitY(s)))
 				UnitRemoveAbility(tU, SUMMON_ID)
 			else
 				simError(p, "Cannot summon there.")

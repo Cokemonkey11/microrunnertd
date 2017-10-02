@@ -1,0 +1,43 @@
+package Players
+public class Players
+	static constant COUNT = 2
+	static player locl
+	static boolean array playing
+	static player array id
+	static player creeps = Player(11)
+	static player passive = Player(PLAYER_NEUTRAL_PASSIVE)
+	static real array startX
+	static real array startY
+	static real array altarX
+	static real array altarY
+	static real brownStartX
+	static real brownStartY
+	static int playingCount = 0
+	static player singleplayer = null
+
+init
+	Players.locl = GetLocalPlayer()
+
+	for index = 0 to 15
+		Players.id[index] = Player(index)
+
+		if index < 2
+			Players.playing[index] = (GetPlayerSlotState(Players.id[index]) == PLAYER_SLOT_STATE_PLAYING) and (GetPlayerController(Players.id[index]) == MAP_CONTROL_USER)
+
+			if Players.playing[index]
+				Players.playingCount++
+
+			Players.startX[index] = 1024.
+			Players.startY[index] = 1024.
+			Players.altarX[index] = 1728.
+
+	if Players.playingCount == 1
+		if Players.playing[0]
+			Players.singleplayer = Players.id[0]
+		else
+			Players.singleplayer = Players.id[1]
+
+	Players.altarY[0] = 1024.
+	Players.altarY[1] = 1024. + 256.
+	Players.brownStartX = 1024 + 128.
+	Players.brownStartY = 1024.

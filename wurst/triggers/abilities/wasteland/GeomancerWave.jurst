@@ -1,5 +1,5 @@
 package GeomancerWave
-	import Units
+	import UnitApi
 	import DamageType
 	import StructuredDD
 
@@ -9,7 +9,7 @@ package GeomancerWave
 		let dS = GetEventDamageSource()
 		let tU = GetTriggerUnit()
 
-		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, Units.IMMUNE) < 1
+		if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 			IssueTargetOrder(dS, "carrionswarm", tU)
 		end
 	end
