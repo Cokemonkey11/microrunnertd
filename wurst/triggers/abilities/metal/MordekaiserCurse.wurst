@@ -1,0 +1,19 @@
+package MordekaiserCurse
+import DamageType
+import DamageDetection
+
+constant ID_MORDEKAISER  = 'h031'
+constant ID_CURSE_DEBUFF = 'A01N'
+
+function h()
+	let dS = GetEventDamageSource()
+	let tU = GetTriggerUnit()
+
+	if GetUnitTypeId(dS) == ID_MORDEKAISER and DamageType.get() == DamageType.ATTACK
+		dS.issueImmediateOrder("stop")
+
+		if not tU.hasAbility(ID_CURSE_DEBUFF)
+			tU.addAbility(ID_CURSE_DEBUFF)
+
+init
+	addOnDamageFunc(function h)

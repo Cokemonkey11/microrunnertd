@@ -1,0 +1,70 @@
+package SellTower
+import FloatText
+import Sounds
+import RegisterPlayerUnitEvent
+
+native GetUnitGoldCost(int id) returns int
+
+constant ID                      = 'A00O'
+constant ID_THALL_BOX            = 'h02T'
+constant ID_ABILITY_SPLENDOR     = 'A01C'
+constant ID_ENDOWMENT            = 'A01E'
+constant ID_ENDOWMENT_PAS        = 'A01F'
+constant ID_ENDOWMENT_BLACK      = 'A01H'
+constant ID_ENDOWMENT_BLACK_MANA = 'A01J'
+constant ID_ENDOWMENT_BLACK_MR   = 'A01I'
+
+constant RADIUS = 90. + 16. * 2.
+
+constant FX  = "Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl"
+constant SND = "Abilities\\Spells\\Items\\ResourceItems\\ReceiveGold.wav"
+
+constant grp = CreateGroup()
+
+public Table endowments      = new Table
+public Table blackEndowments = new Table
+
+function hasDoubleValue(unit u) returns bool
+	var splendorCheck = false
+
+	grp.enumUnitsInRange(vec2(u.getX(), u.getY()), RADIUS)
+	for iter from grp
+		if iter.isAlive() and iter.getTypeId() == ID_THALL_BOX and iter.getOwner() == u.getOwner() and iter.hasAbility(ID_ABILITY_SPLENDOR)
+			splendorCheck = true
+
+	return splendorCheck
+
+function checkEndowments(unit metal)
+	if Table.ht.hasHandle(endowments      castTo int, metal.getHandleId())
+		endowments.loadUnit(metal.getHandleId())..removeAbility(ID_ENDOWMENT)
+												..removeAbility(ID_ENDOWMENT_PAS)
+
+	if Table.ht.hasHandle(blackEndowments castTo int, metal.getHandleId())
+		blackEndowments.loadUnit(metal.getHandleId())..removeAbility(ID_ENDOWMENT_BLACK)
+														..removeAbility(ID_ENDOWMENT_BLACK_MANA)
+														..removeAbility(ID_ENDOWMENT_BLACK_MR)
+
+function act()
+	if GetSpellAbilityId() == ID
+		let tU = GetTriggerUnit()
+		let x  = GetUnitX(tU)
+		let y  = GetUnitY(tU)
+		let p  = GetOwningPlayer(tU)
+		var i  = GetUnitGoldCost(GetUnitTypeId(tU))
+
+		if not hasDoubleValue(tU)
+			i = R2I(i / 2.)
+
+		checkEndowments(tU)
+
+		SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + i)
+		FloatText.bountyPlayer(x, y, i, p)
+		DestroyEffect(AddSpecialEffect(FX, x, y))
+		Sounds.play(SND, 1., 127)
+
+		RemoveUnit(tU)
+
+init
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+
+	Sounds.preload(SND)

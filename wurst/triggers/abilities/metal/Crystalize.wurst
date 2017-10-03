@@ -1,0 +1,36 @@
+package Crystalize
+import RegisterPlayerUnitEvent
+import ClosureTimers
+import Invulnerable
+
+native UnitAlive(unit u) returns boolean
+
+constant CRYSTALIZE_ID   = 'A012'
+constant INVULNERABLE_ID = 'Avul'
+
+constant DURATION = 5.
+constant EFFECT_PATH = "white-ring.mdx"
+
+function act()
+	if GetSpellAbilityId() == CRYSTALIZE_ID
+		let tU = GetTriggerUnit()
+
+		Invulnerable.apply(tU, DURATION)
+
+		tU..setTimeScale(0.)
+			..setVertexColor(255, 155, 155, 255)
+			..pause()
+			..addAbility(INVULNERABLE_ID)
+
+		DestroyEffect(AddSpecialEffect(EFFECT_PATH, GetUnitX(tU), GetUnitY(tU)))
+
+		doAfter(DURATION, () -> begin
+			if UnitAlive(tU)
+				tU..setTimeScale(1.)
+					..setVertexColor(255, 255, 255, 255)
+					..unpause()
+		end)
+
+
+init
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)

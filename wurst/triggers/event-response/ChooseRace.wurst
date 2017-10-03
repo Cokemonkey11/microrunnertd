@@ -1,0 +1,18 @@
+package ChooseRace
+import UnitApi
+import Game
+import RegisterPlayerUnitEvent
+
+function act()
+	let u = GetSoldUnit()
+	let raceId = GetUnitTypeId(u)
+
+	if raceId == UnitApi.ID_BUILDER_SPIRIT
+		Game.setupRace(UnitApi.ID_RUNNER_SPIRIT, UnitApi.ID_ALTAR_SPIRIT, u)
+	else if raceId == UnitApi.ID_BUILDER_WASTE
+		Game.setupRace(UnitApi.ID_RUNNER_WASTE,  UnitApi.ID_ALTAR_WASTE,  u)
+	else if raceId == UnitApi.ID_BUILDER_METAL
+		Game.setupRace(UnitApi.ID_RUNNER_METAL,  UnitApi.ID_ALTAR_METAL,  u)
+
+init
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL, function act)

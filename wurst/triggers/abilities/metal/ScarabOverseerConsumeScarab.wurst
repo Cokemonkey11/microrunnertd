@@ -1,0 +1,64 @@
+package ScarabOverseerConsumeScarab
+import SimError
+import RegisterPlayerUnitEvent
+import Sounds
+import ClosureTimers
+
+constant ID_CONSUME_SCARAB = 'A01V'
+constant ID_SCARAB         = 'h037'
+constant ID_BONUS          = 'A01T'
+constant ID_BONUS_PAS      = 'A01U'
+
+constant INITIAL_CAST_TIME = .5
+constant SECOND_WAIT_TIME  = .25
+
+constant SOUND_CAST_BEGIN         = "Units\\Undead\\Scarab\\ScarabBirth.wav"
+constant SOUND_SCARAB_DEATH       = "Units\\Undead\\Scarab\\ScarabYes3.wav"
+constant SOUND_OVERSEER_FEASTING  = "Units\\Undead\\HeroCryptLord\\CryptLordAttackEffort1.wav"
+constant SOUND_OVERSEER_FEASTING2 = "Units\\Undead\\HeroCryptLord\\CryptLordAttackEffort2.wav"
+constant EFFECT_BENEFIT_RECEIVED  = "Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl"
+
+function act()
+	if GetSpellAbilityId() == ID_CONSUME_SCARAB
+		let target = GetSpellTargetUnit()
+		let caster = GetTriggerUnit()
+		let owner  = caster.getOwner()
+
+		if target.getTypeId() == ID_SCARAB
+			target.addAbility('Aloc') // Prevent the user from selling it.
+			Sounds.play3D(SOUND_CAST_BEGIN, 1., target.getX(), target.getY(), 50.)
+			Sounds.play3D(SOUND_CAST_BEGIN, 1., caster.getX(), caster.getY(), 80.)
+
+			doAfter(INITIAL_CAST_TIME, () -> begin
+				target.remove()
+				Sounds.play3D(SOUND_SCARAB_DEATH, 1., caster.getX(), caster.getY(), 80.)
+
+				doAfter(SECOND_WAIT_TIME, () -> begin
+					let level = caster.getAbilityLevel(ID_BONUS)
+
+					let r = GetRandomInt(0, 1)
+
+					if r == 0
+						Sounds.play3D(SOUND_OVERSEER_FEASTING,  1., caster.getX(), caster.getY(), 80.)
+					else
+						Sounds.play3D(SOUND_OVERSEER_FEASTING2, 1., caster.getX(), caster.getY(), 80.)
+
+					caster.addEffect(EFFECT_BENEFIT_RECEIVED, "origin").destr()
+
+					if level >= 5
+						caster.removeAbility(ID_CONSUME_SCARAB)
+
+					caster.setAbilityLevel(ID_BONUS,     level + 1)
+					caster.setAbilityLevel(ID_BONUS_PAS, level + 1)
+				end)
+			end)
+		else
+			simError(owner, "Can only be used on a basic Scarab.")
+
+init
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+
+	Sounds.preload(SOUND_CAST_BEGIN)
+	Sounds.preload(SOUND_SCARAB_DEATH)
+	Sounds.preload(SOUND_OVERSEER_FEASTING)
+	Sounds.preload(SOUND_OVERSEER_FEASTING2)

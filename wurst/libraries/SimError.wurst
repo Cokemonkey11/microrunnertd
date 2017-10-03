@@ -1,0 +1,24 @@
+package SimError
+//**************************************************************************************************
+//*
+//*  SimError
+//*
+//*     Mimic an interface error message
+//*       call SimError(ForPlayer, msg)
+//*         ForPlayer : The player to show the error
+//*         msg       : The error
+//*
+//*     To implement this function, copy this trigger and paste it in your map.
+//* Unless of course you are actually reading the library from wc3c's scripts section, then just
+//* paste the contents into some custom text trigger in your map.
+//*
+//**************************************************************************************************
+
+constant error = CreateSoundFromLabel("InterfaceError", false, false, false, 10, 10)
+
+public function simError(player forPlayer, string msg)
+    let v = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n|cffffcc00" + msg + "|r"
+    if GetLocalPlayer() == forPlayer
+        ClearTextMessages()
+        DisplayTimedTextToPlayer(forPlayer, 0.52, 0.96, 2.00, v)
+        StartSound(error)

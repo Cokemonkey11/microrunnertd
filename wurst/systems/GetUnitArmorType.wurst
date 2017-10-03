@@ -1,5 +1,5 @@
 package GetUnitArmorType
-import StructuredDD
+import DamageDetection
 import Players
 
 constant tab = new Table
@@ -25,9 +25,9 @@ public function getUnitArmorType(unit u) returns int
 		let hp = GetWidgetLife(u)
 		UnitAddAbility(u, BONUS_HP)
 		SetUnitState(u, UNIT_STATE_LIFE, 10000)
-		StructuredDD.disable()
+		disableDamageDetect()
 		UnitDamageTarget(u, u, 1., true, true, ConvertAttackType(7), DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-		StructuredDD.enable()
+		enableDamageDetect()
 		q = 10000 - GetWidgetLife(u)
 		if q == 1
 			tab.saveInt(typ, ArmorType.MEDIUM_FORTIFIED)

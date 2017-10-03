@@ -1,0 +1,69 @@
+package LeviathanWellSummon
+import DamageDetection
+import DamageType
+import Players
+import ClosureTimers
+import TerrainData
+
+constant ID_LEVIATHAN_WELL   = 'h03E'
+constant ID_LEVIATHAN_SUMMON = 'o001'
+
+constant BLINK_CASTER = "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl"
+constant BLINK_TARGET = "Abilities\\Spells\\NightElf\\Blink\\BlinkTarget.mdl"
+
+constant RADIUS       = 500.
+constant CLOCK_PERIOD =   1. / 30.
+
+unit array leviathans
+vec2 array currWells
+unit array currWellUnits
+
+constant grp = CreateGroup()
+
+function h()
+	let dS = GetEventDamageSource()
+
+	if GetUnitTypeId(dS) == ID_LEVIATHAN_WELL and DamageType.get() == DamageType.ATTACK
+		let owner = dS.getOwner()
+		let pId   = owner.getId()
+
+		if leviathans[pId] == null
+			currWells[pId]  = vec2(dS.getX(), dS.getY())
+			currWellUnits[pId] = dS
+			leviathans[pId] = CreateUnit(owner, ID_LEVIATHAN_SUMMON, dS.getX(), dS.getY(), 270.)
+			leviathans[pId]..addAbility('Aloc')
+							..setVertexColor(255, 255, 255, 125)
+							..setTimeScale(.8)
+			leviathans[pId].addEffect(BLINK_TARGET, "origin").destr()
+
+			doPeriodically(CLOCK_PERIOD, (CallbackPeriodic _) -> begin
+				if currWellUnits[pId] == null or (not currWellUnits[pId].isAlive())
+					currWellUnits[pId] = null
+					currWells[pId] = vec2(TerrainData.SAFE_X, TerrainData.SAFE_Y)
+
+				leviathans[pId]..setX(currWells[pId].x)
+								..setY(currWells[pId].y)
+			end)
+
+		var hasUnit = false
+
+		grp.enumUnitsInRange(vec2(leviathans[pId].getX(), leviathans[pId].getY()), RADIUS)
+		for iter from grp
+			if iter.isAlive() and IsUnitEnemy(iter, owner)
+				hasUnit = true
+
+		if (not hasUnit) and (not currWellUnits[pId] == dS)
+			currWells[pId] = vec2(dS.getX(), dS.getY())
+			currWellUnits[pId] = dS
+			addEffect(BLINK_CASTER, vec3(leviathans[pId].getX(), leviathans[pId].getY(), 200.))
+
+			leviathans[pId]..setPos(currWells[pId])
+							..issueImmediateOrder("stop")
+			leviathans[pId].addEffect(BLINK_TARGET, "origin").destr()
+
+init
+	addOnDamageFunc(function h)
+
+	for i = 0 to Players.COUNT - 1
+		leviathans[i]    = null
+		currWellUnits[i] = null

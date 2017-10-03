@@ -1,0 +1,14 @@
+package ArchmageLightning
+import DamageDetection
+import DamageType
+
+constant ARCH_ID = 'h00G'
+
+function h()
+	let dS = GetEventDamageSource()
+
+	if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK
+		IssueTargetOrder(dS, "forkedlightning", GetTriggerUnit())
+
+init
+	addOnDamageFunc(function h)

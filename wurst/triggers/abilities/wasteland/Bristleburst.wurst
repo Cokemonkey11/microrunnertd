@@ -1,0 +1,18 @@
+package Bristleburst
+import DamageType
+import DamageDetection
+
+constant ARCH_ID = 'h01G'
+constant ARMOR = 'A00R'
+constant EFFECT = 'A003'
+
+function h()
+	let dS = GetEventDamageSource()
+
+	if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.SPELL
+		let tU = GetTriggerUnit()
+		UnitAddAbility(tU, ARMOR)
+		UnitAddAbility(tU, EFFECT)
+
+init
+	addOnDamageFunc(function h)

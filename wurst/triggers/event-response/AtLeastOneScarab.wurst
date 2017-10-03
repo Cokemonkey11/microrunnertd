@@ -1,0 +1,27 @@
+package AtLeastOneScarab
+import Players
+import RegisterPlayerUnitEvent
+import TerrainData
+
+constant ID_SCARAB       = 'h037'
+constant ID_AT_LEAST_ONE = 'h039'
+
+bool array hasTechs
+
+function a()
+	let cons = GetConstructedStructure()
+
+	if cons.getTypeId() == ID_SCARAB
+		let owner = cons.getOwner()
+		let pId   = owner.getId()
+
+		if not hasTechs[pId]
+			hasTechs[pId] = true
+			CreateUnit(owner, ID_AT_LEAST_ONE, TerrainData.SAFE_X, TerrainData.SAFE_Y, 0.)
+				..hide()
+
+init
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH, function a)
+
+	for i = 0 to Players.COUNT - 1
+		hasTechs[i] = false

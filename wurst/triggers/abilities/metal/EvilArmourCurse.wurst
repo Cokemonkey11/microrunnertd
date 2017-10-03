@@ -1,0 +1,19 @@
+package EvilArmourCurse
+import DamageType
+import DamageDetection
+
+constant ID_EVILARMOUR   = 'h032'
+constant ID_CURSE_DEBUFF = 'A01P'
+
+function h()
+	let dS = GetEventDamageSource()
+	let tU = GetTriggerUnit()
+
+	if GetUnitTypeId(dS) == ID_EVILARMOUR and DamageType.get() == DamageType.ATTACK
+		dS.issueImmediateOrder("stop")
+
+		if not tU.hasAbility(ID_CURSE_DEBUFF)
+			tU.addAbility(ID_CURSE_DEBUFF)
+
+init
+	addOnDamageFunc(function h)

@@ -1,0 +1,18 @@
+package Bounty
+import Players
+import UnitApi
+import FloatText
+import RegisterPlayerUnitEvent
+
+function a()
+	let tU = GetTriggerUnit()
+	let id = GetUnitTypeId(tU)
+
+	if GetOwningPlayer(tU) == Players.creeps and UnitApi.bounties.hasInt(id)
+		let val = R2I(UnitApi.bounties.loadInt(id) / Players.playingCount)
+		FloatText.bounty(GetUnitX(tU), GetUnitY(tU), val)
+		SetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[0], PLAYER_STATE_RESOURCE_GOLD) + val)
+		SetPlayerState(Players.id[1], PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Players.id[1], PLAYER_STATE_RESOURCE_GOLD) + val)
+
+init
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH, function a)

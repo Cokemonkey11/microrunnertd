@@ -2,7 +2,7 @@ package Game
 import Players
 import UnitApi
 import Sounds
-import Knockback3D
+import Knockback3
 
 native UnitAlive(unit u) returns boolean
 
@@ -217,8 +217,6 @@ public class Game
 					UnitApi.runners[index] = CreateUnit(Players.id[index], UnitApi.runnerTypes[index], Players.startX[index], Players.startY[index]-16. + 32. * index, 180.)
 					if ModuloInteger(round, 15) == 0 and round != 0
 						UnitAddAbility(UnitApi.runners[index], GRAVITY_ABILITY)
-						Knockback3D.setGravity(90.)
-						Knockback3D.setGravity(45.)
 					DestroyEffect(AddSpecialEffect(TELE_IN_FX, Players.startX[index], Players.startY[index]))
 
 					if Players.locl == Players.id[index]

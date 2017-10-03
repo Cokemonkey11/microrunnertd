@@ -1,0 +1,33 @@
+package GreaterGuardDevilSoulSiphon
+import DamageType
+import DamageDetection
+import FloatText
+import RegisterPlayerUnitEvent
+
+constant ID_GREATER_GDEVIL = 'h03C'
+constant tab = new Table
+
+function h()
+	let dS = GetEventDamageSource()
+
+	if GetUnitTypeId(dS) == ID_GREATER_GDEVIL and DamageType.get() == DamageType.ATTACK
+		let handleId = dS.getHandleId()
+
+		DamageType.dealCodeDamage(dS, GetTriggerUnit(), I2R(tab.loadInt(handleId)))
+
+function death()
+	let killer = GetKillingUnit()
+
+	if GetUnitTypeId(killer) == ID_GREATER_GDEVIL
+		let handleId = killer.getHandleId()
+		let bonus    = tab.loadInt(handleId) + 1
+
+		if bonus == 1 or bonus == 10 or bonus == 100 or bonus == 1000 or bonus == 10000
+			FloatText.guardPower(killer.getX(), killer.getY(), bonus)
+
+		tab.saveInt(handleId, bonus)
+
+init
+	addOnDamageFunc(function h)
+
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH, function death)

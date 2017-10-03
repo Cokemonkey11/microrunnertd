@@ -4,13 +4,13 @@ import ClosureTimers
 import HashMap
 
 import Players
-import StructuredDD
+import DamageDetection
 import UnitApi
 
 constant summoned = new HashMap<unit, bool>
 
 init
-    StructuredDD.addHandler(() -> begin
+    addOnDamageFunc(() -> begin
         let tU = GetTriggerUnit()
 
         if tU.getTypeId() == UnitApi.ID_QUILL_MASTAH and not summoned.get(tU)

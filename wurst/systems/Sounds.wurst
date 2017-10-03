@@ -1,0 +1,54 @@
+package Sounds
+
+class Wrapper
+    string snd
+
+public class Sounds
+    static Table preloadDB
+
+    private static function preloadAfter()
+        let time = GetExpiredTimer()
+        Wrapper s = preloadDB.loadInt(time.getHandleId()) castTo Wrapper
+        let sd = CreateSound(s.snd, false, false, false, 12700, 12700, "")
+        SetSoundVolume(sd, 1)
+        StartSound(sd)
+        KillSoundWhenDone(sd)
+        destroy s
+        DestroyTimer(time)
+
+    static function preload(string str)
+        let time = CreateTimer()
+        Wrapper s = new Wrapper
+        s.snd = str
+        preloadDB.saveInt(time.getHandleId(), s castTo int)
+        TimerStart(time, .01, false, function preloadAfter)
+
+    static function play3D(string str, real pitch, real x, real y, real z)
+        let s = CreateSound(str, false, true, true, 12700, 12700, "")
+        SetSoundPosition(s, x, y, z)
+        SetSoundVolume(s, 127)
+        SetSoundPitch(s, pitch)
+        StartSound(s)
+        KillSoundWhenDone(s)
+
+    static function playForPlayer(string str, real pitch, player who)
+        let s = CreateSound(str, false, false, false, 12700, 12700, "")
+
+        if GetLocalPlayer() == who
+            SetSoundVolume(s, 127)
+        else
+            SetSoundVolume(s, 0)
+
+        SetSoundPitch(s, pitch)
+        StartSound(s)
+        KillSoundWhenDone(s)
+
+    static function play(string str, real pitch, int vol)
+        let s = CreateSound(str, false, false, false, 12700, 12700, "")
+        SetSoundVolume(s, vol)
+        SetSoundPitch(s, pitch)
+        StartSound(s)
+        KillSoundWhenDone(s)
+
+init
+    Sounds.preloadDB = new Table

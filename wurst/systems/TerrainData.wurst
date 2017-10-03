@@ -1,0 +1,4 @@
+package TerrainData
+public class TerrainData
+	static constant SAFE_X = -1986.
+	static constant SAFE_Y =  1986.

@@ -1,0 +1,16 @@
+package FrogExplosion
+import RegisterPlayerUnitEvent
+import FloatText
+import Players
+
+constant frog = CreateUnit(Players.passive, 'nfro', 0., 0., 0.)
+
+function a()
+	let tU = GetTriggerUnit()
+	if tU == frog
+		KillUnit(tU)
+		FloatText.bonus(GetUnitX(tU), GetUnitY(tU), 50)
+
+init
+	SetUnitExploded(frog, true)
+	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELECTED, function a)

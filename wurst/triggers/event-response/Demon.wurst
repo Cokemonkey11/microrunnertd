@@ -1,0 +1,50 @@
+package Demon
+import Players
+
+constant DEMON_ID = 'h02F'
+constant HOUSE_ID = 'h02G'
+constant grp = CreateGroup()
+
+unit d
+unit house
+
+rect rctb
+rect rcts
+
+function c() returns boolean
+	if GetPlayerId(GetOwningPlayer(GetTriggerUnit())) < 2
+		SetUnitVertexColor(house, 255, 255, 255, R2I(255/3))
+
+	return false
+
+function c2() returns boolean
+	GroupEnumUnitsInRect(grp, rcts, null)
+	if FirstOfGroup(grp) == null
+		SetUnitVertexColor(house, 255, 255, 255, 255)
+
+	return false
+
+init
+	region reg = CreateRegion()
+	region reg2 = CreateRegion()
+	trigger t= CreateTrigger()
+	trigger t2 = CreateTrigger()
+	rcts = Rect(-706., 256., -384., 576.)
+	rctb = Rect(-722, 240, -368., 592.)
+
+	// Place units
+	d = CreateUnit(Players.passive, DEMON_ID, -576., 417., 250.)
+	SetUnitX(d, -576.)
+	SetUnitY(d, 417.)
+	house = CreateUnit(Players.passive, HOUSE_ID, -564., 384., 315.)
+	SetUnitX(house, -564.)
+	SetUnitY(house, 384.)
+
+	// Event response
+	RegionAddRect(reg, rcts)
+	RegionAddRect(reg2, rctb)
+
+	TriggerRegisterEnterRegion(t, reg, null)
+	TriggerRegisterLeaveRegion(t2, reg2, null)
+	TriggerAddCondition(t, Condition(function c))
+	TriggerAddCondition(t2, Condition(function c2))

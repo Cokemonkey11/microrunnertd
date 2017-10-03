@@ -1,0 +1,53 @@
+/**
+ * IsTerrainWalkable snippet for estimating the walkability status of a co-ordinate pair, credits
+ * to Anitarf and Vexorian.
+ *
+ * API:
+ *     boolean IsTerrainWalkable(real x, real y) - returns the walkability of (x, y)
+ */
+package IsTerrainWalkable
+
+// this value is how far from a point the item may end up for the point to be considered pathable
+constant MAX_RANGE = 10.
+
+// the following two variables are set to the position of the item after each pathing check
+// that way, if a point isn't pathable, these will be the coordinates of the nearest point that is
+public var X = 0.
+public var Y = 0.
+rect r
+item check
+item array hidden
+int hiddenMax = 0
+
+init
+    check = CreateItem('ciri', 0., 0.)
+    SetItemVisible(check, false)
+    r = Rect(0.0, 0.0, 128.0, 128.0)
+
+function hideBothersomeItem()
+    if IsItemVisible(GetEnumItem())
+        hidden[hiddenMax] = GetEnumItem()
+        SetItemVisible(hidden[hiddenMax], false)
+        hiddenMax++
+
+public function isTerrainWalkable(real x, real y) returns boolean
+    // Hide any items in the area so they don't get in the way of our item.
+    MoveRectTo(r, x, y)
+    EnumItemsInRect(r, null, function hideBothersomeItem)
+
+    // Try to move the check item and get its coordinates.
+    // This unhides the item...
+    SetItemPosition(check, x, y)
+    X = GetItemX(check)
+    Y = GetItemY(check)
+
+    // ...so we must hide it again.
+    SetItemVisible(check, false)
+
+    // Before returning, unhide any items that got hidden at the start.
+    while hiddenMax > 0
+        hiddenMax--
+        SetItemVisible(hidden[hiddenMax], true)
+
+    // Return pathability status.
+    return (x-X)*(x-X) + (y-Y)*(y-Y) < MAX_RANGE*MAX_RANGE

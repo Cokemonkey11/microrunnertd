@@ -1,0 +1,32 @@
+package ArcharchpriestHeal
+import Players
+
+native UnitAlive(unit u) returns boolean
+
+constant PRIEST_ID = 'h009'
+constant RADIUS = 400.
+constant FX = "Abilities\\Spells\\Other\\HealingSpray\\HealBottleMissile.mdl"
+constant grp = CreateGroup()
+constant grp2 = CreateGroup()
+
+function parsePriest(unit u)
+	let p = GetOwningPlayer(u)
+
+	GroupEnumUnitsInRange(grp2, GetUnitX(u), GetUnitY(u), RADIUS, null)
+	for fst from grp
+		let life = GetWidgetLife(fst)
+		if IsUnitAlly(fst, p) and UnitAlive(fst) and life < 100. and (life/GetUnitState(fst, UNIT_STATE_MAX_LIFE)) < 1. and not IsUnitType(fst, UNIT_TYPE_STRUCTURE)
+			SetWidgetLife(fst, life + 3.)
+			SetUnitState(u, UNIT_STATE_MANA, GetUnitState(u, UNIT_STATE_MANA) - 10.)
+			DestroyEffect(AddSpecialEffectTarget(FX, fst, "origin"))
+			return
+
+function p()
+	for index = 0 to 1
+		GroupEnumUnitsOfPlayer(grp, Players.id[index], null)
+		for fst from grp
+			if GetUnitTypeId(fst) == PRIEST_ID and UnitAlive(fst) and GetUnitState(fst, UNIT_STATE_MANA)>=10
+				parsePriest(fst)
+
+init
+	TimerStart(CreateTimer(), 1./2., true, function p)
