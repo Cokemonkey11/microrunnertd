@@ -1,7 +1,7 @@
 package FrozenObeliskKnockup
 import UnitApi
 import DamageType
-import DamageDetection
+import DamageDetection2
 import Knockback3
 
 constant OB_ID = 'h00Y'
@@ -10,9 +10,9 @@ function h()
 	let dS = GetEventDamageSource()
 	let tU = GetTriggerUnit()
 
-	if GetUnitTypeId(dS) == OB_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
+	if GetUnitTypeId(dS) == OB_ID and getDamageType() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 		if Knockback3.getVel(tU) == 0.
-			Knockback3.add(tU, 500., 0., bj_PI/2.)
+			Knockback3.add(tU, 500., angle(0.), angle(bj_PI/2.))
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))

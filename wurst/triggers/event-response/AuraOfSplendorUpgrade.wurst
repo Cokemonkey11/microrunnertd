@@ -1,5 +1,5 @@
 package AuraOfSplendorUpgrade
-import RegisterPlayerUnitEvent
+import RegisterEvents
 import Sounds
 
 constant ID_UPGRADE_SPLENDOR = 'h02U'

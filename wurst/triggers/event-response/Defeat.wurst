@@ -3,7 +3,7 @@ import UnitApi
 import Players
 import Game
 import Sounds
-import RegisterPlayerUnitEvent
+import RegisterEvents
 
 native UnitAlive(unit u) returns boolean
 

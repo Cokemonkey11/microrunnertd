@@ -1,5 +1,5 @@
 package Taunt
-    import RegisterPlayerUnitEvent
+    import RegisterEvents
     import SpawnBehaviour
 
     native UnitAlive(unit u) returns boolean
@@ -13,20 +13,19 @@ package Taunt
     constant grp = CreateGroup()
 
     function act()
-        if GetSpellAbilityId() == TAUNT_ID
-            let tU = GetTriggerUnit()
-            let p = tU.getOwner()
+        let tU = GetTriggerUnit()
+        let p = tU.getOwner()
 
-            grp.enumUnitsInRange(vec2(tU.getX(), tU.getY()), RADIUS)
-            for iter from grp
-                if iter.isAlive() and IsUnitEnemy(iter, p)
-                    iter..issueTargetOrder("attack", tU)
-                        ..addAbility(DAMAGE_REDUCTION_ID)
+        grp.enumUnitsInRange(vec2(tU.getX(), tU.getY()), RADIUS)
+        for iter from grp
+            if iter.isAlive() and IsUnitEnemy(iter, p)
+                iter..issueTargetOrder("attack", tU)
+                    ..addAbility(DAMAGE_REDUCTION_ID)
 
-                    addTaunt(iter, tU, DURATION)
+                addTaunt(iter, tU, DURATION)
 
     init
-        registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+        registerSpellEffectEvent(TAUNT_ID, function act)
 
         registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH, () -> begin
             GetTriggerUnit().removeAbility(DAMAGE_REDUCTION_ID)

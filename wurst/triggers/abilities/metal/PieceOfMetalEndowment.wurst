@@ -1,6 +1,6 @@
 package PieceOfMetalEndowment
 import SimError
-import RegisterPlayerUnitEvent
+import RegisterEvents
 import SellTower
 
 constant ID_ENDOW_METAL   = 'A01D'
@@ -9,22 +9,21 @@ constant ID_ENDOWMENT     = 'A01E'
 constant ID_ENDOWMENT_PAS = 'A01F'
 
 function act()
-	if GetSpellAbilityId() == ID_ENDOW_METAL
-		let target = GetSpellTargetUnit()
-		let caster = GetTriggerUnit()
-		let owner  = caster.getOwner()
+	let target = GetSpellTargetUnit()
+	let caster = GetTriggerUnit()
+	let owner  = caster.getOwner()
 
-		if target.getTypeId() == ID_DORRAN
-			if not target.hasAbility(ID_ENDOWMENT)
-				target..addAbility(ID_ENDOWMENT)
-						..addAbility(ID_ENDOWMENT_PAS)
-				caster.removeAbility(ID_ENDOW_METAL)
+	if target.getTypeId() == ID_DORRAN
+		if not target.hasAbility(ID_ENDOWMENT)
+			target..addAbility(ID_ENDOWMENT)
+					..addAbility(ID_ENDOWMENT_PAS)
+			caster.removeAbility(ID_ENDOW_METAL)
 
-				endowments.saveUnit(caster.getHandleId(), target)
-			else
-				simError(owner, "This ability does not stack.")
+			endowments.saveUnit(caster.getHandleId(), target)
 		else
-			simError(owner, "Can only be used on Dorran the Archer.")
+			simError(owner, "This ability does not stack.")
+	else
+		simError(owner, "Can only be used on Dorran the Archer.")
 
 init
-	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+	registerSpellEffectEvent(ID_ENDOW_METAL, function act)

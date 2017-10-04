@@ -1,7 +1,7 @@
 package GeomancerWave
 import UnitApi
 import DamageType
-import DamageDetection
+import DamageDetection2
 
 constant ARCH_ID = 'h01U'
 
@@ -9,8 +9,8 @@ function h()
 	let dS = GetEventDamageSource()
 	let tU = GetTriggerUnit()
 
-	if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
+	if GetUnitTypeId(dS) == ARCH_ID and getDamageType() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 		IssueTargetOrder(dS, "carrionswarm", tU)
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))

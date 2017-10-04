@@ -1,6 +1,6 @@
 package PoacherPoach
 import DamageType
-import DamageDetection
+import DamageDetection2
 import FloatText
 import UnitApi
 
@@ -10,10 +10,10 @@ function h()
 	let dS = GetEventDamageSource()
 	let tU = GetTriggerUnit()
 
-	if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
+	if GetUnitTypeId(dS) == EX_ID and getDamageType() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 		if GetUnitState(tU, UNIT_STATE_LIFE) < 200.
-			DamageType.dealCodeDamage(dS, tU, 200.)
+			dealCodeDamage(dS, tU, 200.)
 			FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(GetEventDamage() + 200.))
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))

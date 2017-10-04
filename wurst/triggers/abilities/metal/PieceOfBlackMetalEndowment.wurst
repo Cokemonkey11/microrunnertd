@@ -1,6 +1,6 @@
 package PieceOfBlackMetalEndowment
 import SimError
-import RegisterPlayerUnitEvent
+import RegisterEvents
 import SellTower
 
 constant ID_ENDOW_BLACK_METAL    = 'A01G'
@@ -12,25 +12,24 @@ constant ID_ENDOWMENT_BLACK_MR   = 'A01I'
 constant ENDOW_FX = "Abilities\\Spells\\Undead\\FrostNova\\FrostNovaTarget.mdl"
 
 function act()
-	if GetSpellAbilityId() == ID_ENDOW_BLACK_METAL
-		let target = GetSpellTargetUnit()
-		let caster = GetTriggerUnit()
-		let owner  = caster.getOwner()
+	let target = GetSpellTargetUnit()
+	let caster = GetTriggerUnit()
+	let owner  = caster.getOwner()
 
-		if target.getTypeId() == ID_DORRAN
-			if not target.hasAbility(ID_ENDOWMENT_BLACK)
-				target.addEffect(ENDOW_FX, "origin").destr()
-				target..addAbility(ID_ENDOWMENT_BLACK)
-						..addAbility(ID_ENDOWMENT_BLACK_MANA)
-						..addAbility(ID_ENDOWMENT_BLACK_MR)
-						..issueImmediateOrder("coldarrows")
-				caster.removeAbility(ID_ENDOW_BLACK_METAL)
+	if target.getTypeId() == ID_DORRAN
+		if not target.hasAbility(ID_ENDOWMENT_BLACK)
+			target.addEffect(ENDOW_FX, "origin").destr()
+			target..addAbility(ID_ENDOWMENT_BLACK)
+					..addAbility(ID_ENDOWMENT_BLACK_MANA)
+					..addAbility(ID_ENDOWMENT_BLACK_MR)
+					..issueImmediateOrder("coldarrows")
+			caster.removeAbility(ID_ENDOW_BLACK_METAL)
 
-				blackEndowments.saveUnit(caster.getHandleId(), target)
-			else
-				simError(owner, "This ability does not stack.")
+			blackEndowments.saveUnit(caster.getHandleId(), target)
 		else
-			simError(owner, "Can only be used on Dorran the Archer.")
+			simError(owner, "This ability does not stack.")
+	else
+		simError(owner, "Can only be used on Dorran the Archer.")
 
 init
-	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+	registerSpellEffectEvent(ID_ENDOW_BLACK_METAL, function act)

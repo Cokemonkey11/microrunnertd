@@ -1,6 +1,6 @@
 package ScarabOverseerConsumeScarab
 import SimError
-import RegisterPlayerUnitEvent
+import RegisterEvents
 import Sounds
 import ClosureTimers
 
@@ -19,44 +19,43 @@ constant SOUND_OVERSEER_FEASTING2 = "Units\\Undead\\HeroCryptLord\\CryptLordAtta
 constant EFFECT_BENEFIT_RECEIVED  = "Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl"
 
 function act()
-	if GetSpellAbilityId() == ID_CONSUME_SCARAB
-		let target = GetSpellTargetUnit()
-		let caster = GetTriggerUnit()
-		let owner  = caster.getOwner()
+	let target = GetSpellTargetUnit()
+	let caster = GetTriggerUnit()
+	let owner  = caster.getOwner()
 
-		if target.getTypeId() == ID_SCARAB
-			target.addAbility('Aloc') // Prevent the user from selling it.
-			Sounds.play3D(SOUND_CAST_BEGIN, 1., target.getX(), target.getY(), 50.)
-			Sounds.play3D(SOUND_CAST_BEGIN, 1., caster.getX(), caster.getY(), 80.)
+	if target.getTypeId() == ID_SCARAB
+		target.addAbility('Aloc') // Prevent the user from selling it.
+		Sounds.play3D(SOUND_CAST_BEGIN, 1., target.getX(), target.getY(), 50.)
+		Sounds.play3D(SOUND_CAST_BEGIN, 1., caster.getX(), caster.getY(), 80.)
 
-			doAfter(INITIAL_CAST_TIME, () -> begin
-				target.remove()
-				Sounds.play3D(SOUND_SCARAB_DEATH, 1., caster.getX(), caster.getY(), 80.)
+		doAfter(INITIAL_CAST_TIME, () -> begin
+			target.remove()
+			Sounds.play3D(SOUND_SCARAB_DEATH, 1., caster.getX(), caster.getY(), 80.)
 
-				doAfter(SECOND_WAIT_TIME, () -> begin
-					let level = caster.getAbilityLevel(ID_BONUS)
+			doAfter(SECOND_WAIT_TIME, () -> begin
+				let level = caster.getAbilityLevel(ID_BONUS)
 
-					let r = GetRandomInt(0, 1)
+				let r = GetRandomInt(0, 1)
 
-					if r == 0
-						Sounds.play3D(SOUND_OVERSEER_FEASTING,  1., caster.getX(), caster.getY(), 80.)
-					else
-						Sounds.play3D(SOUND_OVERSEER_FEASTING2, 1., caster.getX(), caster.getY(), 80.)
+				if r == 0
+					Sounds.play3D(SOUND_OVERSEER_FEASTING,  1., caster.getX(), caster.getY(), 80.)
+				else
+					Sounds.play3D(SOUND_OVERSEER_FEASTING2, 1., caster.getX(), caster.getY(), 80.)
 
-					caster.addEffect(EFFECT_BENEFIT_RECEIVED, "origin").destr()
+				caster.addEffect(EFFECT_BENEFIT_RECEIVED, "origin").destr()
 
-					if level >= 5
-						caster.removeAbility(ID_CONSUME_SCARAB)
+				if level >= 5
+					caster.removeAbility(ID_CONSUME_SCARAB)
 
-					caster.setAbilityLevel(ID_BONUS,     level + 1)
-					caster.setAbilityLevel(ID_BONUS_PAS, level + 1)
-				end)
+				caster.setAbilityLevel(ID_BONUS,     level + 1)
+				caster.setAbilityLevel(ID_BONUS_PAS, level + 1)
 			end)
-		else
-			simError(owner, "Can only be used on a basic Scarab.")
+		end)
+	else
+		simError(owner, "Can only be used on a basic Scarab.")
 
 init
-	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+	registerSpellEffectEvent(ID_CONSUME_SCARAB, function act)
 
 	Sounds.preload(SOUND_CAST_BEGIN)
 	Sounds.preload(SOUND_SCARAB_DEATH)

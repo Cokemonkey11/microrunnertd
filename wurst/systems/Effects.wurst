@@ -1,0 +1,8 @@
+package Effects
+
+import ClosureTimers
+
+public function effect.destr(real delay)
+    doAfter(delay, () -> begin
+        this.destr()
+    end)

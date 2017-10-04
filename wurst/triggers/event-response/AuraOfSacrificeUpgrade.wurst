@@ -1,5 +1,5 @@
 package AuraOfSacrificeUpgrade
-import RegisterPlayerUnitEvent
+import RegisterEvents
 import Sounds
 
 constant ID_UPGRADE_SACRIFICE = 'h02W'

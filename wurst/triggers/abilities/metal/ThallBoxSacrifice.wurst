@@ -1,6 +1,6 @@
 package ThallBoxSacrifice
 import DamageType
-import DamageDetection
+import DamageDetection2
 import FloatText
 
 constant ID_THALL_BOX         = 'h02T'
@@ -27,10 +27,10 @@ function h()
 	let tU     = GetTriggerUnit()
 	let damage = GetEventDamage()
 
-	if hasSacrifice(dS) and DamageType.get() == DamageType.ATTACK and tU.getHP() - damage < 1.
+	if hasSacrifice(dS) and getDamageType() == DamageType.ATTACK and tU.getHP() - damage < 1.
 		tU.setHP(damage + 1.)
 		FloatText.prevented(dS.getX(), dS.getY())
 		dS.issueImmediateOrder("stop")
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))

@@ -1,5 +1,5 @@
 package WaveCleared
-import RegisterPlayerUnitEvent
+import RegisterEvents
 import Sounds
 import Players
 import Game

@@ -1,14 +1,13 @@
 package Heal
-import RegisterPlayerUnitEvent
+import RegisterEvents
 
 constant HEAL_ID = 'A00C'
 constant HEAL_FX = "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl"
 
 function act()
-	if GetSpellAbilityId() == HEAL_ID
-		let tU = GetTriggerUnit()
-		SetUnitState(tU, UNIT_STATE_LIFE, GetUnitState(tU, UNIT_STATE_MAX_LIFE))
-		DestroyEffect(AddSpecialEffect(HEAL_FX, GetUnitX(tU), GetUnitY(tU)))
+	let tU = GetTriggerUnit()
+	SetUnitState(tU, UNIT_STATE_LIFE, GetUnitState(tU, UNIT_STATE_MAX_LIFE))
+	DestroyEffect(AddSpecialEffect(HEAL_FX, GetUnitX(tU), GetUnitY(tU)))
 
 init
-	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+	registerSpellEffectEvent(HEAL_ID, function act)

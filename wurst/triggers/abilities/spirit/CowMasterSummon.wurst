@@ -1,15 +1,15 @@
 package CowMasterSummon
-import DamageDetection
+import DamageDetection2
 import DamageType
 
-constant COW_ID = 'h00T'
+constant COW_ID    = 'h00T'
 constant TAUREN_ID = 'o000'
 constant FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 
 function h()
 	let dS = GetEventDamageSource()
 
-	if GetUnitTypeId(dS) == COW_ID and DamageType.get() == DamageType.ATTACK
+	if GetUnitTypeId(dS) == COW_ID and getDamageType() == DamageType.ATTACK
 		let tU = GetTriggerUnit()
 		let q = CreateUnit(GetOwningPlayer(dS), TAUREN_ID, GetUnitX(tU), GetUnitY(tU), 270.)
 		DestroyEffect(AddSpecialEffect(FX, GetUnitX(q), GetUnitY(q)))
@@ -19,4 +19,4 @@ function h()
 		SetUnitVertexColor(q, 255, 255, 255, 125)
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))

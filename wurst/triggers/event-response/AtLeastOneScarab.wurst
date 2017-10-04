@@ -1,6 +1,6 @@
 package AtLeastOneScarab
 import Players
-import RegisterPlayerUnitEvent
+import RegisterEvents
 import TerrainData
 
 constant ID_SCARAB       = 'h037'

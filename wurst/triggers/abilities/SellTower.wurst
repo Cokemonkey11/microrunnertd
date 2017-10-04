@@ -1,7 +1,7 @@
 package SellTower
 import FloatText
 import Sounds
-import RegisterPlayerUnitEvent
+import RegisterEvents
 
 native GetUnitGoldCost(int id) returns int
 
@@ -45,26 +45,25 @@ function checkEndowments(unit metal)
 														..removeAbility(ID_ENDOWMENT_BLACK_MR)
 
 function act()
-	if GetSpellAbilityId() == ID
-		let tU = GetTriggerUnit()
-		let x  = GetUnitX(tU)
-		let y  = GetUnitY(tU)
-		let p  = GetOwningPlayer(tU)
-		var i  = GetUnitGoldCost(GetUnitTypeId(tU))
+	let tU = GetTriggerUnit()
+	let x  = GetUnitX(tU)
+	let y  = GetUnitY(tU)
+	let p  = GetOwningPlayer(tU)
+	var i  = GetUnitGoldCost(GetUnitTypeId(tU))
 
-		if not hasDoubleValue(tU)
-			i = R2I(i / 2.)
+	if not hasDoubleValue(tU)
+		i = R2I(i / 2.)
 
-		checkEndowments(tU)
+	checkEndowments(tU)
 
-		SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + i)
-		FloatText.bountyPlayer(x, y, i, p)
-		DestroyEffect(AddSpecialEffect(FX, x, y))
-		Sounds.play(SND, 1., 127)
+	SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + i)
+	FloatText.bountyPlayer(x, y, i, p)
+	DestroyEffect(AddSpecialEffect(FX, x, y))
+	Sounds.play(SND, 1., 127)
 
-		RemoveUnit(tU)
+	RemoveUnit(tU)
 
 init
-	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+	registerSpellEffectEvent(ID, function act)
 
 	Sounds.preload(SND)

@@ -2,7 +2,7 @@ package Bounty
 import Players
 import UnitApi
 import FloatText
-import RegisterPlayerUnitEvent
+import RegisterEvents
 
 function a()
 	let tU = GetTriggerUnit()

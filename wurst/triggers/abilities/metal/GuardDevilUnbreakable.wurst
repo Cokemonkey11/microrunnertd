@@ -1,6 +1,6 @@
 package GuardDevilUnbreakable
 import DamageType
-import DamageDetection
+import DamageDetection2
 import ClosureTimers
 import Players
 import Invulnerable
@@ -36,7 +36,7 @@ function h()
 	let tU     = GetTriggerUnit()
 	let damage = GetEventDamage()
 
-	if tU.getOwner().getId() < Players.COUNT and DamageType.get() == DamageType.ATTACK and (tU.getHP() - damage < 1.) and not tU.hasAbility(ID_INVULNERABLE)
+	if tU.getOwner().getId() < Players.COUNT and getDamageType() == DamageType.ATTACK and (tU.getHP() - damage < 1.) and not tU.hasAbility(ID_INVULNERABLE)
 		let unbreakableSource = findUnbreakable(tU)
 
 		if unbreakableSource != null
@@ -55,4 +55,4 @@ function h()
 			end)
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))

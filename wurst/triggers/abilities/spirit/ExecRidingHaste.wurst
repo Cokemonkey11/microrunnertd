@@ -1,14 +1,14 @@
 package ExecRidingHaste
 import DamageType
-import DamageDetection
+import DamageDetection2
 
 constant ARCH_ID = 'h01B'
 
 function h()
 	let dS = GetEventDamageSource()
 
-	if GetUnitTypeId(dS) == ARCH_ID and DamageType.get() == DamageType.ATTACK
+	if GetUnitTypeId(dS) == ARCH_ID and getDamageType() == DamageType.ATTACK
 		IssueImmediateOrder(dS, "berserk")
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))

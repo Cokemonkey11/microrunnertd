@@ -1,5 +1,5 @@
 package AuraOfVigourUpgrade
-import RegisterPlayerUnitEvent
+import RegisterEvents
 import Sounds
 
 constant ID_UPGRADE_VIGOUR = 'h02V'

@@ -1,5 +1,5 @@
 package LeviathanWellSummon
-import DamageDetection
+import DamageDetection2
 import DamageType
 import Players
 import ClosureTimers
@@ -23,7 +23,7 @@ constant grp = CreateGroup()
 function h()
 	let dS = GetEventDamageSource()
 
-	if GetUnitTypeId(dS) == ID_LEVIATHAN_WELL and DamageType.get() == DamageType.ATTACK
+	if GetUnitTypeId(dS) == ID_LEVIATHAN_WELL and getDamageType() == DamageType.ATTACK
 		let owner = dS.getOwner()
 		let pId   = owner.getId()
 
@@ -62,7 +62,7 @@ function h()
 			leviathans[pId].addEffect(BLINK_TARGET, "origin").destr()
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))
 
 	for i = 0 to Players.COUNT - 1
 		leviathans[i]    = null

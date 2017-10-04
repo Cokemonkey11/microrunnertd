@@ -1,5 +1,5 @@
 package GetUnitArmorType
-import DamageDetection
+import DamageDetection2
 import Players
 
 constant tab = new Table

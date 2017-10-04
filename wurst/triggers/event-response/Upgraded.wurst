@@ -1,6 +1,6 @@
 package Upgraded
 import Game
-import RegisterPlayerUnitEvent
+import RegisterEvents
 
 function act()
 	int pid = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))

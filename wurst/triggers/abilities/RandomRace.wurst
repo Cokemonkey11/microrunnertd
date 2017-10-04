@@ -1,27 +1,26 @@
 package RandomRace
-import RegisterPlayerUnitEvent
+import RegisterEvents
 import Game
 import UnitApi
 
 constant RANDOM_RACE_ID = 'A00S'
 
 function act()
-	if GetSpellAbilityId() == RANDOM_RACE_ID
-		let tU   = GetTriggerUnit()
-		let rand = GetRandomInt(0, 2)
-		let p    = GetOwningPlayer(tU)
+	let tU   = GetTriggerUnit()
+	let rand = GetRandomInt(0, 2)
+	let p    = GetOwningPlayer(tU)
 
-		if rand == 0
-			let u = CreateUnit(p, UnitApi.ID_BUILDER_SPIRIT, GetUnitX(tU), GetUnitY(tU), 270.)
-			Game.setupRace(UnitApi.ID_RUNNER_SPIRIT, UnitApi.ID_ALTAR_SPIRIT, u)
-		else if rand == 1
-			let u = CreateUnit(p, UnitApi.ID_BUILDER_WASTE,  GetUnitX(tU), GetUnitY(tU), 270.)
-			Game.setupRace(UnitApi.ID_RUNNER_WASTE,  UnitApi.ID_ALTAR_WASTE,  u)
-		else
-			let u = CreateUnit(p, UnitApi.ID_BUILDER_METAL,  GetUnitX(tU), GetUnitY(tU), 270.)
-			Game.setupRace(UnitApi.ID_RUNNER_METAL,  UnitApi.ID_ALTAR_METAL,  u)
+	if rand == 0
+		let u = CreateUnit(p, UnitApi.ID_BUILDER_SPIRIT, GetUnitX(tU), GetUnitY(tU), 270.)
+		Game.setupRace(UnitApi.ID_RUNNER_SPIRIT, UnitApi.ID_ALTAR_SPIRIT, u)
+	else if rand == 1
+		let u = CreateUnit(p, UnitApi.ID_BUILDER_WASTE,  GetUnitX(tU), GetUnitY(tU), 270.)
+		Game.setupRace(UnitApi.ID_RUNNER_WASTE,  UnitApi.ID_ALTAR_WASTE,  u)
+	else
+		let u = CreateUnit(p, UnitApi.ID_BUILDER_METAL,  GetUnitX(tU), GetUnitY(tU), 270.)
+		Game.setupRace(UnitApi.ID_RUNNER_METAL,  UnitApi.ID_ALTAR_METAL,  u)
 
-		RemoveUnit(tU)
+	RemoveUnit(tU)
 
 init
-	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SPELL_EFFECT, function act)
+	registerSpellEffectEvent(RANDOM_RACE_ID, function act)

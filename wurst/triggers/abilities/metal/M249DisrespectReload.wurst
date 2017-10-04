@@ -1,6 +1,6 @@
 package M249DisrespectReload
 import DamageType
-import DamageDetection
+import DamageDetection2
 import FloatText
 import ClosureTimers
 
@@ -12,7 +12,7 @@ constant tab = new Table
 function h()
 	let dS = GetEventDamageSource()
 
-	if GetUnitTypeId(dS) == ID_M249 and DamageType.get() == DamageType.ATTACK
+	if GetUnitTypeId(dS) == ID_M249 and getDamageType() == DamageType.ATTACK
 		if tab.hasInt(dS.getHandleId())
 			if tab.loadInt(dS.getHandleId()) >= ROUNDS_PER_MAG - 1
 				tab.saveInt(dS.getHandleId(), 0)
@@ -28,4 +28,4 @@ function h()
 			tab.saveInt(dS.getHandleId(), 1)
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))

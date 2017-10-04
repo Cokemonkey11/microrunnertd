@@ -1,7 +1,7 @@
 package ExecutionerExecute
 import UnitApi
 import DamageType
-import DamageDetection
+import DamageDetection2
 import FloatText
 
 constant EX_ID = 'h018'
@@ -10,11 +10,11 @@ function h()
 	let dS = GetEventDamageSource()
 	let tU = GetTriggerUnit()
 
-	if GetUnitTypeId(dS) == EX_ID and DamageType.get() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
+	if GetUnitTypeId(dS) == EX_ID and getDamageType() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 		let q = GetEventDamage()
 		let r = 1. - GetUnitState(tU, UNIT_STATE_LIFE) / GetUnitState(tU, UNIT_STATE_MAX_LIFE)
-		DamageType.dealCodeDamage(dS, tU, q * r)
+		dealCodeDamage(dS, tU, q * r)
 		FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(q * (1 + r)))
 
 init
-	addOnDamageFunc(function h)
+	addOnDamageFunc(Condition(function h))

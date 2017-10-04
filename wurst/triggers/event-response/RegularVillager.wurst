@@ -1,7 +1,7 @@
 package RegularVillager
 import Knockback3
 import Players
-import RegisterPlayerUnitEvent
+import RegisterEvents
 
 constant VGR0_ID = 'n000'
 constant VGR1_ID = 'n001'
@@ -59,11 +59,11 @@ function seq22()
 	TimerStart(GetExpiredTimer(), 1., false, function seq23)
 
 function seq21()
-	Knockback3.add(vgr1, 400., 0., bj_PI/2.)
+	Knockback3.add(vgr1, 400., angle(0.), angle(bj_PI/2.))
 	TimerStart(GetExpiredTimer(), 1., false, function seq22)
 
 function seq20()
-	Knockback3.add(vgr1, 400., 0., bj_PI/2.)
+	Knockback3.add(vgr1, 400., angle(0.), angle(bj_PI/2.))
 	SetUnitFacing(vgr0, FACE_2)
 	TimerStart(GetExpiredTimer(), .7, false, function seq21)
 
