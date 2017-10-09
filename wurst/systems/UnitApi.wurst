@@ -8,6 +8,8 @@ public class UnitApi
 	static constant ID_BUILDER_SPIRIT = 'h000'
 	static constant ID_BUILDER_WASTE  = 'h01K'
 	static constant ID_BUILDER_METAL  = 'h02R'
+	static constant ID_BUILDER_BEER   = 'd000'
+
 	static constant ID_RUNNER_SPIRIT  = 'h003'
 	static constant ID_RUNNER_WASTE   = 'h01G'
 	static constant ID_RUNNER_METAL   = 'h02S'
@@ -21,10 +23,14 @@ public class UnitApi
 	static constant ID_BOAR           = 'h02O'
 	static constant ID_QUILL_MASTAH   = 'h00W'
 
+	static constant ID_BANDITO_MASTERINO         = 'c000'
+	static constant ID_BANDITO_DIVINE_SHIELD     = 'C000'
+	static constant ID_BANDITO_DIVINE_SHIELD_STR = "C000"
+
 	static unit array runners
 	static unit array choosers
-	static int array spawns
-	static int array runnerTypes
+	static int  array spawns
+	static int  array runnerTypes
 
 	static constant bounties = new Table
 	private static constant grp = CreateGroup()
@@ -61,8 +67,8 @@ init
 	UnitApi.spawns[5] = 'h00B'
 	UnitApi.bounties.saveInt('h00B', 2)
 
-	UnitApi.spawns[6] = 'h00C'
-	UnitApi.bounties.saveInt('h00C', 20)
+	UnitApi.spawns[6] = UnitApi.ID_BANDITO_MASTERINO
+	UnitApi.bounties.saveInt(UnitApi.ID_BANDITO_MASTERINO, 20)
 
 	UnitApi.spawns[7] = 'h00D'
 	UnitApi.bounties.saveInt('h00D', 4)

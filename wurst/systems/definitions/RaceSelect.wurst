@@ -1,0 +1,10 @@
+package RaceSelect
+import UnitObjEditing
+
+import UnitApi
+
+class RaceSelect extends UnitDefinition
+    construct(int id)
+        super(id, 'hwtw')
+
+        setNormalAbilities("A00S,Avul")

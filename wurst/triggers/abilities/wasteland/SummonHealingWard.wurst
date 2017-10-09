@@ -9,8 +9,8 @@ constant SUMMON_ID = 'A00T'
 constant UNIT_ID   = 'h023'
 
 function act()
-	let x = GetSpellTargetX()
-	let y = GetSpellTargetY()
+	let x  = GetSpellTargetX()
+	let y  = GetSpellTargetY()
 	let tU = GetTriggerUnit()
 	let p = GetOwningPlayer(tU)
 
@@ -19,7 +19,7 @@ function act()
 		DestroyEffect(AddSpecialEffect(Other.feralspiritdone, GetUnitX(s), GetUnitY(s)))
 		UnitRemoveAbility(tU, SUMMON_ID)
 	else
-		simError(p, "Cannot summon there.")
+		simError(p, "Must be summoned on dark grass.")
 
 init
 	registerSpellEffectEvent(SUMMON_ID, function act)

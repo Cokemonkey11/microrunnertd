@@ -16,9 +16,9 @@ package Taunt
         let tU = GetTriggerUnit()
         let p = tU.getOwner()
 
-        grp.enumUnitsInRange(vec2(tU.getX(), tU.getY()), RADIUS)
+        grp.enumUnitsInRange(tU.getPos(), RADIUS)
         for iter from grp
-            if iter.isAlive() and IsUnitEnemy(iter, p)
+            if iter.isAlive() and iter.isEnemy(p)
                 iter..issueTargetOrder("attack", tU)
                     ..addAbility(DAMAGE_REDUCTION_ID)
 

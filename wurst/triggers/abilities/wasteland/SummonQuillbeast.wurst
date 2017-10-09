@@ -3,22 +3,23 @@ import IsTerrainWalkable
 import SimError
 import RegisterEvents
 
+import Assets
+
 constant SUMMON_ID = 'A00G'
 constant UNIT_ID   = 'h01N'
-constant FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 
 function act()
-	let x   = GetSpellTargetX()
-	let y   = GetSpellTargetY()
-	let tU  = GetTriggerUnit()
+	let x  = GetSpellTargetX()
+	let y  = GetSpellTargetY()
+	let tU = GetTriggerUnit()
 	let p = GetOwningPlayer(tU)
 
 	if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y, PATHING_TYPE_BUILDABILITY))
 		let s = CreateUnit(p, UNIT_ID, x, y, 270.)
-		DestroyEffect(AddSpecialEffect(FX, GetUnitX(s), GetUnitY(s)))
+		DestroyEffect(AddSpecialEffect(Other.feralspiritdone, GetUnitX(s), GetUnitY(s)))
 		UnitRemoveAbility(tU, SUMMON_ID)
 	else
-		simError(p, "Cannot summon there.")
+		simError(p, "Must be summoned on dark grass.")
 
 init
 	registerSpellEffectEvent(SUMMON_ID, function act)

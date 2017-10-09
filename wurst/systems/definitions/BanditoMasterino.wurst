@@ -1,0 +1,51 @@
+package BanditoMasterino
+import AbilityObjEditing
+
+import UnitApi
+
+class BanditoShield extends AbilityDefinition
+    construct(int id)
+        super(id, 'AHds')
+
+        setHeroAbility(false)
+        setLevels(1)
+        setCooldown(1, 10.)
+        setDurationNormal(1, 2.)
+        setManaCost(1, 0)
+        setRace(Race.Orc)
+
+class BanditoMasterino extends UnitDefinition
+    construct(int id)
+        super(id, 'hfoo')
+
+        setNormalAbilities("C000")
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNBanditLord.blp")
+        setModelFile("units\\creeps\\BanditLord\\BanditLord.mdl")
+        setAttack1AnimationBackswingPoint(.4)
+        setAttack1AnimationDamagePoint(.4)
+        setAttack1CooldownTime(1.5)
+        setAttack1DamageBase(1)
+        setAttack1DamageSidesperDie(1)
+        setAttack1Range(125)
+        setAttack1WeaponSound(WeaponSound.MetalHeavySlice)
+        setArmorType(ArmorType.Hero)
+        setSpeedBase(285)
+        setCollisionSize(0.)
+        setUnitSoundSet("Bandit")
+        setCanFlee(false)
+        setGoldBountyAwardedBase(0)
+        setGoldBountyAwardedNumberofDice(0)
+        setGoldBountyAwardedSidesperDie(0)
+        setHitPointsMaximumBase(750)
+        setHitPointsRegenerationRate(0.)
+        setUpgradesUsed("")
+        setHotkey("")
+        setName("Bandito Masterino")
+        setNameEditorSuffix("(Round 6)")
+        setRace(Race.Nightelf)
+
+@compiletime function banditoShield()
+    new BanditoShield(UnitApi.ID_BANDITO_DIVINE_SHIELD)
+
+@compiletime function banditoMasterino()
+    new BanditoMasterino(UnitApi.ID_BANDITO_MASTERINO)
