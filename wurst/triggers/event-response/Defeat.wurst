@@ -33,8 +33,11 @@ function a()
 
 init
 	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH, function a)
+
 	tab.saveInt(UnitApi.ID_RUNNER_SPIRIT, 1)
 	tab.saveInt(UnitApi.ID_RUNNER_WASTE,  1)
 	tab.saveInt(UnitApi.ID_RUNNER_METAL,  1)
+	tab.saveInt(UnitApi.ID_RUNNER_BEER,   1)
+
 	Sounds.preload(DEFEAT)
 	Sounds.preload(OOPS)

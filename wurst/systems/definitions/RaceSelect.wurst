@@ -3,8 +3,23 @@ import UnitObjEditing
 
 import UnitApi
 
-class RaceSelect extends UnitDefinition
+class RaceSelect extends BuildingDefinition
     construct(int id)
         super(id, 'hwtw')
 
         setNormalAbilities("A00S,Avul")
+        setModelFile("none.mdl")
+        setShadowTextureBuilding("")
+        setGroundTexture("")
+        setPathingMap("")
+        setPlacementRequires("")
+        setUnitSoundSet("")
+        setRace(Race.Nightelf)
+        setUnitClassification("peon")
+        setUnitsSold("h000,h01K,h02R,d000")
+        setUpgradesTo("")
+        setUpgradesUsed("")
+        setName("|cff999999Race Select|r")
+
+@compiletime function raceSelect()
+    new RaceSelect(UnitApi.ID_RACE_SELECT)

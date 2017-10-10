@@ -1,0 +1,37 @@
+package TowerMaltingFacility
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class TowerMaltingFacility extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_MALTING_FACILITY_ROAST_STR)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNGenericHumanBuilding.blp")
+        setModelFile(Units.grainWarehouse)
+        setTintingColorBlue(155)
+        setTintingColorGreen(155)
+        setTintingColorRed(200)
+        setScalingValue(.3)
+        setAcquisitionRange(500.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Pierce)
+        setAttack1CooldownTime(.65)
+        setAttack1DamageBase(10)
+        setAttack1ProjectileArt(Other.quillspraymissile)
+        setAttack1ProjectileSpeed(1500)
+        setAttack1Range(500)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("Marketplace")
+        setGoldCost(30)
+        setHotkey("Q")
+        setName("Malting Facility") // Beer
+        setTooltipBasic("Upgrade to Malting Facility [|cff999999Q|r]")
+        setTooltipExtended("Malting is the process of cooking grain, which changes the flavor profile it imparts and influences color of the final beer, too.|n |n|cffffcc00Damage Type:|r Pierce")
+
+@compiletime function towerMaltingFacility()
+    new TowerMaltingFacility(UnitApi.ID_TOWER_MALTING_FACILITY)

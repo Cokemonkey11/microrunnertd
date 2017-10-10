@@ -1,0 +1,29 @@
+package AltarBeer
+import Assets
+import UnitObjEditing
+
+import UnitApi
+
+class AltarBeer extends BuildingDefinition
+    construct(int id)
+        super(id, 'hwtw')
+
+        setNormalAbilities("Avul")
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNElvenFarm.blp")
+        setModelFile(Units.highElvenFarm)
+        setScalingValue(.8)
+        setSelectionScale(3.)
+        setShadowTextureBuilding("")
+        setPathingMap("")
+        setPlacementRequires("")
+        setUnitSoundSet("ElvenFarm")
+        setRace(Race.Nightelf)
+        setResearchesAvailable("R002,R001")
+        setUpgradesTo("")
+        setUpgradesUsed("")
+        setHotkey("")
+        setName("Altar |cffffcc00(Beer)|r")
+        setTooltipExtended("")
+
+@compiletime function altarBeer()
+    new AltarBeer(UnitApi.ID_ALTAR_BEER)

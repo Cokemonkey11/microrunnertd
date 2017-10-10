@@ -13,6 +13,8 @@ function act()
 		Game.setupRace(UnitApi.ID_RUNNER_WASTE,  UnitApi.ID_ALTAR_WASTE,  u)
 	else if raceId == UnitApi.ID_BUILDER_METAL
 		Game.setupRace(UnitApi.ID_RUNNER_METAL,  UnitApi.ID_ALTAR_METAL,  u)
+	else if raceId == UnitApi.ID_BUILDER_BEER
+		Game.setupRace(UnitApi.ID_RUNNER_BEER,   UnitApi.ID_ALTAR_BEER,   u)
 
 init
 	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_SELL, function act)

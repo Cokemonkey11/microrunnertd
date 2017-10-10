@@ -284,7 +284,7 @@ public class Game
 
 	static function setupRace(int runnerType, int altarType, unit sold)
 		RemoveUnit(GetSellingUnit())
-		player p    = GetOwningPlayer(sold)
+		player p = GetOwningPlayer(sold)
 		int pid = GetPlayerId(p)
 
 		if Players.locl == p
@@ -380,7 +380,7 @@ init
 		if Players.playing[index]
 
 			// Spawn Starting Units
-			UnitApi.choosers[index] = CreateUnit(Players.id[index], UnitApi.RACE_SELECT, Players.startX[index], Players.startY[index], 270.)
+			UnitApi.choosers[index] = CreateUnit(Players.id[index], UnitApi.ID_RACE_SELECT, Players.startX[index], Players.startY[index], 270.)
 			if Players.locl == Players.id[index]
 				SelectUnit(UnitApi.choosers[index], true)
 

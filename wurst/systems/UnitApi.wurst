@@ -5,19 +5,31 @@ import Invulnerable
 public class UnitApi
 	static constant ROUND_COUNT       = 43
 
-	static constant ID_BUILDER_SPIRIT = 'h000'
-	static constant ID_BUILDER_WASTE  = 'h01K'
-	static constant ID_BUILDER_METAL  = 'h02R'
-	static constant ID_BUILDER_BEER   = 'd000'
+	static constant ID_BUILDER_SPIRIT   = 'h000'
+	static constant ID_BUILDER_WASTE    = 'h01K'
+	static constant ID_BUILDER_METAL    = 'h02R'
+	static constant ID_BUILDER_BEER     = 'd000'
+	static constant ID_BUILDER_BEER_STR = "d000"
 
 	static constant ID_RUNNER_SPIRIT  = 'h003'
 	static constant ID_RUNNER_WASTE   = 'h01G'
 	static constant ID_RUNNER_METAL   = 'h02S'
+	static constant ID_RUNNER_BEER    = 'd100'
+
 	static constant ID_ALTAR_SPIRIT   = 'h01I'
 	static constant ID_ALTAR_WASTE    = 'h01J'
 	static constant ID_ALTAR_METAL    = 'h02Q'
+	static constant ID_ALTAR_BEER     = 'd200'
 
-	static constant RACE_SELECT       = 'h01O'
+	static constant ID_TOWER_GRANARY              = 'f000'
+	static constant ID_TOWER_GRANARY_STR          = "f000"
+	static constant ID_TOWER_MALTING_FACILITY     = 'f001'
+	static constant ID_TOWER_MALTING_FACILITY_STR = "f001"
+
+	static constant ID_MALTING_FACILITY_ROAST     = 'F000'
+	static constant ID_MALTING_FACILITY_ROAST_STR = "F000"
+
+	static constant ID_RACE_SELECT    = 'z000'
 	static constant IMMUNE            = 'ACmi'
 
 	static constant ID_BOAR           = 'h02O'

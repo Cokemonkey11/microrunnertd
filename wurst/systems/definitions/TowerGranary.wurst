@@ -1,0 +1,34 @@
+package TowerGranary
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class TowerGranary extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNGenericHumanBuilding.blp")
+        setModelFile(Units.grainWarehouse)
+        setScalingValue(.3)
+        setAcquisitionRange(500.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Pierce)
+        setAttack1CooldownTime(.65)
+        setAttack1DamageBase(10)
+        setAttack1ProjectileArt(Other.quillspraymissile)
+        setAttack1ProjectileSpeed(1500)
+        setAttack1Range(500)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("Marketplace")
+        setGoldCost(15)
+        setUpgradesTo(UnitApi.ID_TOWER_MALTING_FACILITY_STR)
+        setHotkey("Z")
+        setName("Granary") // Beer
+        setTooltipBasic("Build Granary [|cff999999Z|r]")
+        setTooltipExtended("Malted grain is the source of sugar with which yeast produces ethanol.|n |n|cffffcc00Damage Type:|r Pierce")
+
+@compiletime function towerGranary()
+    new TowerGranary(UnitApi.ID_TOWER_GRANARY)

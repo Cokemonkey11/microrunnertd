@@ -5,9 +5,9 @@ import UnitApi
 
 init
     CreateTrigger()..registerPlayerChatEvent(Players.singleplayer, ".round ", false)
-        ..addAction(() -> begin
-            let lvl = GetEventPlayerChatString().substring(7, 9).toInt()
+    ..addAction(() -> begin
+        let lvl = GetEventPlayerChatString().substring(7, 9).toInt()
 
-            if lvl > 0 and lvl < UnitApi.ROUND_COUNT and Players.singleplayer != null
-                Game.round = lvl
-        end)
+        if lvl > 0 and lvl < UnitApi.ROUND_COUNT and Players.singleplayer != null
+            Game.round = lvl
+    end)

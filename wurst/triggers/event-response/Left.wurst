@@ -21,7 +21,7 @@ function cond() returns boolean
 
 		GroupEnumUnitsOfPlayer(grp, Players.id[id], null)
 		for fst from grp
-			if GetUnitTypeId(fst) == UnitApi.RACE_SELECT
+			if GetUnitTypeId(fst) == UnitApi.ID_RACE_SELECT
 				RemoveUnit(fst)
 			else
 				SetUnitOwner(fst, Players.id[oid], false)

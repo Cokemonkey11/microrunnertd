@@ -7,7 +7,7 @@ constant RANDOM_RACE_ID = 'A00S'
 
 function act()
 	let tU   = GetTriggerUnit()
-	let rand = GetRandomInt(0, 2)
+	let rand = GetRandomInt(0, 3)
 	let p    = GetOwningPlayer(tU)
 
 	if rand == 0
@@ -16,9 +16,12 @@ function act()
 	else if rand == 1
 		let u = CreateUnit(p, UnitApi.ID_BUILDER_WASTE,  GetUnitX(tU), GetUnitY(tU), 270.)
 		Game.setupRace(UnitApi.ID_RUNNER_WASTE,  UnitApi.ID_ALTAR_WASTE,  u)
-	else
+	else if rand == 2
 		let u = CreateUnit(p, UnitApi.ID_BUILDER_METAL,  GetUnitX(tU), GetUnitY(tU), 270.)
 		Game.setupRace(UnitApi.ID_RUNNER_METAL,  UnitApi.ID_ALTAR_METAL,  u)
+	else
+		let u = CreateUnit(p, UnitApi.ID_BUILDER_BEER,   GetUnitX(tU), GetUnitY(tU), 270.)
+		Game.setupRace(UnitApi.ID_RUNNER_BEER,   UnitApi.ID_ALTAR_BEER,   u)
 
 	RemoveUnit(tU)
 

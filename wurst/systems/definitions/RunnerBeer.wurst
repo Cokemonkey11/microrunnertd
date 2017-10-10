@@ -1,0 +1,34 @@
+package RunnerBeer
+import Assets
+import UnitObjEditing
+
+import UnitApi
+
+class RunnerBeer extends UnitDefinition
+    construct(int id)
+        super(id, 'hfoo')
+
+        setNormalAbilities("A00E,A00D")
+        setAnimationCastBackswing(0.)
+        setAnimationCastPoint(0.)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNVillagerMan1.blp")
+        setModelFile(Units.villager1)
+        setAttacksEnabled(0)
+        setDefenseBase(1)
+        setArmorType(ArmorType.Unarmored)
+        setSpeedBase(260)
+        setCollisionSize(0.)
+        setUnitSoundSet("VillagerMan2")
+        setFoodCost(1)
+        setHitPointsMaximumBase(10)
+        setHitPointsRegenerationRate(0.)
+        setHitPointsRegenerationType("none")
+        setRace(Race.Nightelf)
+        setUpgradesUsed("R002,R001")
+        setHotkey("")
+        setName("Runner |cffffcc00(Beer)|r")
+        setTooltipBasic("")
+        setTooltipExtended("")
+
+@compiletime function runnerBeer()
+    new RunnerBeer(UnitApi.ID_RUNNER_BEER)
