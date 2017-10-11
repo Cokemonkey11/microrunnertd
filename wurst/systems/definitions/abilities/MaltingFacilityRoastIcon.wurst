@@ -1,0 +1,26 @@
+package MaltingFacilityRoastIcon
+import AbilityObjEditing
+
+import UnitApi
+
+class RoastIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(0)
+        setIconNormal("ReplaceableTextures\\PassiveButtons\\PASBTNLiquidFire.blp")
+        setArtTarget("")
+        setAttackSpeedIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setAreaofEffect(1, 0.)
+        setBuffs(1, "")
+        setHeroAbility(false)
+        setLevels(1)
+        setRace(Race.Nightelf)
+        setTargetsAllowed(1, "none")
+        setName("Roast")
+        setTooltipNormal(1, "Roast")
+        setTooltipNormalExtended(1, "Lights nearby enemy units on fire.|n |n|cffffcc00Damage:|r 7 + 2/sec|n|cffffcc00Duration:|r 5s|n|cffffcc00Cooldown:|r 1s|n|cffffcc00Range:|r 600")
+
+@compiletime function roastIcon()
+    new RoastIcon(UnitApi.ID_MALTING_FACILITY_ROAST_ICON)

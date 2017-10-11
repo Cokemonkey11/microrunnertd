@@ -1,0 +1,35 @@
+package HopCannon
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class HopCannon extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNRockTower.blp")
+        setModelFile(Units.boulderTower)
+        setRequiredAnimationNames("second")
+        setScalingValue(.6)
+        setAcquisitionRange(550.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Siege)
+        setAttack1CooldownTime(1.7)
+        setAttack1DamageBase(196)
+        setAttack1ProjectileArt(Other.ancientprotectormissile)
+        setAttack1ProjectileSpeed(1200)
+        setProjectileLaunchZ(110.)
+        setAttack1Range(550)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("ElvenGuardTower")
+        setGoldCost(105) // 105 - 45 = 60 incremental cost
+        setHotkey("Q")
+        setName("Hop Cannon") // Beer
+        setTooltipBasic("Upgrade to Hop Cannon [|cff999999Q|r]")
+        setTooltipExtended("A hop cannon is just a fun name for a system that pressurises hops and hop oils into wort. A very powerful tower with slow attack speed.|n |n|cffffcc00Damage Type:|r Siege")
+
+@compiletime function hopCannon()
+    new HopCannon(UnitApi.ID_TOWER_HOP_CANNON)

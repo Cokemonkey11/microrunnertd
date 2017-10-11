@@ -392,7 +392,7 @@ init
 	FogMaskEnable(false)
 
 	// Messages
-	TimerStart(CreateTimer(), 0., false, function Game.cinematicSequence0)
+	TimerStart(CreateTimer(), .5, false, function Game.cinematicSequence0)
 
 	// Preload runaway sounds
 	Sounds.preload(Game.RUN1)

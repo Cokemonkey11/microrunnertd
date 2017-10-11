@@ -1,0 +1,17 @@
+package MaltingFacilityRoast
+import AbilityObjEditing
+
+import UnitApi
+
+class MaltingFacilityRoast extends AbilityDefinitionPhoenixFire
+    construct(int id)
+        super(id)
+
+        setInitialDamage(1, 7.)
+        setDamagePerSecond(1, 2.)
+        setDurationNormal(1, 5.)
+        setDurationHero(1, 5.)
+        setCooldown(1, 1.)
+
+@compiletime function maltingFacilityRoast()
+    new MaltingFacilityRoast(UnitApi.ID_MALTING_FACILITY_ROAST)

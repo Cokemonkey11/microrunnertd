@@ -9,9 +9,10 @@ class TowerMaltingFacility extends TowerDefinition
     construct(int id)
         super(id)
 
-        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_MALTING_FACILITY_ROAST_STR)
+        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_MALTING_FACILITY_ROAST_STR + "," + UnitApi.ID_MALTING_FACILITY_ROAST_ICON_STR)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNGenericHumanBuilding.blp")
         setModelFile(Units.grainWarehouse)
+        setScaleProjectiles(false)
         setTintingColorBlue(155)
         setTintingColorGreen(155)
         setTintingColorRed(200)

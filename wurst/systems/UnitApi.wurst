@@ -25,9 +25,15 @@ public class UnitApi
 	static constant ID_TOWER_GRANARY_STR          = "f000"
 	static constant ID_TOWER_MALTING_FACILITY     = 'f001'
 	static constant ID_TOWER_MALTING_FACILITY_STR = "f001"
+	static constant ID_TOWER_HOP_FARM             = 'f002'
+	static constant ID_TOWER_HOP_FARM_STR         = "f002"
+	static constant ID_TOWER_HOP_CANNON           = 'f003'
+	static constant ID_TOWER_HOP_CANNON_STR       = "f003"
 
-	static constant ID_MALTING_FACILITY_ROAST     = 'F000'
-	static constant ID_MALTING_FACILITY_ROAST_STR = "F000"
+	static constant ID_MALTING_FACILITY_ROAST          = 'F000'
+	static constant ID_MALTING_FACILITY_ROAST_STR      = "F000"
+	static constant ID_MALTING_FACILITY_ROAST_ICON     = 'F001'
+	static constant ID_MALTING_FACILITY_ROAST_ICON_STR = "F001"
 
 	static constant ID_RACE_SELECT    = 'z000'
 	static constant IMMUNE            = 'ACmi'

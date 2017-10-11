@@ -30,7 +30,7 @@ class BuilderBeer extends UnitDefinition
         setStockReplenishInterval(0)
         setStockStartDelay(0)
         setUnitClassification("peon")
-        setStructuresBuilt("h01H" + "," + UnitApi.ID_TOWER_GRANARY_STR)
+        setStructuresBuilt("h01H" + "," + UnitApi.ID_TOWER_GRANARY_STR + "," + UnitApi.ID_TOWER_HOP_FARM_STR)
         setHotkey("")
         setName("Builder |cffffcc00(Beer)|r")
         setTooltipBasic("Choose |cffffcc00Beer|r")

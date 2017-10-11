@@ -1,0 +1,36 @@
+package HopFarm
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class HopFarm extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setButtonPositionY(1)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNFarm.blp")
+        setModelFile(Units.farm)
+        setScalingValue(.6)
+        setAcquisitionRange(500.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Siege)
+        setAttack1CooldownTime(.85)
+        setAttack1DamageBase(41)
+        setAttack1ProjectileArt(Other.bansheemissile)
+        setAttack1ProjectileSpeed(600)
+        setAttack1Range(500)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("Farm")
+        setGoldCost(45)
+        setUpgradesTo(UnitApi.ID_TOWER_HOP_CANNON_STR)
+        setHotkey("A")
+        setRequirements(UnitApi.ID_TOWER_MALTING_FACILITY_STR)
+        setName("Hop Farm") // Beer
+        setTooltipBasic("Build Hop Farm [|cff999999A|r]")
+        setTooltipExtended("Hops (Humulus Lupulus) are the flowers of a hop plant. They contain acids and oils that impart flavors on beer, and that can range from very bitter to very fruity, depending on the temperature of the wort during combination. The fruity parts can range wildly between breeds of hop.|n |n|cffffcc00Damage Type:|r Siege")
+
+@compiletime function hopFarm()
+    new HopFarm(UnitApi.ID_TOWER_HOP_FARM)

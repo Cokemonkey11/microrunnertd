@@ -1,9 +1,7 @@
 package TowerDefinition
 import UnitObjEditing
 
-import UnitApi
-
-class TowerDefinition extends BuildingDefinition
+public class TowerDefinition extends BuildingDefinition
     construct(int id)
         super(id, 'hwtw')
 
