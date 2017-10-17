@@ -29,6 +29,8 @@ public class UnitApi
 	static constant ID_TOWER_HOP_FARM_STR         = "f002"
 	static constant ID_TOWER_HOP_CANNON           = 'f003'
 	static constant ID_TOWER_HOP_CANNON_STR       = "f003"
+	static constant ID_TOWER_YEAST_LAB            = 'f004'
+	static constant ID_TOWER_YEAST_LAB_STR        = "f004"
 
 	static constant ID_MALTING_FACILITY_ROAST          = 'F000'
 	static constant ID_MALTING_FACILITY_ROAST_STR      = "F000"
