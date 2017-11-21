@@ -21,7 +21,7 @@ class NanoBreweryMoveTower extends AbilityDefinitionIllidanChannel
         setOptions(1, 1)
         setTargetType(1, 0)
         setHeroAbility(false)
-        // setRequirements("")
+        setRequirements("")
         setLevels(1)
         setRace(Race.Human)
         setHotkeyNormal("Q")

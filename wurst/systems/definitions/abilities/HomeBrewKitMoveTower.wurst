@@ -22,6 +22,7 @@ class HomeBrewKitMoveTower extends AbilityDefinitionIllidanChannel
         setTargetType(1, 0)
         setHeroAbility(false)
         setLevels(1)
+        setRequirements("")
         setRace(Race.Human)
         setHotkeyNormal("W")
         setTooltipNormal(1, "Move Tower [|cffffcc00W|r]")
