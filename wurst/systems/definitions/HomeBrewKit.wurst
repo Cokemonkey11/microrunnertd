@@ -1,0 +1,43 @@
+package HomeBrewKit
+import Assets
+// import LinkedList
+import UnitObjEditing
+
+import TowerDefinition
+// import TypeCasting2
+import UnitApi
+
+class HomeBrewKit extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        // let abils = new LinkedList<string>()..add(UnitApi.ID_MOVE_TOWER_STR)
+        // setNormalAbilities(getTowerAbilities(abils))
+        // destroy abils
+
+        setNormalAbilities("A00O,Avul," + UnitApi.ID_HOME_BREW_KIT_MOVE_TOWER_STR)
+        setButtonPositionX(1)
+        setButtonPositionY(2)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNCage.blp")
+        setModelFile(Units.wyvernCage)
+        setScalingValue(.5)
+        setAcquisitionRange(400.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack1CooldownTime(.85)
+        setAttack1DamageBase(42)
+        setAttack1ProjectileArt("Abilities\\Spells\\Other\\AcidBomb\\BottleMissile.mdl")
+        setAttack1ProjectileSpeed(700)
+        setAttack1Range(400)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("SpawningGrounds")
+        setGoldCost(45)
+        setUpgradesTo(UnitApi.ID_TOWER_NANO_BREWERY_STR)
+        setHotkey("X")
+        setName("Home Brew Kit") // Beer
+        setTooltipBasic("Build Home Brew Kit [|cff999999X|r]")
+        setTooltipExtended("Home brew kits can be obtained cheaply, and are surprisingly simple. The hard part in brewing is not the chemistry, but rather keeping your brewing kit clean. Home Brew Kits tend to be low capacity but still cost-effective.|n |n|cffffcc00Damage Type:|r Magic")
+
+@compiletime function homeBrewKit()
+    new HomeBrewKit(UnitApi.ID_TOWER_HOME_BREW_KIT)

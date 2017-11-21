@@ -1,0 +1,16 @@
+package SmallUseableInventory
+import AbilityObjEditing
+
+import UnitApi
+
+class SmallUseableInventory extends AbilityDefinitionInventory
+    construct(int id)
+        super(id)
+
+        setItemCapacity(1, 1)
+        setDurationNormal(1, 5.)
+        setDurationHero(1, 5.)
+        setCooldown(1, 1.)
+
+@compiletime function smallUseableInventory()
+    new SmallUseableInventory(UnitApi.ID_SMALL_USEABLE_INVENTORY)

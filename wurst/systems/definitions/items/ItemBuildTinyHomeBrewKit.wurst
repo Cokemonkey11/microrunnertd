@@ -1,0 +1,19 @@
+package ItemBuildTinyHomeBrewKit
+import ItemObjEditing
+
+import UnitApi
+
+class ItemBuildTinyHomeBrewKit extends ItemDefinition
+    construct(int id)
+        super(id, 'tsct')
+
+        setAbilities(UnitApi.ID_BUILD_TINY_HOME_BREW_KIT_STR)
+        setName("Tiny Home Brew Kit")
+        setDescription("Contains a home brewing kit which can be placed.")
+        setTooltipBasic("Tiny Home Brew Kit")
+        setTooltipExtended("Contains a tower within - use to rebuild it in a new location.")
+        setGoldCost(0)
+        setLumberCost(0)
+
+@compiletime function itemBuildTinyHomeBrewKit()
+    new ItemBuildTinyHomeBrewKit(UnitApi.ITEM_BUILD_TINY_HOME_BREW_KIT)

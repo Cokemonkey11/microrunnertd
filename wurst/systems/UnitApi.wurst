@@ -2,6 +2,12 @@ package UnitApi
 import Players
 import Invulnerable
 
+public function char4RepeatFour(string char4) returns string
+	return char4 + "," + char4 + "," + char4 + "," + char4
+
+public function unit.isMagicImmune() returns bool
+	return IsUnitType(this, UNIT_TYPE_MAGIC_IMMUNE)
+
 public class UnitApi
 	static constant ROUND_COUNT       = 43
 
@@ -31,11 +37,32 @@ public class UnitApi
 	static constant ID_TOWER_HOP_CANNON_STR       = "f003"
 	static constant ID_TOWER_YEAST_LAB            = 'f004'
 	static constant ID_TOWER_YEAST_LAB_STR        = "f004"
+	static constant ID_TOWER_HOME_BREW_KIT        = 'f005'
+	static constant ID_TOWER_HOME_BREW_KIT_STR    = "f005"
+	static constant ID_TOWER_SPIN_KIT             = 'f006'
+	static constant ID_TOWER_SPIN_KIT_STR         = "f006"
+	static constant ID_TOWER_NANO_BREWERY         = 'f007'
+	static constant ID_TOWER_NANO_BREWERY_STR     = "f007"
 
 	static constant ID_MALTING_FACILITY_ROAST          = 'F000'
 	static constant ID_MALTING_FACILITY_ROAST_STR      = "F000"
 	static constant ID_MALTING_FACILITY_ROAST_ICON     = 'F001'
 	static constant ID_MALTING_FACILITY_ROAST_ICON_STR = "F001"
+	static constant ID_SPIN_KIT_CENTRIPETAL_ICON       = 'F002'
+	static constant ID_SPIN_KIT_CENTRIPETAL_ICON_STR   = "F002"
+	static constant ID_HOME_BREW_KIT_MOVE_TOWER        = 'F003'
+	static constant ID_HOME_BREW_KIT_MOVE_TOWER_STR    = "F003"
+	static constant ID_NANO_BREWERY_MOVE_TOWER         = 'F004'
+	static constant ID_NANO_BREWERY_MOVE_TOWER_STR     = "F004"
+	static constant ID_BUILD_TINY_HOME_BREW_KIT        = 'F005'
+	static constant ID_BUILD_TINY_HOME_BREW_KIT_STR    = "F005"
+	static constant ID_BUILD_TINY_NANO_BREWERY         = 'F006'
+	static constant ID_BUILD_TINY_NANO_BREWERY_STR     = "F006"
+	static constant ID_SMALL_USEABLE_INVENTORY         = 'F007'
+	static constant ID_SMALL_USEABLE_INVENTORY_STR     = "F007"
+
+	static constant ITEM_BUILD_TINY_HOME_BREW_KIT      = 'ii00'
+	static constant ITEM_BUILD_TINY_NANO_BREWERY       = 'ii01'
 
 	static constant ID_RACE_SELECT    = 'z000'
 	static constant IMMUNE            = 'ACmi'

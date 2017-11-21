@@ -1,0 +1,19 @@
+package MoveTower
+import RegisterEvents
+
+import UnitApi
+
+init
+    registerSpellEffectEvent(UnitApi.ID_HOME_BREW_KIT_MOVE_TOWER, () -> begin
+        let tu = GetTriggerUnit()
+        let pos = tu.getPos()
+        tu.remove()
+        createItem(UnitApi.ITEM_BUILD_TINY_HOME_BREW_KIT, pos)
+    end)
+
+    registerSpellEffectEvent(UnitApi.ID_NANO_BREWERY_MOVE_TOWER, () -> begin
+        let tu = GetTriggerUnit()
+        let pos = tu.getPos()
+        tu.remove()
+        createItem(UnitApi.ITEM_BUILD_TINY_NANO_BREWERY, pos)
+    end)

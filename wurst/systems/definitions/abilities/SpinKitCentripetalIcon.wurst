@@ -1,0 +1,27 @@
+package SpinKitCentripetalIcon
+import AbilityObjEditing
+
+import UnitApi
+
+class SpinKitCentripetalIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(0)
+        setIconNormal("ReplaceableTextures\\PassiveButtons\\PASBTNDrunkenDodge.blp")
+        setArtTarget("")
+        setAttackSpeedIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setAreaofEffect(1, 0.)
+        setBuffs(1, "")
+        setHeroAbility(false)
+        setLevels(1)
+        setRace(Race.Nightelf)
+        setTargetsAllowed(1, "none")
+        setRequirements("")
+        setName("Centripetal Force")
+        setTooltipNormal(1, "Centripetal Force")
+        setTooltipNormalExtended(1, "Each attack is succeeded with a volley of projectiles released in a ring.|n |n|cffffcc00Damage Type:|r Spells")
+
+@compiletime function centripetalIcon()
+    new SpinKitCentripetalIcon(UnitApi.ID_SPIN_KIT_CENTRIPETAL_ICON)

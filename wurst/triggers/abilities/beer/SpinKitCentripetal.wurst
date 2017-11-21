@@ -1,0 +1,79 @@
+package SpinKitCentripetal
+import ClosureTimers
+import DummyRecycler
+import DamageDetection2
+import DamageType
+import LinkedListModule
+
+import SpinKit
+import UnitApi
+
+class FakeMissile
+    use LinkedListModule
+
+    unit owner
+    unit dummy
+    real distance
+    effect fx
+    vec2 vel
+
+    construct(unit owner, angle ang)
+        this.owner = owner
+        this.dummy = DummyRecycler.get(owner.getPos(), ang)
+        this.distance = projectileRange.toReal()
+        this.fx = this.dummy.addEffect(projectileAppearance, "origin")
+        this.vel = vec2(0., 0.).polarOffset(ang, projectileSpeed.toReal()) * ANIMATION_PERIOD
+
+        this.dummy..setFlyHeight(projectileHeight, 0.)
+                  ..setPos(owner.getPos())
+                  ..setScale(.4)
+
+        if FakeMissile.size == 1
+            clock.startPeriodic(ANIMATION_PERIOD, function p)
+
+    ondestroy
+        this.fx.destr()
+        DummyRecycler.recycle(dummy, 2.)
+
+let clock = getTimer()
+let grp = CreateGroup()
+function p()
+    let iter = FakeMissile.iterator()
+    while iter.hasNext()
+        let m = iter.next()
+        m.dummy.setPos(m.dummy.getPos() + m.vel)
+
+        var hit = false
+        grp.enumUnitsInRange(m.dummy.getPos(), projectileSpeed.toReal() * ANIMATION_PERIOD)
+        for u from grp
+            if u.isAlive() and u.isEnemy(m.owner.getOwner()) and not u.isMagicImmune() and not hit
+                hit = true
+                print("hit")
+                dealCodeDamage(m.owner, u, projectileDamage.toReal())
+
+        m.distance -= (projectileSpeed * ANIMATION_PERIOD)
+
+        if hit or m.distance < 0.
+            destroy m
+
+    iter.close()
+
+    if FakeMissile.size == 0
+        clock.pause()
+
+function h()
+    let dS = GetEventDamageSource()
+
+    if GetUnitTypeId(dS) == UnitApi.ID_TOWER_SPIN_KIT and getDamageType() == DamageType.ATTACK
+        print("attack.")
+        let ang0 = dS.getPos().angleTo(GetTriggerUnit().getPos())
+
+        let missiles = 10
+        let arc = PI / 6.
+        for i = 0 to (missiles - 1)
+            doAfter(projectileRange.toReal() / projectileSpeed.toReal() * i.toReal(), () -> begin
+                new FakeMissile(dS, ang0 + angle((i + 1) * arc / missiles))
+            end)
+
+init
+    addOnDamageFunc(Condition(function h))

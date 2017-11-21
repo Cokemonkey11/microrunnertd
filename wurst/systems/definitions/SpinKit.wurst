@@ -1,0 +1,47 @@
+package SpinKit
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+public constant projectileSpeed  = 2000
+public constant projectileRange  =  600
+public constant projectileDamage =  300
+public constant projectileHeight =   70.
+public constant projectileAppearance = Other.bloodelfmissile
+
+class SpinKit extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_SPIN_KIT_CENTRIPETAL_ICON_STR)
+        setButtonPositionY(2)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNPowerGenerator.blp")
+        setModelFile(Units.powerGenerator)
+        setScalingValue(.4)
+        setTintingColorBlue(155)
+        setTintingColorRed(155)
+        setTintingColorGreen(155)
+        setAcquisitionRange(projectileRange.toReal())
+        setAttack1AnimationBackswingPoint(.85)
+        setAttack1AnimationDamagePoint(.55)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack1CooldownTime(4.)
+        setAttack1DamageBase(projectileDamage - 1)
+        setAttack1ProjectileArt(projectileAppearance)
+        setAttack1ProjectileSpeed(projectileSpeed)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileArc(0.)
+        setProjectileLaunchZ(projectileHeight)
+        setAttack1Range(projectileRange)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("")
+        setGoldCost(210)
+        setHotkey("Q")
+        setName("Spin Kit") // Beer
+        setTooltipBasic("Upgrade to Spin Kit [|cff999999Q|r]")
+        setTooltipExtended("Interestingly, yeast responds to other external stimuli. Unhealthy yeast can be revived by spinning it gently in a centrifuge.|n |n|cffffcc00Damage Type:|r Magic")
+
+@compiletime function spinKit()
+    new SpinKit(UnitApi.ID_TOWER_SPIN_KIT)

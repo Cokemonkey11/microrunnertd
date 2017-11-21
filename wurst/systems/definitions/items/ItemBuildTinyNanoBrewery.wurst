@@ -1,0 +1,19 @@
+package ItemBuildTinyNanoBrewery
+import ItemObjEditing
+
+import UnitApi
+
+class ItemBuildTinyNanoBrewery extends ItemDefinition
+    construct(int id)
+        super(id, 'tsct')
+
+        setAbilities(UnitApi.ID_BUILD_TINY_NANO_BREWERY_STR)
+        setName("Tiny Nano Brewery")
+        setDescription("Contains a nanobrewery which can be placed.")
+        setTooltipBasic("Tiny Nano Brewery")
+        setTooltipExtended("Contains a tower within - use to rebuild it in a new location.")
+        setGoldCost(0)
+        setLumberCost(0)
+
+@compiletime function itemBuildTinyHomeBrewKit()
+    new ItemBuildTinyNanoBrewery(UnitApi.ITEM_BUILD_TINY_NANO_BREWERY)

@@ -1,0 +1,39 @@
+package YeastLab
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class YeastLab extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setButtonPositionY(0)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNPowerGenerator.blp")
+        setModelFile(Units.powerGenerator)
+        setScalingValue(.5)
+        setAcquisitionRange(600.)
+        setAttack1AnimationBackswingPoint(.85)
+        setAttack1AnimationDamagePoint(.55)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack1CooldownTime(1.45)
+        setAttack1DamageBase(151)
+        setAttack1ProjectileArt(Other.bloodelfmissile)
+        setAttack1ProjectileSpeed(900)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileArc(.15)
+        setProjectileLaunchZ(70.)
+        setAttack1Range(600)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("")
+        setGoldCost(105)
+        setRequirements(UnitApi.ID_TOWER_HOP_CANNON_STR)
+        setUpgradesTo(UnitApi.ID_TOWER_SPIN_KIT_STR)
+        setHotkey("Q")
+        setName("Yeast Lab") // Beer
+        setTooltipBasic("Build Yeast Lab [|cff999999Q|r]")
+        setTooltipExtended("Yeast is the main beer component that drives the chemical production of interesting flavors. In practice, brewers can select from hundreds of yeast strains when ordering.|n |n|cffffcc00Damage Type:|r Magic")
+
+@compiletime function yeastLab()
+    new YeastLab(UnitApi.ID_TOWER_YEAST_LAB)

@@ -1,0 +1,43 @@
+package NanoBrewery
+import Assets
+// import LinkedList
+import UnitObjEditing
+
+import TowerDefinition
+// import TypeCasting2
+import UnitApi
+
+class NanoBrewery extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        // let abils = new LinkedList<string>()..add(UnitApi.ID_MOVE_TOWER_STR)
+        // setNormalAbilities(getTowerAbilities(abils))
+        // destroy abils
+
+        setNormalAbilities("A00O,Avul," + UnitApi.ID_NANO_BREWERY_MOVE_TOWER_STR)
+        setButtonPositionX(0)
+        setButtonPositionY(2)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNTavern.blp")
+        setModelFile(Units.tavern)
+        setScalingValue(.3)
+        setAcquisitionRange(500.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack1CooldownTime(.77)
+        setAttack1DamageBase(76)
+        setAttack1ProjectileArc(.3)
+        setAttack1ProjectileArt("Abilities\\Spells\\Other\\AcidBomb\\BottleMissile.mdl")
+        setAttack1ProjectileSpeed(800)
+        setAttack1Range(500)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("SpawningGrounds")
+        setGoldCost(90)
+        setHotkey("Q")
+        setName("Nano Brewery") // Beer
+        setTooltipBasic("Upgrade to Nano Brewery [|cff999999Q|r]")
+        setTooltipExtended("A nanobrewery is the logical next step after a home brewing kit. Dedicated, steel brewing kit allows more efficient and better quality brews to be produced, while still maintaining nominal quantities. Nanobreweries can be found in garages and industrial property.|n |n|cffffcc00Damage Type:|r Magic")
+
+@compiletime function nanoBrewery()
+    new NanoBrewery(UnitApi.ID_TOWER_NANO_BREWERY)

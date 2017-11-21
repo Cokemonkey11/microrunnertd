@@ -1,0 +1,31 @@
+package HomeBrewKitMoveTower
+import AbilityObjEditing
+
+import UnitApi
+
+class HomeBrewKitMoveTower extends AbilityDefinitionIllidanChannel
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(1)
+        setButtonPositionNormalY(2)
+        setArtCaster("")
+        setCasterAttachmentPoint("")
+        setArtEffect("")
+        setIconNormal("ReplaceableTextures\\CommandButtons\\BTNHumanWatchTower.blp")
+        setArtTarget("")
+        setTargetAttachmentPoint("")
+        setArtDuration(1, 0)
+        setDisableOtherAbilities(1, false)
+        setFollowThroughTime(1, 0)
+        setOptions(1, 1)
+        setTargetType(1, 0)
+        setHeroAbility(false)
+        setLevels(1)
+        setRace(Race.Human)
+        setHotkeyNormal("W")
+        setTooltipNormal(1, "Move Tower [|cffffcc00W|r]")
+        setTooltipNormalExtended(1, "Transforms this tower into an item, which allows your builder to re-deploy it somewhere else.")
+
+@compiletime function homeBrewKitMoveTower()
+    new HomeBrewKitMoveTower(UnitApi.ID_HOME_BREW_KIT_MOVE_TOWER)

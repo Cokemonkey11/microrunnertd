@@ -167,4 +167,3 @@ init
 	if DummyUnitStack.DO_IDPC
 		DummyUnitStack.deferredTodoCount = DummyUnitStack.INITIAL_DEFERRED_PRELOAD_COUNT
 		TimerStart(DummyUnitStack.clock, DummyUnitStack.CLOCK_PERIOD, true, function DummyUnitStack.deferredPreloader)
-
