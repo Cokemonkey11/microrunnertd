@@ -2,7 +2,6 @@ package ItemBuildTinyHomeBrewKit
 import ItemObjEditing
 
 import UnitApi
-import BuildTinyHomeBrewKit
 
 class ItemBuildTinyHomeBrewKit extends ItemDefinition
     construct(int id)

@@ -1,7 +1,6 @@
 package ItemBuildTinyNanoBrewery
 import ItemObjEditing
 
-import BuildTinyNanoBrewery
 import UnitApi
 
 class ItemBuildTinyNanoBrewery extends ItemDefinition

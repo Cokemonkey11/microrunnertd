@@ -8,6 +8,8 @@ import LinkedListModule
 import SpinKit
 import UnitApi
 
+let clock = getTimer()
+
 class FakeMissile
     use LinkedListModule
 
@@ -35,7 +37,6 @@ class FakeMissile
         this.fx.destr()
         DummyRecycler.recycle(dummy, 2.)
 
-let clock = getTimer()
 let grp = CreateGroup()
 function p()
     let iter = FakeMissile.iterator()
