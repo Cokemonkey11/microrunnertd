@@ -44,22 +44,22 @@ public class UnitApi
 	static constant ID_TOWER_NANO_BREWERY         = 'f007'
 	static constant ID_TOWER_NANO_BREWERY_STR     = "f007"
 
-	static constant ID_MALTING_FACILITY_ROAST          = 'F000'
-	static constant ID_MALTING_FACILITY_ROAST_STR      = "F000"
-	static constant ID_MALTING_FACILITY_ROAST_ICON     = 'F001'
-	static constant ID_MALTING_FACILITY_ROAST_ICON_STR = "F001"
-	static constant ID_SPIN_KIT_CENTRIPETAL_ICON       = 'F002'
-	static constant ID_SPIN_KIT_CENTRIPETAL_ICON_STR   = "F002"
-	static constant ID_HOME_BREW_KIT_MOVE_TOWER        = 'F003'
-	static constant ID_HOME_BREW_KIT_MOVE_TOWER_STR    = "F003"
-	static constant ID_NANO_BREWERY_MOVE_TOWER         = 'F004'
-	static constant ID_NANO_BREWERY_MOVE_TOWER_STR     = "F004"
-	static constant ID_BUILD_TINY_HOME_BREW_KIT        = 'F005'
-	static constant ID_BUILD_TINY_HOME_BREW_KIT_STR    = "F005"
-	static constant ID_BUILD_TINY_NANO_BREWERY         = 'F006'
-	static constant ID_BUILD_TINY_NANO_BREWERY_STR     = "F006"
-	static constant ID_SMALL_USEABLE_INVENTORY         = 'F007'
-	static constant ID_SMALL_USEABLE_INVENTORY_STR     = "F007"
+	static constant ID_MALTING_FACILITY_ROAST          = 'g000'
+	static constant ID_MALTING_FACILITY_ROAST_STR      = "g000"
+	static constant ID_MALTING_FACILITY_ROAST_ICON     = 'g001'
+	static constant ID_MALTING_FACILITY_ROAST_ICON_STR = "g001"
+	static constant ID_SPIN_KIT_CENTRIPETAL_ICON       = 'g002'
+	static constant ID_SPIN_KIT_CENTRIPETAL_ICON_STR   = "g002"
+	static constant ID_HOME_BREW_KIT_MOVE_TOWER        = 'g003'
+	static constant ID_HOME_BREW_KIT_MOVE_TOWER_STR    = "g003"
+	static constant ID_NANO_BREWERY_MOVE_TOWER         = 'g004'
+	static constant ID_NANO_BREWERY_MOVE_TOWER_STR     = "g004"
+	static constant ID_BUILD_TINY_HOME_BREW_KIT        = 'g005'
+	static constant ID_BUILD_TINY_HOME_BREW_KIT_STR    = "g005"
+	static constant ID_BUILD_TINY_NANO_BREWERY         = 'g006'
+	static constant ID_BUILD_TINY_NANO_BREWERY_STR     = "g006"
+	static constant ID_SMALL_USEABLE_INVENTORY         = 'g007'
+	static constant ID_SMALL_USEABLE_INVENTORY_STR     = "g007"
 
 	static constant ITEM_BUILD_TINY_HOME_BREW_KIT      = 'ii00'
 	static constant ITEM_BUILD_TINY_NANO_BREWERY       = 'ii01'
@@ -71,8 +71,8 @@ public class UnitApi
 	static constant ID_QUILL_MASTAH   = 'h00W'
 
 	static constant ID_BANDITO_MASTERINO         = 'c000'
-	static constant ID_BANDITO_DIVINE_SHIELD     = 'C000'
-	static constant ID_BANDITO_DIVINE_SHIELD_STR = "C000"
+	static constant ID_BANDITO_DIVINE_SHIELD     = 'b000'
+	static constant ID_BANDITO_DIVINE_SHIELD_STR = "b000"
 
 	static unit array runners
 	static unit array choosers
