@@ -1,6 +1,6 @@
 package ExecRidingExecute
 import UnitApi
-import DamageType
+import DamageType2
 import DamageDetection2
 import FloatText
 

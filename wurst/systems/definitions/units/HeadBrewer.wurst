@@ -1,0 +1,48 @@
+package HeadBrewer
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class HeadBrewer extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setButtonPositionX(0)
+        setButtonPositionY(2)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNHeroPaladin.blp")
+        setModelFile(Units.paladin2)
+        setScalingValue(.7)
+        setAcquisitionRange(420.)
+
+        setAttack1AreaofEffectFullDamage(50)
+        setAttack1AreaofEffectMediumDamage(75)
+        setAttack1AreaofEffectSmallDamage(150)
+        setAttack1DamageFactorMedium(.4)
+        setAttack1DamageFactorSmall(.25)
+        setAttack1AreaofEffectTargets("enemies,ground,vulnerable")
+        setAttack1AnimationBackswingPoint(.95)
+        setAttack1AnimationDamagePoint(.55)
+        setAttack1AttackType(AttackType.Chaos)
+        setAttack1CooldownTime(2.9)
+        setAttack1DamageBase(607)
+        setAttack1ProjectileArt(Other.chimaeraacidmissile)
+        setAttack1ProjectileSpeed(700)
+        setAttack1ProjectileHomingEnabled(false)
+        setAttack1ProjectileArc(.2)
+        setAttack1RangeMotionBuffer(250.)
+        setAttack1ShowUI(true)
+        setAttack1WeaponType(WeaponType.Artillery)
+        setAttack1Range(420)
+
+        setProjectileLaunchZ(70.)
+        setUnitSoundSet("Uther")
+        setGoldCost(210)
+        setHotkey("Q")
+        setName("Head Brewer") // Beer
+        setTooltipBasic("Upgrade to Head Brewer [|cff999999Q|r]")
+        setTooltipExtended("It's a joke - marketing types don't just upgrade to brewers.|n |n|cffffcc00Damage Type:|r Chaos")
+
+@compiletime function headBrewer()
+    new HeadBrewer(UnitApi.ID_TOWER_HEAD_BREWER)

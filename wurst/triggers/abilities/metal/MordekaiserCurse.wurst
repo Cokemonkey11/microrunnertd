@@ -1,5 +1,5 @@
 package MordekaiserCurse
-import DamageType
+import DamageType2
 import DamageDetection2
 
 constant ID_MORDEKAISER  = 'h031'

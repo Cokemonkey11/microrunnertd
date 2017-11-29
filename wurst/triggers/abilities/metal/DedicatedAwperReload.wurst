@@ -1,6 +1,6 @@
 package DedicatedAwperReload
-import DamageType
-import DamageDetection
+import DamageType2
+import DamageDetection2
 import FloatText
 import ClosureTimers
 

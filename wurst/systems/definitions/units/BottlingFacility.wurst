@@ -1,0 +1,40 @@
+package BottlingFacility
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class BottlingFacility extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setButtonPositionX(1)
+        setButtonPositionY(0)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNWorkshop.blp")
+        setModelFile(Units.workshop)
+        setScalingValue(.4)
+        setAcquisitionRange(750.)
+        setAttack1AnimationBackswingPoint(.45)
+        setAttack1AnimationDamagePoint(.55)
+        setAttack1AttackType(AttackType.Pierce)
+        setAttack1CooldownTime(.48)
+        setAttack1DamageBase(75)
+        setAttack1ProjectileArt(Other.catapultmissile)
+        setAttack1ProjectileSpeed(1500)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileArc(0.)
+        setProjectileLaunchZ(70.)
+        setAttack1Range(750)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("Workshop")
+        setGoldCost(157)
+        setRequirements(UnitApi.ID_TOWER_HEAD_BREWER_STR)
+        setUpgradesTo(UnitApi.ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES_STR)
+        setHotkey("W")
+        setName("Bottling Facility") // Beer
+        setTooltipBasic("Build Bottling Facility [|cff999999W|r]")
+        setTooltipExtended("Without factory-quality bottling systems, many brewers resort to manual bottle filling and labeling. A facility like this puts out a beer twice per second.|n |n|cffffcc00Damage Type:|r Pierce")
+
+@compiletime function bottlingFacility()
+    new BottlingFacility(UnitApi.ID_TOWER_BOTTLING_FACILITY)

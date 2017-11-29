@@ -1,6 +1,6 @@
 package LeviathanWellSummon
 import DamageDetection2
-import DamageType
+import DamageType2
 import Players
 import ClosureTimers
 import TerrainData

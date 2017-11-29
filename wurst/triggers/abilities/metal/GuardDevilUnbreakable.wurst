@@ -1,5 +1,5 @@
 package GuardDevilUnbreakable
-import DamageType
+import DamageType2
 import DamageDetection2
 import ClosureTimers
 import Players

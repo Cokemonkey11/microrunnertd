@@ -1,6 +1,6 @@
 package GeomancerWave
 import UnitApi
-import DamageType
+import DamageType2
 import DamageDetection2
 
 constant ARCH_ID = 'h01U'

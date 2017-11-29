@@ -1,5 +1,5 @@
 package EvilArmourCurse
-import DamageType
+import DamageType2
 import DamageDetection2
 
 constant ID_EVILARMOUR   = 'h032'

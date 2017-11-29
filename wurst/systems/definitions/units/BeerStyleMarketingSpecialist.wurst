@@ -1,0 +1,50 @@
+package BeerStyleMarketingSpecialist
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class BeerStyleMarketingSpecialist extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setButtonPositionX(1)
+        setButtonPositionY(1)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNBanditMage.blp")
+        setModelFile(Units.apprenticeWizard)
+        setScalingValue(.7)
+        setAcquisitionRange(400.)
+
+        setAttack1AreaofEffectFullDamage(25)
+        setAttack1AreaofEffectMediumDamage(50)
+        setAttack1AreaofEffectSmallDamage(150)
+        setAttack1DamageFactorMedium(.4)
+        setAttack1DamageFactorSmall(.25)
+        setAttack1AreaofEffectTargets("enemies,ground,vulnerable")
+        setAttack1AnimationBackswingPoint(.85)
+        setAttack1AnimationDamagePoint(.55)
+        setAttack1AttackType(AttackType.Chaos)
+        setAttack1CooldownTime(2.9)
+        setAttack1DamageBase(303)
+        setAttack1ProjectileArt(Other.chimaeraacidmissile)
+        setAttack1ProjectileSpeed(900)
+        setAttack1ProjectileHomingEnabled(false)
+        setAttack1ProjectileArc(.15)
+        setAttack1RangeMotionBuffer(250.)
+        setAttack1ShowUI(true)
+        setAttack1WeaponType(WeaponType.Artillery)
+        setAttack1Range(400)
+
+        setProjectileLaunchZ(70.)
+        setUnitSoundSet("Kael")
+        setGoldCost(105)
+        setRequirements(UnitApi.ID_TOWER_NANO_BREWERY_STR)
+        setUpgradesTo(UnitApi.ID_TOWER_HEAD_BREWER_STR)
+        setHotkey("S")
+        setName("Style Marketing Specialist") // Beer
+        setTooltipBasic("Build Beer Style Marketing Specialist [|cff999999S|r]")
+        setTooltipExtended("Craft beer styles come in and out of popularity, but some styles become wildly popular. In 2017 for example, New England style Double IPAs were mind-bendingly ubiquitous. A good marketing specialist should have an eye for popular beer styles and jump on it for a profit. Having a beer in the current style of the moment is a must, and the beer style marketing specialist can help you keep track of these things.|n |n|cffffcc00Damage Type:|r Chaos")
+
+@compiletime function beerStyleMarketingSpecialist()
+    new BeerStyleMarketingSpecialist(UnitApi.ID_TOWER_BEER_STYLE_MARKETING_SPECIALIST)

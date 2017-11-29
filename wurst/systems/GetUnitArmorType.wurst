@@ -1,58 +1,82 @@
+/// Made for use with STL 1.
 package GetUnitArmorType
+import AbilityObjEditing
+import HashMap
+
 import DamageDetection2
-import Players
 
-constant tab = new Table
-constant BONUS_HP = 'A00M'
+constant ID_BONUS_HP    = '!at*'
+constant BONUS_HP_VALUE = 10000
 
-public class ArmorType
-	static constant UNKNOWN = 0
-	static constant MEDIUM_FORTIFIED = 1
-	static constant UNARMORED = 2
-	static constant HERO = 3
-	static constant DIVINE = 4
-	static constant HEAVY_NORMAL = 5
-	static constant LIGHT = 6
+public enum ArmorType
+	_DUMMY            // To pad the enum.
+	UNKNOWN
+	_MEDIUM_FORTIFIED // Old:    1 damage. New: impossible.
+	UNARMORED         // Old:   25 damage. New: 400 damage.
+	_HERO             // Old:  150 damage. New: impossible.
+	_DIVINE           // Old:  400 damage. New: Untested.
+	_HEAVY_NORMAL     // Old:  522 damage. New: Untested.
+	_LIGHT            // Old: 2048 damage. New: impossible.
+	LIGHT_HEAVY       // Old: impossible.  New:    1 damage.
+	HERO_FORTIFIED    // Old: impossible.  New:  522 damage.
+	MEDIUM            // Old: impossible.  New: 2048 damage.
 
-public function getUnitArmorType(unit u) returns int
+constant tab = new HashMap<int, ArmorType>
+
+public function getUnitArmorType(unit u) returns ArmorType
 	let typ = GetUnitTypeId(u)
-	int ret
-	real q
+	var ret = ArmorType.UNKNOWN
 
-	if tab.hasInt(typ)
-		return tab.loadInt(typ)
+	if tab.has(typ) and tab.get(typ) != ArmorType._DUMMY
+		return tab.get(typ)
 	else
 		let hp = GetWidgetLife(u)
-		UnitAddAbility(u, BONUS_HP)
-		SetUnitState(u, UNIT_STATE_LIFE, 10000)
+		UnitAddAbility(u, ID_BONUS_HP)
+		SetUnitState(u, UNIT_STATE_LIFE, BONUS_HP_VALUE.toReal())
 		disableDamageDetect()
 		UnitDamageTarget(u, u, 1., true, true, ConvertAttackType(7), DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
 		enableDamageDetect()
-		q = 10000 - GetWidgetLife(u)
+		let q = BONUS_HP_VALUE - GetWidgetLife(u)
 		if q == 1
-			tab.saveInt(typ, ArmorType.MEDIUM_FORTIFIED)
-			ret = ArmorType.MEDIUM_FORTIFIED
+			// tab.put(typ, ArmorType.MEDIUM_FORTIFIED)
+			// ret = ArmorType.MEDIUM_FORTIFIED
+			tab.put(typ, ArmorType.LIGHT_HEAVY)
+			ret = ArmorType.LIGHT_HEAVY
 		else if q == 25
-			tab.saveInt(typ, ArmorType.UNARMORED)
-			ret = ArmorType.UNARMORED
+			// tab.put(typ, ArmorType.UNARMORED)
+			// ret = ArmorType.UNARMORED
+			debugPrint("Unexpected `25` - are you using an old wc3 patch?", 0)
 		else if q == 150
-			tab.saveInt(typ, ArmorType.HERO)
-			ret = ArmorType.HERO
+			// tab.put(typ, ArmorType.HERO)
+			// ret = ArmorType.HERO
+			debugPrint("Unexpected `150` - are you using an old wc3 patch?", 0)
 		else if q == 400
-			tab.saveInt(typ, ArmorType.DIVINE)
-			ret = ArmorType.DIVINE
+			// tab.put(typ, ArmorType.DIVINE)
+			// ret = ArmorType.DIVINE
+			tab.put(typ, ArmorType.UNARMORED)
+			ret = ArmorType.UNARMORED
 		else if q == 522
-			tab.saveInt(typ, ArmorType.HEAVY_NORMAL)
-			ret = ArmorType.HEAVY_NORMAL
+			// tab.put(typ, ArmorType.HEAVY_NORMAL)
+			// ret = ArmorType.HEAVY_NORMAL
+			tab.put(typ, ArmorType.HERO_FORTIFIED)
+			ret = ArmorType.HERO_FORTIFIED
 		else if q == 2048
-			tab.saveInt(typ, ArmorType.LIGHT)
-			ret = ArmorType.LIGHT
+			// tab.put(typ, ArmorType.LIGHT)
+			// ret = ArmorType.LIGHT
+			tab.put(typ, ArmorType.MEDIUM)
+			ret = ArmorType.MEDIUM
 		else
-			tab.saveInt(typ, ArmorType.UNKNOWN)
-			DisplayTextToPlayer(Players.locl, 0., 0., "Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(q))
+			tab.put(typ, ArmorType.UNKNOWN)
+			debugPrint("Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(q), 0)
 			ret = ArmorType.UNKNOWN
 
-		UnitRemoveAbility(u, BONUS_HP)
+		UnitRemoveAbility(u, ID_BONUS_HP)
 		SetWidgetLife(u, hp)
 
 		return ret
+
+@compiletime function generateAbility()
+	new AbilityDefinitionMaxLifeBonusGreater(ID_BONUS_HP)
+		..setMaxLifeGained(1, BONUS_HP_VALUE)
+		..setItemAbility(false)
+		..setName("Life Bonus for GetUnitArmorType")

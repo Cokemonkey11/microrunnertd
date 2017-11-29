@@ -1,5 +1,5 @@
 package ExecRidingHaste
-import DamageType
+import DamageType2
 import DamageDetection2
 
 constant ARCH_ID = 'h01B'

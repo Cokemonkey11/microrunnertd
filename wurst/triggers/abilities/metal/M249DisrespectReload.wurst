@@ -1,5 +1,5 @@
 package M249DisrespectReload
-import DamageType
+import DamageType2
 import DamageDetection2
 import FloatText
 import ClosureTimers

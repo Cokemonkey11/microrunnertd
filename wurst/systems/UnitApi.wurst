@@ -43,6 +43,14 @@ public class UnitApi
 	static constant ID_TOWER_SPIN_KIT_STR         = "f006"
 	static constant ID_TOWER_NANO_BREWERY         = 'f007'
 	static constant ID_TOWER_NANO_BREWERY_STR     = "f007"
+	static constant ID_TOWER_BEER_STYLE_MARKETING_SPECIALIST     = 'f008'
+	static constant ID_TOWER_BEER_STYLE_MARKETING_SPECIALIST_STR = "f008"
+	static constant ID_TOWER_HEAD_BREWER          = 'f009'
+	static constant ID_TOWER_HEAD_BREWER_STR      = "f009"
+	static constant ID_TOWER_BOTTLING_FACILITY     = 'f00A'
+	static constant ID_TOWER_BOTTLING_FACILITY_STR = "f00A"
+	static constant ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES     = 'f00B'
+	static constant ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES_STR = "f00B"
 
 	static constant ID_MALTING_FACILITY_ROAST          = 'g000'
 	static constant ID_MALTING_FACILITY_ROAST_STR      = "g000"
@@ -60,6 +68,8 @@ public class UnitApi
 	static constant ID_BUILD_TINY_NANO_BREWERY_STR     = "g006"
 	static constant ID_SMALL_USEABLE_INVENTORY         = 'g007'
 	static constant ID_SMALL_USEABLE_INVENTORY_STR     = "g007"
+	static constant ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON     = 'g008'
+	static constant ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON_STR = "g008"
 
 	static constant ITEM_BUILD_TINY_HOME_BREW_KIT      = 'ii00'
 	static constant ITEM_BUILD_TINY_NANO_BREWERY       = 'ii01'

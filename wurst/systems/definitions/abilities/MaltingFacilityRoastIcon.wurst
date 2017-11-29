@@ -3,7 +3,7 @@ import AbilityObjEditing
 
 import UnitApi
 
-class RoastIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
+class MaltingFacilityRoastIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
     construct(int id)
         super(id)
 
@@ -22,5 +22,5 @@ class RoastIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
         setTooltipNormal(1, "Roast")
         setTooltipNormalExtended(1, "Lights nearby enemy units on fire.|n |n|cffffcc00Damage:|r 7 + 2/sec|n|cffffcc00Duration:|r 5s|n|cffffcc00Cooldown:|r 1s|n|cffffcc00Range:|r 600")
 
-@compiletime function roastIcon()
-    new RoastIcon(UnitApi.ID_MALTING_FACILITY_ROAST_ICON)
+@compiletime function maltingFacilityRoastIcon()
+    new MaltingFacilityRoastIcon(UnitApi.ID_MALTING_FACILITY_ROAST_ICON)

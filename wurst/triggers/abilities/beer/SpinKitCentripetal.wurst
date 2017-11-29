@@ -2,7 +2,7 @@ package SpinKitCentripetal
 import ClosureTimers
 import DummyRecycler
 import DamageDetection2
-import DamageType
+import DamageType2
 import LinkedListModule
 
 import SpinKit

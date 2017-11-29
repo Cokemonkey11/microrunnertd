@@ -1,6 +1,6 @@
 package ArchmageLightning
 import DamageDetection2
-import DamageType
+import DamageType2
 
 constant ARCH_ID = 'h00G'
 

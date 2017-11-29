@@ -1,6 +1,6 @@
 package CowGodSummon
 import DamageDetection2
-import DamageType
+import DamageType2
 
 constant COW_ID    = 'h00V'
 constant TAUREN_ID = 'o000'
