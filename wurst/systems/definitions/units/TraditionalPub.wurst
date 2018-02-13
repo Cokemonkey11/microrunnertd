@@ -1,0 +1,35 @@
+package TraditionalPub
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class TraditionalPub extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setButtonPositionX(2)
+        setButtonPositionY(2)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNElvenFarm.blp")
+        setModelFile(Units.highElvenFarm)
+        setScalingValue(.3)
+        setAcquisitionRange(500.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Normal)
+        setAttack1CooldownTime(.77)
+        setAttack1DamageBase(76)
+        setAttack1ProjectileArc(0.)
+        setAttack1ProjectileArt("Abilities\\Spells\\Other\\AcidBomb\\BottleMissile.mdl")
+        setAttack1Range(500)
+        setAttack1WeaponType(WeaponType.Instant)
+        setUnitSoundSet("SpawningGrounds")
+        setGoldCost(90)
+        setHotkey("C")
+        setName("Traditional Pub") // Beer
+        setTooltipBasic("Build Traditional Pub [|cff999999C|r]")
+        setTooltipExtended("Traditional pubs can be found in many flavors around the world. In the UK, they're small and true to many traditions that date back to Roman times.|n |n|cffffcc00Damage Type:|r Normal")
+
+@compiletime function inject()
+    new TraditionalPub(UnitApi.ID_TOWER_TRADITIONAL_PUB)
