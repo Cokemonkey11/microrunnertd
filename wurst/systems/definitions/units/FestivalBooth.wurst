@@ -1,0 +1,41 @@
+package FestivalBooth
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class FestivalBooth extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON_STR)
+        setButtonPositionX(2)
+        setButtonPositionY(1)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNDranaiHut.blp")
+        setModelFile(Units.draeneiHut)
+        setScalingValue(.25)
+        setAcquisitionRange(350.)
+        setAttack1AnimationBackswingPoint(.25)
+        setAttack1AnimationDamagePoint(.2)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack1CooldownTime(.96)
+        setAttack1DamageBase(123)
+        setAttack1ProjectileArc(0.)
+        setAttack1ProjectileArt(Other.annihilationmissile)
+        setAttack1Range(500)
+        setAttack1WeaponType(WeaponType.Missile)
+        setAttack1ProjectileSpeed(1500)
+        setAttacksEnabled(1)
+
+        setUnitSoundSet("VoodooLounge")
+        setGoldCost(180)
+        setRequirements(UnitApi.ID_TOWER_BEER_GEEK_BAR_STR)
+        setUpgradesTo(UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT_STR)
+        setHotkey("D")
+        setName("Festival Booth") // Beer
+        setTooltipBasic("Build Festival Booth [|cff999999D|r]")
+        setTooltipExtended("Festival booths are a great way for breweries to represent themselves publicly. Pro-tip: sometimes festival booths have a limited supply of new or unusual beers!|n |n|cffffcc00Damage Type:|r Magic")
+
+@compiletime function inject()
+    new FestivalBooth(UnitApi.ID_TOWER_FESTIVAL_BOOTH)

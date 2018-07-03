@@ -1,0 +1,106 @@
+package BarrelExchangeBottleOfWhisky
+
+import Assets
+import DummyRecycler
+import DamageDetection2
+import DamageType2
+import LinkedList
+import LinkedListModule
+import LinkedHashMap
+import SellTower
+import FloatText
+import Game
+import FestivalBoothLimitedBrew  // Import for prioritisation - do not remove!
+
+import UnitApi
+
+let clock = getTimer()
+
+class DummyEffect
+    use LinkedListModule
+
+    unit owner
+    unit dummy
+    effect fx
+
+    construct(unit owner, real height)
+        this.owner = owner
+        this.dummy = DummyRecycler.get(owner.getPos(), angle(0))
+        this.fx = this.dummy.addEffect("Abilities\\Spells\\Other\\AcidBomb\\BottleMissile.mdl", "origin")
+
+        this.dummy..setFlyHeight(height, 0.)
+                  ..setPos(owner.getPos())
+                  ..setScale(.5)
+
+    ondestroy
+        this.fx.destr()
+        DummyRecycler.recycle(dummy)
+
+let booth_effects = new LinkedHashMap<unit, LinkedList<DummyEffect>>()
+function h()
+    let dS = GetEventDamageSource()
+
+    if GetUnitTypeId(dS) == UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT and getDamageType() == DamageType.ATTACK
+        let list = booth_effects.get(dS)
+        let size = list.getSize()
+
+        if size > 0
+            let fst = list.get(0)
+            destroy fst
+            list.removeAt(0)
+
+            let tU = GetTriggerUnit()
+            tU.addEffect("Abilities\\Spells\\Other\\AcidBomb\\BottleMissile.mdl", "origin").destr()
+            dealCodeDamage(dS, tU, 200)
+
+            FloatText.bonus(dS.getX(), dS.getY(), GetEventDamage().toInt() + 200)
+
+function _constructUpgradeCommon(unit tower)
+    if tower.getTypeId() == UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT
+        let effects = new LinkedList<DummyEffect>()..add(new DummyEffect(tower, 250.))
+                                                   ..add(new DummyEffect(tower, 200.))
+                                                   ..add(new DummyEffect(tower, 150.))
+                                                   ..add(new DummyEffect(tower, 100.))
+        booth_effects.put(tower, effects)
+
+function constructed()
+    _constructUpgradeCommon(GetConstructedStructure())
+
+function onUpgrade()
+    _constructUpgradeCommon(GetTriggerUnit())
+
+function roundStart()
+    booth_effects.forEach() entry ->
+        let u = entry.key
+        let list = entry.value
+        while list.getSize() < 4
+            let size = list.getSize()
+            list.addtoStart(new DummyEffect(u, 100. + 50. * size))
+
+function onSell()
+    let tU = GetTriggerUnit()
+    if tU.getTypeId() == UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT
+        let effects = booth_effects.get(tU)
+        while effects.getSize() > 0
+            let fst = effects.get(0)
+            destroy fst
+            effects.removeAt(0)
+        booth_effects.remove(tU)
+
+init
+    // Hide effect on-hit; deal damage.
+    addOnDamageFunc(Condition(function h))
+
+    // On structure built, initialize effects.
+    CreateTrigger()..registerAnyUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH)
+                   ..addCondition(Condition(function constructed))
+
+    // Round start, reset effects.
+    Game.registerOnRoundStart(function roundStart)
+
+    // On sell, drop effects.
+    registerOnSell(function onSell)
+
+    // On upgrade, drop effects.
+    CreateTrigger()..registerAnyUnitEvent(EVENT_PLAYER_UNIT_UPGRADE_FINISH)
+        ..addCondition(Condition(function onUpgrade))

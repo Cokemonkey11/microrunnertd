@@ -1,0 +1,26 @@
+package FestivalBoothLimitedBrewIcon
+import AbilityObjEditing
+
+import UnitApi
+
+class FestivalBoothLimitedBrewIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(1)
+        setIconNormal("ReplaceableTextures\\PassiveButtons\\PASBTNFeedBack.blp")
+        setArtTarget("")
+        setAttackSpeedIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setAreaofEffect(1, 0.)
+        setBuffs(1, "")
+        setHeroAbility(false)
+        setLevels(1)
+        setRace(Race.Nightelf)
+        setTargetsAllowed(1, "none")
+        setName("Limited Brew")
+        setTooltipNormal(1, "Limited Brew")
+        setTooltipNormalExtended(1, "This unit's first first few attacks per round deal massive bonus pure damage.|n |n|cffffcc00Attacks:|r 5|n|cffffcc00Bonus Damage:|r 100")
+
+@compiletime function inject()
+    new FestivalBoothLimitedBrewIcon(UnitApi.ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON)

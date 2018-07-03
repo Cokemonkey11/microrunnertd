@@ -27,6 +27,4 @@ init
 		TriggerRegisterPlayerEvent(t, Players.id[index], EVENT_PLAYER_END_CINEMATIC)
 		escapesPressed[index] = false
 
-		index++
-
 	TriggerAddCondition(t, Condition(function c))

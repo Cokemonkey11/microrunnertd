@@ -1,0 +1,26 @@
+package BarrelExchangeBottleOfWhiskyIcon
+import AbilityObjEditing
+
+import UnitApi
+
+class BarrelExchangeBottleOfWhiskyIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(0)
+        setIconNormal("ReplaceableTextures\\CommandButtons\\PASWhiskeyBottle.blp")
+        setArtTarget("")
+        setAttackSpeedIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setAreaofEffect(1, 0.)
+        setBuffs(1, "")
+        setHeroAbility(false)
+        setLevels(1)
+        setRace(Race.Nightelf)
+        setTargetsAllowed(1, "none")
+        setName("Bottle of Whisky")
+        setTooltipNormal(1, "Bottle of Whisky")
+        setTooltipNormalExtended(1, "This unit's first first few attacks per round deal massive bonus pure damage.|n |n|cffffcc00Attacks:|r 4|n|cffffcc00Bonus Damage:|r 200")
+
+@compiletime function inject()
+    new BarrelExchangeBottleOfWhiskyIcon(UnitApi.ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON)

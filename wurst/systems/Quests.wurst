@@ -16,7 +16,8 @@ constant CREDITS_DESC = "Special thanks to |cff999999JesusHipster|r for the Wisp
 	*/ "|n|cff999999Vildhjarta|r, for the thall." + /*
 	*/ "|n|cff999999Talon the Mage|r, for the negev missile." + /*
 	*/ "|n|cff999999-Grendel|r, for the Crypt Mother model." + /*
-	*/ "|n|cff999999Tarrasque|r, for the Tidal Lord model."
+	*/ "|n|cff999999Tarrasque|r, for the Tidal Lord model." + /*
+	*/ "|n|cff999999asailant|r, for the Whiskey Bottle icon."
 constant CREDITS_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNBookOfTheDead.blp"
 constant CREDITS_TITLE = "Credits"
 

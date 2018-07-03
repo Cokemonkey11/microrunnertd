@@ -53,6 +53,12 @@ public class UnitApi
 	static constant ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES_STR = "f00B"
 	static constant ID_TOWER_TRADITIONAL_PUB      = 'f00C'
 	static constant ID_TOWER_TRADITIONAL_PUB_STR  = "f00C"
+	static constant ID_TOWER_BEER_GEEK_BAR        = 'f00D'
+	static constant ID_TOWER_BEER_GEEK_BAR_STR    = "f00D"
+	static constant ID_TOWER_FESTIVAL_BOOTH       = 'f00E'
+	static constant ID_TOWER_FESTIVAL_BOOTH_STR   = "f00E"
+	static constant ID_TOWER_BARREL_EXCHANGE_AGREEMENT     = 'f00F'
+	static constant ID_TOWER_BARREL_EXCHANGE_AGREEMENT_STR = "f00F"
 
 	static constant ID_MALTING_FACILITY_ROAST          = 'g000'
 	static constant ID_MALTING_FACILITY_ROAST_STR      = "g000"
@@ -72,6 +78,10 @@ public class UnitApi
 	static constant ID_SMALL_USEABLE_INVENTORY_STR     = "g007"
 	static constant ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON     = 'g008'
 	static constant ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON_STR = "g008"
+	static constant ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON     = 'g009'
+	static constant ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON_STR = "g009"
+	static constant ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON     = 'g00A'
+	static constant ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON_STR = "g00A"
 
 	static constant ITEM_BUILD_TINY_HOME_BREW_KIT      = 'ii00'
 	static constant ITEM_BUILD_TINY_NANO_BREWERY       = 'ii01'

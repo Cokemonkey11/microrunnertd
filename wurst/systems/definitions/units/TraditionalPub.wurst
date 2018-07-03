@@ -13,7 +13,7 @@ class TraditionalPub extends TowerDefinition
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNElvenFarm.blp")
         setModelFile(Units.highElvenFarm)
-        setScalingValue(.3)
+        setScalingValue(.25)
         setAcquisitionRange(500.)
         setAttack1AnimationBackswingPoint(.15)
         setAttack1AnimationDamagePoint(.15)
@@ -26,6 +26,7 @@ class TraditionalPub extends TowerDefinition
         setAttack1WeaponType(WeaponType.Instant)
         setUnitSoundSet("SpawningGrounds")
         setGoldCost(90)
+        setUpgradesTo(UnitApi.ID_TOWER_BEER_GEEK_BAR_STR)
         setHotkey("C")
         setName("Traditional Pub") // Beer
         setTooltipBasic("Build Traditional Pub [|cff999999C|r]")

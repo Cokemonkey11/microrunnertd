@@ -44,12 +44,18 @@ function checkEndowments(unit metal)
 														..removeAbility(ID_ENDOWMENT_BLACK_MANA)
 														..removeAbility(ID_ENDOWMENT_BLACK_MR)
 
+constant onSell = CreateTrigger()
+public function registerOnSell(code c)
+	onSell.addCondition(Condition(c))
+
 function act()
 	let tU = GetTriggerUnit()
 	let x  = GetUnitX(tU)
 	let y  = GetUnitY(tU)
 	let p  = GetOwningPlayer(tU)
 	var i  = GetUnitGoldCost(GetUnitTypeId(tU))
+
+	onSell.evaluate()
 
 	if not hasDoubleValue(tU)
 		i = R2I(i / 2.)

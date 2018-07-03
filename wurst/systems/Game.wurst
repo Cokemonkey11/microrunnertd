@@ -2,7 +2,6 @@ package Game
 import Players
 import UnitApi
 import Sounds
-import Knockback3
 
 native UnitAlive(unit u) returns boolean
 
@@ -198,12 +197,18 @@ public class Game
 			if UnitAlive(fst) and IsUnitType(fst, UNIT_TYPE_STRUCTURE)
 				UnitRemoveAbility(fst, 'A017')
 
+	static constant onStart = CreateTrigger()
+	static function registerOnRoundStart(code c)
+		onStart.addCondition(Condition(c))
+
 	private static function roundBegin()
 		TimerDialogDisplay(roundDialog, false)
 
 		if not ended
 			if round == 0
 				started = true
+
+			onStart.evaluate()
 
 			bigFx = AddSpecialEffect(TELE_BIG_FX, Players.brownStartX, Players.brownStartY)
 			runSound()

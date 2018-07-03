@@ -1,0 +1,45 @@
+package BarrelExchangeAgreement
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class BarrelExchangeAgreement extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON_STR)
+        setButtonPositionX(0)
+        setButtonPositionY(2)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNDranaiHut.blp")
+        setModelFile(Units.draeneiHut)
+        setScalingValue(.3)
+        // setColorRed(155)
+        // setColorBlue(155)
+        // setColorGreen(155)
+        setAcquisitionRange(375.)
+        setAttack1AnimationBackswingPoint(.25)
+        setAttack1AnimationDamagePoint(.2)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack1CooldownTime(.95)
+        setAttack1DamageBase(170)
+        setAttack1ProjectileArc(0.)
+        setAttack1ProjectileArt(Other.tomegreen)
+        setScaleProjectiles(false)
+        setAttack1Range(375)
+        setAttack1WeaponType(WeaponType.Missile)
+        setAttack1ProjectileSpeed(1400)
+        setAttacksEnabled(1)
+
+        setUnitSoundSet("VoodooLounge")
+        setGoldCost(250) // upgrade from 180
+        // setRequirements(UnitApi.ID_TOWER_BEER_GEEK_BAR_STR)
+        // setUpgradesTo(UnitApi.ID_TOWER_BREWERY_DELIVERY_VAN)
+        setHotkey("Q")
+        setName("Barrel Exchange Agreement") // Beer
+        setTooltipBasic("Upgrade to Barrel Exchange Agreement [|cff999999Q|r]")
+        setTooltipExtended("Sometimes a brewery might form a contract with another orgnanisation like a winery or a distillery.  If you join up with a whisky supplier, don't be surprised if you end up with a few free bottles!|n |n|cffffcc00Damage Type:|r Magic")
+
+@compiletime function inject()
+    new BarrelExchangeAgreement(UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT)
