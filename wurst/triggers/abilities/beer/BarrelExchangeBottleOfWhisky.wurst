@@ -1,12 +1,11 @@
 package BarrelExchangeBottleOfWhisky
 
-import Assets
 import DummyRecycler
 import DamageDetection2
 import DamageType2
+import LinkedHashMap
 import LinkedList
 import LinkedListModule
-import LinkedHashMap
 import SellTower
 import FloatText
 import Game
@@ -14,7 +13,7 @@ import FestivalBoothLimitedBrew  // Import for prioritisation - do not remove!
 
 import UnitApi
 
-let clock = getTimer()
+let clock = CreateTimer()
 
 class DummyEffect
     use LinkedListModule
@@ -42,7 +41,7 @@ function h()
 
     if GetUnitTypeId(dS) == UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT and getDamageType() == DamageType.ATTACK
         let list = booth_effects.get(dS)
-        let size = list.getSize()
+        let size = list.size()
 
         if size > 0
             let fst = list.get(0)
@@ -73,15 +72,15 @@ function roundStart()
     booth_effects.forEach() entry ->
         let u = entry.key
         let list = entry.value
-        while list.getSize() < 4
-            let size = list.getSize()
+        while list.size() < 4
+            let size = list.size()
             list.addtoStart(new DummyEffect(u, 100. + 50. * size))
 
 function onSell()
     let tU = GetTriggerUnit()
     if tU.getTypeId() == UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT
         let effects = booth_effects.get(tU)
-        while effects.getSize() > 0
+        while effects.size() > 0
             let fst = effects.get(0)
             destroy fst
             effects.removeAt(0)

@@ -2,6 +2,7 @@ package GreaterGuardDevilSoulSiphon
 import DamageType2
 import DamageDetection2
 import FloatText
+import HashMap
 import RegisterEvents
 
 constant ID_GREATER_GDEVIL = 'h03C'

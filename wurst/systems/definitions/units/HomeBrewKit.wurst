@@ -19,7 +19,7 @@ class HomeBrewKit extends TowerDefinition
         setButtonPositionX(1)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNCage.blp")
-        setModelFile(Units.wyvernCage)
+        setModelFile(Buildings.wyvernCage)
         setScalingValue(.5)
         setAcquisitionRange(400.)
         setAttack1AnimationBackswingPoint(.15)

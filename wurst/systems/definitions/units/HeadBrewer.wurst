@@ -12,7 +12,7 @@ class HeadBrewer extends TowerDefinition
         setButtonPositionX(0)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNHeroPaladin.blp")
-        setModelFile(Units.paladin2)
+        setModelFile(Units.heroPaladin)
         setScalingValue(.7)
         setAcquisitionRange(420.)
 
@@ -27,7 +27,7 @@ class HeadBrewer extends TowerDefinition
         setAttack1AttackType(AttackType.Chaos)
         setAttack1CooldownTime(2.9)
         setAttack1DamageBase(607)
-        setAttack1ProjectileArt(Other.chimaeraacidmissile)
+        setAttack1ProjectileArt(Abilities.chimaeraAcidMissile)
         setAttack1ProjectileSpeed(700)
         setAttack1ProjectileHomingEnabled(false)
         setAttack1ProjectileArc(.2)

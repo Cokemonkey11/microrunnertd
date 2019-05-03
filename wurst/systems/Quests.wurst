@@ -17,7 +17,8 @@ constant CREDITS_DESC = "Special thanks to |cff999999JesusHipster|r for the Wisp
 	*/ "|n|cff999999Talon the Mage|r, for the negev missile." + /*
 	*/ "|n|cff999999-Grendel|r, for the Crypt Mother model." + /*
 	*/ "|n|cff999999Tarrasque|r, for the Tidal Lord model." + /*
-	*/ "|n|cff999999asailant|r, for the Whiskey Bottle icon."
+	*/ "|n|cff999999asailant|r, for the Whiskey Bottle icon." + /*
+	*/ "|n|cff999999The_Silent|r, for the Speeding Tire icon."
 constant CREDITS_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNBookOfTheDead.blp"
 constant CREDITS_TITLE = "Credits"
 
@@ -30,7 +31,7 @@ constant HARD_DESC = "To enable |cffffcc00Hard Mode|r, both players must type |c
 constant HARD_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNScrollUber.blp"
 constant HARD_TITLE = "|cff999999Hard Mode|r"
 
-constant ROUNDTYPES_DESC = "Some rounds are special ones:|n|cffffcc00Rounds " + /*
+constant ROUNDTYPES_DESC = "|cffffcc00Rounds " + /*
 	*/ "6, 12, 18, 24, 30, 36, 42:|r Boss|n|cffffcc00Rounds 8, 16, 24, 32, 40:|r Spell Immune|n" + /*
 	*/ "|cffffcc00Rounds 14, 28, 42:|r Swarm|n|cffffcc00Rounds 15, 30:|r High Gravity"
 constant ROUNDTYPES_ICONPATH = "ReplaceableTextures\\CommandButtons\\BTNSpellBookBLS.blp"

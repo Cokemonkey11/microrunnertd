@@ -10,7 +10,7 @@ class TowerGranary extends TowerDefinition
         super(id)
 
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNGenericHumanBuilding.blp")
-        setModelFile(Units.grainWarehouse)
+        setModelFile(Buildings.grainWarehouse)
         setScalingValue(.3)
         setAcquisitionRange(500.)
         setAttack1AnimationBackswingPoint(.15)
@@ -18,7 +18,7 @@ class TowerGranary extends TowerDefinition
         setAttack1AttackType(AttackType.Pierce)
         setAttack1CooldownTime(.65)
         setAttack1DamageBase(10)
-        setAttack1ProjectileArt(Other.quillspraymissile)
+        setAttack1ProjectileArt(Abilities.quillSprayMissile)
         setAttack1ProjectileSpeed(1500)
         setAttack1Range(500)
         setAttack1WeaponType(WeaponType.Missile)

@@ -10,7 +10,7 @@ class HopCannon extends TowerDefinition
         super(id)
 
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNRockTower.blp")
-        setModelFile(Units.boulderTower)
+        setModelFile(Buildings.towerDefenseTower)
         setRequiredAnimationNames("second")
         setScalingValue(.6)
         setAcquisitionRange(550.)
@@ -19,7 +19,7 @@ class HopCannon extends TowerDefinition
         setAttack1AttackType(AttackType.Siege)
         setAttack1CooldownTime(1.7)
         setAttack1DamageBase(196)
-        setAttack1ProjectileArt(Other.ancientprotectormissile)
+        setAttack1ProjectileArt(Abilities.ancientProtectorMissile)
         setAttack1ProjectileSpeed(1200)
         setProjectileLaunchZ(110.)
         setAttack1Range(550)

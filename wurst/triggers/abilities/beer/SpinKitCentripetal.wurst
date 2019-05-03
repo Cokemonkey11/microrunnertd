@@ -8,7 +8,7 @@ import LinkedListModule
 import SpinKit
 import UnitApi
 
-let clock = getTimer()
+let clock = CreateTimer()
 
 class FakeMissile
     use LinkedListModule
@@ -47,7 +47,7 @@ function p()
         var hit = false
         grp.enumUnitsInRange(m.dummy.getPos(), projectileSpeed.toReal() * ANIMATION_PERIOD)
         for u from grp
-            if u.isAlive() and u.isEnemy(m.owner.getOwner()) and not u.isMagicImmune() and not hit
+            if u.isAlive() and not u.isEnemyOf(m.owner.getOwner()) and not u.isMagicImmune() and not hit
                 hit = true
                 dealCodeDamage(m.owner, u, projectileDamage.toReal())
 

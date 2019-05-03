@@ -4,16 +4,16 @@ import Assets
 import DummyRecycler
 import DamageDetection2
 import DamageType2
+import LinkedHashMap
 import LinkedList
 import LinkedListModule
-import LinkedHashMap
 import SellTower
 import FloatText
 import Game
 
 import UnitApi
 
-let clock = getTimer()
+let clock = CreateTimer()
 
 class DummyEffect
     use LinkedListModule
@@ -25,7 +25,7 @@ class DummyEffect
     construct(unit owner, real height)
         this.owner = owner
         this.dummy = DummyRecycler.get(owner.getPos(), angle(0))
-        this.fx = this.dummy.addEffect(Other.annihilationmissile, "origin")
+        this.fx = this.dummy.addEffect(Abilities.annihilationMissile, "origin")
 
         this.dummy..setFlyHeight(height, 0.)
                   ..setPos(owner.getPos())
@@ -41,7 +41,7 @@ function h()
 
     if GetUnitTypeId(dS) == UnitApi.ID_TOWER_FESTIVAL_BOOTH and getDamageType() == DamageType.ATTACK
         let list = booth_effects.get(dS)
-        let size = list.getSize()
+        let size = list.size()
 
         if size > 0
             let fst = list.get(0)
@@ -49,7 +49,7 @@ function h()
             list.removeAt(0)
 
             let tU = GetTriggerUnit()
-            dS.addEffect(Other.annihilationmissile, "origin").destr()
+            dS.addEffect(Abilities.annihilationMissile, "origin").destr()
             dealCodeDamage(dS, tU, 100)
 
             FloatText.bonus(dS.getX(), dS.getY(), GetEventDamage().toInt() + 100)
@@ -68,14 +68,14 @@ function roundStart()
     booth_effects.forEach() (entry) ->
         let u = entry.key
         let list = entry.value
-        while list.getSize() < 5
-            let size = list.getSize()
+        while list.size() < 5
+            let size = list.size()
             list.addtoStart(new DummyEffect(u, 100. + 50. * size))
 
 function _sellUpgradeCommon(unit tU, int id)
     if tU.getTypeId() == id
         let effects = booth_effects.get(tU)
-        while effects.getSize() > 0
+        while effects.size() > 0
             let fst = effects.get(0)
             destroy fst
             effects.removeAt(0)

@@ -12,7 +12,7 @@ class BeerGeekBar extends TowerDefinition
         setButtonPositionX(0)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNElvenFarm.blp")
-        setModelFile(Units.highElvenFarm)
+        setModelFile(Buildings.elvenFarm1)
         setScalingValue(.35)
         setAcquisitionRange(500.)
         setAttack1AnimationBackswingPoint(.10)

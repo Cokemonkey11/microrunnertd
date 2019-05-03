@@ -18,7 +18,7 @@ package Taunt
 
         grp.enumUnitsInRange(tU.getPos(), RADIUS)
         for iter from grp
-            if iter.isAlive() and iter.isEnemy(p)
+            if iter.isAlive() and iter.isEnemyOf(p)
                 iter..issueTargetOrder("attack", tU)
                     ..addAbility(DAMAGE_REDUCTION_ID)
 

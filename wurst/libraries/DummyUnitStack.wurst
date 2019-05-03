@@ -19,8 +19,7 @@
 //*     -Cokemonkey11
 //*
 package DummyUnitStack
-class UnitAlloc
-	unit u
+import ClosureTimers
 
 // Just a shim for the API, the class is not actually instanciated.
 public class DummyUnitStack
@@ -142,22 +141,9 @@ public class DummyUnitStack
 		stackIndex++
 		dummyStack[stackIndex] = u
 
-	private static function afterDelay()
-		timer tim = GetExpiredTimer()
-		UnitAlloc u = tim.getData() castTo UnitAlloc
-
-		release(u.u)
-		destroy u
-
-		DestroyTimer(tim)
-
 	static function delayedRelease(unit u, real delay)
-		UnitAlloc ua = new UnitAlloc
-		timer tim = CreateTimer()
-
-		ua.u = u
-		tim.setData(ua castTo int)
-		TimerStart(tim, delay, false, function afterDelay)
+		doAfter(delay) ->
+			release(u)
 
 init
 	if DummyUnitStack.DO_PIC

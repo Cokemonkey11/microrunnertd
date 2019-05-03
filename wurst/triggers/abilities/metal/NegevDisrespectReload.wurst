@@ -3,6 +3,7 @@ import DamageType2
 import DamageDetection2
 import FloatText
 import ClosureTimers
+import HashMap
 
 constant ID_NEGEV = 'h036'
 constant ROUNDS_PER_MAG = 150

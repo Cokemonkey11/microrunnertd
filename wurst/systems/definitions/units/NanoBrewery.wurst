@@ -19,7 +19,7 @@ class NanoBrewery extends TowerDefinition
         setButtonPositionX(0)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNTavern.blp")
-        setModelFile(Units.tavern)
+        setModelFile(Buildings.tavern1)
         setScalingValue(.3)
         setAcquisitionRange(500.)
         setAttack1AnimationBackswingPoint(.15)

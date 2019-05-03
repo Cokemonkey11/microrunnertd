@@ -12,7 +12,7 @@ class TraditionalPub extends TowerDefinition
         setButtonPositionX(2)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNElvenFarm.blp")
-        setModelFile(Units.highElvenFarm)
+        setModelFile(Buildings.elvenFarm1)
         setScalingValue(.25)
         setAcquisitionRange(500.)
         setAttack1AnimationBackswingPoint(.15)

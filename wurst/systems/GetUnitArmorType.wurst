@@ -1,5 +1,10 @@
 /// Made for use with STL 1.
 package GetUnitArmorType
+
+// !!!!!!!!!!!!!!!!!!!!!
+// This was changed in 1.28, and broken completely in 1.31.
+// !!!!!!!!!!!!!!!!!!!!!
+
 import AbilityObjEditing
 import HashMap
 
@@ -23,6 +28,7 @@ public enum ArmorType
 
 constant tab = new HashMap<int, ArmorType>
 
+@deprecated
 public function getUnitArmorType(unit u) returns ArmorType
 	let typ = GetUnitTypeId(u)
 	var ret = ArmorType.UNKNOWN
@@ -36,7 +42,8 @@ public function getUnitArmorType(unit u) returns ArmorType
 		disableDamageDetect()
 		UnitDamageTarget(u, u, 1., true, true, ConvertAttackType(7), DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
 		enableDamageDetect()
-		let q = BONUS_HP_VALUE - GetWidgetLife(u)
+		let pq = BONUS_HP_VALUE - GetWidgetLife(u)
+		let q = pq.toInt()
 		if q == 1
 			// tab.put(typ, ArmorType.MEDIUM_FORTIFIED)
 			// ret = ArmorType.MEDIUM_FORTIFIED
@@ -45,11 +52,11 @@ public function getUnitArmorType(unit u) returns ArmorType
 		else if q == 25
 			// tab.put(typ, ArmorType.UNARMORED)
 			// ret = ArmorType.UNARMORED
-			debugPrint("Unexpected `25` - are you using an old wc3 patch?", 0)
+			print("Unexpected `25` - are you using an old wc3 patch?", 0)
 		else if q == 150
 			// tab.put(typ, ArmorType.HERO)
 			// ret = ArmorType.HERO
-			debugPrint("Unexpected `150` - are you using an old wc3 patch?", 0)
+			print("Unexpected `150` - are you using an old wc3 patch?", 0)
 		else if q == 400
 			// tab.put(typ, ArmorType.DIVINE)
 			// ret = ArmorType.DIVINE
@@ -67,7 +74,7 @@ public function getUnitArmorType(unit u) returns ArmorType
 			ret = ArmorType.MEDIUM
 		else
 			tab.put(typ, ArmorType.UNKNOWN)
-			debugPrint("Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(q), 0)
+			print("Debug GetUnitArmorType: Unknown armor type uncovered for " + GetUnitName(u) + "; q = " +R2S(pq), 0)
 			ret = ArmorType.UNKNOWN
 
 		UnitRemoveAbility(u, ID_BONUS_HP)

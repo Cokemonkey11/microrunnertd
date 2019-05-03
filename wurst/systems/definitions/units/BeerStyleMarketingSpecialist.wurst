@@ -12,7 +12,7 @@ class BeerStyleMarketingSpecialist extends TowerDefinition
         setButtonPositionX(1)
         setButtonPositionY(1)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNBanditMage.blp")
-        setModelFile(Units.apprenticeWizard)
+        setModelFile(Units.priest_V1)
         setScalingValue(.7)
         setAcquisitionRange(400.)
 
@@ -27,7 +27,7 @@ class BeerStyleMarketingSpecialist extends TowerDefinition
         setAttack1AttackType(AttackType.Chaos)
         setAttack1CooldownTime(2.9)
         setAttack1DamageBase(303)
-        setAttack1ProjectileArt(Other.chimaeraacidmissile)
+        setAttack1ProjectileArt(Abilities.chimaeraAcidMissile)
         setAttack1ProjectileSpeed(900)
         setAttack1ProjectileHomingEnabled(false)
         setAttack1ProjectileArc(.15)

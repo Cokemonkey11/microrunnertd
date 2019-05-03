@@ -2,6 +2,7 @@ package DedicatedAwperReload
 import DamageType2
 import DamageDetection2
 import FloatText
+import HashMap
 import ClosureTimers
 
 constant ID_AWPER       = 'h02Z'

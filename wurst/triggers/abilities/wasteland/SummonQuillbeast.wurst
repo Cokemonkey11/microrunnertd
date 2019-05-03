@@ -16,7 +16,7 @@ function act()
 
 	if isTerrainWalkable(x, y) and (not IsTerrainPathable(x, y, PATHING_TYPE_BUILDABILITY))
 		let s = CreateUnit(p, UNIT_ID, x, y, 270.)
-		DestroyEffect(AddSpecialEffect(Other.feralspiritdone, GetUnitX(s), GetUnitY(s)))
+		DestroyEffect(AddSpecialEffect(Abilities.feralspiritdone, GetUnitX(s), GetUnitY(s)))
 		UnitRemoveAbility(tU, SUMMON_ID)
 	else
 		simError(p, "Must be summoned on dark grass.")

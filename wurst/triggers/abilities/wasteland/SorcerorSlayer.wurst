@@ -2,6 +2,7 @@ package SorcerorSlayer
 import DamageType2
 import DamageDetection2
 import FloatText
+import HashMap
 
 constant ID_SORCEROR = 'h027'
 constant EFFECT_PATH = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"

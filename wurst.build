@@ -1,6 +1,1 @@
-!!file.WurstProjectConfig
-dependencies: ['https://github.com/peq/wurstStdlib']
-releaseName: myRelease.w3x
-buildMapName: micro|cff999999runner|rtd 1.1.0
-buildMapFileName: (2)microrunnertd1.1.0
-buildMapAuthor: Cokemonkey11
+--- {}

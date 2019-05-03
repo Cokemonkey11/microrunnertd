@@ -13,7 +13,7 @@ class TomeOfAncientBrewingTechniques extends TowerDefinition
         setButtonPositionX(0)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNTomeRed.blp")
-        setModelFile(Other.tome)
+        setModelFile(Objects.tome1)
         setScalingValue(1.)
         setAcquisitionRange(800.)
 
@@ -21,8 +21,8 @@ class TomeOfAncientBrewingTechniques extends TowerDefinition
         setAttack1AnimationDamagePoint(.55)
         setAttack1AttackType(AttackType.Pierce)
         setAttack1CooldownTime(.48)
-        setAttack1DamageBase(96)
-        setAttack1ProjectileArt(Other.dragonhawkmissile)
+        setAttack1DamageBase(96 + 15)  // Remove the bonus 15 when ability is fixed.
+        setAttack1ProjectileArt(Abilities.dragonHawkMissile)
         setAttack1ProjectileSpeed(2000)
         setAttack1ProjectileHomingEnabled(true)
         setAttack1ProjectileArc(0.)

@@ -2,6 +2,7 @@ package Defeat
 import UnitApi
 import Players
 import Game
+import HashMap
 import Sounds
 import RegisterEvents
 

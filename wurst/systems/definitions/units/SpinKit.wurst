@@ -9,7 +9,7 @@ public constant projectileSpeed  = 2000
 public constant projectileRange  =  600
 public constant projectileDamage =  300
 public constant projectileHeight =   70.
-public constant projectileAppearance = Other.bloodelfmissile
+public constant projectileAppearance = Abilities.bloodElfMissile
 
 class SpinKit extends TowerDefinition
     construct(int id)
@@ -18,7 +18,7 @@ class SpinKit extends TowerDefinition
         setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_SPIN_KIT_CENTRIPETAL_ICON_STR)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNPowerGenerator.blp")
-        setModelFile(Units.powerGenerator)
+        setModelFile(Buildings.powerGenerator1)
         setScalingValue(.4)
         setTintingColorBlue(155)
         setTintingColorRed(155)

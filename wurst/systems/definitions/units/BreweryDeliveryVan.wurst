@@ -1,0 +1,40 @@
+package BreweryDeliveryVan
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class BreweryDeliveryVan extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON_STR)
+        setButtonPositionX(2)
+        setButtonPositionY(0)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNCOP.blp")
+        setModelFile(Buildings.circleOfPower1)
+        setScalingValue(.5)
+        setAcquisitionRange(600.)
+        setAttack1AnimationBackswingPoint(.1)
+        setAttack1AnimationDamagePoint(.1)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack1CooldownTime(5.)
+        setAttack1DamageBase(0)
+        setAttack1ProjectileArc(0.)
+        setAttack1ProjectileArt("")
+        setAttack1Range(600)
+        setAttack1WeaponType(WeaponType.Normal)
+        setAttacksEnabled(1)
+
+        setUnitSoundSet("SteamTank")
+        setGoldCost(200)
+        setRequirements(UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT_STR)
+        setUpgradesTo(UnitApi.ID_TOWER_VIKING_ALE_SHIP_STR)
+        setHotkey("E")
+        setName("Brewery Delivery Van") // Beer
+        setTooltipBasic("Build Brewery Delivery Van [|cff999999E|r]")
+        setTooltipExtended("Small breweries often need to deliver their own beer.  What better way to start than with a little van?|n |n|cffffcc00Damage Type:|r Spells")
+
+@compiletime function inject()
+    new BreweryDeliveryVan(UnitApi.ID_TOWER_BREWERY_DELIVERY_VAN)

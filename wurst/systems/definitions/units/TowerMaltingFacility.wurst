@@ -11,7 +11,7 @@ class TowerMaltingFacility extends TowerDefinition
 
         setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_MALTING_FACILITY_ROAST_STR + "," + UnitApi.ID_MALTING_FACILITY_ROAST_ICON_STR)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNGenericHumanBuilding.blp")
-        setModelFile(Units.grainWarehouse)
+        setModelFile(Buildings.grainWarehouse)
         setScaleProjectiles(false)
         setTintingColorBlue(155)
         setTintingColorGreen(155)
@@ -23,7 +23,7 @@ class TowerMaltingFacility extends TowerDefinition
         setAttack1AttackType(AttackType.Pierce)
         setAttack1CooldownTime(.65)
         setAttack1DamageBase(10)
-        setAttack1ProjectileArt(Other.quillspraymissile)
+        setAttack1ProjectileArt(Abilities.quillSprayMissile)
         setAttack1ProjectileSpeed(1500)
         setAttack1Range(500)
         setAttack1WeaponType(WeaponType.Missile)

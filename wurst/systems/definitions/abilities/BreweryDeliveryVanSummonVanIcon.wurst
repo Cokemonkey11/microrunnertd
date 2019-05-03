@@ -1,0 +1,26 @@
+package BreweryDeliveryVanSummonVanIcon
+import AbilityObjEditing
+
+import UnitApi
+
+class BreweryDeliveryVanSummonVanIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(1)
+        setIconNormal("ReplaceableTextures\\CommandButtons\\PASSpeedUp.blp")
+        setArtTarget("")
+        setAttackSpeedIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setAreaofEffect(1, 0.)
+        setBuffs(1, "")
+        setHeroAbility(false)
+        setLevels(1)
+        setRace(Race.Nightelf)
+        setTargetsAllowed(1, "none")
+        setName("Summon Van")
+        setTooltipNormal(1, "Summon Van")
+        setTooltipNormalExtended(1, "This unit's primary source of damage is a moving van that serves beer (damages) nearby enemy units.|n |n|cffffcc00Cooldown:|r 5s|n|cffffcc00Damage:|r 100/s|n|cffffcc00Radius:|r 100|n|cffffcc00Summon Range:|r 600")
+
+@compiletime function inject()
+    new BreweryDeliveryVanSummonVanIcon(UnitApi.ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON)

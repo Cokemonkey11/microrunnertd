@@ -21,7 +21,6 @@ public class Game
 	private static constant TELE_FX     = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportCaster.mdl"
 	private static constant TELE_IN_FX  = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTarget.mdl"
 	private static constant TELE_BIG_FX = "Abilities\\Spells\\Human\\MassTeleport\\MassTeleportTo.mdl"
-	private static constant BLINK_FX    = "Abilities\\Spells\\NightElf\\Blink\\BlinkTarget.mdl"
 
 	static constant GOLD_START = 40
 

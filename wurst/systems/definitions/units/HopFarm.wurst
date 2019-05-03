@@ -11,7 +11,7 @@ class HopFarm extends TowerDefinition
 
         setButtonPositionY(1)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNFarm.blp")
-        setModelFile(Units.farm)
+        setModelFile(Buildings.farm)
         setScalingValue(.6)
         setAcquisitionRange(500.)
         setAttack1AnimationBackswingPoint(.15)
@@ -19,7 +19,7 @@ class HopFarm extends TowerDefinition
         setAttack1AttackType(AttackType.Siege)
         setAttack1CooldownTime(.85)
         setAttack1DamageBase(41)
-        setAttack1ProjectileArt(Other.bansheemissile)
+        setAttack1ProjectileArt(Abilities.bansheeMissile)
         setAttack1ProjectileSpeed(600)
         setAttack1Range(500)
         setAttack1WeaponType(WeaponType.Missile)

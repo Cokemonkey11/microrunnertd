@@ -12,7 +12,7 @@ class RunnerBeer extends UnitDefinition
         setAnimationCastBackswing(0.)
         setAnimationCastPoint(0.)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNVillagerMan1.blp")
-        setModelFile(Units.villager1)
+        setModelFile(Units.villagerMan1)
         setAttacksEnabled(0)
         setDefenseBase(1)
         setArmorType(ArmorType.Unarmored)

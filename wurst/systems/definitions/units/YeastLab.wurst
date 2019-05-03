@@ -11,7 +11,7 @@ class YeastLab extends TowerDefinition
 
         setButtonPositionY(0)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNPowerGenerator.blp")
-        setModelFile(Units.powerGenerator)
+        setModelFile(Buildings.powerGenerator1)
         setScalingValue(.5)
         setAcquisitionRange(600.)
         setAttack1AnimationBackswingPoint(.85)
@@ -19,7 +19,7 @@ class YeastLab extends TowerDefinition
         setAttack1AttackType(AttackType.Magic)
         setAttack1CooldownTime(1.45)
         setAttack1DamageBase(151)
-        setAttack1ProjectileArt(Other.bloodelfmissile)
+        setAttack1ProjectileArt(Abilities.bloodElfMissile)
         setAttack1ProjectileSpeed(900)
         setAttack1ProjectileHomingEnabled(true)
         setAttack1ProjectileArc(.15)

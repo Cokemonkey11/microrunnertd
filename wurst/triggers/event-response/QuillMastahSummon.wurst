@@ -21,6 +21,6 @@ init
             doAfter(0.5, () -> begin
                 tU.unpause()
                 createUnit(Players.creeps, UnitApi.ID_BOAR, tU.getPos().polarOffset(tU.getFacingAngle(), 16.), tU.getFacingAngle())
-                    .addEffect(Other.feralspiritdone, "origin").destr()
+                    .addEffect(Abilities.feralspiritdone, "origin").destr()
             end)
     end))

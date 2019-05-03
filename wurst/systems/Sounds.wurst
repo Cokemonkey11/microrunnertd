@@ -1,5 +1,7 @@
 package Sounds
 
+import HashMap
+
 class Wrapper
     string snd
 

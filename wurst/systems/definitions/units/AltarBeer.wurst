@@ -10,7 +10,7 @@ class AltarBeer extends BuildingDefinition
 
         setNormalAbilities("Avul")
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNElvenFarm.blp")
-        setModelFile(Units.highElvenFarm)
+        setModelFile(Buildings.elvenFarm1)
         setScalingValue(.8)
         setSelectionScale(3.)
         setShadowTextureBuilding("")

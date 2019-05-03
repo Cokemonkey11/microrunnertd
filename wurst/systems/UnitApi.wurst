@@ -1,4 +1,5 @@
 package UnitApi
+import HashMap
 import Players
 import Invulnerable
 
@@ -59,6 +60,10 @@ public class UnitApi
 	static constant ID_TOWER_FESTIVAL_BOOTH_STR   = "f00E"
 	static constant ID_TOWER_BARREL_EXCHANGE_AGREEMENT     = 'f00F'
 	static constant ID_TOWER_BARREL_EXCHANGE_AGREEMENT_STR = "f00F"
+	static constant ID_TOWER_BREWERY_DELIVERY_VAN     = 'f00G'
+	static constant ID_TOWER_BREWERY_DELIVERY_VAN_STR = "f00G"
+	static constant ID_TOWER_VIKING_ALE_SHIP      = 'f00H'
+	static constant ID_TOWER_VIKING_ALE_SHIP_STR  = "f00H"
 
 	static constant ID_MALTING_FACILITY_ROAST          = 'g000'
 	static constant ID_MALTING_FACILITY_ROAST_STR      = "g000"
@@ -82,6 +87,10 @@ public class UnitApi
 	static constant ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON_STR = "g009"
 	static constant ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON     = 'g00A'
 	static constant ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON_STR = "g00A"
+	static constant ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON     = 'g00B'
+	static constant ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON_STR = "g00B"
+	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP     = 'g00C'
+	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP_STR = "g00C"
 
 	static constant ITEM_BUILD_TINY_HOME_BREW_KIT      = 'ii00'
 	static constant ITEM_BUILD_TINY_NANO_BREWERY       = 'ii01'

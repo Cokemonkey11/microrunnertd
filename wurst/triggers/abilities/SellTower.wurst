@@ -1,5 +1,6 @@
 package SellTower
 import FloatText
+import HashMap
 import Sounds
 import RegisterEvents
 
@@ -21,8 +22,8 @@ constant SND = "Abilities\\Spells\\Items\\ResourceItems\\ReceiveGold.wav"
 
 constant grp = CreateGroup()
 
-public Table endowments      = new Table
-public Table blackEndowments = new Table
+public constant endowments      = new HashMap<unit, unit>()
+public constant blackEndowments = new HashMap<unit, unit>()
 
 function hasDoubleValue(unit u) returns bool
 	var splendorCheck = false
@@ -35,14 +36,16 @@ function hasDoubleValue(unit u) returns bool
 	return splendorCheck
 
 function checkEndowments(unit metal)
-	if Table.ht.hasHandle(endowments      castTo int, metal.getHandleId())
-		endowments.loadUnit(metal.getHandleId())..removeAbility(ID_ENDOWMENT)
-												..removeAbility(ID_ENDOWMENT_PAS)
+	if endowments.has(metal)
+		endowments.get(metal)
+			..removeAbility(ID_ENDOWMENT)
+			..removeAbility(ID_ENDOWMENT_PAS)
 
-	if Table.ht.hasHandle(blackEndowments castTo int, metal.getHandleId())
-		blackEndowments.loadUnit(metal.getHandleId())..removeAbility(ID_ENDOWMENT_BLACK)
-														..removeAbility(ID_ENDOWMENT_BLACK_MANA)
-														..removeAbility(ID_ENDOWMENT_BLACK_MR)
+	if blackEndowments.has(metal)
+		blackEndowments.get(metal)
+			..removeAbility(ID_ENDOWMENT_BLACK)
+			..removeAbility(ID_ENDOWMENT_BLACK_MANA)
+			..removeAbility(ID_ENDOWMENT_BLACK_MR)
 
 constant onSell = CreateTrigger()
 public function registerOnSell(code c)

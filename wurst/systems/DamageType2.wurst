@@ -5,13 +5,9 @@ package DamageType2
 
 import AbilityObjEditing
 import ClosureForGroups
+import ClosureTimers
 import DamageDetection2
 import OnUnitEnterLeave
-
-class DelayDat
-    unit target
-    unit source
-    real damage
 
 
 public enum DamageType
@@ -96,16 +92,6 @@ public function dealCodeDamage(unit who, unit target, real damage)
     lastDamageType = prevType
 
 
-function after()
-    let      time    = GetExpiredTimer()
-    DelayDat tempDat = time.getData() castTo DelayDat
-
-    dealCodeDamage(tempDat.source, tempDat.target, tempDat.damage)
-
-    destroy tempDat
-    time.release()
-
-
 function getUnitBonusSpellResistance(unit u) returns real
     let prevType = lastDamageType
     let life     = u.getHP()
@@ -141,13 +127,11 @@ function handler() returns bool
         if sampledLife >= attemptedDamage and sampledLife <= 2.*attemptedDamage
             tU.setHP(sampledLife - attemptedDamage)
 
-            let tempDat = new DelayDat
-            tempDat.target = tU
-            tempDat.source = GetEventDamageSource()
-            tempDat.damage = attemptedDamage
+            let ds = GetEventDamageSource()
 
-            getTimer()..setData(tempDat castTo int)
-                      ..start(0., function after)
+            doAfter(0.) ->
+                dealCodeDamage(ds, tU, attemptedDamage)
+
         else
             dealCodeDamage(GetEventDamageSource(), tU, 2.*attemptedDamage)
 
