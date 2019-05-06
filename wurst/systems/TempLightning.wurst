@@ -1,0 +1,42 @@
+package TempLightning
+
+import LinkedListModule
+
+public class TempLightning
+    use LinkedListModule
+
+    static constant clock = CreateTimer()
+
+    vec3 start_v
+    vec3 end_v
+    real initial_duration
+    real duration_left
+    lightning bolt
+    string style
+
+    ondestroy
+        this.bolt.destr()
+
+    construct(vec3 st, vec3 ed, real duration, string style)
+        this.start_v = st
+        this.end_v = ed
+        this.initial_duration = duration
+        this.duration_left = duration
+        this.style = style
+        this.bolt = addLightning(style, true, st, ed)
+
+        if size == 1
+            clock.startPeriodic(ANIMATION_PERIOD) ->
+                for templ from staticItr()
+                    let a = (
+                        templ.duration_left / templ.initial_duration * 255
+                    ).toInt()
+                    templ.bolt.setColor(colorA(255, 255, 255, a))
+
+                    templ.duration_left -= ANIMATION_PERIOD
+
+                    if templ.duration_left <= 0.
+                        destroy templ
+
+                if size == 0
+                    clock.pause()

@@ -19,6 +19,7 @@ class BreweryDeliveryVan extends TowerDefinition
         setAttack1AnimationBackswingPoint(.1)
         setAttack1AnimationDamagePoint(.1)
         setAttack1AttackType(AttackType.Magic)
+        setAttack1WeaponType(WeaponType.Instant)
         setAttack1CooldownTime(5.)
         setAttack1DamageBase(0)
         setAttack1ProjectileArc(0.)

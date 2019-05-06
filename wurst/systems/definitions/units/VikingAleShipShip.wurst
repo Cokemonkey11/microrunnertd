@@ -1,0 +1,24 @@
+package VikingAleShipShip
+import Assets
+import UnitApi
+import UnitObjEditing
+
+constant ID_BASE = 'hfoo'
+
+class VikingAleShipShip extends UnitDefinition
+    construct(int id)
+        super(id, ID_BASE)
+
+        setNormalAbilities("Aloc,Avul")
+        setModelFile(Units.undeadDestroyerShip1)
+        setScalingValue(.5)
+        setAttacksEnabled(0)
+        setTurnRate(.2)
+        setMovementType(MovementType.Fly)
+        setMovementHeight(100.)
+
+        setUnitSoundSet("Boat")
+        setName("Viking Ale Ship") // Beer
+
+@compiletime function inject()
+    new VikingAleShipShip(UnitApi.ID_SUMMONED_VIKING_SHIP)

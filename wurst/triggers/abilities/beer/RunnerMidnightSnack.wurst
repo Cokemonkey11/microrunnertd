@@ -1,0 +1,115 @@
+package RunnerMidnightSnack
+
+import ClosureTimers
+import LinkedHashMap
+import Players
+import RegisterEvents
+import SimError
+import Sounds
+import UnitApi
+
+public constant PICKUP_RANGE = 150.
+
+constant map = new LinkedHashMap<player, unit>()
+
+// constant HEAL_OVER_TIME_2  = "Buildings\\Other\\FountainOfLife\\FountainOfLifeWhat1.wav"
+// constant PICKUP_ITEM       = "Sound\\Interface\\PickUpItem.wav"
+constant HEAL_OVER_TIME    = "Abilities\\Spells\\Other\\Drain\\SiphonMana.wav"
+constant HALLUCINATE_OCCUR = "Abilities\\Spells\\Other\\StrongDrink\\StrongDrinkTarget1.wav"
+constant EAT_OCCUR         = "Units\\Orc\\KotoBeast\\Devour.wav"
+constant EAT_OCCUR_2       = "Units\\Orc\\KotoBeast\\KodoBeastPuke1.wav"
+
+constant terrain = GetTerrainType(512., -512.)  // Cobblestone.
+
+constant food_ids = [
+    UnitApi.ID_FAKE_ITEM_FOOD_BURGER,
+    UnitApi.ID_FAKE_ITEM_FOOD_WURST,
+    UnitApi.ID_FAKE_ITEM_FOOD_FRIED_CHICKEN
+]
+
+function drop_item() returns unit
+    var x = 0.
+    var y = 0.
+    while GetTerrainType(x, y) != terrain
+        x = GetRandomReal(-1220., 1090.)
+        y = GetRandomReal(-1600., 1212.)
+    Sounds.play3D(HALLUCINATE_OCCUR, 1., x, y, vec2(x, y).getTerrainZ())
+    return createUnit(
+        Player(PLAYER_NEUTRAL_PASSIVE),
+        food_ids[GetRandomInt(0, 2)],
+        vec2(x, y),
+        angle(3. * bj_PI / 2.)
+    )
+
+init
+    Sounds.preload(HEAL_OVER_TIME)
+    Sounds.preload(HALLUCINATE_OCCUR)
+    Sounds.preload(EAT_OCCUR)
+    Sounds.preload(EAT_OCCUR_2)
+
+    for i = 0 to Players.COUNT
+        map.put(Players.id[i], null)
+
+    // Negate pickup.
+    // registerPlayerUnitEvent(EVENT_PLAYER_UNIT_PICKUP_ITEM) ->
+    //     let unit_ = GetManipulatedItem()
+    //     let id = unit_.getTypeId()
+    //     let builder = GetTriggerUnit()
+    //     if (
+    //         id == UnitApi.ID_FAKE_ITEM_FOOD_BURGER or
+    //         id == UnitApi.ID_FAKE_ITEM_FOOD_WURST or
+    //         id == UnitApi.ID_FAKE_ITEM_FOOD_FRIED_CHICKEN
+    //     )
+    //         map.forEach() (LHMEntry<player, unit> kv) ->
+    //             if kv.key == builder.getOwner()
+    //                 unit_.remove()
+    //                 doAfter(0.) ->
+    //                     map.put(builder.getOwner(), null)
+
+    // Hallucinate snack.
+    doPeriodically(15.) _cb ->
+        map.forEach() (LHMEntry<player, unit> kv) ->
+            if kv.value == null and GetPlayerTechResearched(
+                kv.key,
+                UnitApi.ID_UPGRADE_BEER_MIDNIGHT_SNACK,
+                true
+            )
+                let key = kv.key
+                doAfter(0.) ->
+                    map.put(key, drop_item())
+
+    // Consume snack.
+    registerPlayerUnitEvent(EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER) ->
+        let runner = GetTriggerUnit()
+        let unit_ = GetOrderTargetUnit()
+
+        if (
+            (
+                unit_.getTypeId() == UnitApi.ID_FAKE_ITEM_FOOD_BURGER or
+                unit_.getTypeId() == UnitApi.ID_FAKE_ITEM_FOOD_WURST or
+                unit_.getTypeId() == UnitApi.ID_FAKE_ITEM_FOOD_FRIED_CHICKEN
+            ) and
+            isUnitRunner(runner) and
+            GetIssuedOrderId() == OrderId("smart")
+        )
+            runner.issueImmediateOrder("stop")
+
+            if runner.getPos().distanceToSq(
+                unit_.getPos()
+            ) <= PICKUP_RANGE * PICKUP_RANGE
+                unit_.remove()
+                map.put(runner.getOwner(), null)
+                let pos = runner.getPos3Real()
+                Sounds.play3D(
+                    GetRandomInt(0, 1) == 0 ? EAT_OCCUR : EAT_OCCUR_2,
+                    1.,
+                    pos.x,
+                    pos.y,
+                    pos.z
+                )
+                doPeriodicallyCounted(1., 5) (CallbackCounted cb) ->
+                    runner.addHP(2.)
+                    let pos2 = runner.getPos3Real()
+                    Sounds.play3D(HEAL_OVER_TIME, 1., pos2.x, pos2.y, pos2.z)
+            else
+                simError(runner.getOwner(), "Get closer to eat the snack")

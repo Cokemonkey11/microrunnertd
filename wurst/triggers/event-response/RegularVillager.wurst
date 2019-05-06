@@ -59,11 +59,11 @@ function seq22()
 	TimerStart(GetExpiredTimer(), 1., false, function seq23)
 
 function seq21()
-	Knockback3.add(vgr1, 400., angle(0.), angle(bj_PI/2.))
+	Knockback3.add(vgr1, 400., angle(0.), angle(0.))
 	TimerStart(GetExpiredTimer(), 1., false, function seq22)
 
 function seq20()
-	Knockback3.add(vgr1, 400., angle(0.), angle(bj_PI/2.))
+	Knockback3.add(vgr1, 400., angle(0.), angle(0.))
 	SetUnitFacing(vgr0, FACE_2)
 	TimerStart(GetExpiredTimer(), .7, false, function seq21)
 

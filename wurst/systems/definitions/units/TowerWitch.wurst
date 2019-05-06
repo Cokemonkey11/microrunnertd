@@ -1,0 +1,38 @@
+package TowerWitch
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class TowerWitch extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNVillagerWoman.blp")
+        setModelFile(Units.villagerWoman1)
+        setScalingValue(.7)
+        setAcquisitionRange(500.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Chaos)
+        setAttack1CooldownTime(3.9)
+        setAttack1DamageBase(1649)
+        setAttack1ProjectileArt(Abilities.stormBoltMissile)
+        setAttack1ProjectileSpeed(1500)
+        setAttack1Range(500)
+        setAttack1WeaponType(WeaponType.Instant)
+        setUnitSoundSet("VillagerWoman")
+        setGoldCost(375)
+        setRequirements(
+            UnitApi.ID_TOWER_SPIN_KIT_STR + "," +
+            UnitApi.ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES_STR + "," +
+            UnitApi.ID_TOWER_VIKING_ALE_SHIP_STR
+        )
+        setHotkey("R")
+        setName("Witch") // Beer
+        setTooltipBasic("Build Witch [|cff999999R|r]")
+        setTooltipExtended("Brewsters were women in the dark ages who brewed beer. This is a historically accurate source of Witches in western europe. Of course, witches aren't real... right?|n |n|cffffcc00Damage Type:|r Chaos")
+
+@compiletime function inject()
+    new TowerWitch(UnitApi.ID_TOWER_WITCH)

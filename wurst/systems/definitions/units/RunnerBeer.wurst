@@ -8,7 +8,12 @@ class RunnerBeer extends UnitDefinition
     construct(int id)
         super(id, 'hfoo')
 
-        setNormalAbilities("A00E,A00D")
+        setNormalAbilities(
+            "A00E,A00D," +
+            UnitApi.ID_BEER_RUNNER_SLAP_ICON_STR +
+            "," +
+            UnitApi.ID_BEER_RUNNER_MIDNIGHT_SNACK_ICON_STR
+        )
         setAnimationCastBackswing(0.)
         setAnimationCastPoint(0.)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNVillagerMan1.blp")

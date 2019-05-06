@@ -12,7 +12,7 @@ function h()
 
 	if GetUnitTypeId(dS) == OB_ID and getDamageType() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 		if Knockback3.getVel(tU).length() == 0.
-			Knockback3.add(tU, 500., angle(0.), angle(bj_PI/2.))
+			Knockback3.add(tU, 500., angle(0.), angle(0.))
 
 init
 	addOnDamageFunc(Condition(function h))

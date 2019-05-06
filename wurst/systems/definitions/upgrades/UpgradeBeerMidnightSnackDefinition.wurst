@@ -1,0 +1,22 @@
+package UpgradeBeerMidnightSnackDefinition
+
+import UnitApi
+import UpgradeObjEditing
+
+class UpgradeBeerMidnightSnackDefinition extends UpgradeDefinition
+    construct(int id)
+        super(id)
+
+        setButtonPositionY(0)
+        setButtonPositionX(0)
+        setIcon(1, "ReplaceableTextures\\CommandButtons\\BTNElunesBlessing.blp")
+        setGoldCostBase(30)
+        setLumberCostBase(0)
+        setTimeBase(1)
+        setHotkey(1, "Q")
+        setName(1, "Midnight Snack")
+        setTooltip(1, "Research Midnight Snack [|cffffcc00Q|r]")
+        setTooltipExtended(1, "Allows your runner to dream of tasty snacks, which restore its lost hit points over time.")
+
+@compiletime function inject()
+    new UpgradeBeerMidnightSnackDefinition(UnitApi.ID_UPGRADE_BEER_MIDNIGHT_SNACK)

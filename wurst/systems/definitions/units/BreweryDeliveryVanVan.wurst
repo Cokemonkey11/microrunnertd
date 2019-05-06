@@ -1,0 +1,24 @@
+package BreweryDeliveryVanVan
+import Assets
+import UnitApi
+import UnitObjEditing
+
+constant ID_BASE = 'hfoo'
+
+class BreweryDeliveryVanVan extends UnitDefinition
+    construct(int id)
+        super(id, ID_BASE)
+
+        setNormalAbilities("Aloc,Avul")
+        setModelFile(Units.warWagon)
+        setScalingValue(.5)
+        setAttacksEnabled(0)
+        // setSpeedBase(0)
+        // setSpeedMaximum(0)
+        setMovementType(MovementType.Fly)
+
+        setUnitSoundSet("SteamTank")
+        setName("Brewery Delivery Van") // Beer
+
+@compiletime function inject()
+    new BreweryDeliveryVanVan(UnitApi.ID_SUMMONED_DELIVERY_VAN)

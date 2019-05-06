@@ -1,0 +1,66 @@
+package RunnerSlap
+
+import HashMap
+import Knockback3
+import RegisterEvents
+import Sounds
+import UnitApi
+
+public constant MIN_RANGE = 150.
+
+public constant INITIAL_POWER = 800.
+
+constant map = new HashMap<unit, int>()
+
+constant sounds = [
+    "Sound\\Destructibles\\CrateDeath1.wav",
+    "Sound\\Ambient\\DoodadEffects\\DoorSlam1.wav",
+    "Sound\\Units\\Combat\\AxeMediumChopWood4.wav",
+    "Sound\\Units\\Footsteps\\FriendStep2.wav",
+    "Units\\Critters\\EasterChicken\\ChickenWhat1.wav"
+]
+
+function get_power(unit which) returns real
+    let pos = which.getPos3Real()
+
+    if map.has(which)
+        let expo = map.get(which)
+        map.put(which, expo + 1)
+        Sounds.play3D(sounds[min(expo + 1, 4)], 1., pos.x, pos.y, pos.z)
+        return INITIAL_POWER * (2. / 3.).pow(expo.toReal())
+
+    map.put(which, 0)
+    Sounds.play3D(sounds[0], 1., pos.x, pos.y, pos.z)
+    return INITIAL_POWER
+
+init
+    Sounds.preload(sounds[0])
+    Sounds.preload(sounds[1])
+    Sounds.preload(sounds[2])
+    Sounds.preload(sounds[3])
+    Sounds.preload(sounds[4])
+
+    registerPlayerUnitEvent(EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER) ->
+        let runner = GetTriggerUnit()
+        let creep = GetOrderTargetUnit()
+
+        if (
+            runner.getTypeId() == UnitApi.ID_RUNNER_BEER and
+            GetIssuedOrderId() == OrderId("smart") and
+            GetPlayerTechResearched(
+                runner.getOwner(),
+                UnitApi.ID_UPGRADE_BEER_SLAP,
+                true
+            ) and
+            runner.getPos().distanceToSq(
+                creep.getPos()
+            ) <= MIN_RANGE * MIN_RANGE
+        )
+            runner.issueImmediateOrder("stop")
+            if Knockback3.getVel(creep).lengthSquared() < (100. * 100.)
+                Knockback3.setVel(
+                    creep,
+                    get_power(runner),
+                    runner.getPos().angleTo(creep.getPos()),
+                    angle(bj_PI / 2.)
+                )

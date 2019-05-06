@@ -64,6 +64,13 @@ public class UnitApi
 	static constant ID_TOWER_BREWERY_DELIVERY_VAN_STR = "f00G"
 	static constant ID_TOWER_VIKING_ALE_SHIP      = 'f00H'
 	static constant ID_TOWER_VIKING_ALE_SHIP_STR  = "f00H"
+	static constant ID_TOWER_WITCH                = 'f00I'
+	static constant ID_TOWER_WITCH_STR            = "f00I"
+
+	static constant ID_SUMMONED_DELIVERY_VAN     = 'fF00'
+	static constant ID_SUMMONED_DELIVERY_VAN_STR = "fF00"
+	static constant ID_SUMMONED_VIKING_SHIP      = 'fF01'
+	static constant ID_SUMMONED_VIKING_SHIP_STR  = "fF01"
 
 	static constant ID_MALTING_FACILITY_ROAST          = 'g000'
 	static constant ID_MALTING_FACILITY_ROAST_STR      = "g000"
@@ -91,9 +98,19 @@ public class UnitApi
 	static constant ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON_STR = "g00B"
 	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP     = 'g00C'
 	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP_STR = "g00C"
+	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON     = 'g00D'
+	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON_STR = "g00D"
+	static constant ID_BEER_RUNNER_SLAP_ICON     = 'g00E'
+	static constant ID_BEER_RUNNER_SLAP_ICON_STR = "g00E"
+	static constant ID_BEER_RUNNER_MIDNIGHT_SNACK_ICON     = 'g00F'
+	static constant ID_BEER_RUNNER_MIDNIGHT_SNACK_ICON_STR = "g00F"
 
 	static constant ITEM_BUILD_TINY_HOME_BREW_KIT      = 'ii00'
 	static constant ITEM_BUILD_TINY_NANO_BREWERY       = 'ii01'
+
+	static constant ID_FAKE_ITEM_FOOD_BURGER        = 'qi00'
+	static constant ID_FAKE_ITEM_FOOD_WURST         = 'qi01'
+	static constant ID_FAKE_ITEM_FOOD_FRIED_CHICKEN = 'qi02'
 
 	static constant ID_RACE_SELECT    = 'z000'
 	static constant IMMUNE            = 'ACmi'
@@ -104,6 +121,11 @@ public class UnitApi
 	static constant ID_BANDITO_MASTERINO         = 'c000'
 	static constant ID_BANDITO_DIVINE_SHIELD     = 'b000'
 	static constant ID_BANDITO_DIVINE_SHIELD_STR = "b000"
+
+	static constant ID_UPGRADE_BEER_SLAP     = 'uu00'
+	static constant ID_UPGRADE_BEER_SLAP_STR = "uu00"
+	static constant ID_UPGRADE_BEER_MIDNIGHT_SNACK     = 'uu01'
+	static constant ID_UPGRADE_BEER_MIDNIGHT_SNACK_STR = "uu01"
 
 	static unit array runners
 	static unit array choosers
@@ -122,6 +144,12 @@ public class UnitApi
 				Invulnerable.apply(fst, 60. * 60. * 24.)
 				UnitAddAbility(fst, 'Aloc')
 				SetUnitTimeScale(fst, 0.)
+
+public function isUnitRunner(unit u) returns bool
+	return u.getTypeId() == UnitApi.ID_RUNNER_BEER or
+		u.getTypeId() == UnitApi.ID_RUNNER_METAL or
+		u.getTypeId() == UnitApi.ID_RUNNER_SPIRIT or
+		u.getTypeId() == UnitApi.ID_RUNNER_WASTE
 
 init
 	UnitApi.runnerTypes[0] = 0

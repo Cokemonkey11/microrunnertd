@@ -1,0 +1,26 @@
+package ItemFoodAll
+import Assets
+import UnitObjEditing
+
+import UnitApi
+
+class ItemFoodAll extends UnitDefinition
+    construct(int id, string name)
+        super(id, 'hfoo')
+
+        setName(name)
+        setNormalAbilities("Avul")
+        setAttacksEnabled(0)
+        setTurnRate(0.)
+        setModelFile(Objects.treasurechest1)
+        setDescription(name == "Wurst" ? "wurstlang.org" : "A food goodie that can be consumed by a runner for the heals.")
+        setTooltipBasic(name)
+        setTooltipExtended(name == "Wurst" ? "wurstlang.org" : "A food goodie that can be consumed by a runner for the heals.")
+        setGoldCost(0)
+        setHitPointsMaximumBase(50000)
+        setLumberCost(0)
+
+@compiletime function itemBuildTinyHomeBrewKit()
+    new ItemFoodAll(UnitApi.ID_FAKE_ITEM_FOOD_BURGER, "Burger")
+    new ItemFoodAll(UnitApi.ID_FAKE_ITEM_FOOD_WURST, "Wurst")
+    new ItemFoodAll(UnitApi.ID_FAKE_ITEM_FOOD_FRIED_CHICKEN, "Fried Chicken")

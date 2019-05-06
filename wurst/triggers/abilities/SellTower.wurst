@@ -1,6 +1,8 @@
 package SellTower
+
 import FloatText
 import HashMap
+import LinkedList
 import Sounds
 import RegisterEvents
 
@@ -19,6 +21,15 @@ constant RADIUS = 90. + 16. * 2.
 
 constant FX  = "Abilities\\Spells\\Items\\ResourceItems\\ResourceEffectTarget.mdl"
 constant SND = "Abilities\\Spells\\Items\\ResourceItems\\ReceiveGold.wav"
+
+// Not intentended to be destroyed.
+public abstract class SellCallback
+	abstract function call_(unit sold_unit)
+
+constant sell_hooks = new LinkedList<SellCallback>()
+
+public function register_sell_hook(SellCallback c)
+	sell_hooks.add(c)
 
 constant grp = CreateGroup()
 
@@ -64,6 +75,9 @@ function act()
 		i = R2I(i / 2.)
 
 	checkEndowments(tU)
+
+	sell_hooks.forEach() (SellCallback t) ->
+		t.call_(tU)
 
 	SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + i)
 	FloatText.bountyPlayer(x, y, i, p)

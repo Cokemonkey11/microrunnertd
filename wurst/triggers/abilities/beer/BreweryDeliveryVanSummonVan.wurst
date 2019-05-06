@@ -1,2 +1,180 @@
 package BreweryDeliveryVanSummonVan
 
+import Assets
+import DamageDetection2
+import DamageType2
+import FinishUpgrade
+import HashMap
+import LinkedListModule
+import SellTower
+import UnitApi
+
+constant FX = Abilities.feralspiritdone
+
+enum VanState
+	_NONE
+	WAITING
+	TURNING
+	RACING
+
+class SummonedVan
+	use LinkedListModule
+
+	static constant RACING_SPEED  = 800.
+	static constant DAMAGE_PERIOD =   1.25
+	static constant DAMAGE        = 100. * DAMAGE_PERIOD  // TODO
+	static constant RADIUS        = 100.
+	static constant TURN_DURATION =    .5
+	static constant clock = CreateTimer()
+
+	unit owner
+	unit van
+	VanState state          // FSM for racing/turning/waiting states.
+	real time_in_state      // Only used in turning and racing states.
+	real time_until_damage  // Only usd in waiting and turning states.
+	vec2 vel
+	vec2 target
+
+	static function time_to_target(
+		vec2 start,
+		vec2 end_,
+		real speed
+	) returns real
+		return start.distanceTo(end_) / speed
+
+	static constant grp = CreateGroup()
+	static function do_circle_damage_and_fx(
+		vec2 ctr,
+		unit owner,
+		real damage,
+		real radius
+	) returns bool
+		grp.enumUnitsInRange(ctr, radius)
+		var did_damage = false
+		for u from grp
+			if owner.isEnemyOf(u.getOwner()) and not u.isInvulnerable() and u.isAlive()
+				did_damage = true
+				dealCodeDamage(owner, u, damage)
+
+		if did_damage
+			flashEffect(Abilities.thunderclapCaster, ctr)
+
+		return did_damage
+
+	static function update_target(unit owner, unit target)
+		for van from staticItr()
+			if van.owner == owner
+				SetUnitFacingTimed(
+					van.van,
+					van.van.getPos().angleTo(target.getPos()).degrees(),
+					TURN_DURATION
+				)
+				van.state = VanState.TURNING
+				van.time_in_state = TURN_DURATION
+				van.vel = vec2(0., 0.).polarOffset(
+					van.van.getPos().angleTo(target.getPos()),
+					RACING_SPEED * ANIMATION_PERIOD
+				)
+				van.target = target.getPos()
+
+	construct(unit owner, unit target)
+		this.owner = owner
+		this.van = createUnit(
+			owner.getOwner(),
+			UnitApi.ID_SUMMONED_DELIVERY_VAN,
+			owner.getPos(),
+			owner.getPos().angleTo(target.getPos())
+		)..setVertexColor(255, 255, 255, 128)
+		this.state = VanState.RACING
+		this.vel = vec2(0., 0.).polarOffset(
+			owner.getPos().angleTo(target.getPos()),
+			RACING_SPEED * ANIMATION_PERIOD
+		)
+		this.time_in_state = time_to_target(
+			owner.getPos(),
+			target.getPos(),
+			RACING_SPEED
+		)
+
+		if size == 1
+			clock.startPeriodic(ANIMATION_PERIOD) ->
+				for van from staticItr()
+					if van.van.isAlive()
+						switch van.state
+							case VanState.RACING
+								van.van.setXY(van.van.getPos() + van.vel)
+								van.time_in_state -= ANIMATION_PERIOD
+								if van.time_in_state <= 0.
+									if do_circle_damage_and_fx(
+										van.van.getPos(),
+										van.owner,
+										DAMAGE,
+										RADIUS
+									)
+										van.time_until_damage = DAMAGE_PERIOD
+
+									van.van.setPos(van.van.getPos())
+									van.state = VanState.WAITING
+							case VanState.TURNING
+								van.time_in_state -= ANIMATION_PERIOD
+								if van.time_in_state <= 0.
+									van.state = VanState.RACING
+									van.time_in_state = time_to_target(
+										van.van.getPos(),
+										van.target,
+										RACING_SPEED
+									)
+
+								van.time_until_damage -= ANIMATION_PERIOD
+								if van.time_until_damage <= 0.
+									if do_circle_damage_and_fx(
+										van.van.getPos(),
+										van.owner,
+										DAMAGE,
+										RADIUS
+									)
+										van.time_until_damage = DAMAGE_PERIOD
+							case VanState.WAITING
+								van.time_until_damage -= ANIMATION_PERIOD
+								if van.time_until_damage <= 0.
+									if do_circle_damage_and_fx(
+										van.van.getPos(),
+										van.owner,
+										DAMAGE,
+										RADIUS
+									)
+										van.time_until_damage = DAMAGE_PERIOD
+							default
+								print("Unrecognised van state.")
+					else
+						destroy van
+				if size == 0
+					clock.pause()
+
+	ondestroy
+		addEffect(FX, this.van.getPos())..destr()
+		this.van.remove()
+
+constant circles_summons = new HashMap<unit, unit>()
+
+function on_destroy(unit which)
+	if circles_summons.has(which)
+		// Don't worry about a tombstone - the attack type is Instant.
+		circles_summons.getAndRemove(which)..kill()
+
+function h()
+	let dS = GetEventDamageSource()
+
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_BREWERY_DELIVERY_VAN and getDamageType() == DamageType.ATTACK
+		if circles_summons.has(dS)
+			SummonedVan.update_target(dS, GetTriggerUnit())
+		else
+			let sv = new SummonedVan(dS, GetTriggerUnit())
+			circles_summons.put(dS, sv.van)
+
+init
+	addOnDamageFunc(Condition(function h))
+	register_sell_hook() (unit sold_unit) ->
+		on_destroy(sold_unit)
+	register_upgrade_hook() (unit upgraded_unit) ->
+		on_destroy(upgraded_unit)

@@ -1,0 +1,44 @@
+package WitchAttackFx
+
+import ClosureTimers
+import DamageDetection2
+import DamageType2
+import TempLightning
+import UnitApi
+
+constant DIST = 200.  // Size of the pentagram.
+
+constant LIGHTNING_HEIGHT = vec3(0., 0., 50.)
+
+function h()
+	let dS = GetEventDamageSource()
+
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_WITCH and getDamageType() == DamageType.ATTACK
+		let tU = GetTriggerUnit()
+		new TempLightning(
+			dS.getPos3Real() + LIGHTNING_HEIGHT,
+			tU.getPos3Real() + LIGHTNING_HEIGHT,
+			.5,
+			"AFOD"
+		)
+
+		doAfter(.25) ->
+			let center       = tU.getPos3Real() + LIGHTNING_HEIGHT
+			let bottom       = center.polarProject(DIST, angle(3. * bj_PI / 2.), angle(bj_PI / 2.))
+			let top_left     = center.polarProject(DIST, angle(3. * bj_PI / 2. + 2. * 2. * bj_PI / 5.), angle(bj_PI / 2.))
+			let bottom_right = center.polarProject(DIST, angle(3. * bj_PI / 2. + 4. * 2. * bj_PI / 5.), angle(bj_PI / 2.))
+			let bottom_left  = center.polarProject(DIST, angle(3. * bj_PI / 2. + 1. * 2. * bj_PI / 5.), angle(bj_PI / 2.))
+			let top_right    = center.polarProject(DIST, angle(3. * bj_PI / 2. + 3. * 2. * bj_PI / 5.), angle(bj_PI / 2.))
+
+			new TempLightning(bottom,       top_left,     .6, "CLSB")
+			doAfter(.1) ->
+				new TempLightning(top_left,     bottom_right, .5, "CLSB")
+				doAfter(.1) ->
+					new TempLightning(bottom_right, bottom_left,  .4, "CLSB")
+					doAfter(.1) ->
+						new TempLightning(bottom_left,  top_right,    .3, "CLSB")
+						doAfter(.1) ->
+							new TempLightning(top_right,    bottom,       .2, "CLSB")
+
+init
+	addOnDamageFunc(Condition(function h))

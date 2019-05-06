@@ -1,4 +1,6 @@
 package DrudgeBonus
+// Disabled until blizzard provides an API or fixes ConvertAttackType(7).
+
 // import DamageType2
 // import DamageDetection2
 // import FloatText

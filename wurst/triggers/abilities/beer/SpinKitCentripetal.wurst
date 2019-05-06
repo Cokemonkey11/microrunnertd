@@ -42,12 +42,12 @@ function p()
     let iter = FakeMissile.iterator()
     while iter.hasNext()
         let m = iter.next()
-        m.dummy.setPos(m.dummy.getPos() + m.vel)
+        m.dummy.setXY(m.dummy.getPos() + m.vel)
 
         var hit = false
         grp.enumUnitsInRange(m.dummy.getPos(), projectileSpeed.toReal() * ANIMATION_PERIOD)
         for u from grp
-            if u.isAlive() and not u.isEnemyOf(m.owner.getOwner()) and not u.isMagicImmune() and not hit
+            if u.isAlive() and u.isEnemyOf(m.owner.getOwner()) and not u.isMagicImmune() and not hit
                 hit = true
                 dealCodeDamage(m.owner, u, projectileDamage.toReal())
 

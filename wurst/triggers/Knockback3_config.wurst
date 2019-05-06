@@ -1,0 +1,3 @@
+package Knockback3_config
+
+@config let DESTRUCTABLE_ENUM_SIZE = 0.001

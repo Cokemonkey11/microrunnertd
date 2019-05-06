@@ -1,10 +1,11 @@
 package CowGodSummon
+import Assets
 import DamageDetection2
 import DamageType2
 
 constant COW_ID    = 'h00V'
 constant TAUREN_ID = 'o000'
-constant FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
+constant FX = Abilities.feralspiritdone
 
 function h()
 	let dS = GetEventDamageSource()

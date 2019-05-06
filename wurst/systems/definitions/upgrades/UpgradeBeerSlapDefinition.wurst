@@ -1,0 +1,22 @@
+package UpgradeBeerSlapDefinition
+
+import UnitApi
+import UpgradeObjEditing
+
+class UpgradeBeerSlapDefinition extends UpgradeDefinition
+    construct(int id)
+        super(id)
+
+        setButtonPositionY(0)
+        setButtonPositionX(1)
+        setIcon(1, "ReplaceableTextures\\CommandButtons\\BTNDevotion.blp")
+        setGoldCostBase(50)
+        setLumberCostBase(0)
+        setTimeBase(1)
+        setHotkey(1, "W")
+        setName(1, "Slap")
+        setTooltip(1, "Research Slap [|cffffcc00W|r]")
+        setTooltipExtended(1, "Allows your runner to use the Slap ability, which knocks back enemy units.")
+
+@compiletime function inject()
+    new UpgradeBeerSlapDefinition(UnitApi.ID_UPGRADE_BEER_SLAP)

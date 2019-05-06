@@ -1,0 +1,121 @@
+package VikingAleShipSummonShip
+
+import Assets
+import DamageDetection2
+import DamageType2
+import HashMap
+import LinkedListModule
+import SellTower
+import UnitApi
+
+constant FX = Abilities.feralspiritdone
+
+class SummonedShip
+	use LinkedListModule
+
+	static constant ACCELERATION  =  70. * ANIMATION_PERIOD
+	static constant DAMAGE_PERIOD =   1.25
+	static constant DAMAGE        = 200. * DAMAGE_PERIOD  // TODO
+	static constant RADIUS        = 120.
+
+	// Fraction of retained velocity per tick.  At 0.97 and 33 tick, this
+	// retains about 35% velocity per second.
+	static constant INST_FRICTION_RATE = 0.98
+
+	static constant clock = CreateTimer()
+
+	unit owner
+	unit ship
+	real time_until_damage
+	vec2 vel
+
+	static constant grp = CreateGroup()
+	static function do_circle_damage_and_fx(
+		vec2 ctr,
+		unit owner,
+		real damage,
+		real radius
+	) returns bool
+		grp.enumUnitsInRange(ctr, radius)
+		var did_damage = false
+		for u from grp
+			if owner.isEnemyOf(u.getOwner()) and not u.isInvulnerable() and u.isAlive()
+				did_damage = true
+				dealCodeDamage(owner, u, damage)
+
+		if did_damage
+			flashEffect(Abilities.warStompCaster, ctr)
+
+		return did_damage
+
+	static function update_target(unit owner, unit target)
+		for ship from staticItr()
+			if ship.owner == owner
+				ship.vel += vec2(0., 0.).polarOffset(
+					ship.ship.getPos().angleTo(target.getPos()),
+					ACCELERATION
+				)
+				ship.ship.setFacing(vec2(0., 0.).angleTo(ship.vel))
+
+	construct(unit owner, unit target)
+		this.owner = owner
+		this.ship = createUnit(
+			owner.getOwner(),
+			UnitApi.ID_SUMMONED_VIKING_SHIP,
+			owner.getPos(),
+			owner.getPos().angleTo(target.getPos())
+		)..setVertexColor(255, 255, 255, 128)
+
+		this.vel = vec2(0., 0.).polarOffset(
+			owner.getPos().angleTo(target.getPos()),
+			ACCELERATION
+		)
+		this.time_until_damage = DAMAGE_PERIOD
+
+		if size == 1
+			clock.startPeriodic(ANIMATION_PERIOD) ->
+				for ship from staticItr()
+					if ship.ship.isAlive()
+						ship.ship.setXY(ship.ship.getPos() + ship.vel)
+						ship.vel *= INST_FRICTION_RATE
+
+						ship.time_until_damage -= ANIMATION_PERIOD
+						if ship.time_until_damage <= 0.
+							if do_circle_damage_and_fx(
+								ship.ship.getPos(),
+								ship.owner,
+								DAMAGE,
+								RADIUS
+							)
+								ship.time_until_damage = DAMAGE_PERIOD
+								ship.ship.setPos(ship.ship.getPos())
+					else
+						destroy ship
+				if size == 0
+					clock.pause()
+
+	ondestroy
+		addEffect(FX, this.ship.getPos())..destr()
+		this.ship.remove()
+
+constant circles_summons = new HashMap<unit, unit>()
+
+function on_destroy(unit which)
+	if circles_summons.has(which)
+		// Don't worry about a tombstone - the attack type is Instant.
+		circles_summons.getAndRemove(which)..kill()
+
+function h()
+	let dS = GetEventDamageSource()
+
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_VIKING_ALE_SHIP and getDamageType() == DamageType.ATTACK
+		if circles_summons.has(dS)
+			SummonedShip.update_target(dS, GetTriggerUnit())
+		else
+			let sv = new SummonedShip(dS, GetTriggerUnit())
+			circles_summons.put(dS, sv.ship)
+
+init
+	addOnDamageFunc(Condition(function h))
+	register_sell_hook() (unit sold_unit) ->
+		on_destroy(sold_unit)

@@ -1,0 +1,17 @@
+package FinishUpgrade
+
+import LinkedList
+import RegisterEvents
+
+public abstract class UpgradeCallback
+    abstract function call_(unit upgraded_unit)
+
+constant upgrade_hooks = new LinkedList<UpgradeCallback>()
+
+public function register_upgrade_hook(UpgradeCallback c)
+    upgrade_hooks.add(c)
+
+init
+    registerPlayerUnitEvent(EVENT_PLAYER_UNIT_UPGRADE_FINISH) ->
+        upgrade_hooks.forEach() (UpgradeCallback t) ->
+            t.call_(GetTriggerUnit())

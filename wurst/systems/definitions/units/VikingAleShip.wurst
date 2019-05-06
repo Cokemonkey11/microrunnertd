@@ -1,0 +1,44 @@
+package VikingAleShip
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class VikingAleShip extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON_STR)
+        setButtonPositionX(0)
+        setButtonPositionY(2)
+        setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNCOP.blp")
+        setModelFile(Buildings.circleOfPower1)
+        setScalingValue(.5)
+        setTeamColor(24)
+        setAcquisitionRange(600.)
+        setAttack1AnimationBackswingPoint(.1)
+        setAttack1AnimationDamagePoint(.1)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack1WeaponType(WeaponType.Instant)
+        setAttack1CooldownTime(.25)
+        setAttack1DamageBase(0)
+        setAttack1ProjectileArc(0.)
+        setAttack1ProjectileArt("")
+        setAttack1Range(600)
+        setAttack1WeaponType(WeaponType.Normal)
+        setAttacksEnabled(1)
+
+        setUnitSoundSet("Boat")
+        setGoldCost(400)
+        setRequirements("")
+        setUpgradesTo("")
+        setHotkey("Q")
+        setName("Viking Ale Ship") // Beer
+        setTooltipBasic("Upgrade to Viking Ale Ship [|cff999999Q|r]")
+        setTooltipExtended(
+            "The world's oldest beer was discovered at the bottom of the ocean in a viking ship.|n |n|cffffcc00Damage Type:|r Spells"
+        )
+
+@compiletime function inject()
+    new VikingAleShip(UnitApi.ID_TOWER_VIKING_ALE_SHIP)

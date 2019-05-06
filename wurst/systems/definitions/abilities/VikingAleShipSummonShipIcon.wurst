@@ -1,0 +1,26 @@
+package VikingAleShipSummonShipIcon
+import AbilityObjEditing
+
+import UnitApi
+
+class VikingAleShipSummonShipIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(0)
+        setIconNormal("ReplaceableTextures\\PassiveButtons\\PASBTNScatterRockets.blp")
+        setArtTarget("")
+        setAttackSpeedIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setAreaofEffect(1, 0.)
+        setBuffs(1, "")
+        setHeroAbility(false)
+        setLevels(1)
+        setRace(Race.Nightelf)
+        setTargetsAllowed(1, "none")
+        setName("Summon Ship")
+        setTooltipNormal(1, "Summon Ship")
+        setTooltipNormalExtended(1, "This unit's primary source of damage is a moving ship that serves beer (damages) nearby enemy units.|n |n|cffffcc00Cooldown:|r 1s|n|cffffcc00Damage:|r 200/s|n|cffffcc00Radius:|r 120|n|cffffcc00Summon Range:|r 600")
+
+@compiletime function inject()
+    new VikingAleShipSummonShipIcon(UnitApi.ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON)

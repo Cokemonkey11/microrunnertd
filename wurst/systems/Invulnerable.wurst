@@ -1,56 +1,41 @@
 package Invulnerable
+
+import ClosureTimers
+import LinkedListModule
+
 public class Invulnerable
+	use LinkedListModule
+
 	private static constant ID_INVULNERABLE = 'Avul'
-
-	private static constant FIDELITY = 1. / 30.
-
-	private static timer clock = CreateTimer()
-
-	private static Invulnerable array invulns
-
-	private static int stackPointer = -1
 
 	unit which
 	real durationLeft
 
-	static function periodic()
-		for i = 0 to stackPointer
-			Invulnerable wrapper = invulns[stackPointer]
-			wrapper.durationLeft -= FIDELITY
-
-			if wrapper.durationLeft <= 0.
-				wrapper.which.removeAbility(ID_INVULNERABLE)
-				destroy wrapper
-				invulns[i] = invulns[stackPointer]
-				stackPointer--
-				i--
-
-		if stackPointer == -1
-			clock.pause()
-
 	static function apply(unit u, real minDuration)
-		Invulnerable wrapper = null
-
 		// First check if this unit is already within the locking set.
-		for i = 0 to stackPointer
-			wrapper = invulns[i]
+		for invuln from staticItr()
+			if invuln.which == u
+				if minDuration > invuln.durationLeft
+					invuln.durationLeft = minDuration
 
-			if wrapper.which == u
-				if minDuration > wrapper.durationLeft
-					wrapper.durationLeft = minDuration
-
-				break
+				return
 
 		// If none found, make a new one.
-		if wrapper == null
-			wrapper = new Invulnerable
-			wrapper.which = u
-			u.addAbility(ID_INVULNERABLE)
-			wrapper.durationLeft = minDuration
+		let wrapper = new Invulnerable
+		wrapper.which = u
+		u.addAbility(ID_INVULNERABLE)
+		wrapper.durationLeft = minDuration
 
-			stackPointer++
-			invulns[stackPointer] = wrapper
+		if size == 1
+			// Timer was off, have to restart it.
+			doPeriodically(ANIMATION_PERIOD) (CallbackPeriodic cb) ->
 
-			if stackPointer == 0
-				// Timer was off, have to restart it.
-				clock.startPeriodic(FIDELITY, function periodic)
+				for wrapr from staticItr()
+					wrapr.durationLeft -= ANIMATION_PERIOD
+
+					if wrapr.durationLeft <= 0.
+						wrapr.which.removeAbility(ID_INVULNERABLE)
+						destroy wrapr
+
+				if size == 0
+					destroy cb

@@ -1,0 +1,34 @@
+package BeerRunnerSlapIcon
+import AbilityObjEditing
+
+import RunnerSlap
+import UnitApi
+
+class BeerRunnerSlapIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
+    construct(int id)
+        super(id)
+
+        setButtonPositionNormalX(1)
+        setIconNormal("ReplaceableTextures\\PassiveButtons\\PASBTNDevotion.blp")
+        setArtTarget("")
+        setAttackSpeedIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setAreaofEffect(1, 0.)
+        setBuffs(1, "")
+        setHeroAbility(false)
+        setLevels(1)
+        setRace(Race.Nightelf)
+        setTargetsAllowed(1, "none")
+        setRequirements(UnitApi.ID_UPGRADE_BEER_SLAP_STR)
+        setName("Slap")
+        setTooltipNormal(1, "Slap")
+        setTooltipNormalExtended(
+            1,
+            "When in close enough range, enemy units can be right-clicked to knock them backwards.  Each successive slap has reduced power.|n |n|cffffcc00Knockback power:|r " +
+            INITIAL_POWER.toInt().toString() +
+            " units/s|n|cffffcc00Range:|r " +
+            MIN_RANGE.toInt().toString()
+        )
+
+@compiletime function inject()
+    new BeerRunnerSlapIcon(UnitApi.ID_BEER_RUNNER_SLAP_ICON)
