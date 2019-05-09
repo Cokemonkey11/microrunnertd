@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 import sys
 import textwrap
@@ -9,12 +10,13 @@ INTRODUCTION       = (
 
 	"""
 
-		microrunnertd is a tower defence map that draws inspiration from the
-		once popular map, Gridlock, by Envious. In this two-player map, players
-		build towers along a labyrinth area that creeps can walk through. Where
-		this map differs from traditional tower defence maps is in the path that
-		creeps follow: in microrunnertd, the player controls a fragile runner
-		which must evade the creeps while guiding them to their towers.
+		microrunnertd is a tower defence map that draws inspiration from
+		Gridlock, the once popular map by Envious. In this two-player map,
+		players build towers along a labyrinth area that creeps can walk
+		through. Where this map differs from traditional tower defence maps is
+		in the path that creeps follow: in microrunnertd, the player controls a
+		fragile runner which must evade the creeps while guiding them to their
+		towers.
 
 	""",
 
@@ -73,6 +75,15 @@ RACES              = (
 			"Metal's Runner has a strong armor type. This race has the strangest mechanics of the three, including an aura tower that can prevent towers from killing creeps.",
 			"Metal has a tower that can gain power indefinitely. Their ultimate tower is the Leviathan Well, which summons the Leviathan to fight for you."
 		)
+	),
+	(
+		"https://i.imgur.com/wmTsBW5.png",
+		(
+			"[b]Beer[/b]: The beer race focuses on flavor over damage, and is otherwise a fairly basic race of simple towers.",
+			"What the beer race lacks in surprises, it makes up for with a few exciting towers and runner upgrades.",
+			"The beer race is quite vulnerable with the Unarmored armor type.",
+			"The beer race has a strong support ability. Their ultimate tower is the Witch, which deals over 1500 chaos damage."
+		)
 	)
 )
 
@@ -81,6 +92,19 @@ ITEMS              = ()
 REPOSITORY_URI     = "https://bitbucket.org/Cokemonkey11/microrunnertd/"
 
 CHANGELOG          = (
+	(
+		"1.1.0",
+		"8 May 2019",
+		(
+			"A new ace has been added - Beer.",
+			"Bandito Masterino (first boss) now casts divine shield when attacked.",
+			"[blizzard bug] the wasteland tower that uses GetUnitArmorType has been reworked.",
+			"[balance] The bristleburst (wasteland) ability has been reworked to be less effective.",
+			"Tooltips for summons improved.",
+			"The wurst standard library dependency has been updated to wurstStdlib2",
+		)
+	),
+
 	(
 		"1.0.2",
 		"7 July 2016",
@@ -117,7 +141,6 @@ CHANGELOG          = (
 	),
 )
 
-HOSTING            = True
 CONTRIBUTING       = "I will merge atomic, well-formed pull-requests if they are consistent with my design policies and issue tracker."
 
 def write(str):
@@ -161,8 +184,6 @@ def print_contents():
 		write("* Version Control\n")
 	if CHANGELOG:
 		write("* Changelog\n")
-	if HOSTING:
-		write("* Hosting\n")
 	if CONTRIBUTING:
 		write("* Contributing\n")
 	write("[/BOX]\n[/CENTER]\n\n")
@@ -244,13 +265,6 @@ def print_changelog():
 				write("[/list]\n\n")
 			write("[/hidden]")
 
-
-def print_hosting():
-	if HOSTING:
-		print_section_header("Automatic Hosting")
-		print_paragraph("Release versions of this map are uploaded to both [url=http://makemehost.com/]MMH[/url] and [url=http://entgaming.net/]ENT[/url].")
-
-
 def print_contributing():
 	if CONTRIBUTING:
 		print_section_header("Contributing")
@@ -269,6 +283,5 @@ print_races()
 print_items()
 print_repository_uri()
 print_changelog()
-print_hosting()
 print_contributing()
 print_footer()

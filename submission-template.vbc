@@ -1,0 +1,153 @@
+[CENTER]
+[TABLE]
+[CENTER]
+[H3][color=#60A600]micro[/color]runner[color=#60A600]td[/color][/H3]
+[color=#CCAA00][B]A map by Cokemonkey11[/B][/color]
+
+[BOX=Contents]* Introduction
+* Screenshots
+* Races
+* Version Control
+* Changelog
+* Contributing
+[/BOX]
+[/CENTER]
+
+[R][H3][color=#CCAA00]Introduction[/color][/H3][R]
+microrunnertd is a tower defence map that draws inspiration from Gridlock, the once popular map by
+Envious. In this two-player map, players build towers along a labyrinth area that creeps can walk
+through. Where this map differs from traditional tower defence maps is in the path that creeps
+follow: in microrunnertd, the player controls a fragile runner which must evade the creeps while
+guiding them to their towers.
+
+There are 42 waves in total, including, among other special rounds, boss and spell immune ones. If,
+during any round, both players runners are killed, the game ends in a defeat.
+
+Utilize shared income and agreed running routes to boost your chances of winning, as this is a
+highly team-dependant game. However, do consider your first match as a practice run. The game
+becomes more difficult in [color=#ccff00]hard[/color] mode.
+
+[R][H3][color=#CCAA00]Screenshots[/color][/H3][R]
+
+
+[hidden=Loading Screen]
+[img]https://i.imgur.com/8fRsYBo.jpg[/img]
+[/hidden]
+
+[hidden=Cinematic Shot]
+[img]https://i.imgur.com/JSHY3FU.jpg[/img]
+[/hidden]
+
+[hidden=Slaying Round 2]
+[img]https://i.imgur.com/BV0YMFI.jpg[/img]
+[/hidden]
+
+[hidden=Guiding Runner on a Strong Path]
+[img]https://i.imgur.com/o3C902F.jpg[/img]
+[/hidden]
+
+[hidden=Many towers have Powerful Abilities]
+[img]https://i.imgur.com/AFknGc1.jpg[/img]
+[/hidden]
+
+[R][H3][color=#CCAA00]Races[/color][/H3][R]
+
+
+[otable]
+[tr]
+[tdalt][img]https://i.imgur.com/z0lD6IK.png[/img][/tdalt]
+[tdalt][b]Spirit[/b]: The spirit race specializes in magic and spell damage, but has a healthy mix of all
+damage types.
+
+Spirit has powerful crowd control and healing abilities.
+
+Spirit does exceptionally well against boss levels due to their Runner's Storm Bolt upgrade.
+
+Their ultimate tower is the Spiritlizard, which has global attack range.[/tdalt]
+[/tr]
+[tr]
+[tdalt][img]https://i.imgur.com/jeNkuFN.png[/img][/tdalt]
+[tdalt][b]Wasteland[/b]: The wasteland race specializes in piercing and siege damage, and generally has a
+lot of brute force power.
+
+Wasteland has some healing capabilities and exceptionally powerful anti-armor due to their Runner's
+Bristleburst upgrade.
+
+Wasteland has multiple high-tier towers that have additional attack attributes, making them more
+resilient to armor type variation in the late game.
+
+Their ultimate tower is the Windforge Harpy, which has a tri-attack.[/tdalt]
+[/tr]
+[tr]
+[tdalt][img]https://i.imgur.com/s98duTu.png[/img][/tdalt]
+[tdalt][b]Metal[/b]: The metal race specializes in normal damage, and in particular is designed to have
+few, high-power towers.
+
+Metal is generally an expensive race, and has the most difficult early-game, during which it depends
+on the basic tower.
+
+Metal's Runner has a strong armor type. This race has the strangest mechanics of the three,
+including an aura tower that can prevent towers from killing creeps.
+
+Metal has a tower that can gain power indefinitely. Their ultimate tower is the Leviathan Well,
+which summons the Leviathan to fight for you.[/tdalt]
+[/tr]
+[tr]
+[tdalt][img]https://i.imgur.com/wmTsBW5.png[/img][/tdalt]
+[tdalt][b]Beer[/b]: The beer race focuses on flavor over damage, and is otherwise a fairly basic race of
+simple towers.
+
+What the beer race lacks in surprises, it makes up for with a few exciting towers and runner
+upgrades.
+
+The beer race is quite vulnerable with the Unarmored armor type.
+
+The beer race has a strong support ability. Their ultimate tower is the Witch, which deals over 1500
+chaos damage.[/tdalt]
+[/tr]
+[/otable]
+
+[R][H3][color=#CCAA00]Version Control[/color][/H3][R]
+
+
+All iterations of this map are maintained in a public git repository at
+[url]https://bitbucket.org/Cokemonkey11/microrunnertd/[/url]
+
+[R][H3][color=#CCAA00]Changelog[/color][/H3][R]
+
+
+[color=#ffcc00]1.1.0[/color] [color=#999999]8 May 2019[/color]:
+[list][*] A new ace has been added - Beer.
+[*] Bandito Masterino (first boss) now casts divine shield when attacked.
+[*] [blizzard bug] the wasteland tower that uses GetUnitArmorType has been reworked.
+[*] [balance] The bristleburst (wasteland) ability has been reworked to be less effective.
+[*] Tooltips for summons improved.
+[*] The wurst standard library dependency has been updated to wurstStdlib2
+[/list]
+
+[color=#ffcc00]1.0.2[/color] [color=#999999]7 July 2016[/color]:
+[list][*] The map is now written entirely in Wurst
+[*] A new race has been added - Metal.
+[*] Added a new "run away" sound.
+[/list]
+
+[color=#ffcc00]1.0.0c[/color] [color=#999999]16 June 2014[/color]:
+[list][*] Fixed one bug
+[*] Made minor tweaks
+[/list]
+
+[color=#ffcc00]1.0.0b[/color] [color=#999999]Date Unknown[/color]:
+[list][*] Changelog lost.
+[/list]
+
+[color=#ffcc00]1.0.0a[/color] [color=#999999]30 May 2014[/color]:
+[list][*] Initial Version Uploaded to hiveworkshop.com as part of Mini Mapping Contest #9. See the thread
+here: [ur]http://goo.gl/yPlMmy[/url]
+[/list]
+
+[R][H3][color=#CCAA00]Contributing[/color][/H3][R]
+I will merge atomic, well-formed pull-requests if they are consistent with my design policies and
+issue tracker.
+
+[/TABLE]
+[/CENTER]
