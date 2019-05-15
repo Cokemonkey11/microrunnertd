@@ -13,7 +13,7 @@ function parsePriest(unit u)
 	let p = GetOwningPlayer(u)
 
 	GroupEnumUnitsInRange(grp2, GetUnitX(u), GetUnitY(u), RADIUS, null)
-	for fst from grp
+	for fst from grp2
 		let life = GetWidgetLife(fst)
 		if IsUnitAlly(fst, p) and UnitAlive(fst) and life < 100. and (life/GetUnitState(fst, UNIT_STATE_MAX_LIFE)) < 1. and not IsUnitType(fst, UNIT_TYPE_STRUCTURE)
 			SetWidgetLife(fst, life + 3.)

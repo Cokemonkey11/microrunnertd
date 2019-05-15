@@ -93,6 +93,14 @@ REPOSITORY_URI     = "https://bitbucket.org/Cokemonkey11/microrunnertd/"
 
 CHANGELOG          = (
 	(
+		"1.1.1",
+		"15 May 2019",
+		(
+			"[patch] spirit race's priest heal has been fixed.",
+		)
+	),
+
+	(
 		"1.1.0",
 		"8 May 2019",
 		(

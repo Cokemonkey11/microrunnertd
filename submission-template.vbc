@@ -116,6 +116,10 @@ All iterations of this map are maintained in a public git repository at
 [R][H3][color=#CCAA00]Changelog[/color][/H3][R]
 
 
+[color=#ffcc00]1.1.1[/color] [color=#999999]15 May 2019[/color]:
+[list][*] [patch] spirit race's priest heal has been fixed.
+[/list]
+
 [color=#ffcc00]1.1.0[/color] [color=#999999]8 May 2019[/color]:
 [list][*] A new ace has been added - Beer.
 [*] Bandito Masterino (first boss) now casts divine shield when attacked.
@@ -140,12 +144,12 @@ All iterations of this map are maintained in a public git repository at
 [list][*] Changelog lost.
 [/list]
 
-[color=#ffcc00]1.0.0a[/color] [color=#999999]30 May 2014[/color]:
+[hidden=Older Changes[color=#ffcc00]1.0.0a[/color] [color=#999999]30 May 2014[/color]:
 [list][*] Initial Version Uploaded to hiveworkshop.com as part of Mini Mapping Contest #9. See the thread
 here: [ur]http://goo.gl/yPlMmy[/url]
 [/list]
 
-[R][H3][color=#CCAA00]Contributing[/color][/H3][R]
+[/hidden][R][H3][color=#CCAA00]Contributing[/color][/H3][R]
 I will merge atomic, well-formed pull-requests if they are consistent with my design policies and
 issue tracker.
 
