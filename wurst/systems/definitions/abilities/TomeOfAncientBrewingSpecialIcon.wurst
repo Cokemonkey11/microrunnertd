@@ -1,5 +1,6 @@
 package TomeOfAncientBrewingSpecialIcon
 import AbilityObjEditing
+import Assets
 
 import UnitApi
 
@@ -8,7 +9,7 @@ class TomeOfAncientBrewingSpecialIcon extends AbilityDefinitionTaurenChieftainEn
         super(id)
 
         setButtonPositionNormalX(0)
-        setIconNormal("ReplaceableTextures\\CommandButtonsDisabled\\DISPASBTNScatterRockets.blp")
+        setIconNormal(Icons.pASBTNScatterRockets)
         setArtTarget("")
         setAttackSpeedIncrease(1, 0.)
         setMovementSpeedIncrease(1, 0.)
@@ -19,8 +20,8 @@ class TomeOfAncientBrewingSpecialIcon extends AbilityDefinitionTaurenChieftainEn
         setRace(Race.Nightelf)
         setTargetsAllowed(1, "none")
         setName("Unusual Concoction")
-        setTooltipNormal(1, "|cff999999Unusual Concoction (Disabled)|r")
-        setTooltipNormalExtended(1, "|cffeb5858This abiility is disabled because it uses features that Blizzard broke in Warcraft 3 patch 1.31.  This tower has 15% bonus damage to compensate.  If and when Blizzard fixes ConvertAttackType(7) or provides a GetUnitArmorType native, this ability will be re-enabled.|r|n |nBeer brewed here affects targets different than usual. These effects augment normal piercing damage.|n |n|cffffcc00Against Unarmored:|r 30% bonus damage|n|cffffcc00Against Medium:|r 5% bonus damage|n|cffffcc00Against Light and Heavy:|r Targets with less than 10% hp are slain")
+        setTooltipNormal(1, "Unusual Concoction")
+        setTooltipNormalExtended(1, "Beer brewed here affects targets different than usual.  These effects augment normal piercing damage.|n |n|cffffcc00Against Unarmored:|r 30% bonus damage|n|cffffcc00Against Medium:|r 5% bonus damage|n|cffffcc00Against Light and Heavy:|r Targets with less than 10% hp are slain")
 
 @compiletime function abil()
     new TomeOfAncientBrewingSpecialIcon(UnitApi.ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON)

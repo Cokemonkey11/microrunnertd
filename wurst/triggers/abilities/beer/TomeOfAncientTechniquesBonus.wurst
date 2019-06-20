@@ -1,26 +1,31 @@
 package TomeOfAncientTechniquesBonus
-// import DamageType2
-// import DamageDetection2
-// import FloatText
-// import GetUnitArmorType
+import DamageEvent
+import FloatText
+import WurstArmorType
 
-// import UnitApi
+import UnitApi
 
-// function h()
-// 	let dS = GetEventDamageSource()
-// 	let tU = GetTriggerUnit()
+function h()
+    let dS = DamageEvent.getSource()
+    let tU = DamageEvent.getTarget()
 
-// 	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES and getDamageType() == DamageType.ATTACK
-// 		let r = GetEventDamage()
-// 		if getUnitArmorType(tU) == ArmorType.UNARMORED
-// 			FloatText.bonus(GetUnitX(dS), GetUnitY(dS), R2I(1.3*r))
-// 			dealCodeDamage(dS, tU, r * 0.3)
-// 		else if getUnitArmorType(tU) == ArmorType.MEDIUM
-// 			FloatText.bonus(GetUnitX(dS), GetUnitY(dS), R2I(1.05*r))
-// 			dealCodeDamage(dS, tU, r * 0.05)
-// 		else if getUnitArmorType(tU) == ArmorType.LIGHT_HEAVY and (tU.getHP() / tU.getMaxHP()) < 0.1
-// 			FloatText.bonus(GetUnitX(dS), GetUnitY(dS), R2I(tU.getHP() + r))
-// 			dealCodeDamage(dS, tU, r)
+    if GetUnitTypeId(dS) == UnitApi.ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES and DamageEvent.getType() == ATTACK
+        let r = DamageEvent.getAmount()
+        let ar_type = tU.getArmorType()
 
-// init
-// 	addOnDamageFunc(Condition(function h))
+        if ar_type == NONE
+            FloatText.bonus(GetUnitX(dS), GetUnitY(dS), R2I(1.3*r))
+            DamageEvent.setNextDamageFromCode()
+            dS.damageTarget(tU, r * 0.3)
+        else if ar_type == MEDIUM
+            FloatText.bonus(GetUnitX(dS), GetUnitY(dS), R2I(1.05*r))
+            DamageEvent.setNextDamageFromCode()
+            dS.damageTarget(tU, r * 0.05)
+        else if (ar_type == LIGHT or ar_type == LARGE) and (tU.getHP() / tU.getMaxHP()) < 0.1
+            FloatText.bonus(GetUnitX(dS), GetUnitY(dS), R2I(tU.getHP() + r))
+            DamageEvent.setNextDamageFromCode()
+            dS.damageTarget(tU, r)
+
+init
+    DamageEvent.addListener() () ->
+        h()

@@ -93,18 +93,25 @@ REPOSITORY_URI     = "https://bitbucket.org/Cokemonkey11/microrunnertd/"
 
 CHANGELOG          = (
 	(
+		"1.1.2",
+		"20 Jun 2019",
+		(
+			"A collection of regressions related to 1.31.1 have been fixed.",
+			"Two towers with disabled abilities in 1.1.0 have been reenabled.",
+		)
+	),
+	(
 		"1.1.1",
 		"15 May 2019",
 		(
 			"[patch] spirit race's priest heal has been fixed.",
 		)
 	),
-
 	(
 		"1.1.0",
 		"8 May 2019",
 		(
-			"A new ace has been added - Beer.",
+			"A new race has been added - Beer.",
 			"Bandito Masterino (first boss) now casts divine shield when attacked.",
 			"[blizzard bug] the wasteland tower that uses GetUnitArmorType has been reworked.",
 			"[balance] The bristleburst (wasteland) ability has been reworked to be less effective.",
@@ -265,7 +272,7 @@ def print_changelog():
 			write("[/list]\n\n")
 
 		if CHANGELOG[5:]:
-			write("[hidden=Older Changes")
+			write("[hidden=Older Changes]")
 			for log in CHANGELOG[5:]:
 				write("[color=#ffcc00]" + log[0] + "[/color] [color=#999999]" + log[1] + "[/color]:\n[list]")
 				for point in log[2]:

@@ -1,6 +1,5 @@
 package NegevDisrespectReload
-import DamageType2
-import DamageDetection2
+import DamageEvent
 import FloatText
 import ClosureTimers
 import HashMap
@@ -11,9 +10,9 @@ constant RELOAD_TIME = 5.7
 constant tab = new Table
 
 function h()
-	let dS = GetEventDamageSource()
+	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == ID_NEGEV and getDamageType() == DamageType.ATTACK
+	if GetUnitTypeId(dS) == ID_NEGEV and DamageEvent.getType() == ATTACK
 		if tab.hasInt(dS.getHandleId())
 			if tab.loadInt(dS.getHandleId()) >= ROUNDS_PER_MAG - 1
 				tab.saveInt(dS.getHandleId(), 0)
@@ -29,4 +28,5 @@ function h()
 			tab.saveInt(dS.getHandleId(), 1)
 
 init
-	addOnDamageFunc(Condition(function h))
+	DamageEvent.addListener() () ->
+		h()

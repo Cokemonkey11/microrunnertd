@@ -1,6 +1,5 @@
 package DedicatedAwperReload
-import DamageType2
-import DamageDetection2
+import DamageEvent
 import FloatText
 import HashMap
 import ClosureTimers
@@ -11,10 +10,10 @@ constant RELOAD_TIME = 2.2
 constant tab = new Table
 
 init
-	addOnDamageFunc(Condition(() -> begin
-		let dS = GetEventDamageSource()
+	DamageEvent.addListener() ->
+		let dS = DamageEvent.getSource()
 
-		if GetUnitTypeId(dS) == ID_AWPER and getDamageType() == DamageType.ATTACK
+		if GetUnitTypeId(dS) == ID_AWPER and DamageEvent.getType() == ATTACK
 			if tab.hasInt(dS.getHandleId())
 				if tab.loadInt(dS.getHandleId()) >= ROUNDS_PER_MAG - 1
 					tab.saveInt(dS.getHandleId(), 0)
@@ -28,4 +27,3 @@ init
 					tab.saveInt(dS.getHandleId(), tab.loadInt(dS.getHandleId()) + 1)
 			else
 				tab.saveInt(dS.getHandleId(), 1)
-	end))

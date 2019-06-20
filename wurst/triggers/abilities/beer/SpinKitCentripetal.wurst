@@ -1,8 +1,7 @@
 package SpinKitCentripetal
 import ClosureTimers
 import DummyRecycler
-import DamageDetection2
-import DamageType2
+import DamageEvent
 import LinkedListModule
 
 import SpinKit
@@ -49,7 +48,8 @@ function p()
         for u from grp
             if u.isAlive() and u.isEnemyOf(m.owner.getOwner()) and not u.isMagicImmune() and not hit
                 hit = true
-                dealCodeDamage(m.owner, u, projectileDamage.toReal())
+                DamageEvent.setNextDamageFromCode()
+                m.owner.damageTarget(u, projectileDamage.toReal())
 
         m.distance -= (projectileSpeed * ANIMATION_PERIOD)
 
@@ -62,10 +62,10 @@ function p()
         clock.pause()
 
 function h()
-    let dS = GetEventDamageSource()
+    let dS = DamageEvent.getSource()
 
-    if GetUnitTypeId(dS) == UnitApi.ID_TOWER_SPIN_KIT and getDamageType() == DamageType.ATTACK
-        let ang0 = dS.getPos().angleTo(GetTriggerUnit().getPos())
+    if GetUnitTypeId(dS) == UnitApi.ID_TOWER_SPIN_KIT and DamageEvent.getType() == ATTACK
+        let ang0 = dS.getPos().angleTo(DamageEvent.getTarget().getPos())
 
         let missiles = 10
         let arc = PI / 6.
@@ -75,4 +75,5 @@ function h()
             end)
 
 init
-    addOnDamageFunc(Condition(function h))
+    DamageEvent.addListener() () ->
+        h()

@@ -1,6 +1,5 @@
 package SorcerorSlayer
-import DamageType2
-import DamageDetection2
+import DamageEvent
 import FloatText
 import HashMap
 
@@ -9,16 +8,18 @@ constant EFFECT_PATH = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
 constant tab = new Table
 
 function h()
-	let dS = GetEventDamageSource()
+	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == ID_SORCEROR and getDamageType() == DamageType.ATTACK
-		let tU = GetTriggerUnit()
+	if GetUnitTypeId(dS) == ID_SORCEROR and DamageEvent.getType() == ATTACK
+		let tU = DamageEvent.getTarget()
+		let damage = DamageEvent.getAmount()
 
 		if tab.hasInt(dS.getHandleId())
 			if tab.loadInt(dS.getHandleId()) >= 10
 				tab.saveInt(dS.getHandleId(), 0)
-				dealCodeDamage(dS, tU, 5000.)
-				FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(GetEventDamage() + 5000.))
+				DamageEvent.setNextDamageFromCode()
+				dS.damageTarget(tU, 5000.)
+				FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(damage + 5000.))
 				DestroyEffect(AddSpecialEffect(EFFECT_PATH, GetUnitX(dS), GetUnitY(dS)))
 			else
 				tab.saveInt(dS.getHandleId(), tab.loadInt(dS.getHandleId()) + 1)
@@ -27,4 +28,5 @@ function h()
 			tab.saveInt(dS.getHandleId(), 1)
 
 init
-	addOnDamageFunc(Condition(function h))
+	DamageEvent.addListener() ->
+		h()

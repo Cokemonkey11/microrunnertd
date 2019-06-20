@@ -1,8 +1,7 @@
 package WitchAttackFx
 
 import ClosureTimers
-import DamageDetection2
-import DamageType2
+import DamageEvent
 import TempLightning
 import UnitApi
 
@@ -11,10 +10,10 @@ constant DIST = 200.  // Size of the pentagram.
 constant LIGHTNING_HEIGHT = vec3(0., 0., 50.)
 
 function h()
-	let dS = GetEventDamageSource()
+	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_WITCH and getDamageType() == DamageType.ATTACK
-		let tU = GetTriggerUnit()
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_WITCH and DamageEvent.getType() == ATTACK
+		let tU = DamageEvent.getTarget()
 		new TempLightning(
 			dS.getPos3Real() + LIGHTNING_HEIGHT,
 			tU.getPos3Real() + LIGHTNING_HEIGHT,
@@ -41,4 +40,5 @@ function h()
 							new TempLightning(top_right,    bottom,       .2, "CLSB")
 
 init
-	addOnDamageFunc(Condition(function h))
+	DamageEvent.addListener() ->
+		h()

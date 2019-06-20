@@ -1,21 +1,20 @@
 package DrudgeBonus
-// Disabled until blizzard provides an API or fixes ConvertAttackType(7).
+import DamageEvent
+import FloatText
+import WurstArmorType
 
-// import DamageType2
-// import DamageDetection2
-// import FloatText
-// import GetUnitArmorType
+constant EX_ID = 'h01W'
 
-// constant EX_ID = 'h01W'
+function h()
+    let dS = DamageEvent.getSource()
+    let tU = DamageEvent.getTarget()
 
-// function h()
-// 	let dS = GetEventDamageSource()
-// 	let tU = GetTriggerUnit()
+    if GetUnitTypeId(dS) == EX_ID and DamageEvent.getType() == ATTACK and tU.getArmorType() == ArmorType.MEDIUM
+        let r = DamageEvent.getAmount()
+        DamageEvent.setNextDamageFromCode()
+        dS.damageTarget(tU, r)
+        FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(2.*r))
 
-// 	if GetUnitTypeId(dS) == EX_ID and getDamageType() == DamageType.ATTACK and getUnitArmorType(tU) == ArmorType.MEDIUM
-// 		let r = GetEventDamage()
-// 		dealCodeDamage(dS, tU, r)
-// 		FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(2.*r))
-
-// init
-// 	addOnDamageFunc(Condition(function h))
+init
+    DamageEvent.addListener() () ->
+        h()

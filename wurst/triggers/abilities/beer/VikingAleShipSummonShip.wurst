@@ -1,8 +1,7 @@
 package VikingAleShipSummonShip
 
 import Assets
-import DamageDetection2
-import DamageType2
+import DamageEvent
 import HashMap
 import LinkedListModule
 import SellTower
@@ -41,7 +40,8 @@ class SummonedShip
 		for u from grp
 			if owner.isEnemyOf(u.getOwner()) and not u.isInvulnerable() and u.isAlive()
 				did_damage = true
-				dealCodeDamage(owner, u, damage)
+				DamageEvent.setNextDamageFromCode()
+				owner.damageTarget(u, damage)
 
 		if did_damage
 			flashEffect(Abilities.warStompCaster, ctr)
@@ -106,16 +106,17 @@ function on_destroy(unit which)
 		circles_summons.getAndRemove(which)..kill()
 
 function h()
-	let dS = GetEventDamageSource()
+	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_VIKING_ALE_SHIP and getDamageType() == DamageType.ATTACK
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_VIKING_ALE_SHIP and DamageEvent.getType() == ATTACK
 		if circles_summons.has(dS)
-			SummonedShip.update_target(dS, GetTriggerUnit())
+			SummonedShip.update_target(dS, DamageEvent.getTarget())
 		else
-			let sv = new SummonedShip(dS, GetTriggerUnit())
+			let sv = new SummonedShip(dS, DamageEvent.getTarget())
 			circles_summons.put(dS, sv.ship)
 
 init
-	addOnDamageFunc(Condition(function h))
+	DamageEvent.addListener() () ->
+		h()
 	register_sell_hook() (unit sold_unit) ->
 		on_destroy(sold_unit)

@@ -1,19 +1,19 @@
 package AlchemistHasteTransmute
-import DamageType2
-import DamageDetection2
+import DamageEvent
 import FloatText
 
 constant ARCH_ID = 'h02A'
 
 function h()
-	let dS = GetEventDamageSource()
+	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == ARCH_ID and getDamageType() == DamageType.ATTACK
+	if GetUnitTypeId(dS) == ARCH_ID and DamageEvent.getType() == ATTACK
 		IssueImmediateOrder(dS, "berserk")
 		let p = GetOwningPlayer(dS)
 		SetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(p, PLAYER_STATE_RESOURCE_GOLD) + 1)
-		let tU = GetTriggerUnit()
+		let tU = DamageEvent.getTarget()
 		FloatText.bountyPlayer(GetUnitX(tU), GetUnitY(tU), 1, p)
 
 init
-	addOnDamageFunc(Condition(function h))
+	DamageEvent.addListener() () ->
+		h()

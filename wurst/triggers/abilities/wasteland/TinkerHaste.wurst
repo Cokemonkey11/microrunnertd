@@ -1,14 +1,14 @@
 package TinkerHaste
-import DamageType2
-import DamageDetection2
+import DamageEvent
 
 constant ARCH_ID = 'h028'
 
 function h()
-	let dS = GetEventDamageSource()
+	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == ARCH_ID and getDamageType() == DamageType.ATTACK
+	if GetUnitTypeId(dS) == ARCH_ID and DamageEvent.getType() == ATTACK
 		IssueImmediateOrder(dS, "berserk")
 
 init
-	addOnDamageFunc(Condition(function h))
+	DamageEvent.addListener() () ->
+		h()

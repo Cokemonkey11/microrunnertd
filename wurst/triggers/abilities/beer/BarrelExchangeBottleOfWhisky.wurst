@@ -1,15 +1,13 @@
 package BarrelExchangeBottleOfWhisky
 
 import DummyRecycler
-import DamageDetection2
-import DamageType2
+import DamageEvent
 import LinkedHashMap
 import LinkedList
 import LinkedListModule
 import SellTower
 import FloatText
 import Game
-import FestivalBoothLimitedBrew  // Import for prioritisation - do not remove!
 
 import UnitApi
 
@@ -37,22 +35,24 @@ class DummyEffect
 
 let booth_effects = new LinkedHashMap<unit, LinkedList<DummyEffect>>()
 function h()
-    let dS = GetEventDamageSource()
+    let dS = DamageEvent.getSource()
 
-    if GetUnitTypeId(dS) == UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT and getDamageType() == DamageType.ATTACK
+    if GetUnitTypeId(dS) == UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT and DamageEvent.getType() == ATTACK
         let list = booth_effects.get(dS)
         let size = list.size()
+        let amt = DamageEvent.getAmount()
 
         if size > 0
             let fst = list.get(0)
             destroy fst
             list.removeAt(0)
 
-            let tU = GetTriggerUnit()
+            let tU = DamageEvent.getTarget()
             tU.addEffect("Abilities\\Spells\\Other\\AcidBomb\\BottleMissile.mdl", "origin").destr()
-            dealCodeDamage(dS, tU, 200)
+            DamageEvent.setNextDamageFromCode()
+            dS.damageTarget(tU, 200.)
 
-            FloatText.bonus(dS.getX(), dS.getY(), GetEventDamage().toInt() + 200)
+            FloatText.bonus(dS.getX(), dS.getY(), amt.toInt() + 200)
 
 function _constructUpgradeCommon(unit tower)
     if tower.getTypeId() == UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT
@@ -88,7 +88,8 @@ function onSell()
 
 init
     // Hide effect on-hit; deal damage.
-    addOnDamageFunc(Condition(function h))
+    DamageEvent.addListener() ->
+        h()
 
     // On structure built, initialize effects.
     CreateTrigger()..registerAnyUnitEvent(EVENT_PLAYER_UNIT_CONSTRUCT_FINISH)

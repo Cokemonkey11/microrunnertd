@@ -1,6 +1,5 @@
 package GreaterGuardDevilSoulSiphon
-import DamageType2
-import DamageDetection2
+import DamageEvent
 import FloatText
 import HashMap
 import RegisterEvents
@@ -9,12 +8,13 @@ constant ID_GREATER_GDEVIL = 'h03C'
 constant tab = new Table
 
 function h()
-	let dS = GetEventDamageSource()
+	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == ID_GREATER_GDEVIL and getDamageType() == DamageType.ATTACK
+	if GetUnitTypeId(dS) == ID_GREATER_GDEVIL and DamageEvent.getType() == ATTACK
 		let handleId = dS.getHandleId()
 
-		dealCodeDamage(dS, GetTriggerUnit(), I2R(tab.loadInt(handleId)))
+		DamageEvent.setNextDamageFromCode()
+		dS.damageTarget(DamageEvent.getTarget(), I2R(tab.loadInt(handleId)))
 
 function death()
 	let killer = GetKillingUnit()
@@ -29,6 +29,7 @@ function death()
 		tab.saveInt(handleId, bonus)
 
 init
-	addOnDamageFunc(Condition(function h))
+	DamageEvent.addListener() () ->
+		h()
 
 	registerPlayerUnitEvent(EVENT_PLAYER_UNIT_DEATH, function death)

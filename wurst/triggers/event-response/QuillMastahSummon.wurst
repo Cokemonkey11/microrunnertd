@@ -4,14 +4,14 @@ import ClosureTimers
 import HashMap
 
 import Players
-import DamageDetection2
+import DamageEvent
 import UnitApi
 
 constant summoned = new HashMap<unit, bool>
 
 init
-    addOnDamageFunc(Condition(() -> begin
-        let tU = GetTriggerUnit()
+    DamageEvent.addListener() () ->
+        let tU = DamageEvent.getTarget()
 
         if tU.getTypeId() == UnitApi.ID_QUILL_MASTAH and not summoned.get(tU)
             summoned.put(tU, true)
@@ -23,4 +23,3 @@ init
                 createUnit(Players.creeps, UnitApi.ID_BOAR, tU.getPos().polarOffset(tU.getFacingAngle(), 16.), tU.getFacingAngle())
                     .addEffect(Abilities.feralspiritdone, "origin").destr()
             end)
-    end))

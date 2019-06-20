@@ -1,20 +1,21 @@
 package ExecRidingExecute
 import UnitApi
-import DamageType2
-import DamageDetection2
+import DamageEvent
 import FloatText
 
 constant EX_ID = 'h01B'
 
 function h()
-	let dS = GetEventDamageSource()
-	let tU = GetTriggerUnit()
+	let dS = DamageEvent.getSource()
+	let tU = DamageEvent.getTarget()
 
-	if GetUnitTypeId(dS) == EX_ID and getDamageType() == DamageType.ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
-		let q = GetEventDamage()
+	if GetUnitTypeId(dS) == EX_ID and DamageEvent.getType() == ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
+		let q = DamageEvent.getAmount()
 		let r = 1. - GetUnitState(tU, UNIT_STATE_LIFE) / GetUnitState(tU, UNIT_STATE_MAX_LIFE)
-		dealCodeDamage(dS, tU, q * r)
+		DamageEvent.setNextDamageFromCode()
+		dS.damageTarget(tU, q * r)
 		FloatText.bonus(GetUnitX(tU), GetUnitY(tU), R2I(q * (1 + r)))
 
 init
-	addOnDamageFunc(Condition(function h))
+	DamageEvent.addListener() () ->
+		h()

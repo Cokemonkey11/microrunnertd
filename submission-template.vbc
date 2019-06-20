@@ -116,12 +116,17 @@ All iterations of this map are maintained in a public git repository at
 [R][H3][color=#CCAA00]Changelog[/color][/H3][R]
 
 
+[color=#ffcc00]1.1.2[/color] [color=#999999]20 Jun 2019[/color]:
+[list][*] A collection of regressions related to 1.31.1 have been fixed.
+[*] Two towers with disabled abilities in 1.1.0 have been reenabled.
+[/list]
+
 [color=#ffcc00]1.1.1[/color] [color=#999999]15 May 2019[/color]:
 [list][*] [patch] spirit race's priest heal has been fixed.
 [/list]
 
 [color=#ffcc00]1.1.0[/color] [color=#999999]8 May 2019[/color]:
-[list][*] A new ace has been added - Beer.
+[list][*] A new race has been added - Beer.
 [*] Bandito Masterino (first boss) now casts divine shield when attacked.
 [*] [blizzard bug] the wasteland tower that uses GetUnitArmorType has been reworked.
 [*] [balance] The bristleburst (wasteland) ability has been reworked to be less effective.
@@ -140,11 +145,11 @@ All iterations of this map are maintained in a public git repository at
 [*] Made minor tweaks
 [/list]
 
-[color=#ffcc00]1.0.0b[/color] [color=#999999]Date Unknown[/color]:
+[hidden=Older Changes][color=#ffcc00]1.0.0b[/color] [color=#999999]Date Unknown[/color]:
 [list][*] Changelog lost.
 [/list]
 
-[hidden=Older Changes[color=#ffcc00]1.0.0a[/color] [color=#999999]30 May 2014[/color]:
+[color=#ffcc00]1.0.0a[/color] [color=#999999]30 May 2014[/color]:
 [list][*] Initial Version Uploaded to hiveworkshop.com as part of Mini Mapping Contest #9. See the thread
 here: [ur]http://goo.gl/yPlMmy[/url]
 [/list]

@@ -1,8 +1,6 @@
 package Bristleburst
 import Assets
-import DamageType2
-
-import DamageDetection2
+import DamageEvent
 import Effects
 
 constant ID_RUNNER_WASTELAND = 'h01G'
@@ -10,17 +8,19 @@ constant ARMOR  = 'A00R'
 constant EFFECT = 'A003'
 
 function h()
-	let dS = GetEventDamageSource()
+	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == ID_RUNNER_WASTELAND and getDamageType() == DamageType.NULLED
-		let tU = GetTriggerUnit()
+	if GetUnitTypeId(dS) == ID_RUNNER_WASTELAND and DamageEvent.getType() == SPELL
+		let tU = DamageEvent.getTarget()
 
 		if tU.getAbilityLevel(ARMOR) > 0
-			dealCodeDamage(dS, tU, 40. + 0.1 * (tU.getMaxHP() - tU.getHP()))
+			DamageEvent.setNextDamageFromCode()
+			dS.damageTarget(tU, 40. + 0.1 * (tU.getMaxHP() - tU.getHP()))
 			tU.addEffect(Objects.orcBloodGrunt, "origin").destr(2.)
 		else
 			UnitAddAbility(tU, ARMOR)
 			UnitAddAbility(tU, EFFECT)
 
 init
-	addOnDamageFunc(Condition(function h))
+	DamageEvent.addListener() ->
+		h()
