@@ -1,15 +1,14 @@
 package FrozenObeliskKnockup
-import UnitApi
 import DamageEvent
 import Knockback3
 
-constant OB_ID = 'h00Y'
+import UnitApi
 
 function h()
 	let dS = DamageEvent.getSource()
 	let tU = DamageEvent.getTarget()
 
-	if GetUnitTypeId(dS) == OB_ID and DamageEvent.getType() == ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_FROZEN_OBELISK and DamageEvent.getType() == ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 		if Knockback3.getVel(tU).length() == 0.
 			Knockback3.add(tU, 500., angle(0.), angle(0.))
 

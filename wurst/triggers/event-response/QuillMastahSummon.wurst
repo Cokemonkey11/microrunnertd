@@ -13,13 +13,16 @@ init
     DamageEvent.addListener() () ->
         let tU = DamageEvent.getTarget()
 
-        if tU.getTypeId() == UnitApi.ID_QUILL_MASTAH and not summoned.get(tU)
+        if tU.getTypeId() == UnitApi.ID_QUILL_MASTAH and not summoned.has(tU)
             summoned.put(tU, true)
 
             tU..pause()..setAnimation("cast")
 
             doAfter(0.5, () -> begin
                 tU.unpause()
-                createUnit(Players.creeps, UnitApi.ID_BOAR, tU.getPos().polarOffset(tU.getFacingAngle(), 16.), tU.getFacingAngle())
-                    .addEffect(Abilities.feralspiritdone, "origin").destr()
+                let fx = createUnit(Players.creeps, UnitApi.ID_BOAR, tU.getPos().polarOffset(tU.getFacingAngle(), 16.), tU.getFacingAngle())
+                    .addEffect(Abilities.feralspiritdone, "origin")
+
+                doAfter(.5) ->
+                    fx.destr()
             end)

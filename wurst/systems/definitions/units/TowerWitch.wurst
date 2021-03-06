@@ -11,6 +11,8 @@ class TowerWitch extends TowerDefinition
         super(id)
 
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNVillagerWoman.blp")
+        setButtonPositionX(3)
+        setButtonPositionY(0)
         setModelFile(Units.villagerWoman1)
         setScalingValue(.7)
         setAcquisitionRange(500.)

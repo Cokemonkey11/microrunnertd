@@ -1,0 +1,56 @@
+package BuilderSpirit
+import Assets
+import ObjectIds
+import UnitObjEditing
+
+import UnitApi
+
+class BuilderSpirit extends UnitDefinition
+    construct(int id)
+        super(id, 'hdhw')
+
+        setNormalAbilities(commaList(UnitApi.INVULNERABLE))
+        setIconGameInterface(Icons.bTNWisp)
+        setMaximumPitchAngledegrees(0.)
+        setMaximumRollAngledegrees(0.)
+        setModelFile(Units.wisp1)
+        setSelectionCircleHeight(0.)
+        setAttacksEnabled(0)
+        setSpeedBase(522)
+        setUnitSoundSet("Wisp")
+        setFoodCost(0)
+        setGoldCost(0)
+        setHitPointsMaximumBase(500000)
+        setHitPointsRegenerationType("none")
+        setLumberCost(0)
+        setManaInitialAmount(0)
+        setManaMaximum(0)
+        setManaRegeneration(0.)
+        setRace(Race.Undead)
+        setStockReplenishInterval(0)
+        setStockStartDelay(0)
+        setUnitClassification("peon")
+        setRequirements("")
+        setStructuresBuilt(
+            commaList(
+                UnitApi.ID_DORRAN,
+                UnitApi.ID_TOWER_ARCHPRIEST,
+                UnitApi.ID_TOWER_ARCH,
+                UnitApi.ID_TOWER_PHOENIX_MAN,
+                UnitApi.ID_TOWER_MYSTIC_ARCHER,
+                UnitApi.ID_TOWER_COW_MASTER,
+                UnitApi.ID_TOWER_INVIGILATOR,
+                UnitApi.ID_TOWER_SORCERESS,
+                UnitApi.ID_TOWER_FROZEN_TOWER,
+                UnitApi.ID_TOWER_EXECUTIONER,
+                UnitApi.ID_TOWER_SPIRIT_LIZARD
+            )
+        )
+        setUpgradesUsed("")
+        setHotkey("Q")
+        setName("Builder |cff990099(Spirit)|r")
+        setTooltipBasic("Choose |cff990099Spirit|r [|cff990099Q|r]")
+        setTooltipExtended("A mystical race with that excels in healing, crowd control, and magic damage.")
+
+@compiletime function builderSpirit()
+    new BuilderSpirit(UnitApi.ID_BUILDER_SPIRIT)

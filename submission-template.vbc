@@ -116,9 +116,14 @@ All iterations of this map are maintained in a public git repository at
 [R][H3][color=#CCAA00]Changelog[/color][/H3][R]
 
 
+[color=#ffcc00]1.1.3[/color] [color=#999999]6 Mar 2021[/color]:
+[list][*] Fix Haste ability, broken by reforged.
+[*] Fix random-race select button, broken by reforged.
+[/list]
+
 [color=#ffcc00]1.1.2[/color] [color=#999999]20 Jun 2019[/color]:
 [list][*] A collection of regressions related to 1.31.1 have been fixed.
-[*] Two towers with disabled abilities in 1.1.0 have been reenabled.
+[*] Two towers with disabled abilities in 1.1.0 have been re-enabled.
 [/list]
 
 [color=#ffcc00]1.1.1[/color] [color=#999999]15 May 2019[/color]:
@@ -140,12 +145,12 @@ All iterations of this map are maintained in a public git repository at
 [*] Added a new "run away" sound.
 [/list]
 
-[color=#ffcc00]1.0.0c[/color] [color=#999999]16 June 2014[/color]:
+[hidden=Older Changes][color=#ffcc00]1.0.0c[/color] [color=#999999]16 June 2014[/color]:
 [list][*] Fixed one bug
 [*] Made minor tweaks
 [/list]
 
-[hidden=Older Changes][color=#ffcc00]1.0.0b[/color] [color=#999999]Date Unknown[/color]:
+[color=#ffcc00]1.0.0b[/color] [color=#999999]Date Unknown[/color]:
 [list][*] Changelog lost.
 [/list]
 

@@ -4,11 +4,12 @@ import ClosureTimers
 import Players
 import Invulnerable
 
+import UnitApi
+
 constant ID_GUARD_DEVIL         = 'h03B'
 constant ID_GUARD_DEVIL_GREATER = 'h03C'
 constant ID_ABILITY_UNBREAKABLE = 'A01W'
 constant ID_ABILITY_UNBREAKA_CD = 'A01X'
-constant ID_INVULNERABLE        = 'Avul'
 
 constant RADIUS   = 600.
 constant DURATION =   1.
@@ -35,7 +36,7 @@ function h()
 	let tU     = DamageEvent.getTarget()
 	let damage = DamageEvent.getAmount()
 
-	if tU.getOwner().getId() < Players.COUNT and DamageEvent.getType() == ATTACK and (tU.getHP() - damage < 1.) and not tU.hasAbility(ID_INVULNERABLE)
+	if tU.getOwner().getId() < Players.COUNT and DamageEvent.getType() == ATTACK and (tU.getHP() - damage < 1.) and not tU.hasAbility(UnitApi.INVULNERABLE)
 		let unbreakableSource = findUnbreakable(tU)
 
 		if unbreakableSource != null

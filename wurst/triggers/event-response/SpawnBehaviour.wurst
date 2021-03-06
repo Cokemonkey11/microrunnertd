@@ -8,8 +8,6 @@ package SpawnBehaviour
 
 	native UnitAlive(unit u) returns boolean
 
-	constant INVULNERABLE_ID = 'Avul'
-
 	constant AI_FIDELITY = 1.
 
 	constant grp = CreateGroup()
@@ -25,7 +23,7 @@ package SpawnBehaviour
 			let x = GetUnitX(q) - GetUnitX(UnitApi.runners[index])
 			let y = GetUnitY(q) - GetUnitY(UnitApi.runners[index])
 
-			if UnitAlive(UnitApi.runners[index]) and (not UnitApi.runners[index].hasAbility(INVULNERABLE_ID)) and (x * x) + (y * y) < r
+			if UnitAlive(UnitApi.runners[index]) and (not UnitApi.runners[index].hasAbility(UnitApi.INVULNERABLE)) and (x * x) + (y * y) < r
 				r = (x * x) + (y * y)
 				u = UnitApi.runners[index]
 
@@ -37,7 +35,7 @@ package SpawnBehaviour
 				taunts.remove(q)
 				tauntDurations.remove(q)
 			else
-				if not target.hasAbility(INVULNERABLE_ID)
+				if not target.hasAbility(UnitApi.INVULNERABLE)
 					u = target
 
 		return u

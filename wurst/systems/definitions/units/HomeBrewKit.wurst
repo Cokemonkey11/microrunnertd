@@ -12,8 +12,8 @@ class HomeBrewKit extends TowerDefinition
 
         setNormalAbilities(
             commaList(
-                'A00O',
-                'Avul',
+                UnitApi.ID_SELL_TOWER,
+                UnitApi.INVULNERABLE,
                 UnitApi.ID_HOME_BREW_KIT_MOVE_TOWER
             )
         )

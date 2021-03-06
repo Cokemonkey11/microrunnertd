@@ -354,7 +354,7 @@ public class Game
 		if cinematicOn
 			fadeIn(.5)
 			demoRunner = CreateUnit(Player(2), UnitApi.ID_RUNNER_SPIRIT, 0., 1024., 180.)
-			demoTower  = CreateUnit(Player(2), 'h007', -851., 562., 270.)
+			demoTower  = CreateUnit(Player(2), UnitApi.ID_TOWER_MYSTIC_ARCHER, -851., 562., 270.)
 			demoChaser = CreateUnit(Players.creeps, 'h022', 256. + 128., 1024., 0.)
 			SetUnitState(demoTower, UNIT_STATE_MANA, 500.)
 			SetUnitMoveSpeed(demoRunner, 200.)

@@ -12,8 +12,8 @@ class NanoBrewery extends TowerDefinition
 
         setNormalAbilities(
             commaList(
-                'A00O',
-                'Avul',
+                UnitApi.ID_SELL_TOWER,
+                UnitApi.INVULNERABLE,
                 UnitApi.ID_NANO_BREWERY_MOVE_TOWER
             )
         )

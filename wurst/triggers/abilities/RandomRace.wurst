@@ -3,8 +3,6 @@ import RegisterEvents
 import Game
 import UnitApi
 
-constant RANDOM_RACE_ID = 'A00S'
-
 function act()
 	let tU   = GetTriggerUnit()
 	let rand = GetRandomInt(0, 3)
@@ -26,4 +24,4 @@ function act()
 	RemoveUnit(tU)
 
 init
-	registerSpellEffectEvent(RANDOM_RACE_ID, function act)
+	registerSpellEffectEvent(UnitApi.ID_RANDOM_RACE, function act)

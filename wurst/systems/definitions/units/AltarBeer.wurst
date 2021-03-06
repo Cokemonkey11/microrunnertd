@@ -9,7 +9,7 @@ class AltarBeer extends BuildingDefinition
     construct(int id)
         super(id, 'hwtw')
 
-        setNormalAbilities("Avul")
+        setNormalAbilities(commaList(UnitApi.INVULNERABLE))
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNElvenFarm.blp")
         setModelFile(Buildings.elvenFarm1)
         setScalingValue(.8)

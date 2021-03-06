@@ -12,8 +12,8 @@ class VikingAleShip extends TowerDefinition
 
         setNormalAbilities(
             commaList(
-                'A00O',
-                'Avul',
+                UnitApi.ID_SELL_TOWER,
+                UnitApi.INVULNERABLE,
                 UnitApi.ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON
             )
         )

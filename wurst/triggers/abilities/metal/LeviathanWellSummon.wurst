@@ -4,6 +4,8 @@ import Players
 import ClosureTimers
 import TerrainData
 
+import UnitApi
+
 constant ID_LEVIATHAN_WELL   = 'h03E'
 constant ID_LEVIATHAN_SUMMON = 'o001'
 
@@ -30,7 +32,7 @@ function h()
 			currWells[pId]  = vec2(dS.getX(), dS.getY())
 			currWellUnits[pId] = dS
 			leviathans[pId] = CreateUnit(owner, ID_LEVIATHAN_SUMMON, dS.getX(), dS.getY(), 270.)
-			leviathans[pId]..addAbility('Aloc')
+			leviathans[pId]..addAbility(UnitApi.LOCUST)
 							..setVertexColor(255, 255, 255, 125)
 							..setTimeScale(.8)
 			leviathans[pId].addEffect(BLINK_TARGET, "origin").destr()

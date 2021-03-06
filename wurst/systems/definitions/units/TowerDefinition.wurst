@@ -1,20 +1,14 @@
 package TowerDefinition
-// import LinkedList
-// import TypeCasting2
-
+import ObjectIds
 import UnitObjEditing
-
-// public function getTowerAbilities(LinkedList<string> vals) returns string
-//     var ret = "A00O,Avul"
-//     for val in vals
-//         ret += ("," + val)
-//     return ret
+import UnitApi
 
 public class TowerDefinition extends BuildingDefinition
     construct(int id)
         super(id, 'hwtw')
 
-        setNormalAbilities("A00O,Avul")
+        setDefaultActiveAbility("")
+        setNormalAbilities(commaList(UnitApi.ID_SELL_TOWER, UnitApi.INVULNERABLE))
         setGroundTexture("")
         setSelectionScale(1.)
         setShadowTextureBuilding("")
@@ -23,7 +17,7 @@ public class TowerDefinition extends BuildingDefinition
         setAttack2DamageSidesperDie(1)
         setAttack2DamageNumberofDice(1)
         setAttack1TargetsAllowed("enemies,ground,vulnerable")
-        setAttack1TargetsAllowed("enemies,ground,vulnerable")
+        setAttack2TargetsAllowed("enemies,ground,vulnerable")
         setAttacksEnabled(1)
         setArmorType(ArmorType.Divine)
         setPathingMap("PathTextures\\2x2Unbuildable.tga")

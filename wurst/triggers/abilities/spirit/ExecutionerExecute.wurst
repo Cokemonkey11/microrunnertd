@@ -3,13 +3,11 @@ import UnitApi
 import DamageEvent
 import FloatText
 
-constant EX_ID = 'h018'
-
 function h()
 	let dS = DamageEvent.getSource()
 	let tU = DamageEvent.getTarget()
 
-	if GetUnitTypeId(dS) == EX_ID and DamageEvent.getType() == ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_EXECUTIONER and DamageEvent.getType() == ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 		let q = DamageEvent.getAmount()
 		let r = 1. - GetUnitState(tU, UNIT_STATE_LIFE) / GetUnitState(tU, UNIT_STATE_MAX_LIFE)
 		DamageEvent.setNextDamageFromCode()

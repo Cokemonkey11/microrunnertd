@@ -1,5 +1,6 @@
 package BreweryDeliveryVanVan
 import Assets
+import ObjectIds
 import UnitApi
 import UnitObjEditing
 
@@ -9,12 +10,10 @@ class BreweryDeliveryVanVan extends UnitDefinition
     construct(int id)
         super(id, ID_BASE)
 
-        setNormalAbilities("Aloc,Avul")
+        setNormalAbilities(commaList(UnitApi.LOCUST, UnitApi.INVULNERABLE))
         setModelFile(Units.warWagon)
         setScalingValue(.5)
         setAttacksEnabled(0)
-        // setSpeedBase(0)
-        // setSpeedMaximum(0)
         setMovementType(MovementType.Fly)
 
         setUnitSoundSet("SteamTank")

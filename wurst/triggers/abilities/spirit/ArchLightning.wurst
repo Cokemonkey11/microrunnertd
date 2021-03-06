@@ -1,12 +1,12 @@
 package ArchLightning
 import DamageEvent
 
-constant ARCH_ID = 'h00A'
+import UnitApi
 
 function h()
 	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == ARCH_ID and DamageEvent.getType() == ATTACK
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_ARCH and DamageEvent.getType() == ATTACK
 		IssueTargetOrder(dS, "forkedlightning", DamageEvent.getTarget())
 
 init

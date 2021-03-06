@@ -3,10 +3,11 @@ import RegisterEvents
 import ClosureTimers
 import Invulnerable
 
+import UnitApi
+
 native UnitAlive(unit u) returns boolean
 
 constant CRYSTALIZE_ID   = 'A012'
-constant INVULNERABLE_ID = 'Avul'
 
 constant DURATION = 5.
 constant EFFECT_PATH = "white-ring.mdx"
@@ -19,15 +20,16 @@ function act()
 	tU..setTimeScale(0.)
 		..setVertexColor(255, 155, 155, 255)
 		..pause()
-		..addAbility(INVULNERABLE_ID)
+		..addAbility(UnitApi.INVULNERABLE)
 
-	DestroyEffect(AddSpecialEffect(EFFECT_PATH, GetUnitX(tU), GetUnitY(tU)))
+	addEffect(EFFECT_PATH, tU.getPos()).destr()
 
 	doAfter(DURATION, () -> begin
 		if UnitAlive(tU)
 			tU..setTimeScale(1.)
 				..setVertexColor(255, 255, 255, 255)
 				..unpause()
+				..removeAbility(UnitApi.INVULNERABLE)
 	end)
 
 

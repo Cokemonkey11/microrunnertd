@@ -18,8 +18,8 @@ class SpinKit extends TowerDefinition
 
         setNormalAbilities(
             commaList(
-                'A00O',
-                'Avul',
+                UnitApi.ID_SELL_TOWER,
+                UnitApi.INVULNERABLE,
                 UnitApi.ID_SPIN_KIT_CENTRIPETAL_ICON
             )
         )

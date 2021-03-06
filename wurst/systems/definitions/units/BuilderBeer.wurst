@@ -9,7 +9,7 @@ class BuilderBeer extends UnitDefinition
     construct(int id)
         super(id, 'hdhw')
 
-        setNormalAbilities(commaList('Avul', UnitApi.ID_SMALL_USEABLE_INVENTORY))
+        setNormalAbilities(commaList(UnitApi.INVULNERABLE, UnitApi.ID_SMALL_USEABLE_INVENTORY))
         setButtonPositionX(3)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNHeroArchMage.blp")
         setMaximumPitchAngledegrees(0.)
@@ -33,7 +33,7 @@ class BuilderBeer extends UnitDefinition
         setUnitClassification("peon")
         setStructuresBuilt(
             commaList(
-                'h01H',
+                UnitApi.ID_DORRAN,
                 UnitApi.ID_TOWER_GRANARY,
                 UnitApi.ID_TOWER_HOP_FARM,
                 UnitApi.ID_TOWER_YEAST_LAB,

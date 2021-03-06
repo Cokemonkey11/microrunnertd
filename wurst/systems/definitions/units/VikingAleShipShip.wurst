@@ -1,5 +1,6 @@
 package VikingAleShipShip
 import Assets
+import ObjectIds
 import UnitApi
 import UnitObjEditing
 
@@ -9,7 +10,12 @@ class VikingAleShipShip extends UnitDefinition
     construct(int id)
         super(id, ID_BASE)
 
-        setNormalAbilities("Aloc,Avul")
+        setNormalAbilities(
+            commaList(
+                UnitApi.LOCUST,
+                UnitApi.INVULNERABLE
+            )
+        )
         setModelFile(Units.undeadDestroyerShip1)
         setScalingValue(.5)
         setAttacksEnabled(0)

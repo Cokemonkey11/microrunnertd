@@ -1,19 +1,20 @@
 package CowMasterSummon
 import DamageEvent
 
-constant COW_ID    = 'h00T'
+import UnitApi
+
 constant TAUREN_ID = 'o000'
 constant FX = "Abilities\\Spells\\Orc\\FeralSpirit\\feralspiritdone.mdl"
 
 function h()
 	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == COW_ID and DamageEvent.getType() == ATTACK
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_COW_MASTER and DamageEvent.getType() == ATTACK
 		let tU = DamageEvent.getTarget()
 		let q = CreateUnit(GetOwningPlayer(dS), TAUREN_ID, GetUnitX(tU), GetUnitY(tU), 270.)
 		DestroyEffect(AddSpecialEffect(FX, GetUnitX(q), GetUnitY(q)))
 		UnitApplyTimedLife(q, 'BTLF', 10.)
-		UnitAddAbility(q, 'Aloc')
+		UnitAddAbility(q, UnitApi.LOCUST)
 		SetUnitExploded(q, true)
 		SetUnitVertexColor(q, 255, 255, 255, 125)
 

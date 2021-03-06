@@ -5,10 +5,10 @@ import HashMap
 import LinkedList
 import Sounds
 import RegisterEvents
+import UnitApi
 
 native GetUnitGoldCost(int id) returns int
 
-constant ID                      = 'A00O'
 constant ID_THALL_BOX            = 'h02T'
 constant ID_ABILITY_SPLENDOR     = 'A01C'
 constant ID_ENDOWMENT            = 'A01E'
@@ -87,6 +87,6 @@ function act()
 	RemoveUnit(tU)
 
 init
-	registerSpellEffectEvent(ID, function act)
+	registerSpellEffectEvent(UnitApi.ID_SELL_TOWER, function act)
 
 	Sounds.preload(SND)

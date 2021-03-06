@@ -1,0 +1,44 @@
+package TowerSpiritlizard
+import Assets
+import ObjectIds
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class TowerSpiritLizard extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setIconGameInterface(Icons.bTNAzureDragon)
+        setButtonPositionX(3)
+        setButtonPositionY(0)
+        setModelFile(Units.dragonSpawnBlue)
+        setScalingValue(.6)
+        setAcquisitionRange(20000.)
+        setAttack1AnimationBackswingPoint(.15)
+        setAttack1AnimationDamagePoint(.15)
+        setAttack1AttackType(AttackType.Chaos)
+        setAttack1CooldownTime(0.22)
+        setAttack1DamageBase(99)
+        setAttack1ProjectileArt(Abilities.seaElementalMissile)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(2000)
+        setAttack1Range(20000)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("")
+        setGoldCost(400)
+        setRequirements(
+            commaList(
+                UnitApi.ID_TOWER_PHOENIX_SEER,
+                UnitApi.ID_TOWER_HELLKEEPER,
+                UnitApi.ID_TOWER_EXECUTIONER_RIDING_SLEIPNIR
+            )
+        )
+        setHotkey("R")
+        setName("Spiritlizard") // Spirit
+        setTooltipBasic("Build Spiritlizard [|cff999999R|r]")
+        setTooltipExtended("On his home planet, having an attack with global range is a necessity.|n |n|cffffcc00Damage Type:|r Chaos")
+
+@compiletime function inject()
+    new TowerSpiritLizard(UnitApi.ID_TOWER_SPIRIT_LIZARD)

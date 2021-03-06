@@ -93,11 +93,19 @@ REPOSITORY_URI     = "https://bitbucket.org/Cokemonkey11/microrunnertd/"
 
 CHANGELOG          = (
 	(
+		"1.1.3",
+		"6 Mar 2021",
+		(
+			"Fix Haste ability, broken by reforged.",
+			"Fix random-race select button, broken by reforged.",
+		)
+	),
+	(
 		"1.1.2",
 		"20 Jun 2019",
 		(
 			"A collection of regressions related to 1.31.1 have been fixed.",
-			"Two towers with disabled abilities in 1.1.0 have been reenabled.",
+			"Two towers with disabled abilities in 1.1.0 have been re-enabled.",
 		)
 	),
 	(

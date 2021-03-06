@@ -1,0 +1,79 @@
+package ExecutionerRidingSleipnir
+import Assets
+import ObjectIds
+import AbilityObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class Haste extends AbilityDefinitionBerserk
+    construct()
+        super(UnitApi.ID_HASTE_EXECUTIONER_RIDING_SLEIPNIR)
+        setIconNormal(Icons.bTNDeathPact)
+        setAttackSpeedIncrease(1, 2.)
+        setDamageTakenIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setCooldown(1, 10.)
+        setDurationHero(1, 2.)
+        setDurationNormal(1, 2.)
+        setRace(Race.Human)
+        setEditorSuffix("Executioner Riding Sleipnir")
+        setHotkeyNormal("")
+        setName("Haste")
+        setTooltipNormal(1, "Haste")
+        setTooltipNormalExtended(1, "Attacks |cffffcc00200%|r faster for |cffffcc002|r seconds.")
+        setRequirements("")
+
+class ExecutionerRidingSleipnir extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities(
+            commaList(
+                UnitApi.ID_SELL_TOWER,
+                UnitApi.ID_EXECUTE_TOOLTIP,
+                UnitApi.INVULNERABLE,
+                UnitApi.ID_HASTE_EXECUTIONER_RIDING_SLEIPNIR
+            )
+        )
+        setButtonPositionX(0)
+        setButtonPositionY(2)
+        setIconGameInterface(Icons.bTNHeroDeathKnight)
+        setModelFile(Units.heroDeathKnight)
+        setTintingColorRed(0)
+        setTintingColorGreen(0)
+        setTintingColorBlue(0)
+        setScalingValue(.7)
+        setAcquisitionRange(700.)
+        setAttacksEnabled(3)
+        setAttack1AnimationBackswingPoint(.1)
+        setAttack2AnimationBackswingPoint(.1)
+        setAttack1AnimationDamagePoint(.1)
+        setAttack2AnimationDamagePoint(.1)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack2AttackType(AttackType.Hero)
+        setAttack1CooldownTime(1.5)
+        setAttack2CooldownTime(.75)
+        setAttack1DamageBase(299)
+        setAttack2DamageBase(299)
+        setAttack1ProjectileArt(Abilities.deathCoilMissile)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(1500)
+        setAttack1Range(700)
+        setAttack2Range(500)
+        setAttack1RangeMotionBuffer(100.)
+        setAttack1WeaponType(WeaponType.Missile)
+        setAttack2WeaponType(WeaponType.Normal)
+        setAttack2WeaponSound(WeaponSound.MetalHeavySlice)
+        setUnitSoundSet("")
+        setGoldCost(400)
+        setUpgradesTo("")
+        setHotkey("Q")
+        // setRequirements(commaList(UnitApi.ID_TOWER_FROZEN_OBELISK))
+        setName("Executioner (Riding Sleipnir)") // Spirit
+        setTooltipBasic("Upgrade to Executioner (Riding Sleipnir) [|cff999999Q|r]")
+        setTooltipExtended("Increases damage to magic immune units, and allows the Executioner to cast Haste.|n |n|cffffcc00Damage Type:|r Magic")
+
+@compiletime function inject()
+    new Haste()
+    new ExecutionerRidingSleipnir(UnitApi.ID_TOWER_EXECUTIONER_RIDING_SLEIPNIR)

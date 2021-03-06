@@ -4,6 +4,8 @@ import RegisterEvents
 import Sounds
 import ClosureTimers
 
+import UnitApi
+
 constant ID_CONSUME_SCARAB = 'A01V'
 constant ID_SCARAB         = 'h037'
 constant ID_BONUS          = 'A01T'
@@ -24,7 +26,7 @@ function act()
 	let owner  = caster.getOwner()
 
 	if target.getTypeId() == ID_SCARAB
-		target.addAbility('Aloc') // Prevent the user from selling it.
+		target.addAbility(UnitApi.LOCUST) // Prevent the user from selling it.
 		Sounds.play3D(SOUND_CAST_BEGIN, 1., target.getX(), target.getY(), 50.)
 		Sounds.play3D(SOUND_CAST_BEGIN, 1., caster.getX(), caster.getY(), 80.)
 

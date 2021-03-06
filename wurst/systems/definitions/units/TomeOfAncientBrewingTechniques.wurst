@@ -12,8 +12,8 @@ class TomeOfAncientBrewingTechniques extends TowerDefinition
 
         setNormalAbilities(
             commaList(
-                'A00O',
-                'Avul',
+                UnitApi.ID_SELL_TOWER,
+                UnitApi.INVULNERABLE,
                 UnitApi.ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON
             )
         )

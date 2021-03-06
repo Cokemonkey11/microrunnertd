@@ -1,5 +1,6 @@
 package ItemFoodAll
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import UnitApi
@@ -9,7 +10,7 @@ class ItemFoodAll extends UnitDefinition
         super(id, 'hfoo')
 
         setName(name)
-        setNormalAbilities("Avul")
+        setNormalAbilities(commaList(UnitApi.INVULNERABLE))
         setAttacksEnabled(0)
         setTurnRate(0.)
         setModelFile(Objects.treasurechest1)

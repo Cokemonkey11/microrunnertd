@@ -12,6 +12,8 @@ public function unit.isMagicImmune() returns bool
 public class UnitApi
 	static constant ROUND_COUNT = 43
 
+	static constant ID_DORRAN = 'h01H'
+
 	static constant ID_BUILDER_SPIRIT   = 'h000'
 	static constant ID_BUILDER_WASTE    = 'h01K'
 	static constant ID_BUILDER_METAL    = 'h02R'
@@ -26,6 +28,21 @@ public class UnitApi
 	static constant ID_ALTAR_WASTE    = 'h01J'
 	static constant ID_ALTAR_METAL    = 'h02Q'
 	static constant ID_ALTAR_BEER     = 'd200'
+
+	static constant ID_TOWER_ARCHPRIEST     = 'h001'
+	static constant ID_TOWER_ARCH           = 'h00A'
+	static constant ID_TOWER_PHOENIX_MAN    = 'h00M'
+	static constant ID_TOWER_PHOENIX_SEER   = 'h00S'
+	static constant ID_TOWER_MYSTIC_ARCHER  = 'h007'
+	static constant ID_TOWER_COW_MASTER     = 'h00T'
+	static constant ID_TOWER_INVIGILATOR    = 'h015'
+	static constant ID_TOWER_HELLKEEPER     = 'h016'
+	static constant ID_TOWER_SORCERESS      = 'h00I'
+	static constant ID_TOWER_FROZEN_TOWER   = 'h00X'
+	static constant ID_TOWER_FROZEN_OBELISK = 'h00Y'
+	static constant ID_TOWER_EXECUTIONER    = 'h018'
+	static constant ID_TOWER_EXECUTIONER_RIDING_SLEIPNIR = 'h01B'
+	static constant ID_TOWER_SPIRIT_LIZARD  = 'h01C'
 
 	static constant ID_TOWER_GRANARY              = 'f000'
 	static constant ID_TOWER_MALTING_FACILITY     = 'f001'
@@ -74,8 +91,14 @@ public class UnitApi
 	static constant ID_FAKE_ITEM_FOOD_WURST         = 'qi01'
 	static constant ID_FAKE_ITEM_FOOD_FRIED_CHICKEN = 'qi02'
 
-	static constant ID_RACE_SELECT    = 'z000'
-	static constant IMMUNE            = 'ACmi'
+	static constant ID_RACE_SELECT     = 'z000'
+	static constant IMMUNE             = 'ACmi'
+	static constant ID_SELL_TOWER      = 'A00O'
+	static constant ID_EXECUTE_TOOLTIP = 'A009'
+	static constant INVULNERABLE       = 'Avul'
+	static constant LOCUST             = 'Aloc'
+	static constant ID_RANDOM_RACE     = 'A00S'
+	static constant ID_HASTE_EXECUTIONER_RIDING_SLEIPNIR = 'A00B'
 
 	static constant ID_BOAR           = 'h02O'
 	static constant ID_QUILL_MASTAH   = 'h00W'
@@ -101,7 +124,7 @@ public class UnitApi
 				PauseUnit(fst, true)
 				SetUnitInvulnerable(fst, true)
 				Invulnerable.apply(fst, 60. * 60. * 24.)
-				UnitAddAbility(fst, 'Aloc')
+				UnitAddAbility(fst, LOCUST)
 				SetUnitTimeScale(fst, 0.)
 
 public function isUnitRunner(unit u) returns bool

@@ -1,12 +1,13 @@
 package RaceSelect
 import AbilityObjEditing
+import ObjectIds
 import Icons
 
 import UnitApi
 
 class RandomRace extends AbilityDefinitionBerserk
     construct()
-        super('A00S')
+        super(UnitApi.ID_RANDOM_RACE)
         setButtonPositionNormalX(3)
         setIconNormal(Icons.bTNSelectHeroOn)
         setAttackSpeedIncrease(1, 0.)
@@ -28,7 +29,7 @@ class RaceSelect extends BuildingDefinition
     construct(int id)
         super(id, 'hwtw')
 
-        setNormalAbilities("A00S,Avul")
+        setNormalAbilities(commaList(UnitApi.ID_RANDOM_RACE, UnitApi.INVULNERABLE))
         setModelFile("none.mdl")
         setShadowTextureBuilding("")
         setGroundTexture("")
@@ -37,7 +38,14 @@ class RaceSelect extends BuildingDefinition
         setUnitSoundSet("")
         setRace(Race.Nightelf)
         setUnitClassification("peon")
-        setUnitsSold("h000,h01K,h02R,d000")
+        setUnitsSold(
+            commaList(
+                UnitApi.ID_BUILDER_SPIRIT,
+                UnitApi.ID_BUILDER_WASTE,
+                UnitApi.ID_BUILDER_METAL,
+                UnitApi.ID_BUILDER_BEER
+            )
+        )
         setUpgradesTo("")
         setUpgradesUsed("")
         setName("|cff999999Race Select|r")

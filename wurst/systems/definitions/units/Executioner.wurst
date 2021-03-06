@@ -1,0 +1,59 @@
+package Executioner
+import Assets
+import ObjectIds
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class Executioner extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities(
+            commaList(
+                UnitApi.ID_SELL_TOWER,
+                UnitApi.ID_EXECUTE_TOOLTIP,
+                UnitApi.INVULNERABLE
+            )
+        )
+        setButtonPositionX(2)
+        setButtonPositionY(0)
+        setIconGameInterface(Icons.bTNArthas)
+        setModelFile(Units.arthaswithSword)
+        setTintingColorRed(100)
+        setTintingColorGreen(100)
+        setTintingColorBlue(100)
+        setScalingValue(.6)
+        setAcquisitionRange(700.)
+        setAttacksEnabled(3)
+        setAttack1AnimationBackswingPoint(.1)
+        setAttack2AnimationBackswingPoint(.1)
+        setAttack1AnimationDamagePoint(.1)
+        setAttack2AnimationDamagePoint(.1)
+        setAttack1AttackType(AttackType.Magic)
+        setAttack2AttackType(AttackType.Hero)
+        setAttack1CooldownTime(1.5)
+        setAttack2CooldownTime(.75)
+        setAttack1DamageBase(299)
+        setAttack2DamageBase(199)
+        setAttack1ProjectileArt(Abilities.deathCoilMissile)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(1500)
+        setAttack1Range(700)
+        setAttack2Range(500)
+        setAttack1RangeMotionBuffer(100.)
+        setAttack1WeaponType(WeaponType.Missile)
+        setAttack2WeaponType(WeaponType.Normal)
+        setAttack2WeaponSound(WeaponSound.MetalHeavySlice)
+        setUnitSoundSet("")
+        setGoldCost(250)
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_EXECUTIONER_RIDING_SLEIPNIR))
+        setHotkey("E")
+        setRequirements(commaList(UnitApi.ID_TOWER_FROZEN_OBELISK))
+        setName("Executioner") // Spirit
+        setTooltipBasic("Build Executioner [|cff999999E|r]")
+        setTooltipExtended("Deals bonus damage to wounded units, has a secondary attack for spell-immune units.|n |n|cffffcc00Damage Type:|r Magic")
+
+@compiletime function executioner()
+    new Executioner(UnitApi.ID_TOWER_EXECUTIONER)

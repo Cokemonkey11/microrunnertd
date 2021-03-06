@@ -2,9 +2,9 @@ package PieceOfBlackMetalEndowment
 import SimError
 import RegisterEvents
 import SellTower
+import UnitApi
 
 constant ID_ENDOW_BLACK_METAL    = 'A01G'
-constant ID_DORRAN               = 'h01H'
 constant ID_ENDOWMENT_BLACK      = 'A01H'
 constant ID_ENDOWMENT_BLACK_MANA = 'A01J'
 constant ID_ENDOWMENT_BLACK_MR   = 'A01I'
@@ -16,7 +16,7 @@ function act()
 	let caster = GetTriggerUnit()
 	let owner  = caster.getOwner()
 
-	if target.getTypeId() == ID_DORRAN
+	if target.getTypeId() == UnitApi.ID_DORRAN
 		if not target.hasAbility(ID_ENDOWMENT_BLACK)
 			target.addEffect(ENDOW_FX, "origin").destr()
 			target..addAbility(ID_ENDOWMENT_BLACK)
