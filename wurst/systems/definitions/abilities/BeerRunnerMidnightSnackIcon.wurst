@@ -1,5 +1,6 @@
 package BeerRunnerMidnightSnackIcon
 import AbilityObjEditing
+import ObjectIds
 
 import UnitApi
 
@@ -18,7 +19,7 @@ class BeerRunnerMidnightSnackIcon extends AbilityDefinitionTaurenChieftainEndura
         setLevels(1)
         setRace(Race.Nightelf)
         setTargetsAllowed(1, "none")
-        setRequirements(UnitApi.ID_UPGRADE_BEER_MIDNIGHT_SNACK_STR)
+        setRequirements(commaList(UnitApi.ID_UPGRADE_BEER_MIDNIGHT_SNACK))
         setName("Midnight Snack")
         setTooltipNormal(1, "Midnight Snack")
         setTooltipNormalExtended(

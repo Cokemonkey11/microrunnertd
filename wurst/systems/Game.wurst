@@ -162,7 +162,7 @@ public class Game
 				UnitAddAbility(u, MOVE_SPEED_BONUS)
 
 	private static function runSound()
-		int q = ModuloInteger(round, 5)
+		let q = ModuloInteger(round, 5)
 		if q == 0
 			Sounds.play(RUN1, 1., 127)
 		else if q == 1
@@ -288,8 +288,8 @@ public class Game
 
 	static function setupRace(int runnerType, int altarType, unit sold)
 		RemoveUnit(GetSellingUnit())
-		player p = GetOwningPlayer(sold)
-		int pid = GetPlayerId(p)
+		let p = GetOwningPlayer(sold)
+		let pid = GetPlayerId(p)
 
 		if Players.locl == p
 			SelectUnit(sold, true)

@@ -1,5 +1,6 @@
 package BreweryDeliveryVan
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -9,7 +10,13 @@ class BreweryDeliveryVan extends TowerDefinition
     construct(int id)
         super(id)
 
-        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON_STR)
+        setNormalAbilities(
+            commaList(
+                'A00O',
+                'Avul',
+                UnitApi.ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON
+            )
+        )
         setButtonPositionX(2)
         setButtonPositionY(0)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNCOP.blp")
@@ -30,8 +37,8 @@ class BreweryDeliveryVan extends TowerDefinition
 
         setUnitSoundSet("SteamTank")
         setGoldCost(200)
-        setRequirements(UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT_STR)
-        setUpgradesTo(UnitApi.ID_TOWER_VIKING_ALE_SHIP_STR)
+        setRequirements(commaList(UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT))
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_VIKING_ALE_SHIP))
         setHotkey("E")
         setName("Brewery Delivery Van") // Beer
         setTooltipBasic("Build Brewery Delivery Van [|cff999999E|r]")

@@ -1,5 +1,6 @@
 package YeastLab
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -28,8 +29,8 @@ class YeastLab extends TowerDefinition
         setAttack1WeaponType(WeaponType.Missile)
         setUnitSoundSet("")
         setGoldCost(105)
-        setRequirements(UnitApi.ID_TOWER_HOP_CANNON_STR)
-        setUpgradesTo(UnitApi.ID_TOWER_SPIN_KIT_STR)
+        setRequirements(commaList(UnitApi.ID_TOWER_HOP_CANNON))
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_SPIN_KIT))
         setHotkey("Q")
         setName("Yeast Lab") // Beer
         setTooltipBasic("Build Yeast Lab [|cff999999Q|r]")

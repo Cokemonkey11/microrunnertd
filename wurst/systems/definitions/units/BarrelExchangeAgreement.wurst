@@ -1,5 +1,6 @@
 package BarrelExchangeAgreement
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -9,15 +10,18 @@ class BarrelExchangeAgreement extends TowerDefinition
     construct(int id)
         super(id)
 
-        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON_STR)
+        setNormalAbilities(
+            commaList(
+                'A00O',
+                'Avul',
+                UnitApi.ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON
+            )
+        )
         setButtonPositionX(0)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNDranaiHut.blp")
         setModelFile(Buildings.draneiHut0)
         setScalingValue(.3)
-        // setColorRed(155)
-        // setColorBlue(155)
-        // setColorGreen(155)
         setAcquisitionRange(375.)
         setAttack1AnimationBackswingPoint(.25)
         setAttack1AnimationDamagePoint(.2)
@@ -34,8 +38,6 @@ class BarrelExchangeAgreement extends TowerDefinition
 
         setUnitSoundSet("VoodooLounge")
         setGoldCost(250) // upgrade from 180
-        // setRequirements(UnitApi.ID_TOWER_BEER_GEEK_BAR_STR)
-        // setUpgradesTo(UnitApi.ID_TOWER_BREWERY_DELIVERY_VAN)
         setHotkey("Q")
         setName("Barrel Exchange Agreement") // Beer
         setTooltipBasic("Upgrade to Barrel Exchange Agreement [|cff999999Q|r]")

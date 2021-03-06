@@ -6,7 +6,7 @@ bool array escapesPressed
 int escapePressedCount = 0
 
 function c() returns boolean
-	int id = GetPlayerId(GetTriggerPlayer())
+	let id = GetPlayerId(GetTriggerPlayer())
 
 	if Game.cinematicOn and not escapesPressed[id]
 		escapesPressed[id] = true
@@ -21,7 +21,7 @@ function c() returns boolean
 	return false
 
 init
-	trigger t = CreateTrigger()
+	let t = CreateTrigger()
 
 	for index = 0 to Players.COUNT - 1
 		TriggerRegisterPlayerEvent(t, Players.id[index], EVENT_PLAYER_END_CINEMATIC)

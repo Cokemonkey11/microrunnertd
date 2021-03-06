@@ -1,5 +1,6 @@
 package ItemBuildTinyHomeBrewKit
 import ItemObjEditing
+import ObjectIds
 
 import UnitApi
 
@@ -7,7 +8,7 @@ class ItemBuildTinyHomeBrewKit extends ItemDefinition
     construct(int id)
         super(id, 'tsct')
 
-        setAbilities(UnitApi.ID_BUILD_TINY_HOME_BREW_KIT_STR)
+        setAbilities(commaList(UnitApi.ID_BUILD_TINY_HOME_BREW_KIT))
         setName("Tiny Home Brew Kit")
         setDescription("Contains a home brewing kit which can be placed.")
         setTooltipBasic("Tiny Home Brew Kit")

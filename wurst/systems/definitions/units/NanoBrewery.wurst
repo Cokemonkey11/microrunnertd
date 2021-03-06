@@ -1,21 +1,22 @@
 package NanoBrewery
 import Assets
-// import LinkedList
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
-// import TypeCasting2
 import UnitApi
 
 class NanoBrewery extends TowerDefinition
     construct(int id)
         super(id)
 
-        // let abils = new LinkedList<string>()..add(UnitApi.ID_MOVE_TOWER_STR)
-        // setNormalAbilities(getTowerAbilities(abils))
-        // destroy abils
-
-        setNormalAbilities("A00O,Avul," + UnitApi.ID_NANO_BREWERY_MOVE_TOWER_STR)
+        setNormalAbilities(
+            commaList(
+                'A00O',
+                'Avul',
+                UnitApi.ID_NANO_BREWERY_MOVE_TOWER
+            )
+        )
         setButtonPositionX(0)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNTavern.blp")

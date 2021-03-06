@@ -1,5 +1,6 @@
 package FestivalBooth
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -9,7 +10,13 @@ class FestivalBooth extends TowerDefinition
     construct(int id)
         super(id)
 
-        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON_STR)
+        setNormalAbilities(
+            commaList(
+                'A00O',
+                'Avul',
+                UnitApi.ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON
+            )
+        )
         setButtonPositionX(2)
         setButtonPositionY(1)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNDranaiHut.blp")
@@ -30,8 +37,8 @@ class FestivalBooth extends TowerDefinition
 
         setUnitSoundSet("VoodooLounge")
         setGoldCost(180)
-        setRequirements(UnitApi.ID_TOWER_BEER_GEEK_BAR_STR)
-        setUpgradesTo(UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT_STR)
+        setRequirements(commaList(UnitApi.ID_TOWER_BEER_GEEK_BAR))
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_BARREL_EXCHANGE_AGREEMENT))
         setHotkey("D")
         setName("Festival Booth") // Beer
         setTooltipBasic("Build Festival Booth [|cff999999D|r]")

@@ -1,5 +1,6 @@
 package BeerRunnerSlapIcon
 import AbilityObjEditing
+import ObjectIds
 
 import RunnerSlap
 import UnitApi
@@ -19,7 +20,7 @@ class BeerRunnerSlapIcon extends AbilityDefinitionTaurenChieftainEnduranceAura
         setLevels(1)
         setRace(Race.Nightelf)
         setTargetsAllowed(1, "none")
-        setRequirements(UnitApi.ID_UPGRADE_BEER_SLAP_STR)
+        setRequirements(commaList(UnitApi.ID_UPGRADE_BEER_SLAP))
         setName("Slap")
         setTooltipNormal(1, "Slap")
         setTooltipNormalExtended(

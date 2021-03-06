@@ -1,5 +1,6 @@
 package TraditionalPub
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -26,7 +27,7 @@ class TraditionalPub extends TowerDefinition
         setAttack1WeaponType(WeaponType.Instant)
         setUnitSoundSet("SpawningGrounds")
         setGoldCost(90)
-        setUpgradesTo(UnitApi.ID_TOWER_BEER_GEEK_BAR_STR)
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_BEER_GEEK_BAR))
         setHotkey("C")
         setName("Traditional Pub") // Beer
         setTooltipBasic("Build Traditional Pub [|cff999999C|r]")

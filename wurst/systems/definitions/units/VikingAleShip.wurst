@@ -1,5 +1,6 @@
 package VikingAleShip
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -9,7 +10,13 @@ class VikingAleShip extends TowerDefinition
     construct(int id)
         super(id)
 
-        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON_STR)
+        setNormalAbilities(
+            commaList(
+                'A00O',
+                'Avul',
+                UnitApi.ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON
+            )
+        )
         setButtonPositionX(0)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNCOP.blp")

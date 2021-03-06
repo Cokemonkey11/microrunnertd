@@ -1,21 +1,22 @@
 package HomeBrewKit
 import Assets
-// import LinkedList
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
-// import TypeCasting2
 import UnitApi
 
 class HomeBrewKit extends TowerDefinition
     construct(int id)
         super(id)
 
-        // let abils = new LinkedList<string>()..add(UnitApi.ID_MOVE_TOWER_STR)
-        // setNormalAbilities(getTowerAbilities(abils))
-        // destroy abils
-
-        setNormalAbilities("A00O,Avul," + UnitApi.ID_HOME_BREW_KIT_MOVE_TOWER_STR)
+        setNormalAbilities(
+            commaList(
+                'A00O',
+                'Avul',
+                UnitApi.ID_HOME_BREW_KIT_MOVE_TOWER
+            )
+        )
         setButtonPositionX(1)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNCage.blp")
@@ -33,7 +34,7 @@ class HomeBrewKit extends TowerDefinition
         setAttack1WeaponType(WeaponType.Missile)
         setUnitSoundSet("SpawningGrounds")
         setGoldCost(45)
-        setUpgradesTo(UnitApi.ID_TOWER_NANO_BREWERY_STR)
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_NANO_BREWERY))
         setHotkey("X")
         setName("Home Brew Kit") // Beer
         setTooltipBasic("Build Home Brew Kit [|cff999999X|r]")

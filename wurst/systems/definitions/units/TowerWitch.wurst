@@ -1,5 +1,6 @@
 package TowerWitch
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -25,9 +26,11 @@ class TowerWitch extends TowerDefinition
         setUnitSoundSet("VillagerWoman")
         setGoldCost(375)
         setRequirements(
-            UnitApi.ID_TOWER_SPIN_KIT_STR + "," +
-            UnitApi.ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES_STR + "," +
-            UnitApi.ID_TOWER_VIKING_ALE_SHIP_STR
+            commaList(
+                UnitApi.ID_TOWER_SPIN_KIT,
+                UnitApi.ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES,
+                UnitApi.ID_TOWER_VIKING_ALE_SHIP
+            )
         )
         setHotkey("R")
         setName("Witch") // Beer

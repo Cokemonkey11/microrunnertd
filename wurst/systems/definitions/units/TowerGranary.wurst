@@ -1,5 +1,6 @@
 package TowerGranary
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -24,7 +25,7 @@ class TowerGranary extends TowerDefinition
         setAttack1WeaponType(WeaponType.Missile)
         setUnitSoundSet("Marketplace")
         setGoldCost(15)
-        setUpgradesTo(UnitApi.ID_TOWER_MALTING_FACILITY_STR)
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_MALTING_FACILITY))
         setHotkey("Z")
         setName("Granary") // Beer
         setTooltipBasic("Build Granary [|cff999999Z|r]")

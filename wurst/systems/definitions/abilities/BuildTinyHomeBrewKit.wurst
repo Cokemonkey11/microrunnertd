@@ -1,5 +1,6 @@
 package BuildTinyHomeBrewKit
 import AbilityObjEditing
+import ObjectIds
 
 import UnitApi
 
@@ -7,7 +8,10 @@ class BuildTinyHomeBrewKit extends AbilityDefinitionBuildTinyScoutTower
     construct(int id)
         super(id)
 
-        setUnitCreatedperplayerrace(1, char4RepeatFour(UnitApi.ID_TOWER_HOME_BREW_KIT_STR))
+        setUnitCreatedperplayerrace(
+            1,
+            char4RepeatFour(commaList(UnitApi.ID_TOWER_HOME_BREW_KIT))
+        )
         setItemAbility(false)
 
 @compiletime function buildTinyHomeBrewKit()

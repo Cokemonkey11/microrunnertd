@@ -3,7 +3,7 @@ import Game
 import RegisterEvents
 
 function act()
-	int pid = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))
+	let pid = GetPlayerId(GetOwningPlayer(GetTriggerUnit()))
 	Game.upgraded[pid] = true
 
 init

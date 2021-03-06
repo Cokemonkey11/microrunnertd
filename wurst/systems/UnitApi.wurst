@@ -10,13 +10,12 @@ public function unit.isMagicImmune() returns bool
 	return IsUnitType(this, UNIT_TYPE_MAGIC_IMMUNE)
 
 public class UnitApi
-	static constant ROUND_COUNT       = 43
+	static constant ROUND_COUNT = 43
 
 	static constant ID_BUILDER_SPIRIT   = 'h000'
 	static constant ID_BUILDER_WASTE    = 'h01K'
 	static constant ID_BUILDER_METAL    = 'h02R'
 	static constant ID_BUILDER_BEER     = 'd000'
-	static constant ID_BUILDER_BEER_STR = "d000"
 
 	static constant ID_RUNNER_SPIRIT  = 'h003'
 	static constant ID_RUNNER_WASTE   = 'h01G'
@@ -29,84 +28,47 @@ public class UnitApi
 	static constant ID_ALTAR_BEER     = 'd200'
 
 	static constant ID_TOWER_GRANARY              = 'f000'
-	static constant ID_TOWER_GRANARY_STR          = "f000"
 	static constant ID_TOWER_MALTING_FACILITY     = 'f001'
-	static constant ID_TOWER_MALTING_FACILITY_STR = "f001"
 	static constant ID_TOWER_HOP_FARM             = 'f002'
-	static constant ID_TOWER_HOP_FARM_STR         = "f002"
 	static constant ID_TOWER_HOP_CANNON           = 'f003'
-	static constant ID_TOWER_HOP_CANNON_STR       = "f003"
 	static constant ID_TOWER_YEAST_LAB            = 'f004'
-	static constant ID_TOWER_YEAST_LAB_STR        = "f004"
 	static constant ID_TOWER_HOME_BREW_KIT        = 'f005'
-	static constant ID_TOWER_HOME_BREW_KIT_STR    = "f005"
 	static constant ID_TOWER_SPIN_KIT             = 'f006'
-	static constant ID_TOWER_SPIN_KIT_STR         = "f006"
 	static constant ID_TOWER_NANO_BREWERY         = 'f007'
-	static constant ID_TOWER_NANO_BREWERY_STR     = "f007"
-	static constant ID_TOWER_BEER_STYLE_MARKETING_SPECIALIST     = 'f008'
-	static constant ID_TOWER_BEER_STYLE_MARKETING_SPECIALIST_STR = "f008"
+	static constant ID_TOWER_BEER_STYLE_MARKETING_SPECIALIST = 'f008'
 	static constant ID_TOWER_HEAD_BREWER          = 'f009'
-	static constant ID_TOWER_HEAD_BREWER_STR      = "f009"
-	static constant ID_TOWER_BOTTLING_FACILITY     = 'f00A'
-	static constant ID_TOWER_BOTTLING_FACILITY_STR = "f00A"
-	static constant ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES     = 'f00B'
-	static constant ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES_STR = "f00B"
+	static constant ID_TOWER_BOTTLING_FACILITY    = 'f00A'
+	static constant ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES = 'f00B'
 	static constant ID_TOWER_TRADITIONAL_PUB      = 'f00C'
-	static constant ID_TOWER_TRADITIONAL_PUB_STR  = "f00C"
 	static constant ID_TOWER_BEER_GEEK_BAR        = 'f00D'
-	static constant ID_TOWER_BEER_GEEK_BAR_STR    = "f00D"
 	static constant ID_TOWER_FESTIVAL_BOOTH       = 'f00E'
-	static constant ID_TOWER_FESTIVAL_BOOTH_STR   = "f00E"
-	static constant ID_TOWER_BARREL_EXCHANGE_AGREEMENT     = 'f00F'
-	static constant ID_TOWER_BARREL_EXCHANGE_AGREEMENT_STR = "f00F"
-	static constant ID_TOWER_BREWERY_DELIVERY_VAN     = 'f00G'
-	static constant ID_TOWER_BREWERY_DELIVERY_VAN_STR = "f00G"
+	static constant ID_TOWER_BARREL_EXCHANGE_AGREEMENT = 'f00F'
+	static constant ID_TOWER_BREWERY_DELIVERY_VAN = 'f00G'
 	static constant ID_TOWER_VIKING_ALE_SHIP      = 'f00H'
-	static constant ID_TOWER_VIKING_ALE_SHIP_STR  = "f00H"
 	static constant ID_TOWER_WITCH                = 'f00I'
-	static constant ID_TOWER_WITCH_STR            = "f00I"
 
-	static constant ID_SUMMONED_DELIVERY_VAN     = 'fF00'
-	static constant ID_SUMMONED_DELIVERY_VAN_STR = "fF00"
-	static constant ID_SUMMONED_VIKING_SHIP      = 'fF01'
-	static constant ID_SUMMONED_VIKING_SHIP_STR  = "fF01"
+	static constant ID_SUMMONED_DELIVERY_VAN      = 'fF00'
+	static constant ID_SUMMONED_VIKING_SHIP       = 'fF01'
 
 	static constant ID_MALTING_FACILITY_ROAST          = 'g000'
-	static constant ID_MALTING_FACILITY_ROAST_STR      = "g000"
 	static constant ID_MALTING_FACILITY_ROAST_ICON     = 'g001'
-	static constant ID_MALTING_FACILITY_ROAST_ICON_STR = "g001"
 	static constant ID_SPIN_KIT_CENTRIPETAL_ICON       = 'g002'
-	static constant ID_SPIN_KIT_CENTRIPETAL_ICON_STR   = "g002"
 	static constant ID_HOME_BREW_KIT_MOVE_TOWER        = 'g003'
-	static constant ID_HOME_BREW_KIT_MOVE_TOWER_STR    = "g003"
 	static constant ID_NANO_BREWERY_MOVE_TOWER         = 'g004'
-	static constant ID_NANO_BREWERY_MOVE_TOWER_STR     = "g004"
 	static constant ID_BUILD_TINY_HOME_BREW_KIT        = 'g005'
-	static constant ID_BUILD_TINY_HOME_BREW_KIT_STR    = "g005"
 	static constant ID_BUILD_TINY_NANO_BREWERY         = 'g006'
-	static constant ID_BUILD_TINY_NANO_BREWERY_STR     = "g006"
 	static constant ID_SMALL_USEABLE_INVENTORY         = 'g007'
-	static constant ID_SMALL_USEABLE_INVENTORY_STR     = "g007"
-	static constant ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON     = 'g008'
-	static constant ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON_STR = "g008"
-	static constant ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON     = 'g009'
-	static constant ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON_STR = "g009"
-	static constant ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON     = 'g00A'
-	static constant ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON_STR = "g00A"
-	static constant ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON     = 'g00B'
-	static constant ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON_STR = "g00B"
-	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP     = 'g00C'
-	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP_STR = "g00C"
-	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON     = 'g00D'
-	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON_STR = "g00D"
-	static constant ID_BEER_RUNNER_SLAP_ICON     = 'g00E'
-	static constant ID_BEER_RUNNER_SLAP_ICON_STR = "g00E"
-	static constant ID_BEER_RUNNER_MIDNIGHT_SNACK_ICON     = 'g00F'
-	static constant ID_BEER_RUNNER_MIDNIGHT_SNACK_ICON_STR = "g00F"
+	static constant ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON  = 'g008'
+	static constant ID_FESTIVAL_BOOTH_LIMITED_BREW_ICON      = 'g009'
+	static constant ID_BARREL_EXCHANGE_BOTTLE_OF_WHISKY_ICON = 'g00A'
+	static constant ID_BREWERY_DELIVERY_VAN_SUMMON_VAN_ICON  = 'g00B'
+	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP           = 'g00C'
+	static constant ID_VIKING_ALE_SHIP_SUMMON_SHIP_ICON      = 'g00D'
+	static constant ID_BEER_RUNNER_SLAP_ICON                 = 'g00E'
+	static constant ID_BEER_RUNNER_MIDNIGHT_SNACK_ICON       = 'g00F'
 
-	static constant ITEM_BUILD_TINY_HOME_BREW_KIT      = 'ii00'
-	static constant ITEM_BUILD_TINY_NANO_BREWERY       = 'ii01'
+	static constant ITEM_BUILD_TINY_HOME_BREW_KIT = 'ii00'
+	static constant ITEM_BUILD_TINY_NANO_BREWERY  = 'ii01'
 
 	static constant ID_FAKE_ITEM_FOOD_BURGER        = 'qi00'
 	static constant ID_FAKE_ITEM_FOOD_WURST         = 'qi01'
@@ -118,14 +80,11 @@ public class UnitApi
 	static constant ID_BOAR           = 'h02O'
 	static constant ID_QUILL_MASTAH   = 'h00W'
 
-	static constant ID_BANDITO_MASTERINO         = 'c000'
-	static constant ID_BANDITO_DIVINE_SHIELD     = 'b000'
-	static constant ID_BANDITO_DIVINE_SHIELD_STR = "b000"
+	static constant ID_BANDITO_MASTERINO     = 'c000'
+	static constant ID_BANDITO_DIVINE_SHIELD = 'b000'
 
-	static constant ID_UPGRADE_BEER_SLAP     = 'uu00'
-	static constant ID_UPGRADE_BEER_SLAP_STR = "uu00"
-	static constant ID_UPGRADE_BEER_MIDNIGHT_SNACK     = 'uu01'
-	static constant ID_UPGRADE_BEER_MIDNIGHT_SNACK_STR = "uu01"
+	static constant ID_UPGRADE_BEER_SLAP           = 'uu00'
+	static constant ID_UPGRADE_BEER_MIDNIGHT_SNACK = 'uu01'
 
 	static unit array runners
 	static unit array choosers

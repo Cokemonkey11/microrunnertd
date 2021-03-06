@@ -1,5 +1,6 @@
 package BeerStyleMarketingSpecialist
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -39,8 +40,8 @@ class BeerStyleMarketingSpecialist extends TowerDefinition
         setProjectileLaunchZ(70.)
         setUnitSoundSet("Kael")
         setGoldCost(105)
-        setRequirements(UnitApi.ID_TOWER_NANO_BREWERY_STR)
-        setUpgradesTo(UnitApi.ID_TOWER_HEAD_BREWER_STR)
+        setRequirements(commaList(UnitApi.ID_TOWER_NANO_BREWERY))
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_HEAD_BREWER))
         setHotkey("S")
         setName("Style Marketing Specialist") // Beer
         setTooltipBasic("Build Beer Style Marketing Specialist [|cff999999S|r]")

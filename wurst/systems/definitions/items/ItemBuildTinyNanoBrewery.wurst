@@ -1,5 +1,6 @@
 package ItemBuildTinyNanoBrewery
 import ItemObjEditing
+import ObjectIds
 
 import UnitApi
 
@@ -7,7 +8,7 @@ class ItemBuildTinyNanoBrewery extends ItemDefinition
     construct(int id)
         super(id, 'tsct')
 
-        setAbilities(UnitApi.ID_BUILD_TINY_NANO_BREWERY_STR)
+        setAbilities(commaList(UnitApi.ID_BUILD_TINY_NANO_BREWERY))
         setName("Tiny Nano Brewery")
         setDescription("Contains a nanobrewery which can be placed.")
         setTooltipBasic("Tiny Nano Brewery")

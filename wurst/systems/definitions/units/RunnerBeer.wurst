@@ -1,5 +1,6 @@
 package RunnerBeer
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import UnitApi
@@ -9,10 +10,12 @@ class RunnerBeer extends UnitDefinition
         super(id, 'hfoo')
 
         setNormalAbilities(
-            "A00E,A00D," +
-            UnitApi.ID_BEER_RUNNER_SLAP_ICON_STR +
-            "," +
-            UnitApi.ID_BEER_RUNNER_MIDNIGHT_SNACK_ICON_STR
+            commaList(
+                'A00E',
+                'A00D',
+                UnitApi.ID_BEER_RUNNER_SLAP_ICON,
+                UnitApi.ID_BEER_RUNNER_MIDNIGHT_SNACK_ICON
+            )
         )
         setAnimationCastBackswing(0.)
         setAnimationCastPoint(0.)

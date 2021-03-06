@@ -1,5 +1,6 @@
 package TomeOfAncientBrewingTechniques
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -9,7 +10,13 @@ class TomeOfAncientBrewingTechniques extends TowerDefinition
     construct(int id)
         super(id)
 
-        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON_STR)
+        setNormalAbilities(
+            commaList(
+                'A00O',
+                'Avul',
+                UnitApi.ID_TOME_OF_ANCIENT_BREWING_SPECIAL_ICON
+            )
+        )
         setButtonPositionX(0)
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNTomeRed.blp")

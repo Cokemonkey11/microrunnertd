@@ -1,5 +1,6 @@
 package BanditoMasterino
 import AbilityObjEditing
+import ObjectIds
 
 import UnitApi
 
@@ -18,7 +19,7 @@ class BanditoMasterino extends UnitDefinition
     construct(int id)
         super(id, 'hfoo')
 
-        setNormalAbilities(UnitApi.ID_BANDITO_DIVINE_SHIELD_STR)
+        setNormalAbilities(commaList(UnitApi.ID_BANDITO_DIVINE_SHIELD))
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNBanditLord.blp")
         setModelFile("units\\creeps\\BanditLord\\BanditLord.mdl")
         setAttack1AnimationBackswingPoint(.4)

@@ -1,5 +1,6 @@
 package BottlingFacility
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -29,8 +30,8 @@ class BottlingFacility extends TowerDefinition
         setAttack1WeaponType(WeaponType.Missile)
         setUnitSoundSet("Workshop")
         setGoldCost(157)
-        setRequirements(UnitApi.ID_TOWER_HEAD_BREWER_STR)
-        setUpgradesTo(UnitApi.ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES_STR)
+        setRequirements(commaList(UnitApi.ID_TOWER_HEAD_BREWER))
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_TOME_OF_ANCIENT_BREWING_TECHNIQUES))
         setHotkey("W")
         setName("Bottling Facility") // Beer
         setTooltipBasic("Build Bottling Facility [|cff999999W|r]")

@@ -1,5 +1,6 @@
 package SpinKit
 import Assets
+import ObjectIds
 import UnitObjEditing
 
 import TowerDefinition
@@ -15,7 +16,13 @@ class SpinKit extends TowerDefinition
     construct(int id)
         super(id)
 
-        setNormalAbilities("A00O,Avul" + "," + UnitApi.ID_SPIN_KIT_CENTRIPETAL_ICON_STR)
+        setNormalAbilities(
+            commaList(
+                'A00O',
+                'Avul',
+                UnitApi.ID_SPIN_KIT_CENTRIPETAL_ICON
+            )
+        )
         setButtonPositionY(2)
         setIconGameInterface("ReplaceableTextures\\CommandButtons\\BTNPowerGenerator.blp")
         setModelFile(Buildings.powerGenerator1)
