@@ -4,6 +4,6 @@ dependencies:
 - https://github.com/wurstscript/WurstStdlib2
 - https://github.com/Cokemonkey11/WurstArmorType
 buildMapData:
-  name: micro|cff999999runner|rtd 1.1.3
-  fileName: (2)microrunnertd1.1.3
+  name: micro|cff999999runner|rtd 1.1.4
+  fileName: (2)microrunnertd1.1.4
   author: Cokemonkey11

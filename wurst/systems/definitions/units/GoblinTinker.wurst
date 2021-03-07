@@ -1,0 +1,46 @@
+package GoblinTinker
+import Assets
+import ObjectIds
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class GoblinTinker extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities(
+            commaList(
+                UnitApi.ID_SELL_TOWER,
+                UnitApi.ID_HASTE_GOBLIN_TOWERS,
+                UnitApi.INVULNERABLE
+            )
+        )
+        setButtonPositionX(2)
+        setButtonPositionY(1)
+        setIconGameInterface(Icons.bTNHeroTinker)
+        setModelFile(Units.heroTinker1)
+        setScalingValue(.7)
+        setAcquisitionRange(400.)
+        setAttack1AnimationBackswingPoint(.2)
+        setAttack1AnimationDamagePoint(.2)
+        setAttack1AttackType(AttackType.Siege)
+        setAttack1CooldownTime(1.)
+        setAttack1DamageBase(299)
+        setAttack1ProjectileArt(Abilities.tinkerRocketMissile)
+        setAttack1ProjectileSpeed(1000)
+        setAttack1Range(400)
+        setAttack1RangeMotionBuffer(10.)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("HeroTinker")
+        setGoldCost(200)
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_GOBLIN_ALCHEMIST))
+        setHotkey("D")
+        setRequirements(commaList(UnitApi.ID_TOWER_BLIZZARD))
+        setName("Goblin Tinker") // Wasteland
+        setTooltipBasic("Build Goblin Tinker [|cff999999D|r]")
+        setTooltipExtended("A siege unit that fires cluster rockets. Has the haste ability.|n |n|cffffcc00Damage Type:|r Siege")
+
+@compiletime function executioner()
+    new GoblinTinker(UnitApi.ID_TOWER_GOBLIN_TINKER)

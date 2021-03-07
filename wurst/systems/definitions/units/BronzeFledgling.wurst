@@ -1,0 +1,35 @@
+package BronzeFledgling
+import Assets
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class BronzeFledgling extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setIconGameInterface(Icons.bTNBronzeDragon)
+        setModelFile(Units.bronzeDragon1)
+        setScalingValue(.6)
+        setAcquisitionRange(800.)
+        setAttack1AnimationBackswingPoint(.2)
+        setAttack1AnimationDamagePoint(.2)
+        setAttack1AttackType(AttackType.Normal)
+        setAttack1CooldownTime(1.)
+        setAttack1DamageBase(599)
+        setAttack1ProjectileArt(Abilities.redDragonMissile)
+        setAttack1ProjectileSpeed(1000)
+        setAttack1RangeMotionBuffer(10.)
+        setAttack1Range(800)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("AzureDragon")
+        setBuildTime(60)
+        setGoldCost(300) // 300 - 300 = 0 incremental cost
+        setHotkey("Q")
+        setName("Bronze Fledgling") // Wasteland
+        setTooltipBasic("Upgrade to Bronze Fledgling [|cff999999Q|r]")
+        setTooltipExtended("Highly efficient and powerful attacker.|n |n|cffffcc00Warning:|r 60 second build time|n|cffffcc00Damage Type:|r Normal")
+
+@compiletime function inject()
+    new BronzeFledgling(UnitApi.ID_TOWER_BRONZE_FLEDGLING)

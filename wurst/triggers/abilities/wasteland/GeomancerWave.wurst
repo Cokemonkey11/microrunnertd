@@ -2,13 +2,11 @@ package GeomancerWave
 import UnitApi
 import DamageEvent
 
-constant ARCH_ID = 'h01U'
-
 function h()
 	let dS = DamageEvent.getSource()
 	let tU = DamageEvent.getTarget()
 
-	if GetUnitTypeId(dS) == ARCH_ID and DamageEvent.getType() == ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_KOBOLD_GEOMANCER and DamageEvent.getType() == ATTACK and GetUnitAbilityLevel(tU, UnitApi.IMMUNE) < 1
 		IssueTargetOrder(dS, "carrionswarm", tU)
 
 init

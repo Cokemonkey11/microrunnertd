@@ -1,0 +1,67 @@
+package TowerWindforgeHarpy
+import Assets
+import ObjectIds
+import AbilityObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class TriAttack extends AbilityDefinitionRocketAttack
+    construct()
+        super(UnitApi.ID_TRI_ATTACK_WINDFORGE_HARPY)
+        setIconNormal(Icons.pASBTNMagicalSentry)
+        setMissileArc(.1)
+        setMissileArt(Abilities.wingedSerpentMissile)
+        setMissileSpeed(1000)
+        setDamagePerTarget(1, 600)
+        setMaximumNumberofTargets(1, 1)
+        setMaximumTotalDamage(1, 2400)
+        setAreaofEffect(1, 800)
+        setRequirements("")
+        setName("Tri-attack")
+        setTooltipNormal(1, "Tri-attack")
+        setTooltipNormalExtended(1, "This unit can attack three targets at once.")
+        setTargetsAllowed(1, "enemies,ground,vulnerable")
+
+class TowerWindforgeHarpy extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities(
+            commaList(UnitApi.ID_TRI_ATTACK_WINDFORGE_HARPY, UnitApi.ID_SELL_TOWER, UnitApi.INVULNERABLE)
+        )
+        setIconGameInterface(Icons.bTNHarpyWitch)
+        setButtonPositionX(3)
+        setButtonPositionY(0)
+        setModelFile(Units.harpyWitch1)
+        setScalingValue(.7)
+        setAcquisitionRange(800.)
+        setAttack1AnimationBackswingPoint(.2)
+        setAttack1AnimationDamagePoint(.2)
+        setAttack1AttackType(AttackType.Chaos)
+        setAttack1CooldownTime(2.)
+        setAttack1DamageBase(599)
+        setAttack1ProjectileArc(0.1)
+        setAttack1ProjectileArt(Abilities.wingedSerpentMissile)
+        setAttack1ProjectileHomingEnabled(true)
+        setAttack1ProjectileSpeed(1000)
+        setAttack1Range(800)
+        setAttack1RangeMotionBuffer(10.)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("Harpy")
+        setGoldCost(400)
+        setRequirements(
+            commaList(
+                UnitApi.ID_TOWER_KOBOLD_GEOMANCER,
+                UnitApi.ID_TOWER_CENTAUR_SORCEROR,
+                UnitApi.ID_TOWER_BRONZE_FLEDGLING
+            )
+        )
+        setHotkey("R")
+        setName("Windforge Harpy") // Wasteland
+        setTooltipBasic("Build Windforge Harpy [|cff999999R|r]")
+        setTooltipExtended("Attacks up to three targets at once.|n |n|cffffcc00Damage Type:|r Chaos")
+
+@compiletime function inject()
+    new TowerWindforgeHarpy(UnitApi.ID_TOWER_WINDFORGE_HARPY)
+    new TriAttack()

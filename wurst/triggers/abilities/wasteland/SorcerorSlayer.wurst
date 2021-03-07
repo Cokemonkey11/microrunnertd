@@ -3,14 +3,15 @@ import DamageEvent
 import FloatText
 import HashMap
 
-constant ID_SORCEROR = 'h027'
+import UnitApi
+
 constant EFFECT_PATH = "Abilities\\Spells\\Human\\Avatar\\AvatarCaster.mdl"
 constant tab = new Table
 
 function h()
 	let dS = DamageEvent.getSource()
 
-	if GetUnitTypeId(dS) == ID_SORCEROR and DamageEvent.getType() == ATTACK
+	if GetUnitTypeId(dS) == UnitApi.ID_TOWER_CENTAUR_SORCEROR and DamageEvent.getType() == ATTACK
 		let tU = DamageEvent.getTarget()
 		let damage = DamageEvent.getAmount()
 

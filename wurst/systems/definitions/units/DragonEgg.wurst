@@ -1,0 +1,29 @@
+package DragonEgg
+import Assets
+import ObjectIds
+import UnitObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class DragonEgg extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setButtonPositionX(2)
+        setButtonPositionY(0)
+        setIconGameInterface(Icons.bTNPhoenixEgg)
+        setModelFile("war3mapImported\\Wind_egg.mdl")
+        setScalingValue(1.)
+        setAttacksEnabled(0)
+        setUnitSoundSet("PhoenixEgg")
+        setGoldCost(300)
+        setRequirements(commaList(UnitApi.ID_TOWER_GOBLIN_ALCHEMIST))
+        setHotkey("E")
+        setName("Dragon Egg") // Wasteland
+        setUpgradesTo(commaList(UnitApi.ID_TOWER_BRONZE_FLEDGLING))
+        setTooltipBasic("Build Dragon Egg [|cff999999E|r]")
+        setTooltipExtended("Eventually hatches into a Dragon.|n |n|cffffcc00Damage Type:|r |cffff0000None|r")
+
+@compiletime function inject()
+    new DragonEgg(UnitApi.ID_TOWER_DRAGON_EGG)

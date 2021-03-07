@@ -3,9 +3,9 @@ Enabled:
 -runcompiletimefunctions
 -injectobjects
 -stacktraces
+-opt
 
 Disabled:
 
 // inline
-// opt
 // localOptimizations

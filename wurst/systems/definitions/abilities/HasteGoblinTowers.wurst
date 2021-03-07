@@ -1,0 +1,26 @@
+package HasteGoblinTowers
+import AbilityObjEditing
+import Icons
+
+import UnitApi
+
+class HasteGoblinTowers extends AbilityDefinitionBerserk
+    construct(int id)
+        super(id)
+        setButtonPositionNormalX(1)
+        setIconNormal(Icons.bTNDisenchant)
+        setAttackSpeedIncrease(1, 3.)
+        setDamageTakenIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setCooldown(1, 15.)
+        setDurationHero(1, 1.5)
+        setDurationNormal(1, 1.5)
+        setRace(Race.Human)
+        setHotkeyNormal("")
+        setName("Haste")
+        setTooltipNormal(1, "Haste")
+        setTooltipNormalExtended(1, "Attacks |cffffcc00300%|r faster for |cffffcc001.5|r seconds.")
+        setRequirements("")
+
+@compiletime function inject()
+    new HasteGoblinTowers(UnitApi.ID_HASTE_GOBLIN_TOWERS)

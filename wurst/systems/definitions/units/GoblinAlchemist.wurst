@@ -1,0 +1,65 @@
+package GoblinAlchemist
+import Assets
+import ObjectIds
+import AbilityObjEditing
+
+import TowerDefinition
+import UnitApi
+
+class Transmute extends AbilityDefinitionTaurenChieftainEnduranceAura
+    construct()
+        super(UnitApi.ID_TRANSMUTE_TOOLTIP)
+
+        setButtonPositionNormalX(0)
+        setIconNormal("ReplaceableTextures\\CommandButtons\\PASTransmute.blp")
+        setArtTarget("")
+        setAttackSpeedIncrease(1, 0.)
+        setMovementSpeedIncrease(1, 0.)
+        setAreaofEffect(1, 0.)
+        setBuffs(1, "")
+        setHeroAbility(false)
+        setLevels(1)
+        setRace(Race.Nightelf)
+        setTargetsAllowed(1, "none")
+        setName("Transmute")
+        setTooltipNormal(1, "Transmute")
+        setTooltipNormalExtended(1, "Attacking an enemy gives you |cffffcc00+1|r gold on hit.")
+
+
+class GoblinAlchemist extends TowerDefinition
+    construct(int id)
+        super(id)
+
+        setNormalAbilities(
+            commaList(
+                UnitApi.ID_TRANSMUTE_TOOLTIP,
+                UnitApi.ID_HASTE_GOBLIN_TOWERS,
+                UnitApi.ID_SELL_TOWER,
+                UnitApi.INVULNERABLE
+            )
+        )
+        setIconGameInterface(Icons.bTNHeroAlchemist)
+        setModelFile(Units.heroGoblinAlchemist)
+        setScalingValue(.6)
+        setAcquisitionRange(400.)
+        setAttack1AnimationBackswingPoint(.2)
+        setAttack1AnimationDamagePoint(.2)
+        setAttack1AttackType(AttackType.Siege)
+        setAttack1CooldownTime(1.25)
+        setAttack1DamageBase(599)
+        setAttack1ProjectileArt(Abilities.goldBottleMissile)
+        setAttack1ProjectileSpeed(1000)
+        setAttack1RangeMotionBuffer(10.)
+        setAttack1Range(400)
+        setAttack1WeaponType(WeaponType.Missile)
+        setUnitSoundSet("HeroGoblinAlchemist")
+        setBuildTime(8)
+        setGoldCost(400) // 400 - 200 = 200 incremental cost
+        setHotkey("Q")
+        setName("Goblin Alchemist") // Wasteland
+        setTooltipBasic("Upgrade to Goblin Alchemist [|cff999999Q|r]")
+        setTooltipExtended("Attacking transmutes a part of the enemy, granting |cffffcc00+1|r gold.|n |n|cffffcc00Damage Type:|r Siege")
+
+@compiletime function inject()
+    new GoblinAlchemist(UnitApi.ID_TOWER_GOBLIN_ALCHEMIST)
+    new Transmute()

@@ -93,10 +93,19 @@ REPOSITORY_URI     = "https://bitbucket.org/Cokemonkey11/microrunnertd/"
 
 CHANGELOG          = (
 	(
+		"1.1.4",
+		"7 Mar 2021",
+		(
+			"Fix Level 42 model, broken by reforged.",
+			"Fix Goblin Tinker and Alchemist Haste abilities, broken by reforged.",
+			"Enable wurst optimisations.",
+		)
+	),
+	(
 		"1.1.3",
 		"6 Mar 2021",
 		(
-			"Fix Haste ability, broken by reforged.",
+			"Fix Executioner Haste ability, broken by reforged.",
 			"Fix random-race select button, broken by reforged.",
 		)
 	),

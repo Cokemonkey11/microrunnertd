@@ -1,0 +1,57 @@
+package BuilderWasteland
+import Assets
+import ObjectIds
+import UnitObjEditing
+
+import UnitApi
+
+class BuilderWasteland extends UnitDefinition
+    construct(int id)
+        super(id, 'hdhw')
+
+        setButtonPositionX(1)
+        setNormalAbilities(commaList(UnitApi.INVULNERABLE))
+        setIconGameInterface(Icons.bTNRazorback)
+        setMaximumPitchAngledegrees(0.)
+        setMaximumRollAngledegrees(0.)
+        setModelFile(Units.bristleBack)
+        setSelectionCircleHeight(0.)
+        setAttacksEnabled(0)
+        setSpeedBase(522)
+        setUnitSoundSet("QuillBeast")
+        setFoodCost(0)
+        setGoldCost(0)
+        setHitPointsMaximumBase(500000)
+        setHitPointsRegenerationType("none")
+        setLumberCost(0)
+        setManaInitialAmount(0)
+        setManaMaximum(0)
+        setManaRegeneration(0.)
+        setRace(Race.Undead)
+        setStockReplenishInterval(0)
+        setStockStartDelay(0)
+        setUnitClassification("peon")
+        setRequirements("")
+        setStructuresBuilt(
+            commaList(
+                UnitApi.ID_DORRAN,
+                UnitApi.ID_TOWER_RAZORMANE_HUNTER,
+                UnitApi.ID_TOWER_RAZORMANE_WITCHDOCTOR,
+                UnitApi.ID_TOWER_GNOLL_SCAVENGER,
+                UnitApi.ID_TOWER_KOBOLD_EXCAVATOR,
+                UnitApi.ID_TOWER_CENTAUR_ARCHER,
+                UnitApi.ID_TOWER_THUNDER_LIZARD,
+                UnitApi.ID_TOWER_CENTAUR_EMISSARY,
+                UnitApi.ID_TOWER_GOBLIN_TINKER,
+                UnitApi.ID_TOWER_DRAGON_EGG,
+                UnitApi.ID_TOWER_WINDFORGE_HARPY
+            )
+        )
+        setUpgradesUsed("")
+        setHotkey("W")
+        setName("Builder |cff009900(Wasteland)|r")
+        setTooltipBasic("Choose |cff009900Wasteland|r [|cffffcc00W|r]")
+        setTooltipExtended("A warrior race that excels in brute force damage.")
+
+@compiletime function inject()
+    new BuilderWasteland(UnitApi.ID_BUILDER_WASTE)
